@@ -1,0 +1,34 @@
+jour;Die 25 decembri;Le 25 Décembre
+intitule;IN NATIVITATE DOMINI;EN LA NATIVITE DU SEIGNEUR
+rang;Sollemnitas;Solennité
+ant_introit_A;int_Puer natus est nobis;
+ant_introit_B;int_Puer natus est nobis;
+ant_introit_C;int_Puer natus est nobis;
+graduel_A;gra_Viderunt omnes;
+graduel_B;gra_Viderunt omnes;
+graduel_C;gra_Viderunt omnes;
+acclamation_A;al_Dies sanctificatus;
+acclamation_B;al_Dies sanctificatus;
+acclamation_C;al_Dies sanctificatus;
+sequence;;
+ant_off_A;off_Tui sunt caeli;
+ant_off_B;off_Tui sunt caeli;
+ant_off_C;off_Tui sunt caeli;
+ant_com_A;com_Viderunt omnes
+ant_com_B;com_Viderunt omnes
+ant_com_C;com_Viderunt omnes
+ora_coll;Deus, qui humánae substántiae dignitátem et mirabíliter condidísti, et mirabílius reformásti, da, quaesumus, nobis eius divinitátis esse consórtes, qui humanitátis nostrae fíeri dignátus est párticeps. Qui tecum.
+ora_secr;Oblátio tibi sit, Dómine, hodiérnae sollemnitátis accépta, qua et nostrae reconciliatiónis procéssit perfécta placátio, et divíni cultus nobis est índita plenitúdo. Per Christum.
+ora_post;Praesta, miséricors Deus, ut natus hódie Salvátor mundi, sicut divínae nobis generatiónis est auctor, ita et immortalitátis sit ipse largítor. Qui vivit et regnat in saecula saeculórum.
+ben_sol;Deus infinítae bonitátis, qui incarnatióne Fílii sui mundi ténebras effugávit, et eius gloriósa nativitáte hanc diem sacratíssimam irradiávit, effúget a vobis ténebras vitiórum, et irrádiet corda vestra luce virtútum. R. Amen. Quique eius salutíferae nativitátis gáudium magnum pastóribus ab Angelo vóluit nuntiári, ipse mentes vestras suo gáudio ímpleat, et vos Evangélii sui núntios effíciat. R. Amen. Et, qui per eius incarnatiónem terréna caeléstibus sociávit, dono vos suae pacis et bonae répleat voluntátis, et vos fáciat Ecclésiae consórtes esse caeléstis. R. Amen.
+ora_sup;
+praefatio;1
+LM_1_A;LM_Is 52, 7-10
+LM_2_A;LM_He 1,1-6
+LM_3_A;LM_Jn 1, 1-18
+LM_1_B;LM_Is 52, 7-10
+LM_2_B;LM_He 1,1-6
+LM_3_B;LM_Jn 1, 1-18
+LM_1_C;LM_Is 52, 7-10
+LM_2_C;LM_He 1,1-6
+LM_3_C;LM_Jn 1, 1-18

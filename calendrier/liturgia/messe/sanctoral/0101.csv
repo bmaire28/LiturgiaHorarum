@@ -1,0 +1,34 @@
+jour;Die 1 ianuarii;Le 1er Janvier
+intitule;SANCTAE DEI GENITRICIS MARIAE;SAINTE MARIE MERE DE DIEU
+rang;Sollemnitas;Solennité
+ant_introit_A;int_Salve, sancta Parens;
+ant_introit_B;int_Salve, sancta Parens;
+ant_introit_C;int_Salve, sancta Parens;
+graduel_A;gra_Diffusa est gratia;
+graduel_B;gra_Diffusa est gratia;
+graduel_C;gra_Diffusa est gratia;
+acclamation_A;al_Post partum, Virgo;
+acclamation_B;al_Post partum, Virgo;
+acclamation_C;al_Post partum, Virgo;
+sequence;;
+ant_off_A;off_Felix namque es;
+ant_off_B;off_Felix namque es;
+ant_off_C;off_Felix namque es;
+ant_com_A;com_Exsulta, filia Sion
+ant_com_B;com_Exsulta, filia Sion
+ant_com_C;com_Exsulta, filia Sion
+ora_coll;Deus, qui salútis aetérnae, beátae Maríae virginitáte fecúnda, humáno géneri praemia praestitísti, tríbue, quaesumus, ut ipsam pro nobis intercédere sentiámus, per quam merúimus Fílium tuum auctórem vitae suscípere. Qui tecum.
+ora_secr;Deus, qui bona cuncta ínchoas benígnus et pérficis, da nobis, de sollemnitáte sanctae Dei Genetrícis laetántibus, sicut de inítiis tuae grátiae gloriámur ita de perfectióne gaudére. Per Christum.
+ora_post;Dómine Deus noster, supplíciter te rogámus, ut, huius operatióne mystérii, vítia nostra purgéntur, et iusta desidéria compleántur. Per Christum.
+ben_sol;Deus, fons et orígo totíus benedictiónis, grátiam vobis concédat, benedictiónis suae largitátem infúndat, atque per totum annum vos salvos et incólumes prótegat. R. Amen. Custódiat fídei vobis integritátem, tríbuat spei longanimitátem, perseverántem usque ad finem cum sancta patiéntia caritátem. R. Amen. Dies et actus vestros in sua pace dispónat, preces hic et ubíque exáudiat, et ad vitam aetérnam felíciter vos perdúcat. R. Amen.
+ora_sup;
+praefatio;1
+LM_1_A;LM_Nb 6,22-27
+LM_2_A;LM_Ga 4,4-7
+LM_3_A;LM_Lc 2,16-21
+LM_1_B;LM_Nb 6,22-27
+LM_2_B;LM_Ga 4,4-7
+LM_3_B;LM_Lc 2,16-21
+LM_1_C;LM_Nb 6,22-27
+LM_2_C;LM_Ga 4,4-7
+LM_3_C;LM_Lc 2,16-21
