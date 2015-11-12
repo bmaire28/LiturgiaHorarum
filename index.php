@@ -93,35 +93,35 @@ if($task!="martyrologe") {
 //// Heure de l'Office à afficher
 switch($office){
 	case "laudes" :
-		print utf8_encode(laudes($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",laudes($do,$calendarium,$my)));
 	break;
 	
 	case "mdj" :
-		print utf8_encode(mediahora($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",mediahora($do,$calendarium,$my)));
 	break;
 	
 	case "tierce" :
-		print utf8_encode(tierce($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",tierce($do,$calendarium,$my)));
 	break;
 	
 	case "sexte" :
-		print utf8_encode(sexte($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",sexte($do,$calendarium,$my)));
 	break;
 	
 	case "none" :
-		print utf8_encode(none($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",none($do,$calendarium,$my)));
 	break;
 	
 	case "vepres" :
-		print utf8_encode(vepres($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",vepres($do,$calendarium,$my)));
 	break;
 	
 	case "complies" :
-		print utf8_encode(complies($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",complies($do,$calendarium,$my)));
 	break;
 	
 	case "messe" :
-		print utf8_encode(messe($do,$calendarium,$my));
+		print utf8_encode(str_replace (chr(146),"'",messe($do,$calendarium,$my)));
 	break;
 }
 
