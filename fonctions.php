@@ -6,6 +6,12 @@ $string2= str_replace("R/.", "<font color=red>R/.</font>",$string1);
 return $string2;
 }
 
+function epuration($string) {
+	$string1=str_replace(chr(146),"'",$string);
+	$string2= str_replace("œ", "&oelig;",$string1);
+	return utf8_encode($string2);
+}
+
 
 function respbrevis($ref) {
 	$row = 0;
