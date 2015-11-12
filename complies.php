@@ -32,7 +32,7 @@ switch ($tem) {
         break;
 
     default :
-        print"<br><i>Cet office n'est pas encore complètement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider à compl&eacute;ter ce travail.</a></i>";
+        print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrave; compl&eacute;ter ce travail.</a></i>";
         return;
         break;
 
@@ -41,7 +41,7 @@ switch ($tem) {
 
 
 $jours_l = array("Dominica, post II Vesperas, ad ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, post I Vesperas, ad ");
-$jours_fr=array("Le Dimanche après les IIes Vêpres, aux  ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche, après les Ières Vêpres, aux ");
+$jours_fr=array("Le Dimanche apr&egrave;s les IIes V&ecirc;pres, aux  ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche, apr&egrave;s les I&egrave;res V&ecirc;pres, aux ");
 
 
 
@@ -72,7 +72,7 @@ $demain=date("Ymd",$tomorow);
 
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($jrdelasemaine!=7)) {
     ////////////////////////////////////////
-    /// il y a des "1ères Complies"  //////
+    /// il y a des "1�res Complies"  //////
     //////////////////////////////////////
 
         $fp = fopen ("calendrier/liturgia/psautier/complies/comp_FVS.csv","r");
@@ -113,9 +113,9 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
     $rang_lat="Sollemnitas";
     $rang_fr="Solennit&eacute;";
     $complies_lat="Post I Vesperas, ad Completorium";
-    $complies_fr="Après les Ières Vêpres, aux Complies";
+    $complies_fr="Apr&egrave;s les I&egrave;res V&ecirc;pres, aux Complies";
     $date_l = $intitule_lat."<br> Post I Vesperas, ad ";
-    $date_fr = $intitule_fr."<br> Après les Ières Vêpres, aux ";
+    $date_fr = $intitule_fr."<br> Apr&egrave;s les I&egrave;res V&ecirc;pres, aux ";
 
 }
 
@@ -161,7 +161,7 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
     $rang_lat="Sollemnitas";
     $rang_fr="Solennit&eacute;";
     $date_l = $intitule_lat."<br> Post II Vesperas, ad ";
-    $date_fr = $intitule_fr."<br> Après les IIes Vêpres, aux ";
+    $date_fr = $intitule_fr."<br> Apr&egrave;s les IIes V&ecirc;pres, aux ";
 }
 
 
@@ -197,7 +197,7 @@ for($row=0;$row<$max;$row++){
     $lat=$comp[$row]['latin'];
     $fr=$comp[$row]['francais'];
 
-    //Suppression de l'All&eacute;luia en Carême et Semaine Sainte
+    //Suppression de l'All�luia en Car�me et Semaine Sainte
 
     if(($tem=="Tempus Quadragesimae")&&($lat=="Allel&uacute;ia.")) {
         $lat="";
