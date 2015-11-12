@@ -42,9 +42,9 @@ function respbrevis($ref) {
 function lectiobrevis($ref) {
 	$row = 0;
 	// Création du chemin relatif vers le fichier de lectio de façon brut
-	$fichier="calendrier/liturgia/".$ref.".csv";
+	$fichier="lectionnaire/".$ref.".csv";
 	// Vérification du chemin brut, sinon création du chemin relatif utf8
-	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
+	if (!file_exists($fichier)) $fichier="lectionnaire/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
@@ -68,9 +68,9 @@ function lectiobrevis($ref) {
 function preces($ref){
 	$row = 0;
 	// Création du chemin relatif vers le fichier de preces de façon brut
-	$fichier="calendrier/liturgia/".$ref.".csv";
+	$fichier="preces/".$ref.".csv";
 	// Vérification du chemin brut, sinon création du chemin relatif utf8
-	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
+	if (!file_exists($fichier)) $fichier="preces/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
@@ -96,9 +96,9 @@ function hymne($ref) {
 	// Initialisation de l'hymne à blanc
 	$hymne="";
 	// Création du chemin relatif vers le fichier de l'hymne de façon brut
-	$fichier="calendrier/liturgia/".$ref.".csv";
+	$fichier="hymnaire/".$ref.".csv";
 	// Vérification du chemin brut, sinon création du chemin relatif utf8
-	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
+	if (!file_exists($fichier)) $fichier="hymnaire/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
     	$latin=$data[0];$francais=$data[1];
@@ -125,9 +125,9 @@ function hymne($ref) {
 function psaume($ref) {
 $row = 0;
 	// Création du chemin relatif vers le fichier du psaume de façon brut
-	$fichier="calendrier/liturgia/".$ref.".csv";
+	$fichier="psautier/".$ref.".csv";
 	// Vérification du chemin brut, sinon création du chemin relatif utf8
-	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
+	if (!file_exists($fichier)) $fichier="psautier/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    if (($row==0)&&($data[0]!="&nbsp;")) {
