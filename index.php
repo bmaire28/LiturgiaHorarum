@@ -90,7 +90,7 @@ if($task!="martyrologe") {
 	}
 
 
-//// Heure de l'Office Ã  afficher
+//// Heure de l'Office à afficher
 switch($office){
 	case "laudes" :
 		print epuration(laudes($do,$calendarium,$my));
