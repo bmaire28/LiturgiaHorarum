@@ -180,7 +180,7 @@ if(!$var){
 }
 
 $row = 0;
-$fp = fopen ("calendrier/liturgia/complies.csv","r");
+$fp = fopen ("offices_r/complies.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 
     $latin=$data[0];$francais=$data[1];

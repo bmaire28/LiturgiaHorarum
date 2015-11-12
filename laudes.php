@@ -216,7 +216,7 @@ $fp=fopen("calendrier/liturgia/psautier/commune/psautier_".$spsautier.$jrdelasem
 
 	// format $jour=AAAAMMJJ
 	$row = 0;
-	$fp = fopen ("calendrier/liturgia/laudes.csv","r");
+	$fp = fopen ("offices_r/laudes.csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
 	    $lau[$row]['latin']=$latin;

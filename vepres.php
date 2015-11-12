@@ -261,7 +261,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 
 	// format $jour=AAAAMMJJ
 	$row = 0;
-	$fp = fopen ("calendrier/liturgia/vepres.csv","r");
+	$fp = fopen ("offices_r/vepres.csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
 	    $vesp[$row]['latin']=$latin;
