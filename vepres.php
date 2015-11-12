@@ -244,24 +244,34 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 		$oratiofr=$temp['oratio']['francais'];
 		$magniflat=$temp['pmagnificat_C']['latin'];
 		$magniffr=$temp['pmagnificat_C']['francais'];
-		$hymne=$temp['hymne']['latin'];
-
-	 $LB_soir=null;
-	 $RB_soir=null;
+	$hymne=$temp['HYMNUS_1V']['latin'];
+	$temp['ant7']['latin']=$temp['ant01']['latin'];
+	$temp['ant7']['francais']=$temp['ant01']['francais'];
+	$temp['ant8']['latin']=$temp['ant02']['latin'];
+	$temp['ant8']['francais']=$temp['ant02']['francais'];
+	$temp['ant9']['latin']=$temp['ant03']['latin'];
+	$temp['ant9']['francais']=$temp['ant03']['francais'];
+	$temp['ps7']['latin']=$temp['ps01']['latin'];
+	$temp['ps7']['francais']=$temp['ps01']['francais'];
+	$temp['ps8']['latin']=$temp['ps02']['latin'];
+	$temp['ps8']['francais']=$temp['ps02']['francais'];
+	$temp['ps9']['latin']=$temp['ps03']['latin'];
+	$temp['ps9']['francais']=$temp['ps03']['francais'];
+	$LB_soir=$temp['LB_1V']['latin'];
+	$temp['RB_soir']['latin']=$temp['RB_1V']['latin'];
+	$temp['RB_soir']['francais']=$temp['RB_1V']['francais'];
 	$pr_lat=null;
-		$pr_fr=null;
-	 $intitule_lat=null;
-     $intitule_fr=null;
-     //$rang_lat=null;
-     //$rang_fr=null;
-     $preces=null;
+	$pr_fr=null;
+	$intitule_lat=null;
+    $intitule_fr=null;
+    $preces=null;
 }
 
 
 
 	// format $jour=AAAAMMJJ
 	$row = 0;
-	$fp = fopen ("calendrier/liturgia/vepres.csv","r");
+	$fp = fopen ("offices_r/vepres.csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
 	    $vesp[$row]['latin']=$latin;

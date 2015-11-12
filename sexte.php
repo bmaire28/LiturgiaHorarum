@@ -79,7 +79,7 @@ $jrdelasemaine++; // pour avoir dimanche=1 etc...
 
 
 	$row = 0;
-	$fp = fopen ("calendrier/liturgia/sexte.csv","r");
+	$fp = fopen ("offices_r/sexte.csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
 	    $lau[$row]['latin']=$latin;

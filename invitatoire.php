@@ -426,7 +426,7 @@ if($calendarium['temporal'][$jour]==$calendarium['intitule'][$jour]) {
 
 $row = 0;
 
-$fp = fopen ("calendrier/liturgia/invitatoire.csv","r");
+$fp = fopen ("offices_r/invitatoire.csv","r");
 
 while ($data = fgetcsv ($fp, 1000, ";")) {
 
