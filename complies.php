@@ -75,40 +75,32 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
     ////////////////////////////////////////
     /// il y a des "1ères Complies"  //////
     //////////////////////////////////////
-
-        $fp = fopen ("propres_r/complies/comp_FVS.csv","r");
-
-        while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];
+	$fp = fopen ("propres_r/complies/comp_FVS.csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $var[$id]['latin']=$data[1];
         $var[$id]['francais']=$data[2];
         $row++;
-        }
-
-     $LB_comp=null;
-     $RB_comp=null;
-     $pr_lat=null;
-     $pr_fr=null;
-     $intitule_lat=null;
-     $intitule_fr=null;
-     $rang_lat=null;
-     $rang_fr=null;
-     $preces=null;
-     $ps2=1;
-     $tempo=$calendarium['intitule'][$demain];
-
-     $fp = fopen ("calendrier/liturgia/psautier/".$tempo.".csv","r");
-     while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];
+	}
+	$LB_comp=null;
+	$RB_comp=null;
+	$pr_lat=null;
+	$pr_fr=null;
+	$intitule_lat=null;
+	$intitule_fr=null;
+	$rang_lat=null;
+	$rang_fr=null;
+	$preces=null;
+	$ps2=1;
+	$tempo=$calendarium['intitule'][$demain];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $temp[$id]['latin']=$data[1];
         $temp[$id]['francais']=$data[2];
         $row++;
     }
-
     fclose($fp);
-
-
-
     if($temp['intitule']['latin'])$intitule_lat=$temp['intitule']['latin'];
     if($temp['intitule']['francais'])$intitule_fr=$temp['intitule']['francais'];
     $rang_lat="Sollemnitas";
@@ -117,47 +109,39 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
     $complies_fr="Apr&egrave;s les I&egrave;res V&ecirc;pres, aux Complies";
     $date_l = $intitule_lat."<br> Post I Vesperas, ad ";
     $date_fr = $intitule_fr."<br> Apr&egrave;s les I&egrave;res V&ecirc;pres, aux ";
-
 }
 
 if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendarium['priorite'][$demain])&&($jrdelasemaine!=1)) {
     ////////////////////////////////////////
     /// il y a des "2ndes Complies"  //////
     //////////////////////////////////////
-
-        $fp = fopen ("propres_r/complies/comp_FS.csv","r");
-        while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];
+	$fp = fopen ("propres_r/complies/comp_FS.csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $var[$id]['latin']=$data[1];
         $var[$id]['francais']=$data[2];
         $row++;
-
-        }
-
-     $LB_comp=null;
-     $RB_comp=null;
-     $pr_lat=null;
-     $pr_fr=null;
-     $intitule_lat=null;
-     $intitule_fr=null;
-     $rang_lat=null;
-     $rang_fr=null;
-     $preces=null;
-     $ps2=1;
-
-    $tempo=$calendarium['intitule'][$jour];
-    $fp = fopen ("calendrier/liturgia/psautier/".$tempo.".csv","r");
-
-     while ($data = fgetcsv ($fp, 1000, ";")) {
-         $id=$data[0];
+	}
+	$LB_comp=null;
+	$RB_comp=null;
+	$pr_lat=null;
+	$pr_fr=null;
+	$intitule_lat=null;
+	$intitule_fr=null;
+	$rang_lat=null;
+	$rang_fr=null;
+	$preces=null;
+	$ps2=1;
+	$tempo=$calendarium['intitule'][$jour];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $temp[$id]['latin']=$data[1];
         $temp[$id]['francais']=$data[2];
         $row++;
-        }
-
-    fclose($fp);
-
-    if($temp['intitule']['latin'])$intitule_lat=$temp['intitule']['latin'];
+	}
+	fclose($fp);
+	if($temp['intitule']['latin'])$intitule_lat=$temp['intitule']['latin'];
     if($temp['intitule']['francais'])$intitule_fr=$temp['intitule']['francais'];
     $rang_lat="Sollemnitas";
     $rang_fr="Solennit&eacute;";
@@ -167,36 +151,30 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
 
 
 if(!$var){
-
-    $fp = fopen ("propres_r/complies/comp_F".$jrdelasemaine.".csv","r");
-        while ($data = fgetcsv ($fp, 1000, ";")) {
-            $id=$data[0];$latin=$data[1];$francais=$data[2];
-            $var[$id]['latin']=$latin;
-            $var[$id]['francais']=$francais;
-            $row++;
-            }
-
-        fclose($fp);
-
+	$fp = fopen ("propres_r/complies/comp_F".$jrdelasemaine.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
+		$var[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
 }
 
 $row = 0;
 $fp = fopen ("offices_r/complies.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
-
-    $latin=$data[0];$francais=$data[1];
+	$latin=$data[0];$francais=$data[1];
     $comp[$row]['latin']=$latin;
     $comp[$row]['francais']=$francais;
     $row++;
-
 }
 
 $max=$row;
 $complies="<table bgcolor=#FEFEFE>";
 for($row=0;$row<$max;$row++){
-
-    $lat=$comp[$row]['latin'];
-    $fr=$comp[$row]['francais'];
+	$lat=$comp[$row]['latin'];
+	$fr=$comp[$row]['francais'];
 
     //Suppression de l'Alléluia en Carême et Semaine Sainte
 
@@ -209,8 +187,6 @@ for($row=0;$row<$max;$row++){
        $lat="";
        $fr="";
     }
-
-
 
     switch ($lat) {
         case "#JOUR":

@@ -131,7 +131,7 @@ elseif($tem=="Tempus passionis") {
                 if ($calendarium['hebdomada'][$jour]=="Hebdomada VII Paschae") { $q="pascha_7";}
                 if ($calendarium['hebdomada'][$jour]==" ") { $q="pascha_8";}
                 $fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-                //print_r ("calendrier/liturgia/psautier/".$q.$jrdelasemaine.".csv");
+                //print_r ("propres_r/temporal/".$q.$jrdelasemaine.".csv");
                 while ($data = fgetcsv ($fp, 1000, ";")) {
                         $id=$data[0];$latin=$data[1];$francais=$data[2];
                         $var[$id]['latin']=$latin;
@@ -165,8 +165,8 @@ $fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r")
 if($calendarium['temporal'][$jour]) {
 	    //print"<br>Temporal propre";
 	    $tempo=$calendarium['temporal'][$jour];
-	    $fp = fopen ("calendrier/liturgia/psautier/".$tempo.".csv","r");
-	    //$fp = fopen ("calendrier/liturgia/psautier/".$prop.".csv","r");
+	    $fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	    //$fp = fopen ("propres_r/temporal/".$prop.".csv","r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];
 	    $temp[$id]['latin']=$data[1];
@@ -225,7 +225,7 @@ if($calendarium['temporal'][$jour]) {
   		$l=$jo[$jrdelasemaine]['latin'];
 	    $f=$jo[$jrdelasemaine]['francais'];
 		$none.="<tr><td width=49%><center><font color=red><b>$date_l ad Nonam.</b></font></center></td>";
-		$none.="<td td width=49%><b><center><font color=red><b>$date_fr � None.</b></font></center></td></tr>";
+		$none.="<td td width=49%><b><center><font color=red><b>$date_fr &agrave; None.</b></font></center></td></tr>";
 			}
 	}
 
