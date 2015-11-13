@@ -13,14 +13,7 @@
 * @version 0.1
 **/
 
-//Registered
-
-//defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-//include('calendrier/smtp.php');
-global $my;
-
-//print_r($my);
-
+print_r("avant chargement des inclusions <br>");
 include ("calendarium.php");
 include("laudes.php");
 include("tierce.php");
@@ -90,7 +83,7 @@ if($task!="martyrologe") {
 	}
 
 
-//// Heure de l'Office à afficher
+//// Heure de l'Office ï¿½ afficher
 switch($office){
 	case "laudes" :
 		print epuration(laudes($do,$calendarium,$my));
