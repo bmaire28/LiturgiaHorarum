@@ -72,10 +72,10 @@ $demain=date("Ymd",$tomorow);
 
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($jrdelasemaine!=7)) {
     ////////////////////////////////////////
-    /// il y a des "1éres Complies"  //////
+    /// il y a des "1ï¿½res Complies"  //////
     //////////////////////////////////////
 
-        $fp = fopen ("calendrier/liturgia/psautier/complies/comp_FVS.csv","r");
+        $fp = fopen ("propres_r/complies/comp_FVS.csv","r");
 
         while ($data = fgetcsv ($fp, 1000, ";")) {
         $id=$data[0];
@@ -124,7 +124,7 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
     /// il y a des "2ndes Complies"  //////
     //////////////////////////////////////
 
-        $fp = fopen ("calendrier/liturgia/psautier/complies/comp_FS.csv","r");
+        $fp = fopen ("propres_r/complies/comp_FS.csv","r");
         while ($data = fgetcsv ($fp, 1000, ";")) {
         $id=$data[0];
         $var[$id]['latin']=$data[1];
@@ -167,7 +167,7 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
 
 if(!$var){
 
-    $fp = fopen ("calendrier/liturgia/psautier/complies/comp_F".$jrdelasemaine.".csv","r");
+    $fp = fopen ("propres_r/complies/comp_F".$jrdelasemaine.".csv","r");
         while ($data = fgetcsv ($fp, 1000, ";")) {
             $id=$data[0];$latin=$data[1];$francais=$data[2];
             $var[$id]['latin']=$latin;
@@ -197,7 +197,7 @@ for($row=0;$row<$max;$row++){
     $lat=$comp[$row]['latin'];
     $fr=$comp[$row]['francais'];
 
-    //Suppression de l'Alléluia en Carême et Semaine Sainte
+    //Suppression de l'Allï¿½luia en Carï¿½me et Semaine Sainte
 
     if(($tem=="Tempus Quadragesimae")&&($lat=="Allel&uacute;ia.")) {
         $lat="";
@@ -223,7 +223,7 @@ for($row=0;$row<$max;$row++){
         case "#HYMNUS":
         	switch ($tem) {
                 case "Tempus Paschale":
-                    $complies.=hymne("hy_Iesu, redémptor");
+                    $complies.=hymne("hy_Iesu, redï¿½mptor");
                     break;
 
 
