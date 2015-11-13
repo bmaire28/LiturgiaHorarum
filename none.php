@@ -425,26 +425,26 @@ if($calendarium['temporal'][$jour]) {
 		}
 	    }
 	    
-	    switch (substr($oratio9lat,-11)){
-	    	case "r Christum." :
-	    		$oratio9lat=str_replace(" Per Christum.", " Per Christum D�minum nostrum.",$oratio9lat);
+		    switch (substr($oratio9lat,-6)){
+	    	case "istum." :
+	    		$oratio9lat=str_replace(" Per Christum.", " Per Christum D&oacute;minum nostrum.",$oratio9lat);
 	    		$oratio9fr.=" Par le Christ notre Seigneur.";	    		
 	    	break;
-	    	case "er D�minum." :
-	    		$oratio9lat=str_replace(" Per D�minum.", " Per Christum D�minum nostrum.",$oratio9lat);
+	    	case "minum." :
+	    		$oratio9lat=str_replace(substr($oratio9lat,-13), " Per Christum D&oacute;minum nostrum.",$oratio9lat);
 	    		$oratio9fr.=" Par le Christ notre Seigneur.";
 	    	break;
-	    	case " Qui tecum." :
-    			$oratio9lat=str_replace(" Qui tecum.", " Qui vivit et regnat in s�cula s�cul�rum.",$oratio9lat);
-	    		$oratio9fr.=" Lui qui vit et r�gne pour tous les si�cles des si�cles.";
+	    	case "tecum." :
+    			$oratio9lat=str_replace(" Qui tecum.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio9lat);
+	    		$oratio9fr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
-	    	case " Qui vivit.":
-    			$oratio9lat=str_replace(" Qui vivit.", " Qui vivit et regnat in s�cula s�cul�rum.",$oratio9lat);
-	    		$oratio9fr.=" Lui qui vit et r�gne pour tous les si�cles des si�cles.";
+	    	case "vivit.":
+    			$oratio9lat=str_replace(" Qui vivit.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio9lat);
+	    		$oratio9fr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
-	    	case " Qui vivis." :
-	    		$oratio9lat=str_replace(" Qui vivis.", " Qui vivis et regnas in s�cula s�cul�rum.",$oratio9lat);
-	    		$oratio9fr.=" Toi qui vis et r�gnes pour tous les si�cles des si�cles.";
+	    	case "vivis." :
+	    		$oratio9lat=str_replace(" Qui vivis.", " Qui vivis et regnas in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio9lat);
+	    		$oratio9fr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
 	    }
 	    

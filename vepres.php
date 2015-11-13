@@ -542,20 +542,20 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	    	$oratiofr=$var['oratio_vesperas']['francais'];
 	    }
 	//print"<br> test";
-	    if ((substr($oratiolat,-13))==" Per D�minum.") {
-	        $oratiolat=str_replace(" Per D�minum.", " Per D�minum nostrum Iesum Christum, F�lium tuum, qui tecum vivit et regnat in unit�te Sp�ritus Sancti, Deus, per �mnia s�cula s�cul�rum.",$oratiolat);
-	    	$oratiofr.=" Par notre Seigneur J�sus-Christ, ton Fils, qui vit et r�gne avec toi dans l'unit� du Saint-Esprit, Dieu, pour tous les si�cles des si�cles.";
+		    if ((substr($oratiolat,-6))=="minum.") {
+	        $oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+	    	$oratiofr.=" Par notre Seigneur J&eacute;sus-Christ, ton Fils, qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
 	    }
 
         if ((substr($oratiolat,-11))==" Qui tecum.") {
-	        $oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit�te Sp�ritus Sancti, Deus, per �mnia s�cula s�cul�rum.",$oratiolat);
-	    	$oratiofr.=" Lui qui vit et r�gne avec toi dans l'unit� du Saint-Esprit, Dieu, pour tous les si�cles des si�cles.";
+	        $oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aeling;cul&oacute;rum.",$oratiolat);
+	    	$oratiofr.=" Lui qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
 	    }
 
 
         if ((substr($oratiolat,-11))==" Qui vivis.") {
-	        $oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unit�te Sp�ritus Sancti, Deus, per �mnia s�cula s�cul�rum.",$oratiolat);
-	    	$oratiofr.=" Toi qui vis et r�gnes avec Dieu le P�re dans l'unit� du Saint-Esprit, Dieu, pour tous les si�cles des si�cles.";
+	        $oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aeling;cul&oacute;rum.",$oratiolat);
+	    	$oratiofr.=" Toi qui vis et r&egrave;gnes avec Dieu le P&egrave;re dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
 	    }
 
 

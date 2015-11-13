@@ -13,7 +13,7 @@
 * @version 0.1
 **/
 
-print_r("avant chargement des inclusions <br>");
+//print_r("avant chargement des inclusions <br>");
 include ("calendarium.php");
 include("laudes.php");
 include("tierce.php");
@@ -23,6 +23,7 @@ include("vepres.php");
 include("complies.php");
 include("messe.php");
 include("fonctions.php");
+//print_r("apr&egrave;s chargement des inclusions<br>");
 
 
 $task=$_GET['task'];
@@ -30,10 +31,6 @@ $office=$_GET['office'];
 $do=$_GET['do'];
 $do=$_GET['date'];
 
-
-if ($task=="martyrologe") {
-	include "martyrologe.php";	
-}
 
 if(!$do) {
 	$tfc=time();
@@ -52,10 +49,10 @@ $dtsmoinsun=$dts-60*60*24;
 $dtsplusun=$dts+60*60*24;
 $hier=date("Ymd",$dtsmoinsun);
 $demain=date("Ymd",$dtsplusun);
-//print"$do : $anno/$mense/$die";
+//print_r("initialisation des variables GET <br>");
 
 $calendarium=calendarium($do,0);
- 
+//print_r("initialisation du calendrier <br>");
 
 print "
 		<head>
@@ -84,6 +81,7 @@ if($task!="martyrologe") {
 
 
 //// Heure de l'Office � afficher
+
 switch($office){
 	case "laudes" :
 		print epuration(laudes($do,$calendarium,$my));
@@ -119,12 +117,7 @@ switch($office){
 }
 
 affiche_nav($do,$office);
-/*
-print "
-	</body>
-</html>
-";
-*/
+
 ?>
 </body>
 </html>
