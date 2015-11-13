@@ -66,7 +66,7 @@ if($calendarium['rang'][$jour]) {
 	}
 
 
-$fp = fopen ("calendrier/liturgia/jours.csv","r");
+$fp = fopen ("offices_r/jours.csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];$latin=$data[1];$francais=$data[2];
 	    $jo[$id]['latin']=$latin;
