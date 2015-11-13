@@ -54,6 +54,7 @@ $jrdelasemaine=date("w",$day);
 $date_fr=$jours_fr[$jrdelasemaine];
 $date_l=$jours_l[$jrdelasemaine];
 
+/*
 $fp = fopen ("calendrier/liturgia/jours.csv","r");
 
     while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -64,7 +65,7 @@ $fp = fopen ("calendrier/liturgia/jours.csv","r");
     }
 
     fclose($fp);
-
+*/
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 $tomorow = $day+60*60*24;
@@ -72,42 +73,34 @@ $demain=date("Ymd",$tomorow);
 
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($jrdelasemaine!=7)) {
     ////////////////////////////////////////
-    /// il y a des "1éres Complies"  //////
+    /// il y a des "1Ã¨res Complies"  //////
     //////////////////////////////////////
-
-        $fp = fopen ("calendrier/liturgia/psautier/complies/comp_FVS.csv","r");
-
-        while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];
+	$fp = fopen ("propres_r/complies/comp_FVS.csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $var[$id]['latin']=$data[1];
         $var[$id]['francais']=$data[2];
         $row++;
-        }
-
-     $LB_comp=null;
-     $RB_comp=null;
-     $pr_lat=null;
-     $pr_fr=null;
-     $intitule_lat=null;
-     $intitule_fr=null;
-     $rang_lat=null;
-     $rang_fr=null;
-     $preces=null;
-     $ps2=1;
-     $tempo=$calendarium['intitule'][$demain];
-
-     $fp = fopen ("calendrier/liturgia/psautier/".$tempo.".csv","r");
-     while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];
+	}
+	$LB_comp=null;
+	$RB_comp=null;
+	$pr_lat=null;
+	$pr_fr=null;
+	$intitule_lat=null;
+	$intitule_fr=null;
+	$rang_lat=null;
+	$rang_fr=null;
+	$preces=null;
+	$ps2=1;
+	$tempo=$calendarium['intitule'][$demain];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $temp[$id]['latin']=$data[1];
         $temp[$id]['francais']=$data[2];
         $row++;
     }
-
     fclose($fp);
-
-
-
     if($temp['intitule']['latin'])$intitule_lat=$temp['intitule']['latin'];
     if($temp['intitule']['francais'])$intitule_fr=$temp['intitule']['francais'];
     $rang_lat="Sollemnitas";
@@ -116,47 +109,39 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
     $complies_fr="Apr&egrave;s les I&egrave;res V&ecirc;pres, aux Complies";
     $date_l = $intitule_lat."<br> Post I Vesperas, ad ";
     $date_fr = $intitule_fr."<br> Apr&egrave;s les I&egrave;res V&ecirc;pres, aux ";
-
 }
 
 if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendarium['priorite'][$demain])&&($jrdelasemaine!=1)) {
     ////////////////////////////////////////
     /// il y a des "2ndes Complies"  //////
     //////////////////////////////////////
-
-        $fp = fopen ("calendrier/liturgia/psautier/complies/comp_FS.csv","r");
-        while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];
+	$fp = fopen ("propres_r/complies/comp_FS.csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $var[$id]['latin']=$data[1];
         $var[$id]['francais']=$data[2];
         $row++;
-
-        }
-
-     $LB_comp=null;
-     $RB_comp=null;
-     $pr_lat=null;
-     $pr_fr=null;
-     $intitule_lat=null;
-     $intitule_fr=null;
-     $rang_lat=null;
-     $rang_fr=null;
-     $preces=null;
-     $ps2=1;
-
-    $tempo=$calendarium['intitule'][$jour];
-    $fp = fopen ("calendrier/liturgia/psautier/".$tempo.".csv","r");
-
-     while ($data = fgetcsv ($fp, 1000, ";")) {
-         $id=$data[0];
+	}
+	$LB_comp=null;
+	$RB_comp=null;
+	$pr_lat=null;
+	$pr_fr=null;
+	$intitule_lat=null;
+	$intitule_fr=null;
+	$rang_lat=null;
+	$rang_fr=null;
+	$preces=null;
+	$ps2=1;
+	$tempo=$calendarium['intitule'][$jour];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
         $temp[$id]['latin']=$data[1];
         $temp[$id]['francais']=$data[2];
         $row++;
-        }
-
-    fclose($fp);
-
-    if($temp['intitule']['latin'])$intitule_lat=$temp['intitule']['latin'];
+	}
+	fclose($fp);
+	if($temp['intitule']['latin'])$intitule_lat=$temp['intitule']['latin'];
     if($temp['intitule']['francais'])$intitule_fr=$temp['intitule']['francais'];
     $rang_lat="Sollemnitas";
     $rang_fr="Solennit&eacute;";
@@ -166,50 +151,42 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
 
 
 if(!$var){
-
-    $fp = fopen ("calendrier/liturgia/psautier/complies/comp_F".$jrdelasemaine.".csv","r");
-        while ($data = fgetcsv ($fp, 1000, ";")) {
-            $id=$data[0];$latin=$data[1];$francais=$data[2];
-            $var[$id]['latin']=$latin;
-            $var[$id]['francais']=$francais;
-            $row++;
-            }
-
-        fclose($fp);
-
+	$fp = fopen ("propres_r/complies/comp_F".$jrdelasemaine.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
+		$var[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
 }
 
 $row = 0;
 $fp = fopen ("offices_r/complies.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
-
-    $latin=$data[0];$francais=$data[1];
+	$latin=$data[0];$francais=$data[1];
     $comp[$row]['latin']=$latin;
     $comp[$row]['francais']=$francais;
     $row++;
-
 }
 
 $max=$row;
 $complies="<table bgcolor=#FEFEFE>";
 for($row=0;$row<$max;$row++){
+	$lat=$comp[$row]['latin'];
+	$fr=$comp[$row]['francais'];
 
-    $lat=$comp[$row]['latin'];
-    $fr=$comp[$row]['francais'];
+    //Suppression de l'AllÃ©luia en CarÃªme et Semaine Sainte
 
-    //Suppression de l'Alléluia en Carême et Semaine Sainte
-
-    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel&uacute;ia.")) {
+    if(($tem=="Tempus Quadragesimae")&&($lat=="AllelÃºia.")) {
         $lat="";
         $fr="";
     }
 
-    if(($tem=="Tempus passionis")&&($lat=="Allel&uacute;ia.")) {
+    if(($tem=="Tempus passionis")&&($lat=="AllelÃºia.")) {
        $lat="";
        $fr="";
     }
-
-
 
     switch ($lat) {
         case "#JOUR":
@@ -223,7 +200,7 @@ for($row=0;$row<$max;$row++){
         case "#HYMNUS":
         	switch ($tem) {
                 case "Tempus Paschale":
-                    $complies.=hymne("hy_Iesu, redémptor");
+                    $complies.=hymne("hy_Iesu, redÃ©mptor");
                     break;
 
 
@@ -273,8 +250,8 @@ for($row=0;$row<$max;$row++){
         $antlat=$var['ant1']['latin'];
         $antfr=$var['ant1']['francais'];
         if($tem=="Tempus Paschale") {
-            $antlat="Allelï¿½ia, allelï¿½ia, allelï¿½ia.";
-            $antfr="Allï¿½luia, allï¿½luia, allï¿½luia.";
+        	$antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            $antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
         }
 
        $complies.="
@@ -291,8 +268,8 @@ for($row=0;$row<$max;$row++){
         $antlat=$var['ant1']['latin'];
         $antfr=$var['ant1']['francais'];
         if($tem=="Tempus Paschale") {
-            $antlat="Allelï¿½ia, allelï¿½ia, allelï¿½ia.";
-            $antfr="Allï¿½luia, allï¿½luia, allï¿½luia.";
+        	$antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            $antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
 
         }
         $complies.="
@@ -313,8 +290,8 @@ for($row=0;$row<$max;$row++){
         else {
             $ps2=1;
             if($tem=="Tempus Paschale") {
-                $antlat="Allelï¿½ia, allelï¿½ia, allelï¿½ia.";
-                $antfr="Allï¿½luia, allï¿½luia, allï¿½luia.";
+                $antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            	$antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
             }
         $complies.="
         <tr>
@@ -331,8 +308,8 @@ for($row=0;$row<$max;$row++){
         $antfr=$var['ant2']['francais'];
         if ($ps2==1) {
             if($tem=="Tempus Paschale") {
-                $antlat="Allelï¿½ia, allelï¿½ia, allelï¿½ia.";
-                $antfr="Allï¿½luia, allï¿½luia, allï¿½luia.";
+                $antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            	$antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
             }
             $complies.="
         <tr>
@@ -383,8 +360,8 @@ for($row=0;$row<$max;$row++){
         }
 
         if ($calendarium['hebdomada'][$jour]=="Infra octavam paschae"){
-            $oratiolat="Vox nostra te, Dï¿½mine, humï¿½liter deprecï¿½tur, ut, domï¿½nicï¿½ resurrectiï¿½nis hac die mystï¿½rio celebrï¿½to, in pace tua secï¿½ri a malis ï¿½mnibus quiescï¿½mus, et in tua resurgï¿½mus laude gaudï¿½ntes. Per Christum Dï¿½minum nostrum.";
-            $oratiofr="Notre voix te supplie humblement, Seigneur. Nous avons cï¿½lï¿½brï¿½ aujourd'hui le mystï¿½re de la rï¿½surrection du Seigneur : fais-nous reposer dans ta paix ï¿½ l'abri de tout mal, et nous relever pour chanter joyeusement ta louange. Par le Christ notre Seigneur.";
+            $oratiolat="Vox nostra te, D&oacute;mine, hum&iacute;liter deprec&eacute;tur, ut, dom&oacute;nic&aelig; resurrecti&oacute;nis hac die myst&eacute;rio celebr&aacute;to, in pace tua sec&uacute;ri a malis &oacute;mnibus quiesc&aacute;mus, et in tua resurg&aacute;mus laude gaud&eacute;ntes. Per Christum D&oacute;minum nostrum.";
+            $oratiofr="Notre voix te supplie humblement, Seigneur. Nous avons c&eacute;l&eacute;br&eacute; aujourd'hui le myst&egrave;re de la r&eacute;surrection du Seigneur : fais-nous reposer dans ta paix &agrave; l'abri de tout mal, et nous relever pour chanter joyeusement ta louange. Par le Christ notre Seigneur.";
             }
 
         $complies.="

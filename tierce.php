@@ -3,11 +3,6 @@
 
 
 function tierce($jour,$calendarium,$my) {
-/*
-if(!$my->email) {
-	print"<center><i>Le textes des offices latin/français ne sont disponibles que pour les utilisateurs enregistrés. <a href=\"index.php?option=com_registration&task=register\">Enregistrez-vous ici pour continuer (simple et gratuit)</a>.</i></center>";
-	return;
-}*/
 
 $tem=$calendarium['tempus'][$jour];
 switch ($tem) {
@@ -36,21 +31,11 @@ switch ($tem) {
         break;
 
     default :
-        print"<br><i>Cet office n'est pas encore complètement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider à compléter ce travail.</a></i>";
-        return;
+        print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
+    	return;
         break;
 
 }
-/*
-if($tem=="Tempus per annum") $psautier="perannum";
-if($tem=="Tempus Quadragesimae") $psautier="quadragesimae";
-if($tem=="Tempus passionis") $psautier="hebdomada_sancta";
-if($tem=="Tempus Paschale") $psautier="pascha";
-if ($psautier=="") {
-	print"<br><i>Cet office n'est pas encore complètement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider à compléter ce travail</a>.</i>";
-	return;
-}
-*/
 
 $jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
 $jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
@@ -66,7 +51,7 @@ $date_l=$jours_l[$jrdelasemaine];
 
 if($calendarium['rang'][$jour]) {
 	    $prop=$mense.$die;
-	    $fp = fopen ("calendrier/liturgia/psautier/sanctoral/".$prop.".csv","r");
+	    $fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];
 	    $propre[$id]['latin']=$data[1];
@@ -78,31 +63,29 @@ if($calendarium['rang'][$jour]) {
 
 
 $fp = fopen ("calendrier/liturgia/jours.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $jo[$id]['latin']=$latin;
-	    $jo[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$latin=$data[1];$francais=$data[2];
+	$jo[$id]['latin']=$latin;
+	$jo[$id]['francais']=$francais;
+	$row++;
+}
+fclose($fp);
 
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 
 
-	$row = 0;
-	$fp = fopen ("offices_r/tierce.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $latin=$data[0];$francais=$data[1];
-	    $lau[$row]['latin']=$latin;
-	    $lau[$row]['francais']=$francais;
-	    $row++;
+$row = 0;
+$fp = fopen ("offices_r/tierce.csv","r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$latin=$data[0];$francais=$data[1];
+	$lau[$row]['latin']=$latin;
+	$lau[$row]['francais']=$francais;
+	$row++;
+}
+fclose($fp);
+$spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
-	}
-	fclose($fp);
-
-	$spsautier=$calendarium['hebdomada_psalterium'][$jour];
-
-	if($tem=="Tempus Quadragesimae") {
+if($tem=="Tempus Quadragesimae") {
 	if ($calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
 	if ($calendarium['hebdomada'][$jour]=="Dies post Cineres") {$q="quadragesima_0";}
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada I Quadragesimae") { $q="quadragesima_1";}
@@ -110,7 +93,7 @@ $jrdelasemaine++; // pour avoir dimanche=1 etc...
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada III Quadragesimae"){ $q="quadragesima_3";}
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada IV Quadragesimae"){ $q="quadragesima_4";}
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada V Quadragesimae"){ $q="quadragesima_5";}
-	$fp = fopen ("calendrier/liturgia/psautier/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
+	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];$latin=$data[1];$francais=$data[2];
 	    $var[$id]['latin']=$latin;
@@ -121,63 +104,59 @@ $jrdelasemaine++; // pour avoir dimanche=1 etc...
 }
 
 elseif($tem=="Tempus passionis") {
-            $q="hebdomada_sancta";
-            $fp = fopen ("calendrier/liturgia/psautier/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-                while ($data = fgetcsv ($fp, 1000, ";")) {
-                        $id=$data[0];$latin=$data[1];$francais=$data[2];
-                        $var[$id]['latin']=$latin;
-                        $var[$id]['francais']=$francais;
-                        $row++;
-                }
-                fclose($fp);
-        }
-
-        elseif($tem=="Tempus Paschale") {
-                if ($calendarium['hebdomada'][$jour]=="Infra octavam paschae") { $q="pascha_1";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada II Paschae") { $q="pascha_2";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada III Paschae") { $q="pascha_3";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada IV Paschae") { $q="pascha_4";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada V Paschae") { $q="pascha_5";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada VI Paschae") { $q="pascha_6";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada VII Paschae") { $q="pascha_7";}
-                if ($calendarium['hebdomada'][$jour]==" ") { $q="pascha_8";}
-                $fp = fopen ("calendrier/liturgia/psautier/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-                //print_r ("calendrier/liturgia/psautier/".$q.$jrdelasemaine.".csv");
-                while ($data = fgetcsv ($fp, 1000, ";")) {
-                        $id=$data[0];$latin=$data[1];$francais=$data[2];
-                        $var[$id]['latin']=$latin;
-                        $var[$id]['francais']=$francais;
-                        $row++;
-                }
-                fclose($fp);
-        }
-
-
-
-else {
-$fp = fopen ("calendrier/liturgia/psautier/temporal/".$psautier."/".$psautier."_".$spsautier.$jrdelasemaine.".csv","r");
-
+	$q="hebdomada_sancta";
+	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $var[$id]['latin']=$latin;
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
+		$var[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
+}
+elseif($tem=="Tempus Paschale") {
+	if ($calendarium['hebdomada'][$jour]=="Infra octavam paschae") { $q="pascha_1";}
+	if ($calendarium['hebdomada'][$jour]=="Hebdomada II Paschae") { $q="pascha_2";}
+	if ($calendarium['hebdomada'][$jour]=="Hebdomada III Paschae") { $q="pascha_3";}
+	if ($calendarium['hebdomada'][$jour]=="Hebdomada IV Paschae") { $q="pascha_4";}
+	if ($calendarium['hebdomada'][$jour]=="Hebdomada V Paschae") { $q="pascha_5";}
+	if ($calendarium['hebdomada'][$jour]=="Hebdomada VI Paschae") { $q="pascha_6";}
+	if ($calendarium['hebdomada'][$jour]=="Hebdomada VII Paschae") { $q="pascha_7";}
+	if ($calendarium['hebdomada'][$jour]==" ") { $q="pascha_8";}
+	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
+	//print_r ("propres_r/temporal/".$q.$jrdelasemaine.".csv");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
+		$var[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
+}
+else {
+	$fp = fopen ("propres_r/temporal/".$psautier."/".$psautier."_".$spsautier.$jrdelasemaine.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
 	    $var[$id]['francais']=$francais;
 	    $row++;
 	}
 	fclose($fp);
 }
-$fp = fopen ("calendrier/liturgia/psautier/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$ref=$data[1];
-	    $reference[$id]=$ref;
-	    $row++;
-	}
-	fclose($fp);
+
+$fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$ref=$data[1];
+	$reference[$id]=$ref;
+	$row++;
+}
+fclose($fp);
 
 if($calendarium['temporal'][$jour]) {
 	    //print"<br>Temporal propre";
 	    $tempo=$calendarium['temporal'][$jour];
-	    $fp = fopen ("calendrier/liturgia/psautier/".$tempo.".csv","r");
-	    //$fp = fopen ("calendrier/liturgia/psautier/".$prop.".csv","r");
+	    $fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	    //$fp = fopen ("propres_r/temporal/".$prop.".csv","r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];
 	    $temp[$id]['latin']=$data[1];
@@ -209,11 +188,11 @@ if($calendarium['temporal'][$jour]) {
 	for($row=0;$row<$max;$row++){
 	    $lat=$lau[$row]['latin'];
 	    $fr=$lau[$row]['francais'];
-	    if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
+	    if(($tem=="Tempus Quadragesimae")&&($lat=="Allelï¿½ia.")) {
 			$lat="";
 			$fr="";
 			}
-		if(($tem=="Tempus passionis")&&($lat=="Allelúia.")) {
+		if(($tem=="Tempus passionis")&&($lat=="Allelï¿½ia.")) {
 		    $lat="";
 			$fr="";
 		}
@@ -236,14 +215,14 @@ if($calendarium['temporal'][$jour]) {
   		$l=$jo[$jrdelasemaine]['latin'];
 	    $f=$jo[$jrdelasemaine]['francais'];
 		$tierce.="<tr><td width=49%><center><font color=red><b>$date_l ad Tertiam.</b></font></center></td>";
-		$tierce.="<td td width=49%><b><center><font color=red><b>$date_fr à Tierce.</b></font></center></td></tr>";
+		$tierce.="<td td width=49%><b><center><font color=red><b>$date_fr &agrave; Tierce.</b></font></center></td></tr>";
 			}
 	}
 
 
 	elseif($lat=="#HYMNUS_tertiam") {
 
-	    //$mediahora.=hymne("hy_Ætérne_rerum_cónditor");
+	    //$mediahora.=hymne("hy_ï¿½tï¿½rne_rerum_cï¿½nditor");
 	    if(!$hymne3)$hymne3=$var['HYMNUS_tertiam']['latin'];
 	    $tierce.=hymne($hymne3);
 
@@ -436,26 +415,26 @@ if($calendarium['temporal'][$jour]) {
 		}
 	    }
 	    
-	    switch (substr($oratio3lat,-11)){
-	    	case "r Christum." :
-	    		$oratio3lat=str_replace(" Per Christum.", " Per Christum Dóminum nostrum.",$oratio3lat);
+	    switch (substr($oratio3lat,-6)){
+	    	case "istum." :
+	    		$oratio3lat=str_replace(" Per Christum.", " Per Christum D&oacute;minum nostrum.",$oratio3lat);
 	    		$oratio3fr.=" Par le Christ notre Seigneur.";	    		
 	    	break;
-	    	case "er Dóminum." :
-	    		$oratio3lat=str_replace(" Per Dóminum.", " Per Christum Dóminum nostrum.",$oratio3lat);
+	    	case "minum." :
+	    		$oratio3lat=str_replace(substr($oratio3lat,-13), " Per Christum D&oacute;minum nostrum.",$oratio3lat);
 	    		$oratio3fr.=" Par le Christ notre Seigneur.";
 	    	break;
-	    	case " Qui tecum." :
-    			$oratio3lat=str_replace(" Qui tecum.", " Qui vivit et regnat in sæcula sæculórum.",$oratio3lat);
-	    		$oratio3fr.=" Lui qui vit et règne pour tous les siècles des siècles.";
+	    	case "tecum." :
+    			$oratio3lat=str_replace(" Qui tecum.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
+	    		$oratio3fr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
-	    	case " Qui vivit.":
-    			$oratio3lat=str_replace(" Qui vivit.", " Qui vivit et regnat in sæcula sæculórum.",$oratio3lat);
-	    		$oratio3fr.=" Lui qui vit et règne pour tous les siècles des siècles.";
+	    	case "vivit.":
+    			$oratio3lat=str_replace(" Qui vivit.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
+	    		$oratio3fr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
-	    	case " Qui vivis." :
-	    		$oratio3lat=str_replace(" Qui vivis.", " Qui vivis et regnas in sæcula sæculórum.",$oratio3lat);
-	    		$oratio3fr.=" Toi qui vis et règnes pour tous les siècles des siècles.";
+	    	case "vivis." :
+	    		$oratio3lat=str_replace(" Qui vivis.", " Qui vivis et regnas in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
+	    		$oratio3fr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
 	    }
 	    

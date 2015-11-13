@@ -689,7 +689,7 @@ $i=0;
 
 
 $row = 1;
-$handle = fopen("calendrier/liturgia/psautier/sanctoral/sanctoral.csv", "r");
+$handle = fopen("propres_r/sanctoral/sanctoral.csv", "r");
 //print"<table>";
 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 //print"<tr>";
