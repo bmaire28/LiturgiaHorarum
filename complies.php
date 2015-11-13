@@ -72,7 +72,7 @@ $demain=date("Ymd",$tomorow);
 
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($jrdelasemaine!=7)) {
     ////////////////////////////////////////
-    /// il y a des "1�res Complies"  //////
+    /// il y a des "1ères Complies"  //////
     //////////////////////////////////////
 
         $fp = fopen ("propres_r/complies/comp_FVS.csv","r");
@@ -197,14 +197,14 @@ for($row=0;$row<$max;$row++){
     $lat=$comp[$row]['latin'];
     $fr=$comp[$row]['francais'];
 
-    //Suppression de l'All�luia en Car�me et Semaine Sainte
+    //Suppression de l'Alléluia en Carême et Semaine Sainte
 
-    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel&uacute;ia.")) {
+    if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
         $lat="";
         $fr="";
     }
 
-    if(($tem=="Tempus passionis")&&($lat=="Allel&uacute;ia.")) {
+    if(($tem=="Tempus passionis")&&($lat=="Allelúia.")) {
        $lat="";
        $fr="";
     }
@@ -223,7 +223,7 @@ for($row=0;$row<$max;$row++){
         case "#HYMNUS":
         	switch ($tem) {
                 case "Tempus Paschale":
-                    $complies.=hymne("hy_Iesu, red�mptor");
+                    $complies.=hymne("hy_Iesu, redémptor");
                     break;
 
 
@@ -273,8 +273,8 @@ for($row=0;$row<$max;$row++){
         $antlat=$var['ant1']['latin'];
         $antfr=$var['ant1']['francais'];
         if($tem=="Tempus Paschale") {
-            $antlat="Allel�ia, allel�ia, allel�ia.";
-            $antfr="All�luia, all�luia, all�luia.";
+        	$antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            $antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
         }
 
        $complies.="
@@ -291,8 +291,8 @@ for($row=0;$row<$max;$row++){
         $antlat=$var['ant1']['latin'];
         $antfr=$var['ant1']['francais'];
         if($tem=="Tempus Paschale") {
-            $antlat="Allel�ia, allel�ia, allel�ia.";
-            $antfr="All�luia, all�luia, all�luia.";
+        	$antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            $antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
 
         }
         $complies.="
@@ -313,8 +313,8 @@ for($row=0;$row<$max;$row++){
         else {
             $ps2=1;
             if($tem=="Tempus Paschale") {
-                $antlat="Allel�ia, allel�ia, allel�ia.";
-                $antfr="All�luia, all�luia, all�luia.";
+                $antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            	$antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
             }
         $complies.="
         <tr>
@@ -331,8 +331,8 @@ for($row=0;$row<$max;$row++){
         $antfr=$var['ant2']['francais'];
         if ($ps2==1) {
             if($tem=="Tempus Paschale") {
-                $antlat="Allel�ia, allel�ia, allel�ia.";
-                $antfr="All�luia, all�luia, all�luia.";
+                $antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
+            	$antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
             }
             $complies.="
         <tr>
@@ -383,8 +383,8 @@ for($row=0;$row<$max;$row++){
         }
 
         if ($calendarium['hebdomada'][$jour]=="Infra octavam paschae"){
-            $oratiolat="Vox nostra te, D�mine, hum�liter deprec�tur, ut, dom�nic� resurrecti�nis hac die myst�rio celebr�to, in pace tua sec�ri a malis �mnibus quiesc�mus, et in tua resurg�mus laude gaud�ntes. Per Christum D�minum nostrum.";
-            $oratiofr="Notre voix te supplie humblement, Seigneur. Nous avons c�l�br� aujourd'hui le myst�re de la r�surrection du Seigneur : fais-nous reposer dans ta paix � l'abri de tout mal, et nous relever pour chanter joyeusement ta louange. Par le Christ notre Seigneur.";
+            $oratiolat="Vox nostra te, D&oacute;mine, hum&iacute;liter deprec&eacute;tur, ut, dom&oacute;nic&aelig; resurrecti&oacute;nis hac die myst&eacute;rio celebr&aacute;to, in pace tua sec&uacute;ri a malis &oacute;mnibus quiesc&aacute;mus, et in tua resurg&aacute;mus laude gaud&eacute;ntes. Per Christum D&oacute;minum nostrum.";
+            $oratiofr="Notre voix te supplie humblement, Seigneur. Nous avons c&eacute;l&eacute;br&eacute; aujourd'hui le myst&egrave;re de la r&eacute;surrection du Seigneur : fais-nous reposer dans ta paix &agrave; l'abri de tout mal, et nous relever pour chanter joyeusement ta louange. Par le Christ notre Seigneur.";
             }
 
         $complies.="
