@@ -8,16 +8,16 @@ return $string2;
 
 function epuration($string) {
 	$string1=str_replace(chr(146),"'",$string);
-	$string2= str_replace("œ", "&oelig;",$string1);
+	$string2= str_replace("ï¿½", "&oelig;",$string1);
 	return utf8_encode($string2);
 }
 
 
 function respbrevis($ref) {
 	$row = 0;
-	// Création du chemin relatif vers le fichier de répons de façon brut
+	// Crï¿½ation du chemin relatif vers le fichier de rï¿½pons de faï¿½on brut
 	$fichier="calendrier/liturgia/".$ref.".csv";
-	// Vérification du chemin brut, sinon création du chemin relatif utf8
+	// Vï¿½rification du chemin brut, sinon crï¿½ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -41,9 +41,9 @@ function respbrevis($ref) {
 
 function lectiobrevis($ref) {
 	$row = 0;
-	// Création du chemin relatif vers le fichier de lectio de façon brut
+	// Crï¿½ation du chemin relatif vers le fichier de lectio de faï¿½on brut
 	$fichier="lectionnaire/".$ref.".csv";
-	// Vérification du chemin brut, sinon création du chemin relatif utf8
+	// Vï¿½rification du chemin brut, sinon crï¿½ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="lectionnaire/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -67,9 +67,9 @@ function lectiobrevis($ref) {
 
 function preces($ref){
 	$row = 0;
-	// Création du chemin relatif vers le fichier de preces de façon brut
+	// Crï¿½ation du chemin relatif vers le fichier de preces de faï¿½on brut
 	$fichier="preces/".$ref.".csv";
-	// Vérification du chemin brut, sinon création du chemin relatif utf8
+	// Vï¿½rification du chemin brut, sinon crï¿½ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="preces/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -93,11 +93,11 @@ function preces($ref){
 
 function hymne($ref) {
 	$row = 0;
-	// Initialisation de l'hymne à blanc
+	// Initialisation de l'hymne ï¿½ blanc
 	$hymne="";
-	// Création du chemin relatif vers le fichier de l'hymne de façon brut
+	// Crï¿½ation du chemin relatif vers le fichier de l'hymne de faï¿½on brut
 	$fichier="hymnaire/".$ref.".csv";
-	// Vérification du chemin brut, sinon création du chemin relatif utf8
+	// Vï¿½rification du chemin brut, sinon crï¿½ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="hymnaire/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -124,9 +124,9 @@ function hymne($ref) {
 
 function psaume($ref) {
 $row = 0;
-	// Création du chemin relatif vers le fichier du psaume de façon brut
+	// Crï¿½ation du chemin relatif vers le fichier du psaume de faï¿½on brut
 	$fichier="psautier/".$ref.".csv";
-	// Vérification du chemin brut, sinon création du chemin relatif utf8
+	// Vï¿½rification du chemin brut, sinon crï¿½ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="psautier/".utf8_encode($ref).".csv";
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -240,55 +240,56 @@ mode : \"textareas\",
 
 
 function affiche_nav($do,$office) {
-    $offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
+	$offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
 	for($o=0;$offices[$o];$o++) {
 		if ($office==$offices[$o]) {
 			$officeactuel=$o;
 	 		break;
 		}
+	}
+	$suivant = $offices[$officeactuel+1];
+	$precedent = $offices[$officeactuel-1];
 
-}
-$suivant = $offices[$officeactuel+1];
-$precedent = $offices[$officeactuel-1];
+	$anno=substr($do,0,4);
+	$mense=substr($do,4,2);
+	$die=substr($do,6,2);
+	$day=mktime(12,0,0,$mense,$die,$anno);
+	//$dts=mktime(12,0,0,$mense,$die,$anno);
+	$dtsmoinsun=$day-60*60*24;
+	$dtsplusun=$day+60*60*24;
+	$hier=date("Ymd",$dtsmoinsun);
+	$demain=date("Ymd",$dtsplusun);
 
-$anno=substr($do,0,4);
-$mense=substr($do,4,2);
-$die=substr($do,6,2);
-$day=mktime(12,0,0,$mense,$die,$anno);
-//$dts=mktime(12,0,0,$mense,$die,$anno);
-$dtsmoinsun=$day-60*60*24;
-$dtsplusun=$day+60*60*24;
-$hier=date("Ymd",$dtsmoinsun);
-$demain=date("Ymd",$dtsplusun);
+	$dsuiv=$day+60*60*24;
+	$dprec=$day-60*60*24;
 
-$dsuiv=$day+60*60*24;
-$dprec=$day-60*60*24;
-
-$date_suiv=$do;
-$date_prec= $do;
-if ($suivant=="s") {
-	$suivant = "laudes";
-	$date_suiv=date("Ymd",$dsuiv);
-}
-
-if ($precedent=="p") {
-	$precedent = "complies";
-	$date_prec= date("Ymd",$dprec);
-}
-
-print"
-<center><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a>|
- <a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a>|
- <a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a> |
- <a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a> |
- <a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a> |
- <a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a> |
- <a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a> |
- <a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a> |
- <a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a> |
- <a href=\"index.php?date=$demain&amp;office=$office\"> >></a><br>
- <a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
- </center>";
+	$date_suiv=$do;
+	$date_prec= $do;
+	if ($suivant=="s") {
+		$suivant = "laudes";
+		$date_suiv=date("Ymd",$dsuiv);
+	}
+	if ($precedent=="p") {
+		$precedent = "complies";
+		$date_prec= date("Ymd",$dprec);
+	}
+	//print_r($do);
+	$date_defunts=$anno."1102";
+	print"
+		<center><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a>|
+		<a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a>|
+		<a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a> |
+		<a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a> |
+		<a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a> |
+		<a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a> |
+		<a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a> |
+		<a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a> |
+		<a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a> |
+		<a href=\"index.php?date=$demain&amp;office=$office\"> >></a><br>
+		<a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a>
+		</center>";
+//<a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
+		
 }
 
 
