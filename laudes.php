@@ -57,15 +57,6 @@ $jrdelasemaine=date("w",$day);
 $date_fr=$jours_fr[$jrdelasemaine];
 $date_l=$jours_l[$jrdelasemaine];
 
-$fp = fopen ("calendrier/liturgia/jours.csv","r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$latin=$data[1];$francais=$data[2];
-	$jo[$id]['latin']=$latin;
-	$jo[$id]['francais']=$francais;
-	$row++;
-}
-fclose($fp);
-
 
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];

@@ -57,14 +57,7 @@ $day=mktime(12,0,0,$mense,$die,$anno);
 $jrdelasemaine=date("w",$day);
 $date_fr=$jours_fr[$jrdelasemaine];
 $date_l=$jours_l[$jrdelasemaine];
-$fp = fopen ("calendrier/liturgia/jours.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $jo[$id]['latin']=$latin;
-	    $jo[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
+
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
@@ -152,16 +145,6 @@ if($calendarium['rang'][$jour]) {
     	if($propre['rang']['francais']) $rang_fr=$propre['rang']['francais'];
     	if($propre['preces_soir']['latin']) $preces=$propre['preces_soir']['latin'];
 	}
-
-	$fp = fopen ("calendrier/liturgia/jours.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];$latin=$data[1];$francais=$data[2];
-		$jo[$id]['latin']=$latin;
-		$jo[$id]['francais']=$francais;
-		$row++;
-	}
-	fclose($fp);
-	
 
 $fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -313,8 +296,6 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 			$oratiofr=$propre['oratio']['francais'];
 	    }
 	else {
-		//$l=$jo[2]['latin'];
-	    //$f=$jo[2]['francais'];
 	    //$date_l=$intitule_lat;
 	    //$date_fr=$intitule_fr;
 		$vepres.="<tr><td width=49%><center><font color=red><b>$date_l Vesperas</b></font></center></td>";
