@@ -274,7 +274,15 @@ function affiche_nav($do,$office) {
 		$date_prec= date("Ymd",$dprec);
 	}
 	//print_r($do);
+	// Date pour l'office des défunts :
 	$date_defunts=$anno."1102";
+	
+	// date du jour :
+	$tfc=time();
+	$date_aujourdhui=date("Ymd",$tfc);
+	$annee_aujourdhui=substr($date_aujourdhui,0,4);
+	$mois_aujourdhui=$mense=substr($date_aujourdhui,4,2);
+	
 	print"
 		<center><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a>|
 		<a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a>|
@@ -286,7 +294,8 @@ function affiche_nav($do,$office) {
 		<a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a> |
 		<a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a> |
 		<a href=\"index.php?date=$demain&amp;office=$office\"> >></a><br>
-		<a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a>
+		<a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a> <br>
+				<a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\">Revenir au jour pr&eacute;sent</a>
 		</center>";
 //<a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
 		
