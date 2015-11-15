@@ -8,11 +8,63 @@ function vepres($jour,$calendarium,$my) {
 		$temp['ps8']['latin']="ps113A";
 		$temp['ps9']['latin']="NT12";
 	}
-/*if(!$my->email) {
-	print"<center><i>Le textes des offices latin/fran�ais ne sont disponibles que pour les utilisateurs enregistr�s. <a href=\"index.php?option=com_registration&task=register\">Enregistrez-vous ici pour continuer (simple et gratuit)</a>.</i></center>";
-	return;
-}*/
+	
+	/*
+	 * Initialisation des variables
+	 * $anno = année de l'office
+	 * $mense = mois de l'office
+	 * $die = jour de l'office
+	 * $day = timestamp du jour de l'office
+	 * $jour_l = liste de noms des jours en latin
+	 * $jour_fr = liste de noms des jours en français
+	 * $jrdelasemaine = numéro du jour dans la semaine (0 à 6)
+	 * $date_l = nom du jour de l'office en latin
+	 * $date_fr = nom du jour de l'office en français
+	 *  
+	 */
+	$anno=substr($jour,0,4);
+	$mense=substr($jour,4,2);
+	$die=substr($jour,6,2);
+	$day=mktime(12,0,0,$mense,$die,$anno);
+	
+	$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
+	$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
+	$jrdelasemaine=date("w",$day);
+	$date_fr=$jours_fr[$jrdelasemaine];
+	$date_l=$jours_l[$jrdelasemaine];
+	
+	
+	/*
+	 * Calcul de la lettre de l'année
+	 * récupérer l'année du 27 novembre précédent
+	 * diviser l'année par 3 et regarder le reste
+	 * 0 = A, 1 = B, 2 = C
+	 */
+	$num_mois_cour=intval($mense);
+	$num_annee_cour=intval($anno);
+	$num_jour_cour=intval($die);
+	//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
+	//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
+	
+	// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
+	if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
+	if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
+	
+	switch (fmod($num_annee_cour, 3)) {
+		case 0 :
+			$lettre="A";
+			break;
+		case 1:
+			$lettre="B";
+			break;
+		case 2:
+			$lettre="C";
+			break;
+	}
+	//print_r($lettre."<br>");
 
+	
+	
 $tem=$calendarium['tempus'][$jour];
 switch ($tem) {
     case "Tempus Adventus" :
@@ -46,25 +98,7 @@ switch ($tem) {
 
 }
 
-$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
-$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I�res ");
 
-$anno=substr($jour,0,4);
-$mense=substr($jour,4,2);
-$die=substr($jour,6,2);
-$day=mktime(12,0,0,$mense,$die,$anno);
-
-$jrdelasemaine=date("w",$day);
-$date_fr=$jours_fr[$jrdelasemaine];
-$date_l=$jours_l[$jrdelasemaine];
-$fp = fopen ("calendrier/liturgia/jours.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $jo[$id]['latin']=$latin;
-	    $jo[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
@@ -128,130 +162,119 @@ else {
 	fclose($fp);
 }
 
+/*
+ * Vérification du sanctoral
+ * Chargement de $propre avec les valeurs du sanctoral
+ * Affectation des valeurs hymne, LB, RB, ... à partir de $propre
+ */
 //print_r($calendarium['rang'][$jour]);
 if($calendarium['rang'][$jour]) {
-	    $prop=$mense.$die;
-	    //print_r($prop);
-	    $fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
-		while ($data = fgetcsv ($fp, 1000, ";")) {
-	    	$id=$data[0];
-	    	$propre[$id]['latin']=$data[1];
-	    	$propre[$id]['francais']=$data[2];
-	    	$row++;
-		}
-		fclose($fp);
-		if($propre['HYMNUS_vepres']['latin']) $hymne=$propre['HYMNUS_vepres']['latin'];
-	    //print"<br>['HYMNUS_laudes']['latin'] : ".$propre['HYMNUS_laudes']['latin'];
-		if($propre['LB_soir']['latin']) $LB_soir=$propre['LB_soir']['latin'];
-		if($propre['RB_soir']['latin']) $RB_soir=$propre['RB_soir']['latin'];
-		if($propre['jour']['latin']) $pr_lat=$propre['jour']['latin'];
-		if($propre['jour']['francais'])	$pr_fr=$propre['jour']['francais'];
-		if($propre['intitule']['latin']) $intitule_lat=$propre['intitule']['latin'];
-    	if($propre['intitule']['francais']) $intitule_fr=$propre['intitule']['francais'];
-    	if($propre['rang']['latin']) $rang_lat=$propre['rang']['latin'];
-    	if($propre['rang']['francais']) $rang_fr=$propre['rang']['francais'];
-    	if($propre['preces_soir']['latin']) $preces=$propre['preces_soir']['latin'];
-	}
-
-	$fp = fopen ("calendrier/liturgia/jours.csv","r");
+	$prop=$mense.$die;
+	$fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];$latin=$data[1];$francais=$data[2];
-		$jo[$id]['latin']=$latin;
-		$jo[$id]['francais']=$francais;
+		$id=$data[0];
+		$propre[$id]['latin']=$data[1];
+		$propre[$id]['francais']=$data[2];
 		$row++;
 	}
 	fclose($fp);
+	if($propre['HYMNUS_vepres']['latin']) $hymne=$propre['HYMNUS_vepres']['latin'];
+	if($propre['LB_soir']['latin']) $LB_soir=$propre['LB_soir']['latin'];
+	if($propre['RB_soir']['latin']) $RB_soir=$propre['RB_soir']['latin'];
+	if($propre['jour']['latin']) $pr_lat=$propre['jour']['latin'];
+	if($propre['jour']['francais'])	$pr_fr=$propre['jour']['francais'];
+	if($propre['intitule']['latin']) $intitule_lat=$propre['intitule']['latin'];
+   	if($propre['intitule']['francais']) $intitule_fr=$propre['intitule']['francais'];
+   	if($propre['rang']['latin']) $rang_lat=$propre['rang']['latin'];
+   	if($propre['rang']['francais']) $rang_fr=$propre['rang']['francais'];
+   	if($propre['preces_soir']['latin']) $preces=$propre['preces_soir']['latin'];
+}
 	
-
+/*
+ * Chargement du propre au psautier du jour
+ */
 $fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$ref=$data[1];
+	$reference[$id]=$ref;
+	$row++;
+}
+fclose($fp);
+
+/*
+ * Vérification du temporal - solennités et fetes
+ * Chargement de $temp avec les valeurs du temporal
+ * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
+ */
+//print"<br>".$calendarium['temporal'][$jour];
+if($calendarium['temporal'][$jour]) {
+	//print"<br>Temporal propre";
+	$tempo=$calendarium['temporal'][$jour];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$ref=$data[1];
-	    $reference[$id]=$ref;
+		$id=$data[0];
+	    $temp[$id]['latin']=$data[1];
+	    $temp[$id]['francais']=$data[2];
 	    $row++;
 	}
 	fclose($fp);
-	//print"<br>".$calendarium['temporal'][$jour];
-	if($calendarium['temporal'][$jour]) {
-	    //print"<br>Temporal propre";
-	    $tempo=$calendarium['temporal'][$jour];
-	    $fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
-	    //$fp = fopen ("propres_r/temporal/".$prop.".csv","r");
-		while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];
-	    $temp[$id]['latin']=$data[1];
-	    $temp[$id]['francais']=$data[2];
-	    $row++;
-		}
-		$yy=$temp['magnificat']['francais'];
-		print"<br>$yy";
-		$oratiolat=$temp['oratio']['latin'];
-		$oratiofr=$temp['oratio']['francais'];
-		$LB_soir=$temp['LB_soir']['latin'];
-		$magniflat=$temp['magnificat']['latin'];
-		$magniffr=$temp['magnificat']['francais'];
-		if (!$magniflat)$magniflat=$temp['2magnificat_C']['latin'];
-		if (!$magniffr) $magniffr=$temp['2magnificat_C']['francais'];
-		//$magniffr=$temp['2magnificat_C']['francais'];
+	$yy=$temp['magnificat']['francais'];
+	print"<br>$yy";
+	$oratiolat=$temp['oratio']['latin'];
+	$oratiofr=$temp['oratio']['francais'];
+	$LB_soir=$temp['LB_soir']['latin'];
+	$magniflat=$temp['magnificat']['latin'];
+	$magniffr=$temp['magnificat']['francais'];
+	$magnificat2="2magnificat_".$lettre;
+	//if (!$magniflat)$magniflat=$temp['2magnificat_C']['latin'];
+	if (!$magniflat)$magniflat=$temp[$magnificat2]['latin'];
+	if (!$magniffr) $magniffr=$temp[$magnificat2]['francais'];
+	$intitule_lat=$temp['intitule']['latin'];
+	$rang_lat=$temp['rang']['latin'];
+	if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
+	$intitule_fr=$temp['intitule']['francais'];
+	$rang_fr=$temp['rang']['francais'];
+	if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
+	if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>VENDREDI SAINT")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l=$intitule_lat."<br> ad ";
+	else $date_l = $intitule_lat."<br> ad II ";
+	if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr=$intitule_fr."<br> aux ";
+	else $date_fr = $intitule_fr."<br> aux IIes ";
+	$hymne=$temp['HYMNUS_vepres']['latin'];
+	$preces=$temp['preces_soir']['latin'];
+}
 
-		$intitule_lat=$temp['intitule']['latin'];
-		$rang_lat=$temp['rang']['latin'];
-		if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
-		
-		$intitule_fr=$temp['intitule']['francais'];
-		
-		$rang_fr=$temp['rang']['francais'];
-		if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
-		
-		if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>VENDREDI SAINT")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l=$intitule_lat."<br> ad ";
-		else $date_l = $intitule_lat."<br> ad II ";
-		//if ($intitule_fr != "JEUDI SAINT")$date_l = $intitule_lat."<br> ad II ";
-		//else
-
-		if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr=$intitule_fr."<br> aux ";
-		else $date_fr = $intitule_fr."<br> aux IIes ";
-		//if ($intitule_fr != "JEUDI SAINT")$date_fr = $intitule_fr."<br> aux IIes ";
-		//else
-		
-		
-		$hymne=$temp['HYMNUS_vepres']['latin'];
-  		$preces=$temp['preces_soir']['latin'];
-  		//print"<br>".$oratiolat;
-		//print_r($tempo);
-	}
-
-	$tomorow = $day+60*60*24;
+/*
+ * Vérification de premieres vepres au temporal - solennités et fetes
+ * Chargement de $temp avec les valeurs du temporal
+ * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
+ */
+$tomorow = $day+60*60*24;
 $demain=date("Ymd",$tomorow);
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
-	///////////////////////////////////
-	/// il y a des 1�res v�pres  //////
-	///////////////////////////////////
-	//print"<br>1�res v�pres demain. Aujourd'hui : $jour ; Demain :  $demain <br>";
-	//print_r($calendarium['priorite']);
-	//if  print "propre";
 	$propre=null;
 	$tempo=$calendarium['temporal'][$demain];
-	    $fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
-	    //$fp = fopen ("propres_r/temporal/".$prop.".csv","r");
-		while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
 	    $temp[$id]['latin']=$data[1];
 	    $temp[$id]['francais']=$data[2];
 	    $row++;
-		}
-		//print_r($temp);
-		$intitule_lat=$temp['intitule']['latin'];
-		$rang_lat=$temp['rang']['latin'];
-		if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
-		
-		$date_l = $intitule_lat."<br> ad I ";
-		$intitule_fr=$temp['intitule']['francais'];
-		$rang_fr=$temp['rang']['francais'];
-		if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
-		$date_fr = $intitule_fr."<br> aux I�res ";
-		$oratiolat=$temp['oratio']['latin'];
-		$oratiofr=$temp['oratio']['francais'];
-		$magniflat=$temp['pmagnificat_C']['latin'];
-		$magniffr=$temp['pmagnificat_C']['francais'];
+	}
+	fclose($fp);
+	$intitule_lat=$temp['intitule']['latin'];
+	$rang_lat=$temp['rang']['latin'];
+	if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
+	$date_l = $intitule_lat."<br> ad I ";
+	$intitule_fr=$temp['intitule']['francais'];
+	$rang_fr=$temp['rang']['francais'];
+	if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
+	$date_fr = $intitule_fr."<br> aux I�res ";
+	$oratiolat=$temp['oratio']['latin'];
+	$oratiofr=$temp['oratio']['francais'];
+	$magnificat="pmagnificat_".$lettre;//print_r($magnificat."<br>");
+	//$magniflat=$temp['pmagnificat_C']['latin'];
+	$magniflat=$temp[$magnificat]['latin'];
+	$magniffr=$temp[$magnificat]['francais'];
 	$hymne=$temp['HYMNUS_1V']['latin'];
 	$temp['ant7']['latin']=$temp['ant01']['latin'];
 	$temp['ant7']['francais']=$temp['ant01']['francais'];
@@ -275,24 +298,21 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
     $preces=null;
 }
 
-
-
-	// format $jour=AAAAMMJJ
-	$row = 0;
-	$fp = fopen ("offices_r/vepres.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $latin=$data[0];$francais=$data[1];
-	    $vesp[$row]['latin']=$latin;
-	    $vesp[$row]['francais']=$francais;
-	    $row++;
-	}
-	$max=$row;
-	$vepres="
-	<table bgcolor=#FEFEFE>";
-	for($row=0;$row<$max;$row++){
-	    $lat=$vesp[$row]['latin'];
-	    $fr=$vesp[$row]['francais'];
-	    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
+$row = 0;
+$fp = fopen ("offices_r/vepres.csv","r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+    $latin=$data[0];$francais=$data[1];
+    $vesp[$row]['latin']=$latin;
+    $vesp[$row]['francais']=$francais;
+    $row++;
+}
+fclose($fp);
+$max=$row;
+$vepres="<table bgcolor=#FEFEFE>";
+for($row=0;$row<$max;$row++){
+	$lat=$vesp[$row]['latin'];
+	$fr=$vesp[$row]['francais'];
+	if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
 			$lat="";
 			$fr="";
 			}
@@ -313,10 +333,6 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 			$oratiofr=$propre['oratio']['francais'];
 	    }
 	else {
-		//$l=$jo[2]['latin'];
-	    //$f=$jo[2]['francais'];
-	    //$date_l=$intitule_lat;
-	    //$date_fr=$intitule_fr;
 		$vepres.="<tr><td width=49%><center><font color=red><b>$date_l Vesperas</b></font></center></td>";
 		$vepres.="<td width=49%><b><center><font color=red><b>$date_fr V�pres</b></font></center></td></tr>";
 		}
@@ -344,8 +360,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 			 $antlat=$var['ant7']['latin'];
         }
 	    $vepres.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. 1</font> $antlat</td><td id=\"coldroite\"><font color=red>Ant.1</font> $antfr</td></tr>";
+	    		<tr><td id=\"colgauche\"><font color=red>Ant. 1</font> $antlat</td>
+	    		<td id=\"coldroite\"><font color=red>Ant.1</font> $antfr</td></tr>";
 	    //$row++;
 	}
 
@@ -464,9 +480,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 			$antfr=$var['ant9']['francais'];
 			$antlat=$var['ant9']['latin'];
         }
-	    $vepres.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
+	    $vepres.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td>
+	    		<td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 	    //$row++;
 	}
 	elseif($lat=="#LB"){
@@ -488,16 +503,9 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	    $rblat=nl2br($var['RB_soir']['latin']);
 	    $rbfr=nl2br($var['RB_soir']['francais']);
 	    }
-	    $vepres.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red><center><b>Responsorium Breve</b></center></font></td><td id=\"coldroite\"><font color=red><center><b>R�pons bref</center></b></font></td></tr>
-<tr>
-	<td id=\"colgauche\">$rblat</td><td id=\"coldroite\">$rbfr</td></tr>
-
-	";
-
-	    //$row++;
-		//$laudes.=respbrevis("resp_breve_Christe_Fili_Dei_vivi");
+	    $vepres.="<tr><td id=\"colgauche\"><font color=red><center><b>Responsorium Breve</b></center></font></td>
+	    		<td id=\"coldroite\"><font color=red><center><b>R�pons bref</center></b></font></td></tr>
+	    		<tr><td id=\"colgauche\">$rblat</td><td id=\"coldroite\">$rbfr</td></tr>";
 	}
 	elseif($lat=="#ANT_MAGN"){
 	    if($propre['magnificat']['latin']) {
@@ -509,12 +517,12 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 			$magniffr=$temp['magnificat']['francais'];
 	    }
 	    else {
-		if(!$magniflat) $magniflat=$var['magnificat']['latin'];
-	    if(!$magniffr) $magniffr=$var['magnificat']['francais'];
+	    	if(!$magniflat) $magniflat=$var['magnificat']['latin'];
+	    	if(!$magniffr) $magniffr=$var['magnificat']['francais'];
 	    }
 	    $vepres.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. </font>$magniflat</td><td id=\"coldroite\"><font color=red>Ant. </font> $magniffr</td></tr>";
+	    		<tr><td id=\"colgauche\"><font color=red>Ant. </font>$magniflat</td>
+	    		<td id=\"coldroite\"><font color=red>Ant. </font> $magniffr</td></tr>";
 	    //$row++;
 	}
 
