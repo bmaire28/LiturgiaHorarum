@@ -21,6 +21,35 @@ $date_l=$jours_l[$jrdelasemaine];
 	
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
+
+/*
+ * Calcul de la lettre de l'année
+ * récupérer l'année du 27 novembre précédent
+ * diviser l'année par 3 et regarder le reste
+ * 0 = A, 1 = B, 2 = C
+ */
+$num_mois_cour=intval($mense);
+$num_annee_cour=intval($anno);
+$num_jour_cour=intval($die);
+//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
+//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
+
+// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
+if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
+if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
+
+switch (fmod($num_annee_cour, 3)) {
+case 0 :
+$lettre="A";
+break;
+		case 1:
+		$lettre="B";
+		break;
+		case 2:
+		$lettre="C";
+		break;
+}
+//print_r($lettre."<br>");
 	
 /*
  * Déterminer le temps liturgique :
@@ -177,9 +206,10 @@ if($calendarium['temporal'][$jour]) {
 	$oratiolat=$temp['oratio']['latin'];
 	$oratiofr=$temp['oratio']['francais'];
 	$hymne=$temp['HYMNUS_laudes']['latin'];
-	$benelat=$temp['benedictus_C']['latin'];
+	$benedictus="benedictus_".$lettre;
+	$benelat=$temp[$benedictus]['latin'];
 	if(!$benelat) $benelat=$temp['benedictus']['latin'];
-	$benefr=$temp['benedictus_C']['francais'];
+	$benefr=$temp[$benedictus]['francais'];
 	if(!$benefr) $benefr=$temp['benedictus']['francais'];
 	$intitule_lat=$temp['intitule']['latin'];
 	$date_l = $intitule_lat."</b><br> ";

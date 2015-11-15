@@ -64,8 +64,11 @@ $feria=@date("w",$hodie);
 $coul['Rouge']="#ff0000";
 $coul['Vert']="#1b6f1f";
 $coul['Blanc']="#ffeda6";
-$coul['Violet']="#6b0d24";
-$coul['Rose']="#d1a8a8";
+$coul['Violet']="#C800FE";
+$coul['Violet-avent']="#C800FE";
+$coul['Violet-careme']="#9200AC";
+$coul['Rose']="#FE00F9";
+//$coul['Rose']="#d1a8a8";
 $coul['Noir']="#000000";
 
 print"<div class=\"moduletable\">
@@ -89,7 +92,7 @@ print"<div class=\"moduletable\">
     $iff=$couleurs[$jour];
     $coloris=$coul[$iff];
     $couleur_fonte=$coul['Noir'];
-    if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
+    if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
 
     $titre=$calend['intitule'][$jour];
       if($f!="")    print"<td style=\"width: 25px; background-color: $coloris; color:$couleur_fonte; text-align: center;  text-decoration: underline;\"><a style=\"color: #000000;\"  href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><font color=$couleur_fonte>$f</font></a></td>";
@@ -101,7 +104,7 @@ print"<div class=\"moduletable\">
     $iff=$couleurs[$jour];
     $coloris=$coul[$iff];
     $couleur_fonte=$coul['Noir'];
-    if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
+    if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
 
     $titre=$calend['intitule'][$jour];
 	  if($f!="") print"<td style=\"width: 25px; background-color: $coloris; text-align: center;\"><a style=\"color: #000000;\" href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><font color=$couleur_fonte>$f</font></a></td>";
@@ -165,6 +168,8 @@ $feriae=array("Dominica","Feria II","Feria III","Feria IV","Feria V","Feria VI",
 $romains=array("","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV");
 $menses=array("","Ianuarii","Februarii","Martii","Aprilii","Maii","Iunii","Iulii","Augusti","Septembri","Octobri","Novembri","Decembri");
 $hexa['Violet']="6c075f";
+$hexa['Violet-avent']="#C800FE";
+$hexa['Violet-careme']="#9200AC";
 $hexa['Vert']="076c11";
 $hexa['Rose']="ef9de4";
 $hexa['Noir']="000000";
@@ -290,7 +295,7 @@ $temporal['tempus'][$dd]="Tempus passionis";
 $temporal['couleur'][$dd]="Rouge";
 $hebviol=$palmis+$jour;
 $dd=date("Ymd", $hebviol);
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 
 $in_cena=$palmis+4*$jour;
 $dd=date("Ymd", $in_cena);
@@ -312,7 +317,7 @@ $sabbato_sancto=$in_passione+$jour;
 $dd=date("Ymd", $sabbato_sancto);
 $temporal['intitule'][$dd]="Sabbato Sancto";
 $temporal['priorite'][$dd]="1";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 /*
 $Y= substr($dd, 0, 4); //print"<br>$Y";
 $mois= substr($dd, 4, 2);//print"<br>$mois";
@@ -351,7 +356,7 @@ $quatre_quadragesima=mktime(12,0,0,$mois,$day,$Y);
 */
 $coul_quadragesima=$quatre_quadragesima+$jour;
 $dd=date("Ymd", $coul_quadragesima);
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 
 //$temporal['tempus'][$dd]="Tempus Quadragesimae";
 
@@ -363,7 +368,7 @@ $temporal['hp'][$dd]=3;
 $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada III Quadragesimae";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 //$temporal['tempus'][$dd]="Tempus Quadragesimae";
 
 $deux_quadragesima=$trois_quadragesima-$semaine;
@@ -375,7 +380,7 @@ $temporal['hp'][$dd]=2;
 $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada II Quadragesimae";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 //$temporal['tempus'][$dd]="Tempus Quadragesimae";
 $un_quadragesima=$deux_quadragesima-$semaine;
 $dd=date("Ymd", $un_quadragesima);
@@ -385,7 +390,7 @@ $temporal['hp'][$dd]=1;
 $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada I Quadragesimae";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 
 $cinerum=$un_quadragesima-4*$jour;
 $dd=date("Ymd", $cinerum);
@@ -394,12 +399,12 @@ $temporal['temporal'][$dd]="Feria IV Cinerum";
 $temporal['priorite'][$dd]="2";
 $temporal['hebdomada'][$dd]="";
 $temporal['tempus'][$dd]="Tempus Quadragesimae";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 $temporal['hp'][$dd]=4;
 $post_cineres=$cinerum+$jour;
 $dd=date("Ymd", $post_cineres);
 $temporal['hebdomada'][$dd]="Dies post Cineres";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-careme";
 
 
 $pa=date("Ymd", $paques);
@@ -517,7 +522,7 @@ $temporal['hp'][$dd]=4;
 $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada IV Adventus";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-avent";
 
 
 $trois_dim_avent=$quatre_dim_avent-$semaine;
@@ -531,7 +536,7 @@ $temporal['couleur'][$dd]="Rose";
 $temporal['hebdomada'][$dd]="Hebdomada III Adventus";
 $coul_adventus=$trois_dim_avent+$jour;
 $dd=date("Ymd", $coul_adventus);
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-avent";
 
 
 $deux_dim_avent=$trois_dim_avent-$semaine;
@@ -552,7 +557,7 @@ $temporal['1V'][$dd]=1;
 $temporal['priorite'][$dd]="2";
 $temporal['hebdomada'][$dd]="Hebdomada I Adventus";
 $temporal['tempus'][$dd]="Tempus Adventus";
-$temporal['couleur'][$dd]="Violet";
+$temporal['couleur'][$dd]="Violet-avent";
 $dnisuchrisitiunivregis=$un_dim_avent-$semaine;
 
 $entre_tempspascal_et_avent=$dnisuchrisitiunivregis-$sept_paques;
