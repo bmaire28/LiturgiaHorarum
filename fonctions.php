@@ -1,8 +1,8 @@
 <?php
 
 function rougis_verset($string) {
-$string1=str_replace("V/.", "<font color=red>V/.</font>",$string);
-$string2= str_replace("R/.", "<font color=red>R/.</font>",$string1);
+$string1=str_replace("V/.", "<span style=\"color:red\">V/. </span>",$string);
+$string2= str_replace("R/.", "<span style=\"color:red\">R/. </span>",$string1);
 return $string2;
 }
 
@@ -22,10 +22,10 @@ function respbrevis($ref) {
 	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $latin=$data[0];$francais=$data[1];
+	    $latin=epuration($data[0]);$francais=epuration($data[1]);
 	    if($row==0) {
-			$latin="<center><b><font color=red>$latin</font></b></center>";
-			$francais="<center><b><font color=red>$francais</font></b></center>";
+			$latin="<h2>$latin</h2>";
+			$francais="<h2>$francais</h2>";
 		}
 		else {
 			$latin="$latin";
@@ -51,8 +51,8 @@ function lectiobrevis($ref) {
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
 	    if($row==0) {
-			$latin="<center><b><font color=red>$latin</font></b></center>";
-			$francais="<center><b><font color=red>$francais</font></b></center>";
+			$latin="<h2>$latin</h2>";
+			$francais="<h2>$francais</h2>";
 		}
 		else {
 			$latin="$latin";
@@ -78,8 +78,8 @@ function preces($ref){
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
 	    if($row==0) {
-			$latin="<center><b><font color=red>$latin</font></b></center>";
-			$francais="<center><b><font color=red>$francais</font></b></center>";
+			$latin="<h2>$latin</h2>";
+			$francais="<h2>$francais</h2>";
 		}
 		else {
 			$latin="$latin";
@@ -107,8 +107,8 @@ function hymne($ref) {
 	while ($data = fgetcsv ($fp, 1000, ";")) {
     	$latin=$data[0];$francais=$data[1];
     	if($row==0) {
-			$latin="<center><b><font color=red>$latin</font></b></center>";
-			$francais="<center><b><font color=red>$francais</font></b></center>";
+			$latin="<h2>$latin</h2>";
+			$francais="<h2>$francais</h2>";
 			}
 		elseif ($latin=="") {
 			$latin="&nbsp; ";
@@ -136,20 +136,20 @@ $row = 0;
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    if (($row==0)&&($data[0]!="&nbsp;")) {
-			$latin="<b><center><font color=red>$data[0]</font></b></center>";
-			$francais="<b><center><font color=red>$data[1]</b></font></center>";
+			$latin="<h2>$data[0]</h2>";
+			$francais="<h2>$data[1]</h2>";
 	    }
 	    elseif (($row==1)&&($data[0]!="&nbsp;")) {
-	        $latin="<center><font color=red>$data[0]</font></center>";
-	        $francais="<center><font color=red>$data[1]</font></center>";
+	        $latin="<h3>$data[0]</h3>";
+	        $francais="<h3>$data[1]</h3>";
 	    }
 	    elseif (($row==2)&&($data[0]!="&nbsp;")) {
-	        $latin="<center><i>$data[0]</i></center>";
-	        $francais="<center><i>$data[1]</i></center>";
+	        $latin="<h4>$data[0]</h4>";
+	        $francais="<h4>$data[1]</h4>";
 	    }
 	    elseif (($row==3)&&($data[0]!="&nbsp;")) {
-	        $latin="<center><font color=red><b>$data[0]</b></font></center>";
-	        $francais="<center><font color=red><b>$data[1]</b></font></center>";
+	        $latin="<h2>$data[0]</h2>";
+	        $francais="<h2>$data[1]</h2>";
 	    }
 	    elseif($data[0]=="&nbsp;"){
 	    }
@@ -289,19 +289,23 @@ function affiche_nav($do,$office) {
 	$mois_aujourdhui=$mense=substr($date_aujourdhui,4,2);
 	
 	print"
-		<center><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a>|
-		<a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a>|
-		<a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a> |
-		<a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a> |
-		<a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a> |
-		<a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a> |
-		<a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a> |
-		<a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a> |
-		<a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a> |
-		<a href=\"index.php?date=$demain&amp;office=$office\"> >></a><br>
-		<a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a> <br>
-				<a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\">Revenir au jour pr&eacute;sent</a>
-		</center>";
+		<div style=\"text-align: center;\">
+			<p>
+			<ul>
+				<li><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a> | </li>
+				<li><a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a> | </li>
+				<li><a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a> | </li>
+				<li><a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a> | </li>
+				<li><a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a> | </li>
+				<li><a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a> | </li>
+				<li><a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a> | </li>
+				<li><a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a> | </li>
+				<li><a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a> | </li>
+				<li><a href=\"index.php?date=$demain&amp;office=$office\"> >></a></li>
+			</ul>
+			<p><a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a> </p>
+			<p><a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\">Revenir au jour pr&eacute;sent</a></p>
+		</div>";
 //<a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
 		
 }

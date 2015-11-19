@@ -72,20 +72,20 @@ $coul['Rose']="#FE00F9";
 $coul['Noir']="#000000";
 
 print"<div class=\"moduletable\">
-<h3>Calendarium liturgicum $anno</h3>
-<table style=\"text-align: center; width: 100px; height: 134px;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">
-  <tbody><tr>
-  <td><b>Do.</b></td>
-  <td>F.2</td>
-  <td>F.3</td>
-  <td>F.4</td>
-  <td>F.5</td>
-  <td>F.6</td>
-  <td>Sa.</td>
-  </tr>";
+<table style=\"text-align: center; width: 100px; height: 134px; border: 1px solid black; border-spacing: 1px; \"  >
+  <thead><tr>
+  <th><b>Do.</b></th>
+  <th>F.2</th>
+  <th>F.3</th>
+  <th>F.4</th>
+  <th>F.5</th>
+  <th>F.6</th>
+  <th>Sa.</th>
+  </tr>
+  	</thead><tbody>";
 
-	for ($u=0;$u<6;$u++) {
-    print"<tr>";
+for ($u=0;$u<6;$u++) {
+	print"<tr>";
     $f=$sem[$u][0];
     $jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
     $jour=date("Ymd",$jour_ts);
@@ -95,24 +95,22 @@ print"<div class=\"moduletable\">
     if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
 
     $titre=$calend['intitule'][$jour];
-      if($f!="")    print"<td style=\"width: 25px; background-color: $coloris; color:$couleur_fonte; text-align: center;  text-decoration: underline;\"><a style=\"color: #000000;\"  href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><font color=$couleur_fonte>$f</font></a></td>";
-		else print"<td style=\"width: 25px; color: #000000; text-align: center; text-decoration: underline;\"></td>";
+    if($f!="")    print"<td style=\"width: 25px; background-color: $coloris; color:$couleur_fonte; text-align: center;  text-decoration: underline;\"><a style=\"color: #000000;\"  href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><span style=\"color:$couleur_fonte \">$f</span></a></td>";
+    else print"<td style=\"width: 25px; color: #000000; text-align: center; text-decoration: underline;\"></td>";
 	for($n=1;$n<7;$n++) {
-	$f=$sem[$u][$n];
-    $jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
-    $jour=date("Ymd",$jour_ts);
-    $iff=$couleurs[$jour];
-    $coloris=$coul[$iff];
-    $couleur_fonte=$coul['Noir'];
-    if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
-
-    $titre=$calend['intitule'][$jour];
-	  if($f!="") print"<td style=\"width: 25px; background-color: $coloris; text-align: center;\"><a style=\"color: #000000;\" href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><font color=$couleur_fonte>$f</font></a></td>";
-        else print"<td style=\"width: 25px; text-align: center;  text-decoration: underline;\"></td>";
-
+		$f=$sem[$u][$n];
+		$jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
+		$jour=date("Ymd",$jour_ts);
+		$iff=$couleurs[$jour];
+		$coloris=$coul[$iff];
+		$couleur_fonte=$coul['Noir'];
+		if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
+		$titre=$calend['intitule'][$jour];
+		if($f!="") print"<td style=\"width: 25px; background-color: $coloris; text-align: center;\"><a style=\"color: #000000;\" href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><span style=\"color:$couleur_fonte \">$f</span></a></td>";
+		else print"<td style=\"width: 25px; text-align: center;  text-decoration: underline;\"></td>";
 	}
 }
-    print"
+    print"</tbody><tfoot>
     <tr>";
     $mois_moins=$mois_courant-1;
     $mois_plus=$mois_courant+1;
@@ -121,8 +119,8 @@ print"<div class=\"moduletable\">
       <td style=\"text-align: center;\" colspan=\"5\" rowspan=\"1\"><a href=\"index.php?mense=$mois_courant\">$mense</a></td>
       <td><a href=\"index.php?mois_courant=$mois_plus&amp;an=$anno\">&gt;&gt;</a></td>
     </tr>
-  </tbody>
-</table>
+  </tfoot>
+</table></div>
 ";
 
 }

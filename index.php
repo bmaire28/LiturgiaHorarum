@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML> 
 	<html>
 		
 <?php
@@ -56,27 +56,47 @@ $calendarium=calendarium($do,0);
 
 print "
 		<head>
-		<title>Liturgia Horarum, ".$datelatin."</title>
-		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>
+			<title>Liturgia Horarum, ".$datelatin."</title>
+			<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
+			<style>
+					h1 {color: black; text-align: center; font-weight: bold; font-size: medium; line-height: 16px}
+					h2 {color: red; text-align: center; font-weight: bold; font-size: medium; line-height: 16px}
+					h3 {color: red; text-align: center; font-weight: normal; font-size: medium; line-height: 16px}
+					h4 {color: black; text-align:center; font-weight: normal; font-style: italic; font-size: medium; line-height: 16px}
+					th {font-weight: normal; }
+					li {display: inline;}
+			</style>	
 		</head>
 		<body>
 		";
-
+/*
+ * Insérer une feuille de style :
+ * <link rel="stylesheet" type="text/css" href="mystyle.css">
+ * 
+ */
 	
 
 //// Tableau du haut
 if($task!="martyrologe") {
 	affiche_nav($do,$office);
-	print"<center><table bgcolor=#FEFEFE width=100%><tr><td><center>";
-	print"".$calendarium['hebdomada'][$do]."<br>";
+	print"<div style=\"text-align: center;\">
+			<table style=\" width: 100%; text-align: center;\"><tr><td style=\"width:50%\">";
+	print"<p>".$calendarium['hebdomada'][$do]."<br>";
 	print"".$datelatin."<br>";
-	print"Semaine du psautier : ".$calendarium['hebdomada_psalterium'][$do]."<br>";
-	if($calendarium['intitule'][$do]) print"<b>".$calendarium['intitule'][$do]."</b><br>";
-	if($calendarium['rang'][$do]) print"Rang : ".$calendarium['rang'][$do].", ";
-	print"Couleur : ".$calendarium['couleur_template'][$do]."<br>";
-	print"</center></td><td><center>";
+	print"Semaine du psautier : ".$calendarium['hebdomada_psalterium'][$do]."</p>";
+	if($calendarium['intitule'][$do]) print"<h1>".$calendarium['intitule'][$do]."</h1>";
+	if($calendarium['rang'][$do]) print"Rang : ".$calendarium['rang'][$do].",<br> ";
+	print"<p>Couleur : ".$calendarium['couleur_template'][$do]."</p>";
+	print"</td><td style=\" text-align: center; \">
+			<h1>Calendarium liturgicum $anno</h1>
+				<center>
+			";
 	print mod_calendarium($mense,$anno);
-	print"</center></td></tr></table></center>";
+	print"	</center>
+			</td>
+			</tr>
+			</table>
+			</div>";
 	}
 
 

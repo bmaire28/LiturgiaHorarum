@@ -241,7 +241,7 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 	$row++;
 }
 $max=$row;
-$laudes="<table bgcolor=#FEFEFE>";
+$laudes="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
@@ -261,27 +261,29 @@ for($row=0;$row<$max;$row++){
 			$pr_lat=$propre['jour']['latin'];
 			if (!$pr_lat) $pr_lat=$temp['jour']['latin'];
 			if($pr_lat){
-				$laudes.="<tr><td width=49%><center><b>$pr_lat</b></center></td>";
+				$laudes.="<tr><td width=49%><center><h1>$pr_lat</h1></center></td>";
 				$pr_fr=$propre['jour']['francais'];
-				$laudes.="<td width=49%><center><b>$pr_fr</b></center></td></tr>";
+				$laudes.="<td width=49%><center><h1>$pr_fr</h1></center></td></tr>";
 				$intitule_lat=$propre['intitule']['latin'];
 				$intitule_fr=$propre['intitule']['francais'];
-				$laudes.="<tr><td width=49%><center><b> $intitule_lat</b></center></td><td width=49%><center><b>$intitule_fr</b></center></td></tr>";
+				$laudes.="<tr><td width=49%><center><h1> $intitule_lat</h1></center></td>
+						<td width=49%><center><h1>$intitule_fr</h1></center></td></tr>";
 			}
 			if(!$rang_lat) {
 				$rang_lat=$propre['rang']['latin'];
 				$rang_fr=$propre['rang']['francais'];
 			}
 			if($pr_lat){
-				$laudes.="<tr><td width=49%><center><font color=red> $rang_lat</font></center></td><td width=49%><center><font color=red>$rang_fr</font></center></td></tr>";
-				$laudes.="<tr><td width=49%><center><font color=red><b>Ad Laudes matutinas</b></font></center></td>";
-				$laudes.="<td width=49%><b><center><font color=red><b>Aux Laudes du matin</b></font></center></td></tr>";
+				$laudes.="<tr><td width=49%><center><h3> $rang_lat</h3></center></td>
+						<td width=49%><center><h3>$rang_fr</h3></center></td></tr>";
+				$laudes.="<tr><td width=49%><center><h2>Ad Laudes matutinas</h2></center></td>";
+				$laudes.="<td width=49%><center><h2>Aux Laudes du matin</h2></center></td></tr>";
 				$oratiolat=$propre['oratio']['latin'];
 				$oratiofr=$propre['oratio']['francais'];
 			}
 			else {
-				$laudes.="<tr><td width=49%><center><font color=red><b>$date_l ad Laudes matutinas</b></font></center></td>";
-				$laudes.="<td width=49%><b><center><font color=red><b>$date_fr aux Laudes du matin</b></font></center></td></tr>";
+				$laudes.="<tr><td width=49%><center><h2>$date_l ad Laudes matutinas</h2></center></td>";
+				$laudes.="<td width=49%><center><h2>$date_fr aux Laudes du matin</h2></center></td></tr>";
 			}
 			break;
 		
@@ -294,19 +296,18 @@ for($row=0;$row<$max;$row++){
 			if($propre['ant1']['latin']) {
 				$antlat=nl2br($propre['ant1']['latin']);
 				$antfr=nl2br($propre['ant1']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 1 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 1</font> $antfr</td></tr>";
 			}
 			elseif ($temp['ant1']['latin']) {
 				$antlat=nl2br($temp['ant1']['latin']);
 				$antfr=nl2br($temp['ant1']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 1 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 1</font> $antfr</td></tr>";
 			}
 			else {
 				$antlat=$var['ant1']['latin'];
 				$antfr=$var['ant1']['francais'];
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 1 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 1</font> $antfr</td></tr>";
 			}
-			break;
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. 1 </span>$antlat</td>
+						<td id=\"coldroite\"><span style=\"color:red\">Ant. 1 </span> $antfr</td></tr>";
+						break;
 			
 		case "#PS1":
 			if($propre['ps1']['latin']) $psaume=$propre['ps1']['latin'];
@@ -320,36 +321,34 @@ for($row=0;$row<$max;$row++){
 			if($propre['ant1']['latin']) {
 				$antlat=nl2br($propre['ant1']['latin']);
 				$antfr=nl2br($propre['ant1']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 			}
 			elseif($temp['ant1']['latin']) {
 				$antlat=nl2br($temp['ant1']['latin']);
 				$antfr=nl2br($temp['ant1']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 			}
 			else {
 				$antlat=$var['ant1']['latin'];
 				$antfr=$var['ant1']['francais'];
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 			}
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. 1 </span>$antlat</td>
+						<td id=\"coldroite\"><span style=\"color:red\">Ant. 1 </span> $antfr</td></tr>";
 			break;
 		
 		case "#ANT2*":
 			if($propre['ant2']['latin']) {
 				$antlat=nl2br($propre['ant2']['latin']);
 				$antfr=nl2br($propre['ant2']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 2 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 2</font> $antfr</td></tr>";
 			}
 			elseif($temp['ant2']['latin']) {
 				$antlat=nl2br($temp['ant2']['latin']);
 				$antfr=nl2br($temp['ant2']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 2 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 2</font> $antfr</td></tr>";
 			}
 			else {
 				$antlat=$var['ant2']['latin'];
 				$antfr=$var['ant2']['francais'];
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 2 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 2</font> $antfr</td></tr>";
 			}
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. 2 </span>$antlat</td>
+						<td id=\"coldroite\"><span style=\"color:red\">Ant. 2 </span> $antfr</td></tr>";
 			break;
 		
 		case "#PS2":
@@ -364,18 +363,17 @@ for($row=0;$row<$max;$row++){
 			if($propre['ant2']['latin']) {
 				$antlat=nl2br($propre['ant2']['latin']);
 				$antfr=nl2br($propre['ant2']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 			}
 			elseif($temp['ant2']['latin']) {
 				$antlat=nl2br($temp['ant2']['latin']);
 				$antfr=nl2br($temp['ant2']['francais']);
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 			}
 			else {
 				$antlat=$var['ant2']['latin'];
 				$antfr=$var['ant2']['francais'];
-				$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
 			}
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. 2 </span>$antlat</td>
+						<td id=\"coldroite\"><span style=\"color:red\">Ant. 2 </span> $antfr</td></tr>";
 			break;
 		
 		case "#ANT3*":
@@ -391,7 +389,8 @@ for($row=0;$row<$max;$row++){
 				$antlat=$var['ant3']['latin'];
 				$antfr=$var['ant3']['francais'];
 			}
-			$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. 3 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. 3</font> $antfr</td></tr>";
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. 3 </span>$antlat</td>
+						<td id=\"coldroite\"><span style=\"color:red\">Ant. 3 </span> $antfr</td></tr>";
 			break;
 		
 		case "#PS3":
@@ -415,7 +414,8 @@ for($row=0;$row<$max;$row++){
 				$antlat=$var['ant3']['latin'];
 				$antfr=$var['ant3']['francais'];
 			}
-			$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. 3 </span>$antlat</td>
+						<td id=\"coldroite\"><span style=\"color:red\">Ant. 3 </span> $antfr</td></tr>";
 			break;
 		
 		case "#LB":
@@ -437,7 +437,8 @@ for($row=0;$row<$max;$row++){
 				$rblat=nl2br($var['RB_matin']['latin']);
 				$rbfr=nl2br($var['RB_matin']['francais']);
 			}
-			$laudes.="<tr><td id=\"colgauche\"><font color=red><center><b>Responsorium Breve</b></center></font></td><td id=\"coldroite\"><font color=red><center><b>R�pons bref</center></b></font></td></tr>
+			$laudes.="<tr><td id=\"colgauche\"><h2>Responsorium Breve</h2></td>
+					<td id=\"coldroite\"><h2>R&eacute;pons bref</h2></td></tr>
 	    		<tr><td id=\"colgauche\">$rblat</td><td id=\"coldroite\">$rbfr</td></tr>";
 			break;
 		
@@ -450,7 +451,8 @@ for($row=0;$row<$max;$row++){
 				if(!$benelat) $benelat=$var['benedictus']['latin'];
 				if(!$benefr) $benefr=$var['benedictus']['francais'];
 			}
-			$laudes.="<tr><td id=\"colgauche\"><font color=red>Ant. </font>$benelat</td><td id=\"coldroite\"><font color=red>Ant. </font> $benefr</td></tr>";
+			$laudes.="<tr><td id=\"colgauche\"><span style=\"color:red\">Ant. </span>$benelat</td>
+					<td id=\"coldroite\"><span style=\"color:red\">Ant. </span> $benefr</td></tr>";
 			break;
 		
 		case "#BENEDICTUS":
