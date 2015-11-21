@@ -114,14 +114,11 @@ function hymne($ref) {
 			$latin="&nbsp; ";
 			$francais="&nbsp; ";
 			}
-		else {
-			$latin="<center>$latin</center>";
-			$francais="<center>$francais</center>";
-			}
-    	$row++;
-    	$hymne.="<tr><td id=\"colgauche\">$latin</td><td id=\"coldroite\">$francais</td></tr>";
+		$row++;
+    	$hymne.="<tr><td id=\"colgauche\" style=\"text-align: center;\">$latin</td><td id=\"coldroite\" style=\"text-align: center;\">$francais</td></tr>";
 		}
 	fclose ($fp);
+	$hymne.="<tr><td id=\"colgauche\" style=\"text-align: center;\">&nbsp;</td><td id=\"coldroite\" style=\"text-align: center;\">&nbsp;</td></tr>";
 	return $hymne;
 }
 
@@ -289,8 +286,7 @@ function affiche_nav($do,$office) {
 	$mois_aujourdhui=$mense=substr($date_aujourdhui,4,2);
 	
 	print"
-		<div style=\"text-align: center;\">
-			<p>
+		<div id=\"navigation\">
 			<ul>
 				<li><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a> | </li>
 				<li><a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a> | </li>
@@ -305,7 +301,7 @@ function affiche_nav($do,$office) {
 			</ul>
 			<p><a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a> </p>
 			<p><a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\">Revenir au jour pr&eacute;sent</a></p>
-		</div>";
+		</div>";//div navigation
 //<a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
 		
 }

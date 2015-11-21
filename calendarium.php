@@ -71,7 +71,7 @@ $coul['Rose']="#FE00F9";
 //$coul['Rose']="#d1a8a8";
 $coul['Noir']="#000000";
 
-print"<div class=\"moduletable\">
+print"
 <table style=\"text-align: center; width: 100px; height: 134px; border: 1px solid black; border-spacing: 1px; \"  >
   <thead><tr>
   <th><b>Do.</b></th>
@@ -120,7 +120,7 @@ for ($u=0;$u<6;$u++) {
       <td><a href=\"index.php?mois_courant=$mois_plus&amp;an=$anno\">&gt;&gt;</a></td>
     </tr>
   </tfoot>
-</table></div>
+</table>
 ";
 
 }
