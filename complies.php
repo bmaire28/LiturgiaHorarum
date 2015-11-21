@@ -54,18 +54,7 @@ $jrdelasemaine=date("w",$day);
 $date_fr=$jours_fr[$jrdelasemaine];
 $date_l=$jours_l[$jrdelasemaine];
 
-/*
-$fp = fopen ("calendrier/liturgia/jours.csv","r");
 
-    while ($data = fgetcsv ($fp, 1000, ";")) {
-        $id=$data[0];$latin=$data[1];$francais=$data[2];
-        $jo[$id]['latin']=$latin;
-        $jo[$id]['francais']=$francais;
-        $row++;
-    }
-
-    fclose($fp);
-*/
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 $tomorow = $day+60*60*24;
@@ -171,7 +160,7 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 }
 
 $max=$row;
-$complies="<table bgcolor=#FEFEFE>";
+$complies="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$comp[$row]['latin'];
 	$fr=$comp[$row]['francais'];
@@ -190,21 +179,20 @@ for($row=0;$row<$max;$row++){
 
     switch ($lat) {
         case "#JOUR":
-            $complies.="<tr><td width=49%><center><font color=red><b>$date_l Completorium</b></font></center></td>";
-            $complies.="<td width=49%><b><center><font color=red><b>$date_fr Complies</b></font></center></td></tr>";
-            $complies.="<tr><td width=49%><center><font color=red> $rang_lat</font></center></td><td width=49%><center><font color=red>$rang_fr</font></center></td></tr>";
+            $complies.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l Completorium</h2></td>
+            		<td style=\"width: 49%; text-align: center;\"><h2>$date_fr Complies</h2></td></tr>";
+            if ($rang_lat){
+            	$complies.="<tr><td style=\"width: 49%; text-align: center;\"><h3>$rang_lat</h3></td>
+            		<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
+            }            
             break; //fin du case #JOUR
-
-
 
         case "#HYMNUS":
         	switch ($tem) {
                 case "Tempus Paschale":
                     $complies.=hymne("hy_Iesu, redémptor");
                     break;
-
-
-
+                
                 case "Tempus Quadragesimae":
                 case "Tempus per annum":
                 	switch ($calendarium['hebdomada_psalterium'][$jour]) {
@@ -218,7 +206,7 @@ for($row=0;$row<$max;$row++){
                             break;
                     }
                     break;
-
+                
                 case "Tempus Adventus":
                     $seizedec=mktime(12,0,0,12,16,$anno);
                     if($day<=$seizedec) {
@@ -240,7 +228,7 @@ for($row=0;$row<$max;$row++){
                     }
                     else{
                         $complies.=hymne("hy_Christe, qui, splendor");
-                   }
+                    }
                     break;
 
             } //fin du switch $tem
@@ -254,9 +242,8 @@ for($row=0;$row<$max;$row++){
             $antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
         }
 
-       $complies.="
-        <tr>
-    <td id=\"colgauche\"><font color=red>Ant. 1</font> $antlat</td><td id=\"coldroite\"><font color=red>Ant.1</font> $antfr</td></tr>";
+       $complies.="<tr><td><p><span style=\"color:red\">Ant. 1 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 1 </span> $antfr</p></td></tr>";
         break; //fin du case #ANT1*
 
     case "#PS1":
@@ -272,9 +259,8 @@ for($row=0;$row<$max;$row++){
             $antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
 
         }
-        $complies.="
-        <tr>
-    <td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
+       $complies.="<tr><td><p><span style=\"color:red\">Ant. 1 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 1 </span> $antfr</p></td></tr>";
         break; //fin du case #ANT1
 
     case "#ANT2*":
@@ -293,9 +279,8 @@ for($row=0;$row<$max;$row++){
                 $antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
             	$antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
             }
-        $complies.="
-        <tr>
-    <td id=\"colgauche\"><font color=red>Ant.2 </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant.2 </font> $antfr</td></tr>";
+       $complies.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
         }
         break; //fin du case #ANT2*
     case  "#PS2":
@@ -311,9 +296,8 @@ for($row=0;$row<$max;$row++){
                 $antlat="Allel&uacute;ia, allel&uacute;ia, allel&uacute;ia.";
             	$antfr="All&eacute;luia, all&eacute;luia, all&eacute;luia.";
             }
-            $complies.="
-        <tr>
-    <td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
+       $complies.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
         }
         break; //fin du case #ANT2
 
@@ -331,12 +315,9 @@ for($row=0;$row<$max;$row++){
         $rblat=nl2br($var['RB_comp']['latin']);
         $rbfr=nl2br($var['RB_comp']['francais']);
         }
-        $complies.="
-        <tr>
-    <td id=\"colgauche\"><font color=red><center><b>Responsorium Breve</b></center></font></td><td id=\"coldroite\"><font color=red><center><b>R&eacute;pons bref</center></b></font></td></tr>
-<tr>
-    <td id=\"colgauche\">$rblat</td><td id=\"coldroite\">$rbfr</td></tr>
-    ";
+        $complies.="<tr><td><h2>Responsorium Breve</h2></td>
+        		<td><h2>R&eacute;pons bref</h2></td></tr>
+        		<tr><td>$rblat</td><td>$rbfr</td></tr>";
         break; //fin du case #RB
 
     case "#ANT_NUNCD":
@@ -346,13 +327,14 @@ for($row=0;$row<$max;$row++){
             $magniflat.=" allel&uacute;ia." ;
             $magniffr.=" all&eacute;luia." ;
         }
-        $complies.="
-        <tr>
-    <td id=\"colgauche\"><font color=red>Ant. </font>$magniflat</td><td id=\"coldroite\"><font color=red>Ant. </font> $magniffr</td></tr>";
+        $complies.="<tr><td><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>
+        		<td><p><span style=\"color:red\">Ant. </span> $magniffr</p></td></tr>";
         break; //fin du case #ANT_NUNCD
+        
     case "#NUNCDIMITTIS":
         $complies.=psaume("nuncdimittis");
         break; //fin du case #NUNCDIMITTIS
+        
     case "#ORATIO":
         if (!$oratiolat) {
             $oratiolat=$var['oratio_vesperas']['latin'];
@@ -364,9 +346,7 @@ for($row=0;$row<$max;$row++){
             $oratiofr="Notre voix te supplie humblement, Seigneur. Nous avons c&eacute;l&eacute;br&eacute; aujourd'hui le myst&egrave;re de la r&eacute;surrection du Seigneur : fais-nous reposer dans ta paix &agrave; l'abri de tout mal, et nous relever pour chanter joyeusement ta louange. Par le Christ notre Seigneur.";
             }
 
-        $complies.="
-        <tr>
-    <td id=\"colgauche\">$oratiolat</td><td id=\"coldroite\">$oratiofr</td></tr>";
+        $complies.="<tr><td>$oratiolat</td><td>$oratiofr</td></tr>";
         break; //fin du case #ORATIO
 
     case "#ANT_MARIALE":
@@ -421,9 +401,7 @@ for($row=0;$row<$max;$row++){
         break; //fin du case #ANT_MARIALE
 
     default :
-         $complies.="
-    <tr>
-    <td id=\"colgauche\">$lat</td><td id=\"coldroite\">$fr</td></tr>";
+         $complies.="<tr><td>$lat</td><td>$fr</td></tr>";
         break; //fin default
     } // fin switch $lat
 } // fin boucle for
@@ -433,5 +411,4 @@ $complies= rougis_verset ($complies);
 
 return $complies;
 }
-
 ?>

@@ -192,127 +192,108 @@ if($calendarium['temporal'][$jour]) {
 
 	}
 
- 	$max=$row;
-	$none="
-	<table bgcolor=#FEFEFE>";
-	for($row=0;$row<$max;$row++){
-	    $lat=$lau[$row]['latin'];
-	    $fr=$lau[$row]['francais'];
-	    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
-			$lat="";
-			$fr="";
-			}
-			if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")){
-				$lat="";
-				$fr="";
-			}
+$max=$row;
+$none="<table>";
+for($row=0;$row<$max;$row++){
+	$lat=$lau[$row]['latin'];
+	$fr=$lau[$row]['francais'];
+	if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
+		$lat="";
+		$fr="";
+	}
+	if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")){
+		$lat="";
+		$fr="";
+	}
 	if($lat=="#JOUR") {
-	    $pr_lat=$propre['jour']['latin'];
-	    if($pr_lat){
-            $none.="<tr><td width=49%><center><b>$pr_lat</b></center></td>";
+		$pr_lat=$propre['jour']['latin'];
+		if($pr_lat){
             $pr_fr=$propre['jour']['francais'];
-        $none.="<td width=49%><center><b>$pr_fr</b></center></td></tr>";
-        $intitule_lat=$propre['intitule']['latin'];
-        $intitule_fr=$propre['intitule']['francais'];
-        $none.="<tr><td width=49%><center><b> $intitule_lat</b></center></td><td width=49%><center><b>$intitule_fr</b></center></td></tr>";
-        $rang_lat=$propre['rang']['latin'];
-        $rang_fr=$propre['rang']['francais'];
-        $none.="<tr><td width=49%><center><font color=red> $rang_lat</font></center></td><td width=49%><center><font color=red>$rang_fr</font></center></td></tr>";
-        $none.="<tr><td width=49%><center><font color=red><b>Ad Nonam</b></font></center></td>";
-		$none.="<td width=49%><b><center><font color=red><b>A None</b></font></center></td></tr>";
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>
+            		<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
+            $intitule_lat=$propre['intitule']['latin'];
+            $intitule_fr=$propre['intitule']['francais'];
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\"> $intitule_lat</p></td>
+            		<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
+            $rang_lat=$propre['rang']['latin'];
+            $rang_fr=$propre['rang']['francais'];
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><h3>$rang_lat</h3></td>
+            		<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Nonam</h2></td>
+            		<td style=\"width: 49%; text-align: center;\"><h2>A None</h2></td></tr>";
 		}
-  		else {
-  		$l=$jo[$jrdelasemaine]['latin'];
-	    $f=$jo[$jrdelasemaine]['francais'];
-		$none.="<tr><td width=49%><center><font color=red><b>$date_l ad Nonam.</b></font></center></td>";
-		$none.="<td td width=49%><b><center><font color=red><b>$date_fr &agrave; None.</b></font></center></td></tr>";
-			}
+		else {
+			$l=$jo[$jrdelasemaine]['latin'];
+			$f=$jo[$jrdelasemaine]['francais'];
+			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Nonam.</h2></td>
+					<td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; None.</h2></td></tr>";
+		}
 	}
-
-
+	
 	elseif($lat=="#HYMNUS_nonam") {
-
-	    //$mediahora.=hymne("hy_�t�rne_rerum_c�nditor");
-	    if(!$hymne9)$hymne9=$var['HYMNUS_nonam']['latin'];
-	    $none.=hymne($hymne9);
-
-	    //$row++;
+		if(!$hymne9)$hymne9=$var['HYMNUS_nonam']['latin'];
+		$none.=hymne($hymne9);
 	}
-
-
+	
 	elseif($lat=="#ANT1*"){
-	if($propre['ant4']['latin']) {
-	        $antlat=nl2br($propre['ant4']['latin']);
+		if($propre['ant4']['latin']) {
+			$antlat=nl2br($propre['ant4']['latin']);
 	    	$antfr=nl2br($propre['ant4']['francais']);
-	}
-	elseif($temp['ant4']['latin']) {
-	        $antlat=nl2br($temp['ant4']['latin']);
+		}
+		elseif($temp['ant4']['latin']) {
+			$antlat=nl2br($temp['ant4']['latin']);
 	    	$antfr=nl2br($temp['ant4']['francais']);
-	}
-	else {
-
-
-	    $antlat=$var['ant4']['latin'];
-	    $antfr=$var['ant4']['francais'];
-	}
-	    $none.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. 1 </font> $antlat</td><td id=\"coldroite\"><font color=red>Ant. 1 </font> $antfr</td></tr>";
-	    //$row++;
-
+		}
+		else {
+			$antlat=$var['ant4']['latin'];
+			$antfr=$var['ant4']['francais'];
+		}
+		$none.="<tr><td><p><span style=\"color:red\">Ant. 1 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 1 </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#PS1"){
 	    $psaume="ps125";
 	    $none.=psaume($psaume);
-	    //$row++;
 	}
 
 	elseif($lat=="#ANT1"){
-
-	    if($propre['ant4']['latin']) {
-	        $antlat=nl2br($propre['ant4']['latin']);
+		if($propre['ant4']['latin']) {
+			$antlat=nl2br($propre['ant4']['latin']);
 	    	$antfr=nl2br($propre['ant4']['francais']);
 	    }
 	    elseif($temp['ant4']['latin']) {
 	        $antlat=nl2br($temp['ant4']['latin']);
 	    	$antfr=nl2br($temp['ant4']['francais']);
 		}
-	else {
-	    $antlat=$var['ant4']['latin'];
-	    $antfr=$var['ant4']['francais'];
-	}
-	    $none.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font>$antfr</td></tr>";
-	    //$row++;
-
+		else {
+			$antlat=$var['ant4']['latin'];
+			$antfr=$var['ant4']['francais'];
+		}
+		$none.="<tr><td><p><span style=\"color:red\">Ant. 1 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 1 </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#ANT2*"){
-	    if($propre['ant5']['latin']) {
-	        $antlat=nl2br($propre['ant5']['latin']);
+		if($propre['ant5']['latin']) {
+			$antlat=nl2br($propre['ant5']['latin']);
 	    	$antfr=nl2br($propre['ant5']['francais']);
 	    }
 	    elseif($temp['ant5']['latin']) {
 	        $antlat=nl2br($temp['ant5']['latin']);
 	    	$antfr=nl2br($temp['ant5']['francais']);
-	}
-	else {
-	    $antlat=$var['ant5']['latin'];
-	    $antfr=$var['ant5']['francais'];
-	}
-	    $none.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. 2 </font> $antlat</td><td id=\"coldroite\"><font color=red>Ant. 2 </font> $antfr</td></tr>";
-	    //$row++;
-
+	    }
+	    else {
+	    	$antlat=$var['ant5']['latin'];
+	    	$antfr=$var['ant5']['francais'];
+	    }
+		$none.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#PS2"){
 	    $psaume="ps126";
 	    $none.=psaume($psaume);
-	    //$row++;
 	}
 
  	elseif($lat=="#ANT2"){
@@ -323,17 +304,14 @@ if($calendarium['temporal'][$jour]) {
 	    elseif($temp['ant5']['latin']) {
 	        $antlat=nl2br($temp['ant5']['latin']);
 	    	$antfr=nl2br($temp['ant5']['francais']);
-	}
-	else {
-	    $antlat=$var['ant4']['latin'];
-	    $antfr=$var['ant4']['francais'];
-	}
-	    $none.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
-	    //$row++;
-
-	}
+	    }
+	    else {
+	    	$antlat=$var['ant4']['latin'];
+	    	$antfr=$var['ant4']['francais'];
+	    }
+		$none.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
+ 	}
 
 	elseif($lat=="#ANT3*"){
 	    if($propre['ant6']['latin']) {
@@ -344,22 +322,17 @@ if($calendarium['temporal'][$jour]) {
 	        $antlat=nl2br($temp['ant6']['latin']);
 	    	$antfr=nl2br($temp['ant6']['francais']);
 	    }
-
-	else {
-	    $antlat=$var['ant6']['latin'];
-	    $antfr=$var['ant6']['francais'];
-	}
-	    $none.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. 3</font> $antlat</td><td id=\"coldroite\"><font color=red>Ant. 3</font> $antfr</td></tr>";
-	    //$row++;
-
+	    else {
+	    	$antlat=$var['ant6']['latin'];
+	    	$antfr=$var['ant6']['francais'];
+	    }
+		$none.="<tr><td><p><span style=\"color:red\">Ant. 3 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 3 </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#PS3"){
 	    $psaume="ps127";
 	    $none.=psaume($psaume);
-	    //$row++;
 	}
 
  	elseif($lat=="#ANT3"){
@@ -371,17 +344,13 @@ if($calendarium['temporal'][$jour]) {
 	        $antlat=nl2br($temp['ant6']['latin']);
 	    	$antfr=nl2br($temp['ant6']['francais']);
 	    }
-	else {
-	    $antlat=$var['ant6']['latin'];
-	    $antfr=$var['ant6']['francais'];
-	}
-	    $none.="
-	    <tr>
-	<td id=\"colgauche\"><font color=red>Ant. </font>$antlat</td><td id=\"coldroite\"><font color=red>Ant. </font> $antfr</td></tr>";
-	    //$row++;
-
-	}
-
+	    else {
+	    	$antlat=$var['ant6']['latin'];
+	    	$antfr=$var['ant6']['francais'];
+	    }
+		$none.="<tr><td><p><span style=\"color:red\">Ant. 3 </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. 3 </span> $antfr</p></td></tr>";
+ 	}
 
  	elseif($lat=="#LB_9"){
 	    if ($propre['LB_9']['latin']) $lectiobrevis=$propre['LB_9']['latin'];
@@ -389,6 +358,7 @@ if($calendarium['temporal'][$jour]) {
 	    else $lectiobrevis=$var['LB_9']['latin'];
 	    $none.=lectiobrevis($lectiobrevis);
 	}
+	
 	elseif($lat=="#RB_9"){
 	    if ($propre['RB_9']['latin']) {
 	        $rblat=nl2br($propre['RB_9']['latin']);
@@ -399,17 +369,11 @@ if($calendarium['temporal'][$jour]) {
 	        $rbfr=nl2br($temp['RB_9']['francais']);
 	    }
 	    else {
-	    $rblat=nl2br($var['RB_9']['latin']);
-	    $rbfr=nl2br($var['RB_9']['francais']);
+	    	$rblat=nl2br($var['RB_9']['latin']);
+	    	$rbfr=nl2br($var['RB_9']['francais']);
 	    }
-	    $none.="<tr><td id=\"colgauche\">$rblat</td><td id=\"coldroite\">$rbfr</td></tr>";
-
-	    //$row++;
-		//$laudes.=respbrevis("resp_breve_Christe_Fili_Dei_vivi");
+	    $none.="<tr><td>$rblat</td><td>$rbfr</td></tr>";
 	}
-
-
-
 
 	elseif($lat=="#ORATIO_9"){
 	    if ($propre['oratio']['latin']) {
@@ -417,15 +381,14 @@ if($calendarium['temporal'][$jour]) {
 	    	$oratio9fr=$propre['oratio']['francais'];
 	    }
 	    else {
-	    if(!$oratiolat)$oratio9lat=$var['oratio_9']['latin'];
-	    if(!$oratiofr)$oratio9fr=$var['oratio_9']['francais'];
-	    if($oratiolat) {
-		    $oratio9lat=$oratiolat;
-			$oratio9fr=$oratiofr;
-		}
+	    	if(!$oratiolat)$oratio9lat=$var['oratio_9']['latin'];
+	    	if(!$oratiofr)$oratio9fr=$var['oratio_9']['francais'];
+	    	if($oratiolat) {
+	    		$oratio9lat=$oratiolat;
+	    		$oratio9fr=$oratiofr;
+	    	}
 	    }
-	    
-		    switch (substr($oratio9lat,-6)){
+	    switch (substr($oratio9lat,-6)){
 	    	case "istum." :
 	    		$oratio9lat=str_replace(" Per Christum.", " Per Christum D&oacute;minum nostrum.",$oratio9lat);
 	    		$oratio9fr.=" Par le Christ notre Seigneur.";	    		
@@ -447,28 +410,14 @@ if($calendarium['temporal'][$jour]) {
 	    		$oratio9fr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
 	    }
-	    
-	    $none.="
-	    <tr>
-	    <td>Oremus</td><td>Prions</td></tr>
-	    <tr>
-	<td id=\"colgauche\">$oratio9lat</td><td id=\"coldroite\">$oratio9fr</td></tr>";
-	    //$row++;
+	    $none.="<tr><td>Oremus</td><td>Prions</td></tr>
+	    		<tr><td>$oratio9lat</td><td>$oratio9fr</td></tr>";
 	}
-
-
-
-	else $none.="
-	<tr>
-	<td id=\"colgauche\">$lat</td><td id=\"coldroite\">$fr</td></tr>";
-	}
-	$none.="</table>";
-	$none= rougis_verset ($none);
-
-	return $none;
-
+	
+	else $none.="<tr><td>$lat</td><td>$fr</td></tr>";
 }
-
-
-
+$none.="</table>";
+$none= rougis_verset ($none);
+return $none;
+}
 ?>
