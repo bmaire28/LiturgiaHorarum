@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML> 
 	<html>
-		
 <?php
 //liturgia_horarum Component//
 /**
@@ -54,34 +53,59 @@ $demain=date("Ymd",$dtsplusun);
 $calendarium=calendarium($do,0);
 //print_r("initialisation du calendrier <br>");
 
-print "
-		<head>
-		<title>Liturgia Horarum, ".$datelatin."</title>
-		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>
+print "		<head>
+			<title>Liturgia Horarum, ".$datelatin."</title>
+			<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
+			<style>
+					h1 {color: black; text-align: center; font-weight: bold; font-size: medium; line-height: 16px}
+					h2 {color: red; text-align: center; font-weight: bold; font-size: medium; line-height: 16px}
+					h3 {color: red; text-align: center; font-weight: normal; font-size: medium; line-height: 16px}
+					h4 {color: black; text-align:center; font-weight: normal; font-style: italic; font-size: medium; line-height: 16px}
+					h5 {color: red; font-weight: normal; font-size: smaller; line-height: 5px}
+					th {font-weight: normal; }
+					li {display: inline;}
+					#tete, #pied, #ordo, #calendrier, #hymnus, #hymne, #jour, #die {text-align: center;}
+					#ordo, #latin, #hymnus, #die {float: left; width: 50%;}
+					#calendrier, #francais, #hymne, #jour {margin-left: 50%; width: 50%;}
+			</style>	
 		</head>
 		<body>
 		";
-
+/*
+ * Ins�rer une feuille de style :
+ * <link rel="stylesheet" type="text/css" href="mystyle.css">
+ * 
+ */
 	
 
 //// Tableau du haut
 if($task!="martyrologe") {
-	affiche_nav($do,$office);
-	print"<center><table bgcolor=#FEFEFE width=100%><tr><td><center>";
-	print"".$calendarium['hebdomada'][$do]."<br>";
-	print"".$datelatin."<br>";
-	print"Semaine du psautier : ".$calendarium['hebdomada_psalterium'][$do]."<br>";
-	if($calendarium['intitule'][$do]) print"<b>".$calendarium['intitule'][$do]."</b><br>";
-	if($calendarium['rang'][$do]) print"Rang : ".$calendarium['rang'][$do].", ";
-	print"Couleur : ".$calendarium['couleur_template'][$do]."<br>";
-	print"</center></td><td><center>";
+	print "<header>
+		";
+	affiche_nav($do,$office,"tete");
+	print"<div id=\"ordo\">";
+		print"<p>".$calendarium['hebdomada'][$do]."<br/>";
+		print"".$datelatin."<br>";
+		print"Semaine du psautier : ".$calendarium['hebdomada_psalterium'][$do]."</p>";
+		if($calendarium['intitule'][$do]) print"<h1>".$calendarium['intitule'][$do]."</h1>";
+		print "<p>";
+		if($calendarium['rang'][$do]) print"Rang : ".$calendarium['rang'][$do].",<br> ";
+		print"Couleur : ".$calendarium['couleur_template'][$do]."</p>";
+	print"</div>";//div ordo
+	print "
+			<div id=\"calendrier\">
+			<h1>Calendarium liturgicum $anno</h1>";
 	print mod_calendarium($mense,$anno);
-	print"</center></td></tr></table></center>";
+	print"	</div>
+			</header>
+			";
 	}
 
 
 //// Heure de l'Office � afficher
 
+print "
+		<section>";
 switch($office){
 	case "laudes" :
 		print epuration(laudes($do,$calendarium,$my));
@@ -115,9 +139,15 @@ switch($office){
 		print epuration(messe($do,$calendarium,$my));
 	break;
 }
-
-affiche_nav($do,$office);
+print "
+		</section>";
+print "
+		<footer>";
+affiche_nav($do,$office,"pied");
+print "
+		</footer>
+";
 
 ?>
-</body>
+	</body>
 </html>
