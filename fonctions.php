@@ -8,8 +8,7 @@ return $string2;
 
 function epuration($string) {
 	$string1=str_replace(chr(146),"'",$string);
-	$string2= str_replace("�", "&oelig;",$string1);
-	return utf8_encode($string2);
+	return utf8_encode($string1);
 }
 
 
@@ -33,7 +32,7 @@ function respbrevis($ref) {
 		}
 	    $row++;
 	    $resp.="
-		<tr><td id=\"colgauche\">$latin</td><td id=\"coldroite\">$francais</td></tr>";
+		<tr><td>$latin</td><td>$francais</td></tr>";
 	}
 	fclose ($fp);
 	return $resp;
@@ -60,7 +59,7 @@ function lectiobrevis($ref) {
 		}
 	    $row++;
 	    $lectio.="
-		<tr><td id=\"colgauche\">$latin</td><td id=\"coldroite\">$francais</td></tr>";
+		<tr><td>$latin</td><td>$francais</td></tr>";
 	}
 	fclose ($fp);
 	return $lectio;
@@ -87,7 +86,7 @@ function preces($ref){
 		}
 	    $row++;
 	    $preces.="
-		<tr><td id=\"colgauche\">$latin</td><td id=\"coldroite\">$francais</td></tr>";
+		<tr><td>$latin</td><td>$francais</td></tr>";
 	}
 	fclose ($fp);
 	return $preces;
@@ -115,16 +114,16 @@ function hymne($ref) {
 			$francais="&nbsp; ";
 			}
 		$row++;
-    	$hymne.="<tr><td id=\"colgauche\" style=\"text-align: center;\">$latin</td><td id=\"coldroite\" style=\"text-align: center;\">$francais</td></tr>";
+    	$hymne.="<tr><td  style=\"text-align: center;\">$latin</td><td  style=\"text-align: center;\">$francais</td></tr>";
 		}
 	fclose ($fp);
-	$hymne.="<tr><td id=\"colgauche\" style=\"text-align: center;\">&nbsp;</td><td id=\"coldroite\" style=\"text-align: center;\">&nbsp;</td></tr>";
+	$hymne.="<tr><td  style=\"text-align: center;\">&nbsp;</td><td  style=\"text-align: center;\">&nbsp;</td></tr>";
 	return $hymne;
 }
 
 
 function psaume($ref) {
-$row = 0;
+	$row = 0;
 	// Cr�ation du chemin relatif vers le fichier du psaume de fa�on brut
 	$fichier="psautier/".$ref.".csv";
 	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
@@ -132,34 +131,35 @@ $row = 0;
 	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    if (($row==0)&&($data[0]!="&nbsp;")) {
+		$latin="";
+	    if (($row==0)&&($data[0]!="")) {
 			$latin="<h2>$data[0]</h2>";
 			$francais="<h2>$data[1]</h2>";
 	    }
-	    elseif (($row==1)&&($data[0]!="&nbsp;")) {
-	        $latin="<h3>$data[0]</h3>";
+	    elseif (($row==1)&&($data[0]!="")) {
+			$latin="<h3>$data[0]</h3>";
 	        $francais="<h3>$data[1]</h3>";
 	    }
-	    elseif (($row==2)&&($data[0]!="&nbsp;")) {
-	        $latin="<h4>$data[0]</h4>";
-	        $francais="<h4>$data[1]</h4>";
+	    elseif (($row==2)&&($data[0]!="")) {
+			$lat=$data[0];
+	    	$fr=$data[1];
+	    	$latin="<h4>$lat</h4>";
+	        $francais="<h4>$fr</h4>";
 	    }
-	    elseif (($row==3)&&($data[0]!="&nbsp;")) {
-	        $latin="<h2>$data[0]</h2>";
+	    elseif (($row==3)&&($data[0]!="")) {
+			$latin="<h2>$data[0]</h2>";
 	        $francais="<h2>$data[1]</h2>";
 	    }
-	    elseif($data[0]=="&nbsp;"){
-	    }
 	    else {
-	    $latin=$data[0];
-	    $francais=$data[1];
+	    	$latin=$data[0];
+	    	$francais=$data[1];
 	    }
-  	$psaume .="
-	<tr>
-	<td id=\"colgauche\">$latin</td>
-	<td id=\"coldroite\">$francais</td>
-	</tr>";
-  	$row++;
+	    $psaume .="
+	    			<tr>
+	    				<td>$latin</td>
+	    				<td>$francais</td>
+	    			</tr>";
+	    $row++;
 	}
 	fclose ($fp);
 	return $psaume;
@@ -241,7 +241,7 @@ mode : \"textareas\",
 }
 
 
-function affiche_nav($do,$office) {
+function affiche_nav($do,$office,$place) {
 	$offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
 	for($o=0;$offices[$o];$o++) {
 		if ($office==$offices[$o]) {
@@ -285,8 +285,9 @@ function affiche_nav($do,$office) {
 	$annee_aujourdhui=substr($date_aujourdhui,0,4);
 	$mois_aujourdhui=$mense=substr($date_aujourdhui,4,2);
 	
+	
 	print"
-		<div id=\"navigation\">
+		<div id=\"$place\">
 			<ul>
 				<li><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a> | </li>
 				<li><a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a> | </li>

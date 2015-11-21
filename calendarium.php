@@ -72,7 +72,7 @@ $coul['Rose']="#FE00F9";
 $coul['Noir']="#000000";
 
 print"
-<table style=\"text-align: center; width: 100px; height: 134px; border: 1px solid black; border-spacing: 1px; \"  >
+<table style=\"text-align: center; width: 100px; height: 134px; border: 1px solid black; border-spacing: 1px; margin: auto; \"  >
   <thead><tr>
   <th><b>Do.</b></th>
   <th>F.2</th>

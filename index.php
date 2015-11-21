@@ -61,9 +61,10 @@ print "		<head>
 					h2 {color: red; text-align: center; font-weight: bold; font-size: medium; line-height: 16px}
 					h3 {color: red; text-align: center; font-weight: normal; font-size: medium; line-height: 16px}
 					h4 {color: black; text-align:center; font-weight: normal; font-style: italic; font-size: medium; line-height: 16px}
+					h5 {color: red; font-weight: normal; font-size: smaller; line-height: 5px}
 					th {font-weight: normal; }
 					li {display: inline;}
-					#navigation, #ordo, #calendrier, #hymnus, #hymne, #jour, #die {text-align: center;}
+					#tete, #pied, #ordo, #calendrier, #hymnus, #hymne, #jour, #die {text-align: center;}
 					#ordo, #latin, #hymnus, #die {float: left; width: 50%;}
 					#calendrier, #francais, #hymne, #jour {margin-left: 50%; width: 50%;}
 			</style>	
@@ -81,7 +82,7 @@ print "		<head>
 if($task!="martyrologe") {
 	print "<header>
 		";
-	affiche_nav($do,$office);
+	affiche_nav($do,$office,"tete");
 	print"<div id=\"ordo\">";
 		print"<p>".$calendarium['hebdomada'][$do]."<br/>";
 		print"".$datelatin."<br>";
@@ -93,11 +94,9 @@ if($task!="martyrologe") {
 	print"</div>";//div ordo
 	print "
 			<div id=\"calendrier\">
-			<h1>Calendarium liturgicum $anno</h1>
-				<center>";
+			<h1>Calendarium liturgicum $anno</h1>";
 	print mod_calendarium($mense,$anno);
-	print"	</center>
-			</div>
+	print"	</div>
 			</header>
 			";
 	}
@@ -144,7 +143,7 @@ print "
 		</section>";
 print "
 		<footer>";
-affiche_nav($do,$office);
+affiche_nav($do,$office,"pied");
 print "
 		</footer>
 ";
