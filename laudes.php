@@ -144,7 +144,9 @@ switch ($tem) {
         return;
         break;
 }
-$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
+$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$latin=$data[1];$francais=$data[2];
 	$var[$id]['latin']=$latin;
@@ -157,7 +159,9 @@ fclose($fp);
  * Chargement du psautier du jour
  */
 
-$fp=fopen("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
+$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$ref=$data[1];
 	$reference[$id]=$ref;
@@ -173,7 +177,9 @@ fclose($fp);
 
 if($calendarium['rang'][$jour]) {
 	$prop=$mense.$die;
-	$fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
+	$fichier="propres_r/sanctoral/".$prop.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 	    $propre[$id]['latin']=$data[1];
@@ -195,7 +201,9 @@ if($calendarium['rang'][$jour]) {
 
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
-	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	$fichier="propres_r/temporal/".$tempo.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 	    $temp[$id]['latin']=$data[1];

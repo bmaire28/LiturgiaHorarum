@@ -18,7 +18,7 @@ function respbrevis($ref) {
 	$fichier="calendrier/liturgia/".$ref.".csv";
 	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
-	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=epuration($data[0]);$francais=epuration($data[1]);
@@ -45,7 +45,7 @@ function lectiobrevis($ref) {
 	$fichier="lectionnaire/".$ref.".csv";
 	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="lectionnaire/".utf8_encode($ref).".csv";
-	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
@@ -72,7 +72,7 @@ function preces($ref){
 	$fichier="preces/".$ref.".csv";
 	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="preces/".utf8_encode($ref).".csv";
-	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $latin=$data[0];$francais=$data[1];
@@ -101,7 +101,7 @@ function hymne($ref) {
 	$fichier="hymnaire/".$ref.".csv";
 	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="hymnaire/".utf8_encode($ref).".csv";
-	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
     	$latin=$data[0];$francais=$data[1];
@@ -128,7 +128,7 @@ function psaume($ref) {
 	$fichier="psautier/".$ref.".csv";
 	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="psautier/".utf8_encode($ref).".csv";
-	if (!file_exists($fichier)) print_r($fichier." introuvable ! <br>");
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$latin="";

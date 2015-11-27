@@ -4,7 +4,8 @@ ant2;Montes et colles cantábunt coram Deo laudem,et ómnia ligna silvárum plauden
 ant3;Ecce véniet Prophéta magnus, et ipse renovábitIerúsalem, allelúia.;Voici l'avènement du grand Prophète, ilrenouvellera Jérusalem, alléluia.
 LB_matin;LB_Rom 13, 11-12;
 RB_matin;"R/. Christe, Fili Dei vivi, * Miserére nobis. Christe.
-V/. Qui ventúrus es in mundum. * Miserére nobis. Glória Patri. Christe.";R/. O Christ, fils du Dieu vivant, * aie pitié de nous. OChrist. V/. Toi qui viens dans le monde. * Aie pitié de nous.Gloire au Père. O Christ.
+V/. Qui ventúrus es in mundum. * Miserére nobis. Glória Patri. Christe.";"R/. O Christ, fils du Dieu vivant, * aie pitié de nous. O Christ.
+V/. Toi qui viens dans le monde. * Aie pitié de nous. Gloire au Père. O Christ."
 benedictus;<i>Antiphona propria.</i>;<i>Antienne propre</i>
 oratio_laudes;<i>Oratio propria</i>;<i>Oraison propre</i>
 preces_matin;preces_II;
@@ -32,7 +33,8 @@ ant8;Rex noster advéniet Christus, quem Ioánnes prædicávit Agnum esse ventúrum.;
 ant9;Ecce vénio cito, et merces mea mecum est, dicit Dóminus: dare unicuíque secúndum ópera sua.;Voici que je viens bientôt, et ma rétribution estavec moi, pour rendre à chacun selon son oeuvre.
 LB_soir;LB_Phil 4, 4-5;
 RB_soir;"R/. Osténde nobis, Dómine, * Misericórdiam tuam. Osténde.
-V/. Et salutáre tuum da nobis. * Misericórdiam tuam. Glória Patri. Osténde.";R/. Montre-nous, Seigneur, * Ta miséricorde. Montrenous. V/. Et donne-nous ton salut. * Ta miséricorde. Gloireau Père. Montre nous.
+V/. Et salutáre tuum da nobis. * Misericórdiam tuam. Glória Patri. Osténde.";"R/. Montre-nous, Seigneur, * Ta miséricorde. Montre nous.
+V/. Et donne-nous ton salut. * Ta miséricorde. Gloire au Père. Montre nous."
 magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>
 oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>
 preces_soir;preces_III;
