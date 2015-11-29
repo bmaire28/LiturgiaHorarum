@@ -110,7 +110,9 @@ if($tem=="Tempus Quadragesimae") {
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada III Quadragesimae"){ $q="quadragesima_3";}
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada IV Quadragesimae"){ $q="quadragesima_4";}
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada V Quadragesimae"){ $q="quadragesima_5";}
-	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
+	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];$latin=$data[1];$francais=$data[2];
 	    $var[$id]['latin']=$latin;
@@ -122,7 +124,9 @@ if($tem=="Tempus Quadragesimae") {
 
 elseif($tem=="Tempus passionis") {
 	$q="hebdomada_sancta";
-	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
+	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];$latin=$data[1];$francais=$data[2];
 		$var[$id]['latin']=$latin;
@@ -141,8 +145,9 @@ elseif($tem=="Tempus Paschale") {
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada VI Paschae") { $q="pascha_6";}
 	if ($calendarium['hebdomada'][$jour]=="Hebdomada VII Paschae") { $q="pascha_7";}
 	if ($calendarium['hebdomada'][$jour]==" ") { $q="pascha_8";}
-	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-	//print_r ("propres_r/temporal/".$q.$jrdelasemaine.".csv");
+	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];$latin=$data[1];$francais=$data[2];
 		$var[$id]['latin']=$latin;
@@ -152,7 +157,9 @@ elseif($tem=="Tempus Paschale") {
 	fclose($fp);
 }
 else {
-	$fp = fopen ("propres_r/temporal/".$psautier."/".$psautier."_".$spsautier.$jrdelasemaine.".csv","r");
+	$fichier="propres_r/temporal/".$psautier."/".$psautier."_".$spsautier.$jrdelasemaine.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];$latin=$data[1];$francais=$data[2];
 	    $var[$id]['latin']=$latin;
@@ -170,7 +177,9 @@ else {
 //print_r($calendarium['rang'][$jour]);
 if($calendarium['rang'][$jour]) {
 	$prop=$mense.$die;
-	$fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
+	$fichier="propres_r/sanctoral/".$prop.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 		$propre[$id]['latin']=$data[1];
@@ -193,7 +202,9 @@ if($calendarium['rang'][$jour]) {
 /*
  * Chargement du propre au psautier du jour
  */
-$fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
+$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$ref=$data[1];
 	$reference[$id]=$ref;
@@ -206,11 +217,11 @@ fclose($fp);
  * Chargement de $temp avec les valeurs du temporal
  * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
  */
-//print"<br>".$calendarium['temporal'][$jour];
 if($calendarium['temporal'][$jour]) {
-	//print"<br>Temporal propre";
 	$tempo=$calendarium['temporal'][$jour];
-	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	$fichier="propres_r/temporal/".$tempo.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 	    $temp[$id]['latin']=$data[1];
@@ -226,7 +237,6 @@ if($calendarium['temporal'][$jour]) {
 	$magniflat=$temp['magnificat']['latin'];
 	$magniffr=$temp['magnificat']['francais'];
 	$magnificat2="2magnificat_".$lettre;
-	//if (!$magniflat)$magniflat=$temp['2magnificat_C']['latin'];
 	if (!$magniflat)$magniflat=$temp[$magnificat2]['latin'];
 	if (!$magniffr) $magniffr=$temp[$magnificat2]['francais'];
 	$intitule_lat=$temp['intitule']['latin'];
@@ -253,7 +263,9 @@ $demain=date("Ymd",$tomorow);
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
 	$propre=null;
 	$tempo=$calendarium['temporal'][$demain];
-	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	$fichier="propres_r/temporal/".$tempo.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 	    $temp[$id]['latin']=$data[1];
@@ -271,8 +283,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$date_fr = $intitule_fr."<br> aux I&egrave;res ";
 	$oratiolat=$temp['oratio']['latin'];
 	$oratiofr=$temp['oratio']['francais'];
-	$magnificat="pmagnificat_".$lettre;//print_r($magnificat."<br>");
-	//$magniflat=$temp['pmagnificat_C']['latin'];
+	$magnificat="pmagnificat_".$lettre;
 	$magniflat=$temp[$magnificat]['latin'];
 	$magniffr=$temp[$magnificat]['francais'];
 	$hymne=$temp['HYMNUS_1V']['latin'];
@@ -298,6 +309,10 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
     $preces=null;
 }
 
+
+/*
+ * Chargement du squelette des Vêpres et génération de l'affichage de l'office
+ */
 $row = 0;
 $fp = fopen ("offices_r/vepres.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -342,7 +357,9 @@ for($row=0;$row<$max;$row++){
 	}
 
 	elseif($lat=="#HYMNUS") {
-		if(!$hymne) $hymne=$var['HYMNUS_vesperas']['latin'];
+		if($propre['HYMNUS_vepres']['latin']) $hymne=$propre['HYMNUS_vepres']['latin'];
+		elseif ($temp['HYMNUS_vepres']['latin']) $hymne=$temp['HYMNUS_vepres']['latin'];
+		else $hymne=$var['HYMNUS_vesperas']['latin'];
 		$vepres.=hymne($hymne);
 	}
 
@@ -474,9 +491,10 @@ for($row=0;$row<$max;$row++){
 	}
 	
 	elseif($lat=="#LB"){
-	    if($LB_soir) $lectiobrevis=$LB_soir;
-		else $lectiobrevis=$var['LB_soir']['latin'];
-	    $vepres.=lectiobrevis($lectiobrevis);
+		if($propre['LB_soir']['latin']) $LB_soir=$propre['LB_soir']['latin'];
+		elseif ($temp['LB_soir']['latin']) $LB_soir=$temp['LB_soir']['latin'];
+		else $LB_soir=$var['LB_soir']['latin'];
+	    $vepres.=lectiobrevis($LB_soir);
 	}
 	
 	elseif($lat=="#RB"){
@@ -520,7 +538,9 @@ for($row=0;$row<$max;$row++){
 	}
 	
 	elseif($lat=="#PRECES"){
-	 	if (!$preces) $preces=$var['preces_soir']['latin'];
+		if($propre['preces_soir']['latin']) $preces=$propre['preces_soir']['latin'];
+		elseif($temp['preces_soir']['latin']) $preces=$temp['preces_soir']['latin'];
+		else $preces=$var['preces_soir']['latin'];
 	 	$vepres.=preces($preces);
 	}
 	

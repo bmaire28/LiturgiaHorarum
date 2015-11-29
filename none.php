@@ -55,12 +55,14 @@ $date_l=$jours_l[$jrdelasemaine];
 
 if($calendarium['rang'][$jour]) {
 	    $prop=$mense.$die;
-	    $fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
+		$fichier="propres_r/sanctoral/".$prop.".csv";
+		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];
-	    $propre[$id]['latin']=$data[1];
-	    $propre[$id]['francais']=$data[2];
-	    $row++;
+		    $id=$data[0];
+		    $propre[$id]['latin']=$data[1];
+		    $propre[$id]['francais']=$data[2];
+		    $row++;
 		}
 	fclose($fp);
 	}
@@ -91,69 +93,99 @@ $jrdelasemaine++; // pour avoir dimanche=1 etc...
 
 	$spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
-	if($tem=="Tempus Quadragesimae") {
-	if ($calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
-	if ($calendarium['hebdomada'][$jour]=="Dies post Cineres") {$q="quadragesima_0";}
-	if ($calendarium['hebdomada'][$jour]=="Hebdomada I Quadragesimae") { $q="quadragesima_1";}
-	if ($calendarium['hebdomada'][$jour]=="Hebdomada II Quadragesimae"){ $q="quadragesima_2";}
-	if ($calendarium['hebdomada'][$jour]=="Hebdomada III Quadragesimae"){ $q="quadragesima_3";}
-	if ($calendarium['hebdomada'][$jour]=="Hebdomada IV Quadragesimae"){ $q="quadragesima_4";}
-	if ($calendarium['hebdomada'][$jour]=="Hebdomada V Quadragesimae"){ $q="quadragesima_5";}
-	$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $var[$id]['latin']=$latin;
-	    $var[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
-}
+$tem=$calendarium['tempus'][$jour];
+switch ($tem) {
+    case "Tempus Adventus" :
+        $psautier="adven";
+        $q=$psautier."_".$spsautier;
+        break;
 
-elseif($tem=="Tempus passionis") {
-            $q="hebdomada_sancta";
-            $fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-                while ($data = fgetcsv ($fp, 1000, ";")) {
-                        $id=$data[0];$latin=$data[1];$francais=$data[2];
-                        $var[$id]['latin']=$latin;
-                        $var[$id]['francais']=$francais;
-                        $row++;
-                }
-                fclose($fp);
+    case "Tempus Nativitatis" :
+        $psautier="noel";
+        $q=$psautier."_".$spsautier;
+        break;
+
+    case "Tempus per annum" :
+        $psautier="perannum";
+        $q=$psautier."_".$spsautier;
+        break;
+
+    case "Tempus Quadragesimae" :
+        $psautier="quadragesimae";
+        if ($calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
+        switch ($calendarium['hebdomada'][$jour]) {
+        	case "Dies post Cineres" :
+        		$q="quadragesima_0";
+        		break;
+        	case "Hebdomada I Quadragesimae" :
+        		$q="quadragesima_1";
+        		break;
+        	case "Hebdomada II Quadragesimae" :
+        		$q="quadragesima_2";
+        		break;
+        	case "Hebdomada III Quadragesimae" :
+        		$q="quadragesima_3";
+        		break;
+        	case "Hebdomada IV Quadragesimae" :
+        		$q="quadragesima_4";
+        		break;
+        	case "Hebdomada V Quadragesimae" :
+        		$q="quadragesima_5";
+        		break;
         }
+        break;
 
-        elseif($tem=="Tempus Paschale") {
-                if ($calendarium['hebdomada'][$jour]=="Infra octavam paschae") { $q="pascha_1";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada II Paschae") { $q="pascha_2";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada III Paschae") { $q="pascha_3";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada IV Paschae") { $q="pascha_4";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada V Paschae") { $q="pascha_5";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada VI Paschae") { $q="pascha_6";}
-                if ($calendarium['hebdomada'][$jour]=="Hebdomada VII Paschae") { $q="pascha_7";}
-                if ($calendarium['hebdomada'][$jour]==" ") { $q="pascha_8";}
-                $fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
-                //print_r ("propres_r/temporal/".$q.$jrdelasemaine.".csv");
-                while ($data = fgetcsv ($fp, 1000, ";")) {
-                        $id=$data[0];$latin=$data[1];$francais=$data[2];
-                        $var[$id]['latin']=$latin;
-                        $var[$id]['francais']=$francais;
-                        $row++;
-                }
-                fclose($fp);
+    case "Tempus passionis" :
+        $psautier="hebdomada_sancta";
+        $q="hebdomada_sancta";
+        break;
+
+    case "Tempus Paschale" :
+        $psautier="pascha";
+        switch ($calendarium['hebdomada'][$jour]) {
+        	case "Infra octavam paschae" :
+        		$q="pascha_1";
+        		break;
+        	case "Hebdomada II Paschae" :
+        		$q="pascha_2";
+        		break;
+        	case "Hebdomada III Paschae" :
+        		$q="pascha_3";
+        		break;
+        	case "Hebdomada IV Paschae" :
+        		$q="pascha_4";
+        		break;
+        	case "Hebdomada V Paschae" :
+        		$q="pascha_5";
+        		break;
+        	case "Hebdomada VI Paschae" :
+        		$q="pascha_6";
+        		break;
+        	case "Hebdomada VII Paschae" :
+        		$q="pascha_7";
+        		break;
+        	case " " :
+        		$q="pascha_8";
+        		break;
         }
+        break;
 
-
-
-else {
-$fp = fopen ("propres_r/temporal/".$psautier."/".$psautier."_".$spsautier.$jrdelasemaine.".csv","r");
-
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $var[$id]['latin']=$latin;
-	    $var[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
+    default :
+        print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
+        return;
+        break;
 }
+$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$latin=$data[1];$francais=$data[2];
+	$var[$id]['latin']=$latin;
+	$var[$id]['francais']=$francais;
+	$row++;
+}
+fclose($fp);
+	
 $fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];$ref=$data[1];
@@ -231,7 +263,9 @@ for($row=0;$row<$max;$row++){
 	}
 	
 	elseif($lat=="#HYMNUS_nonam") {
-		if(!$hymne9)$hymne9=$var['HYMNUS_nonam']['latin'];
+		if($propre['HYMNUS_nonam']['latin']) $hymne9=$propre['HYMNUS_nonam']['latin'];
+		elseif ($temp['HYMNUS_nonam']['latin']) $hymne9=$temp['HYMNUS_nonam']['latin'];
+		else $hymne9=$var['HYMNUS_nonam']['latin'];
 		$none.=hymne($hymne9);
 	}
 	
@@ -248,8 +282,8 @@ for($row=0;$row<$max;$row++){
 			$antlat=$var['ant4']['latin'];
 			$antfr=$var['ant4']['francais'];
 		}
-		$none.="<tr><td><p><span style=\"color:red\">Ant. 1 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 1 </span> $antfr</p></td></tr>";
+		$none.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#PS1"){
@@ -270,8 +304,8 @@ for($row=0;$row<$max;$row++){
 			$antlat=$var['ant4']['latin'];
 			$antfr=$var['ant4']['francais'];
 		}
-		$none.="<tr><td><p><span style=\"color:red\">Ant. 1 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 1 </span> $antfr</p></td></tr>";
+		$none.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#ANT2*"){
@@ -287,8 +321,8 @@ for($row=0;$row<$max;$row++){
 	    	$antlat=$var['ant5']['latin'];
 	    	$antfr=$var['ant5']['francais'];
 	    }
-		$none.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
+		$none.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#PS2"){
@@ -309,8 +343,8 @@ for($row=0;$row<$max;$row++){
 	    	$antlat=$var['ant4']['latin'];
 	    	$antfr=$var['ant4']['francais'];
 	    }
-		$none.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
+		$none.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
  	}
 
 	elseif($lat=="#ANT3*"){
@@ -326,8 +360,8 @@ for($row=0;$row<$max;$row++){
 	    	$antlat=$var['ant6']['latin'];
 	    	$antfr=$var['ant6']['francais'];
 	    }
-		$none.="<tr><td><p><span style=\"color:red\">Ant. 3 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 3 </span> $antfr</p></td></tr>";
+		$none.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 	}
 
 	elseif($lat=="#PS3"){
@@ -348,8 +382,8 @@ for($row=0;$row<$max;$row++){
 	    	$antlat=$var['ant6']['latin'];
 	    	$antfr=$var['ant6']['francais'];
 	    }
-		$none.="<tr><td><p><span style=\"color:red\">Ant. 3 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 3 </span> $antfr</p></td></tr>";
+		$none.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
+				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
  	}
 
  	elseif($lat=="#LB_9"){
@@ -379,6 +413,10 @@ for($row=0;$row<$max;$row++){
 	    if ($propre['oratio']['latin']) {
 	        $oratio9lat=$propre['oratio']['latin'];
 	    	$oratio9fr=$propre['oratio']['francais'];
+	    }
+	    elseif ($temp['oratio']['latin']) {
+	    	$oratio9lat=$temp['oratio']['latin'];
+	    	$oratio9fr=$temp['oratio']['francais'];
 	    }
 	    else {
 	    	if(!$oratiolat)$oratio9lat=$var['oratio_9']['latin'];

@@ -192,7 +192,6 @@ if($calendarium['rang'][$jour]) {
 	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
 }
 
-
 /*
  * Vérifier qu'il n'y a pas une solennité
  * Chargement du propre du temporal spécifique dans $temp
@@ -231,7 +230,6 @@ if($calendarium['temporal'][$jour]) {
 	$rang_lat=$temp['rang']['latin'];
 	$rang_fr=$temp['rang']['francais'];
 }
-
 
 
 /*
@@ -296,8 +294,10 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#HYMNUS" :
-			if(!$hymne) $laudes.=hymne($var['HYMNUS_laudes']['latin']);
-			else $laudes.= hymne($hymne);
+			if($propre['HYMNUS_laudes']['latin']) $hymne=$propre['HYMNUS_laudes']['latin'];
+			elseif ($temp['HYMNUS_laudes']['latin']) $hymne=$temp['HYMNUS_laudes']['latin'];
+			else $hymne=$var['HYMNUS_laudes']['latin'];
+			$laudes.= hymne($hymne);
 			break;
 		
 		case "#ANT1*":
@@ -427,9 +427,10 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#LB":
-			if ($LB_matin) $lectiobrevis=lectiobrevis($LB_matin);
-			else $lectiobrevis =lectiobrevis($var['LB_matin']['latin']);
-			$laudes.=$lectiobrevis;
+			if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
+			elseif ($temp['LB_matin']['latin']) $LB_matin=$temp['LB_matin']['latin'];
+			else $LB_matin=$var['LB_matin']['latin'];
+			$laudes.=lectiobrevis($LB_matin);
 			break;
 		
 		case "#RB":
@@ -469,7 +470,7 @@ for($row=0;$row<$max;$row++){
 		
 		case "#PRECES":
 			if($propre['preces_matin']['latin']) $preces=$propre['preces_matin']['latin'];
-			if($temp['preces_matin']['latin']) $preces=$temp['preces_matin']['latin'];
+			elseif($temp['preces_matin']['latin']) $preces=$temp['preces_matin']['latin'];
 			else $preces=$var['preces_matin']['latin'];
 			$laudes.=preces($preces);
 			break;

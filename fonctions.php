@@ -283,7 +283,7 @@ function affiche_nav($do,$office,$place) {
 	$tfc=time();
 	$date_aujourdhui=date("Ymd",$tfc);
 	$annee_aujourdhui=substr($date_aujourdhui,0,4);
-	$mois_aujourdhui=$mense=substr($date_aujourdhui,4,2);
+	$mois_aujourdhui=substr($date_aujourdhui,4,2);
 	
 	
 	print"

@@ -693,20 +693,10 @@ $i=0;
 
 $row = 1;
 $handle = fopen("propres_r/sanctoral/sanctoral.csv", "r");
-//print"<table>";
 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-//print"<tr>";
-    $num = count($data);
-    //echo "<p> $num fields in line $row: <br /></p>\n";
-    $row++;
-    /*
-    for ($c=0; $c < $num; $c++) {
-    //print"<td>$data[$c] </td>";
-    }
-    */
-//    print"</tr>";
-
-    if($data[4]!="") {
+	$num = count($data);
+	$row++;
+    if($data[4]!="") { // si l'intitulé n'est pas vide
     	$date_sanctoral=@mktime(12,0,0,$data[0],$data[3],$m);
     	$dds=date("Ymd", $date_sanctoral);
     	$sanctoral['vita'][$dds]=$data[8];
@@ -820,39 +810,33 @@ while($date_courante <= $dernier_jour) {
 	$tempo=$temporal['temporal'][$date];
 	$pV=$temporal['1V'][$date];
 	//$temporal['rang'][$dd]="Solemnitas";
-	if(($sanctoral['priorite'][$date]!="")&&($temporal['priorite'][$date]!="")) { // conflit temporal / sanctoral
+	
+	// conflit temporal / sanctoral
+	if(($sanctoral['priorite'][$date]!="")&&($temporal['priorite'][$date]!="")) { 
 		if ($sanctoral['priorite'][$date]<$temporal['priorite'][$date]) {
 			$intitule =$sanctoral['intitule'][$date];
 			if($sanctoral['couleur'][$date]!="") $couleurs=$sanctoral['couleur'][$date];
-			//else $couleur=$sanctoral['couleur'][$date];
 			$rang=$sanctoral['rang'][$date];
 			$vita=$sanctoral['vita'][$date];
 			$priorite=$sanctoral['priorite'][$date];
 			if($priorite<=5) $pV=1;
-
-//echo $blah[0];
-
-
 		}
 		else {
 			$intitule =$temporal['intitule'][$date];
 			$tempo=$temporal['temporal'][$date];
 			$pV=$temporal['1V'][$date];
-			//$tempo=$temporal['temporal'][$date];
-			//$couleur=$temporal['couleur'][$date];
 		}
 	}
-
+	
+	// S'il y un sanctoral mais pas de temporal
 	if(($sanctoral['intitule'][$date]!="")&&($temporal['intitule'][$date]=="")) {
-
-			$intitule .=$sanctoral['intitule'][$date];
-			if($sanctoral['couleur'][$date]!="") $couleurs=$sanctoral['couleur'][$date];
-            $rang=$sanctoral['rang'][$date];
-            $vita=$sanctoral['vita'][$date];
-            $priorite=$sanctoral['priorite'][$date];
-            if($priorite<=4) $pV=1;
-            $propre=date("m",$date_courante).date("d",$date_courante);
-			//print"propre : $propre <br>";
+		$intitule .=$sanctoral['intitule'][$date];
+		if($sanctoral['couleur'][$date]!="") $couleurs=$sanctoral['couleur'][$date];
+		$rang=$sanctoral['rang'][$date];
+		$vita=$sanctoral['vita'][$date];
+		$priorite=$sanctoral['priorite'][$date];
+		if($priorite<=4) $pV=1;
+		$propre=date("m",$date_courante).date("d",$date_courante);
 	}
 	if($couleurs) {
 		$coul=$hexa[$couleurs];
@@ -864,57 +848,43 @@ while($date_courante <= $dernier_jour) {
 	}
 	//////   Ici confection du tableau
 
-	/*
-	print"<tr bgcolor='$coul'>
-	<td>$d</td>
-	<td>$lit[$i]</td>";
-	*/
 	$calendarium['couleur_template'][$d]=$couleur_template[$d];
 	$calendarium['littera'][$d]=$lit[$i];
-	//print"<br>$date_courante";
-	//$todddd = date("F j, Y, g:i a",$date_courante);
-	//print"| $todddd";
-	//print"<td>$feria</td>";
-	//$fer[$d]=$feria;
-
-	//print"<td>$tempus</td>";
 	$calendarium['tempus'][$d]=$tempus;
-	//print"<td>$hebdomada</td>";
 	$calendarium['hebdomada'][$d]=$hebdomada;
-	//print"<td>$intitule</td>";
 	$calendarium['intitule'][$d]=$intitule;
-	//print"<td>$rang</td>";
 	$calendarium['rang'][$d]=$rang;
-	//print"<td>$hp</td>";
 	$calendarium['hebdomada_psalterium'][$d]=$hp;
-	//";
     $calendarium['vita'][$d]=$vita;
     $calendarium['temporal'][$d]=$tempo;
+    
+    // priorité, si non défini alors priorité la plus basse = 13
     if(!$priorite) $priorite=13;
     $calendarium['priorite'][$d]=$priorite;
+    
+    // 1ères Vêpres si la priorité est plus haute que 4 ou si déjà validé
+    if(($calendarium['priorite'][$d]<=4)&&(!$pV)) $pV=1;
     $calendarium['1V'][$d]=$pV;
-    //$calendarium['propre'][$d]=$propre;
-
-	$date_courante=$date_courante+$jour;
+    
+    // S'il y a des premières vêpres, donc solennité, et que le temporal n'est pas défini, alors il prends la valeur de l'intitulé
+    if (($calendarium['1V'][$d])&&(!$calendarium['temporal'][$d]=$tempo)) $calendarium['temporal'][$d]=$calendarium['intitule'][$d];
+    
+    //Passage au jour suivant, remise à zéro(dimanche) du compteur i après 7(samedi)
+    $date_courante=$date_courante+$jour;
 	$i++; if ($i==7) $i=0;
 }
 
-//$reponse[3]=array($littera,$temp,$hebd,$intit,$ran,$hebdomada_psalterium,$couleur_template);
 
 $day=time();
 $aujourdhui=@date("Ymd",$day);
 
-//print"<br><b>$aujourdhui";
-//if ($day=="") $day=time();
-	$datelatin=date_latin($day);
-	//print"$couleur_template[$aujourdhui]|";
+$datelatin=date_latin($day);
 $reponse="$datelatin, ".$calendarium['tempus'][$aujourdhui].", <a href=\"http://www.scholasaintmaur.net/index.php?date=$aujourdhui\">".$calendarium['hebdomada'][$aujourdhui];
 if($calendarium['intitule'][$aujourdhui]) $reponse.= ", ".$calendarium['intitule'][$aujourdhui];
 if($calendarium['rang'][$aujourdhui]) $reponse.=", ".$calendarium['rang'][$aujourdhui];
 $reponse.=".</a>";
 
 $calendarium['datedaujourdhui']=$reponse;
-//$reponse[0]=$couleur_template;
 
 return $calendarium;
 }
