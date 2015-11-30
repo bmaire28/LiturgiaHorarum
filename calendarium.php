@@ -139,28 +139,7 @@ function date_latin($j)
 }
 
 function calendarium($date) {
-//// Forme de la variable date : AAAAMMJJ
-    /*
 
-Le mathï¿½maticien Gauss avait trouvï¿½ un algorithme (une formule) pour calculer
-cette date. Un autre mathï¿½maticien, T. H. Oï¿½Beirne, a trouvï¿½ deux erreurs dans
-la formule de Gauss. Il a alors formulï¿½ un autre algorithme :
-
-Soit m lï¿½annï¿½e, on fait les calculs suivants :
-
-   1. On soustrait 1900 de m : cï¿½est la valeur de n.
-   2. On divise n par 19 : le reste est la valeur de a.
-   3. On divise (7a + 1) par 19 : la partie entiï¿½re du quotient est b.
-   4. On divise (11a - b + 4) par 29 : le reste est c.
-   5. On divise n par 4 : la partie entiï¿½re du quotient est d.
-   6. On divise (n - c + d + 31) par 7 : le reste est e.
-
-La date de Pï¿½ques est le (25 - c - e) avril si le rï¿½sultat est positif.
-Sï¿½il est nï¿½gatif, le mois est mars. Le quantiï¿½me est la somme de 31 et
-du rï¿½sultat.
-Par exemple, si le rï¿½sultat est -7, le quantiï¿½me est 31 + -7 = 24.
-
-*/
 
 $feriae=array("Dominica","Feria II","Feria III","Feria IV","Feria V","Feria VI","Sabbato");
 $romains=array("","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV");
@@ -174,32 +153,54 @@ $hexa['Noir']="000000";
 $hexa['Blanc']="f3f1bc";
 $hexa['Rouge']="c50520";
 
-$anno=substr($date,0,4);
-$mense=substr($date,4,2);
-$die=substr($date,6,2);
-$day=mktime(12,0,0,$mense,$die,$anno);
-//$day=mktime(12,0,0,0,$mon,$dat,$year);
-//$day=time();
-//print"<br>option=$option";
-//if ($option!="") $m=$option;
- $m=@date("Y",$day);
-//$m="2006";
+$anno=substr($date,0,4); // année de la date demandée
+$mense=substr($date,4,2); // mois de la date demandée
+$die=substr($date,6,2); // jour de la date demandée
+$day=mktime(12,0,0,$mense,$die,$anno); // date de mandée au format informatique
 
-$n=$m-1900; //print"<br>$n";
-$a=$n%19; //print"<br>$a";
-$b=intval((7*$a+1)/19); //print"<br>$b";
-$c=(11*$a-$b+4)%29; //print"<br>$c";
-$d=intval($n/4); //print"<br>$d";
-$e=($n-$c+$d+31)%7; //print"<br>$e";
+//// Forme de la variable date : AAAAMMJJ
+/*
 
+Le mathï¿½maticien Gauss avait trouvï¿½ un algorithme (une formule) pour calculer
+cette date. Un autre mathï¿½maticien, T. H. Oï¿½Beirne, a trouvï¿½ deux erreurs dans
+la formule de Gauss. Il a alors formulï¿½ un autre algorithme :
+
+Soit m lï¿½annï¿½e, on fait les calculs suivants :
+
+1. On soustrait 1900 de m : cï¿½est la valeur de n.
+2. On divise n par 19 : le reste est la valeur de a.
+3. On divise (7a + 1) par 19 : la partie entiï¿½re du quotient est b.
+4. On divise (11a - b + 4) par 29 : le reste est c.
+5. On divise n par 4 : la partie entiï¿½re du quotient est d.
+6. On divise (n - c + d + 31) par 7 : le reste est e.
+
+La date de Pï¿½ques est le (25 - c - e) avril si le rï¿½sultat est positif.
+Sï¿½il est nï¿½gatif, le mois est mars. Le quantiï¿½me est la somme de 31 et
+du rï¿½sultat.
+Par exemple, si le rï¿½sultat est -7, le quantiï¿½me est 31 + -7 = 24.
+
+*/
+
+
+$m=@date("Y",$day); // extraction de l'année demandée au format informatique
+$n=$m-1900; // opération 1 
+$a=$n%19; // opération 2
+$b=intval((7*$a+1)/19); // opération 3
+$c=(11*$a-$b+4)%29; // opération 4
+$d=intval($n/4); // opération 5
+$e=($n-$c+$d+31)%7; // opération 6
+
+// Si e est positif, Pâques est en avril
 if($e>=0) {
 	$p=25-$c-$e;
 	$paques=mktime(12, 0, 0, 4, $p, $m);
 }
+// Si e est négatif, Pâques est en mars
 if($e<0) {
 	$p=31+$e;
 	$paques=mktime(12, 0, 0, 3, $p, $m);
 }
+
 setlocale (LC_ALL, 'FR');
 $res = date("Ymd", $paques);
 
@@ -207,6 +208,7 @@ $res = date("Ymd", $paques);
 $jour=60*60*24;
 $semaine=60*60*24*7;
 
+// Date de noël au format informatique
 $noel=mktime(12,0,0,12,25,$m);
 $no=date("Ymd", $noel);
 $jour_noel=date("w", $noel);
@@ -760,47 +762,27 @@ while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
     }
 }
 
-/*
-print"
-<table>
-<tr>
-	<td><b>Date</b></td>
-	<td><b>Lit.</b></td>
-	<td><b>Feria</b></td>
-	<td><b>Tempus</b></td>
-	<td><b>Hebdomada</b></td>
-	<td><b>Intitule</b></td>
-	<td><b>Rang</b></td>
-	<td><b>HP</b></td>
- </tr>
-";
 
-*/
-
-
-//print"</table>";
-
-//print "<br>sanctoral[priorite][20060122]=".$sanctoral['priorite'][20060122];
-//print "<br>temporal[priorite][20060122]=".$temporal['priorite'][20060122];
-//$aujourdhui=mktime();
-
-	$m=@date("Y",$day);
-    $date_courante=mktime(12,0,0,1,1,$m);
-	$dernier_jour=mktime(12,0,0,12,31,$m);
+$m=@date("Y",$day);
+$date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'année $m
+$dernier_jour=mktime(12,0,0,12,31,$m); // 31 décembre de l'année $m
 
 while($date_courante <= $dernier_jour) {
-    $vita="";
+	
+    // Initialisation des propiétés du calendrier
+	$vita="";
     $tempo="";
     $pV="";
     $priorite="";
-	//print "boucle infinie ? <br>";
 	$couleurs="";
+	
+	// Manipulation sur la date du jour à mettre dans le calendrier
 	$d=date("Ymd", $date_courante);
 	$f=date("w", $date_courante);
-	//$feria=$feriae[$f];
 	$date=date("Ymd", $date_courante);
+
+	// initialisation des variables à partir du temporal 
 	$intitule = $temporal['intitule'][$date];
-	//$tempo=$temporal['temporal'][$date];
 	if ($temporal['tempus'][$date]!="") $tempus=$temporal['tempus'][$date];
 	if ($temporal['hebdomada'][$date]!="") $hebdomada=$temporal['hebdomada'][$date];
 	if ($temporal['couleur'][$date]!="") $couleur=$temporal['couleur'][$date];
@@ -809,10 +791,10 @@ while($date_courante <= $dernier_jour) {
 	$priorite=$temporal['priorite'][$date];
 	$tempo=$temporal['temporal'][$date];
 	$pV=$temporal['1V'][$date];
-	//$temporal['rang'][$dd]="Solemnitas";
 	
 	// conflit temporal / sanctoral
-	if(($sanctoral['priorite'][$date]!="")&&($temporal['priorite'][$date]!="")) { 
+	if(($sanctoral['priorite'][$date]!="")&&($temporal['priorite'][$date]!="")) {
+		// sanctoral prioritaire sur le temporal 
 		if ($sanctoral['priorite'][$date]<$temporal['priorite'][$date]) {
 			$intitule =$sanctoral['intitule'][$date];
 			if($sanctoral['couleur'][$date]!="") $couleurs=$sanctoral['couleur'][$date];
@@ -821,6 +803,7 @@ while($date_courante <= $dernier_jour) {
 			$priorite=$sanctoral['priorite'][$date];
 			if($priorite<=5) $pV=1;
 		}
+		// temporal prioritaire sur le sanctoral
 		else {
 			$intitule =$temporal['intitule'][$date];
 			$tempo=$temporal['temporal'][$date];
@@ -830,12 +813,11 @@ while($date_courante <= $dernier_jour) {
 	
 	// S'il y un sanctoral mais pas de temporal
 	if(($sanctoral['intitule'][$date]!="")&&($temporal['intitule'][$date]=="")) {
-		$intitule .=$sanctoral['intitule'][$date];
+		$intitule = $sanctoral['intitule'][$date];
 		if($sanctoral['couleur'][$date]!="") $couleurs=$sanctoral['couleur'][$date];
 		$rang=$sanctoral['rang'][$date];
 		$vita=$sanctoral['vita'][$date];
 		$priorite=$sanctoral['priorite'][$date];
-		if($priorite<=4) $pV=1;
 		$propre=date("m",$date_courante).date("d",$date_courante);
 	}
 	if($couleurs) {
@@ -846,8 +828,8 @@ while($date_courante <= $dernier_jour) {
 		$coul=$hexa[$couleur];
 		$couleur_template[$d]=$couleur;
 	}
+	
 	//////   Ici confection du tableau
-
 	$calendarium['couleur_template'][$d]=$couleur_template[$d];
 	$calendarium['littera'][$d]=$lit[$i];
 	$calendarium['tempus'][$d]=$tempus;
@@ -863,11 +845,12 @@ while($date_courante <= $dernier_jour) {
     $calendarium['priorite'][$d]=$priorite;
     
     // 1Ã¨res VÃªpres si la prioritÃ© est plus haute que 4 ou si dÃ©jÃ  validÃ©
-    if(($calendarium['priorite'][$d]<=4)&&(!$pV)) $pV=1;
+    if($calendarium['priorite'][$d]<=4) $pV="1";
+    else $pV="";
     $calendarium['1V'][$d]=$pV;
     
     // S'il y a des premiÃ¨res vÃªpres, donc solennitÃ©, et que le temporal n'est pas dÃ©fini, alors il prends la valeur de l'intitulÃ©
-    if (($calendarium['1V'][$d])&&(!$calendarium['temporal'][$d]=$tempo)) $calendarium['temporal'][$d]=$calendarium['intitule'][$d];
+    if (($calendarium['1V'][$d]=="1")&&($calendarium['temporal'][$d]=="")) $calendarium['temporal'][$d]=$calendarium['intitule'][$d];
     
     //Passage au jour suivant, remise Ã  zÃ©ro(dimanche) du compteur i aprÃ¨s 7(samedi)
     $date_courante=$date_courante+$jour;

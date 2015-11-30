@@ -8,6 +8,10 @@ if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
 	$temp['ps3']['latin']="ps149";
 }
 
+//test 1ères vêpres
+//print_r("<p> 1V : ".$calendarium['1V'][$jour]."</p>");
+
+
 $jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
 $jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
 	
