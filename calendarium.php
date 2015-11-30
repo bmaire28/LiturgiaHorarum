@@ -19,20 +19,15 @@ print"/templates/js_naturale/css/template_$couleur.css";
 
 
 function mod_calendarium($mois_courant,$an) {
-//print_r($couleurs);
 if($mois_courant=="") $jl=time();
 else $jl=mktime(12,12,0,$mois_courant,01,$an);
 $an.$mois_courant."01";
-//print"<br>jl=$jl";
 $datj=date("Ymd",$jl);
 $calend=calendarium($datj);
 $task=$_GET['task'];
 $office=$_GET['office'];
-//print"<br>calend=";
-//print_r($calend);
 
 $couleurs=$calend[couleur_template];
-//print_r($couleurs);
 $mois= array("Ianuarii","Februarii","Martii","Aprilis","Maii","Iunii","Iulii","Augustii","Septembris","Octobris","Novembris","Decembris");
 $hodie=time();
 if($an=="") $anno=@date("Y",$hodie);
@@ -208,11 +203,18 @@ $res = date("Ymd", $paques);
 $jour=60*60*24;
 $semaine=60*60*24*7;
 
+/*
+ * Cycle de Noël
+ */
+
+
 // Date de noël au format informatique
 $noel=mktime(12,0,0,12,25,$m);
+$noe=date("d-M-Y", $noel);
 $no=date("Ymd", $noel);
 $jour_noel=date("w", $noel);
 
+// Noel
 $temporal['intitule'][$no]="IN NATIVITATE DOMINI";
 $temporal['couleur'][$no]="Blanc";
 $temporal['tempus'][$no]="Tempus Nativitatis";
@@ -220,9 +222,59 @@ $temporal['hebdomada'][$no]="Infra octavam Nativitatis";
 $temporal['priorite'][$no]="2";
 $temporal['1V'][$no]=1;
 
-$sanctae_familiae2=$noel+(7-$jour_noel)*$jour;
+// temsp de l'Avent
+$journoel=date("w",$noel);
+if ($journoel==0) $journoel=7;
+
+$quatre_dim_avent=$noel-$journoel*$jour; // 4e dim
+$dd=date("Ymd", $quatre_dim_avent);
+$temporal['intitule'][$dd]="Dominica IV Adventus";
+$temporal['temporal'][$dd]="Dominica IV Adventus";
+$temporal['hp'][$dd]=4;
+$temporal['priorite'][$dd]="2";
+$temporal['1V'][$dd]=1;
+$temporal['hebdomada'][$dd]="Hebdomada IV Adventus";
+$temporal['couleur'][$dd]="Violet-avent";
+
+$trois_dim_avent=$quatre_dim_avent-$semaine; // 3e dim
+$dd=date("Ymd", $trois_dim_avent);
+$temporal['intitule'][$dd]="Dominica III Adventus";
+$temporal['temporal'][$dd]="Dominica III Adventus";
+$temporal['hp'][$dd]=3;
+$temporal['priorite'][$dd]="2";
+$temporal['1V'][$dd]=1;
+$temporal['couleur'][$dd]="Rose";
+$temporal['hebdomada'][$dd]="Hebdomada III Adventus";
+$coul_adventus=$trois_dim_avent+$jour;
+$dd=date("Ymd", $coul_adventus);
+$temporal['couleur'][$dd]="Violet-avent";
+
+
+$deux_dim_avent=$trois_dim_avent-$semaine; // 2e dim
+$dd=date("Ymd", $deux_dim_avent);
+$temporal['intitule'][$dd]="Dominica II Adventus";
+$temporal['temporal'][$dd]="Dominica II Adventus";
+$temporal['hp'][$dd]=2;
+$temporal['1V'][$dd]=1;
+$temporal['priorite'][$dd]="2";
+$temporal['hebdomada'][$dd]="Hebdomada II Adventus";
+
+$un_dim_avent=$deux_dim_avent-$semaine; // 1er dim
+$dd=date("Ymd", $un_dim_avent);
+$temporal['intitule'][$dd]="Dominica I Adventus";
+$temporal['temporal'][$dd]="Dominica I Adventus";
+$temporal['hp'][$dd]=1;
+$temporal['1V'][$dd]=1;
+$temporal['priorite'][$dd]="2";
+$temporal['hebdomada'][$dd]="Hebdomada I Adventus";
+$temporal['tempus'][$dd]="Tempus Adventus";
+$temporal['couleur'][$dd]="Violet-avent";
+$dnisuchrisitiunivregis=$un_dim_avent-$semaine; // Christ-Roi
+
+// Temsp de Noel
+
+$sanctae_familiae2=$noel+(7-$jour_noel)*$jour; // Ste Famille
 $jj=date("w", $sanctae_familiae2);
-//if($jj==0) $sanctae_familiae2=mktime(12,0,0,12,30,$m);
 $dd=date("Ymd", $sanctae_familiae2);
 $temporal['intitule'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
 $temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
@@ -231,7 +283,7 @@ $temporal['couleur'][$dd]="Blanc";
 $temporal['priorite'][$dd]="7";
 $temporal['1V'][$dd]=1;
 
-$noel_annee_precedente=mktime(12,0,0,12,25,$m-1);
+$noel_annee_precedente=mktime(12,0,0,12,25,$m-1); // Noel de l'année précédente
 $dd=date("Ymd", $noel_annee_precedente);
 $temporal['intitule'][$dd]="IN NATIVITATE DOMINI";
 $temporal['couleur'][$dd]="Blanc";
@@ -241,9 +293,8 @@ $temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 $temporal['1V'][$dd]=1;
 $jour_noel_precedent=date("w", $noel_annee_precedente);
 
-$sanctae_familiae=$noel_annee_precedente+(7-$jour_noel_precedent)*$jour;
+$sanctae_familiae=$noel_annee_precedente+(7-$jour_noel_precedent)*$jour; // Ste famille de l'année précédente
 $jj=date("w", $sanctae_familiae);
-//if($jj==0) $sanctae_familiae=mktime(12,0,0,12,30,$m-1);
 $dd=date("Ymd", $sanctae_familiae);
 $temporal['intitule'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
 $temporal['priorite'][$dd]="7";
@@ -252,7 +303,7 @@ $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 $temporal['1V'][$dd]=1;
 
-$infra_oct_nativ=$noel_annee_precedente+7*$jour;
+$infra_oct_nativ=$noel_annee_precedente+7*$jour; // Octave de noel de l'année précédente
 $dd=date("Ymd", $infra_oct_nativ);
 $temporal['hebdomada'][$dd]="Infra Octavam Nativitatis";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
@@ -264,18 +315,19 @@ $temporal['hebdomada'][$dd]=" ";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 
-$epiphania=mktime(12,0,0,1,6,$m);
+$epiphania=mktime(12,0,0,1,6,$m); // Epiphanie
 $jour_epiphanie=date("w", $epiphania);
-$baptisma=$epiphania+(7-$jour_epiphanie)*$jour;
+
+$baptisma=$epiphania+(7-$jour_epiphanie)*$jour; // Baptême du Seigneur
 $dd=date("Ymd", $baptisma);
 $temporal['intitule'][$dd]="IN BAPTISMATE DOMINI";
 $temporal['rang'][$dd]="Festum";
 $temporal['priorite'][$dd]="5";
 $temporal['1V'][$dd]=1;
-//$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
-$perannum=$baptisma+$jour;
+
+$perannum=$baptisma+$jour; // début de temps ordinaire
 $dd=date("Ymd", $perannum);
 $temporal['tempus'][$dd]="Tempus per annum";
 $temporal['hebdomada'][$dd]="Hebdomada I per annum";
@@ -283,7 +335,13 @@ $temporal['couleur'][$dd]="Vert";
 $temporal['hp'][$dd]=1;
 $temporal['psautier'][$dd]="perannum";
 
-$palmis=$paques-$semaine;
+
+/*
+ * cycle de Pâques
+ */
+
+// temps de la Passion
+$palmis=$paques-$semaine; // Dim de la Passion
 $dd=date("Ymd", $palmis);
 $temporal['intitule'][$dd]="DOMINICA IN PALMIS DE PASSIONE DOMINI";
 $temporal['temporal'][$dd]="DOMINICA IN PALMIS DE PASSIONE DOMINI";
@@ -297,7 +355,7 @@ $hebviol=$palmis+$jour;
 $dd=date("Ymd", $hebviol);
 $temporal['couleur'][$dd]="Violet-careme";
 
-$in_cena=$palmis+4*$jour;
+$in_cena=$palmis+4*$jour; // Jeudi Saint
 $dd=date("Ymd", $in_cena);
 $temporal['intitule'][$dd]="IN CENA DOMINI";
 $temporal['temporal'][$dd]="IN CENA DOMINI";
@@ -306,25 +364,23 @@ $temporal['hebdomada'][$dd]="Sacrum Triduum Paschale";
 $temporal['tempus'][$dd]="Tempus passionis";
 $temporal['couleur'][$dd]="Blanc";
 
-$in_passione=$in_cena+$jour;
+$in_passione=$in_cena+$jour; // Vendredi Saint
 $dd=date("Ymd", $in_passione);
 $temporal['intitule'][$dd]="IN PASSIONE DOMINI";
 $temporal['temporal'][$dd]="IN PASSIONE DOMINI";
 $temporal['priorite'][$dd]="1";
 $temporal['couleur'][$dd]="Rouge";
 
-$sabbato_sancto=$in_passione+$jour;
+$sabbato_sancto=$in_passione+$jour; // Samedi Saint
 $dd=date("Ymd", $sabbato_sancto);
 $temporal['intitule'][$dd]="Sabbato Sancto";
 $temporal['priorite'][$dd]="1";
 $temporal['couleur'][$dd]="Violet-careme";
-/*
-$Y= substr($dd, 0, 4); //print"<br>$Y";
-$mois= substr($dd, 4, 2);//print"<br>$mois";
-$day= substr($dd, 6, 2);//print"<br>$day";
-$palmis=mktime(12,0,0,$mois,$day,$Y);
-*/
-$cinq_quadragesima=$palmis-$semaine;
+
+
+// Temps du carême
+
+$cinq_quadragesima=$palmis-$semaine; // 5e Dim de Careme
 $dd=date("Ymd", $cinq_quadragesima);
 $temporal['intitule'][$dd]="Dominica V Quadragesimae";
 $temporal['temporal'][$dd]="Dominica V Quadragesimae";
@@ -333,13 +389,8 @@ $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada V Quadragesimae";
 $temporal['tempus'][$dd]="Tempus Quadragesimae";
-/*
-$Y= substr($dd, 0, 4); //print"<br>$Y";
-$mois= substr($dd, 4, 2);//print"<br>$mois";
-$day= substr($dd, 6, 2);//print"<br>$day";
-$cinq_quadragesima=mktime(12,0,0,$mois,$day,$Y);
-*/
-$quatre_quadragesima=$cinq_quadragesima-$semaine;
+
+$quatre_quadragesima=$cinq_quadragesima-$semaine; // 4e Dim de Careme
 $dd=date("Ymd", $quatre_quadragesima);
 $temporal['intitule'][$dd]="Dominica IV Quadragesimae";
 $temporal['temporal'][$dd]="Dominica IV Quadragesimae";
@@ -348,19 +399,12 @@ $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada IV Quadragesimae";
 $temporal['couleur'][$dd]="Rose";
-/*
-$Y= substr($dd, 0, 4); //print"<br>$Y";
-$mois= substr($dd, 4, 2);//print"<br>$mois";
-$day= substr($dd, 6, 2);//print"<br>$day";
-$quatre_quadragesima=mktime(12,0,0,$mois,$day,$Y);
-*/
+
 $coul_quadragesima=$quatre_quadragesima+$jour;
 $dd=date("Ymd", $coul_quadragesima);
 $temporal['couleur'][$dd]="Violet-careme";
 
-//$temporal['tempus'][$dd]="Tempus Quadragesimae";
-
-$trois_quadragesima=$quatre_quadragesima-$semaine;
+$trois_quadragesima=$quatre_quadragesima-$semaine; // 3e Dim de Careme
 $dd=date("Ymd", $trois_quadragesima);
 $temporal['intitule'][$dd]="Dominica III Quadragesimae";
 $temporal['temporal'][$dd]="Dominica III Quadragesimae";
@@ -369,9 +413,8 @@ $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada III Quadragesimae";
 $temporal['couleur'][$dd]="Violet-careme";
-//$temporal['tempus'][$dd]="Tempus Quadragesimae";
 
-$deux_quadragesima=$trois_quadragesima-$semaine;
+$deux_quadragesima=$trois_quadragesima-$semaine; // 2e Dim de Careme
 $dd=date("Ymd", $deux_quadragesima);
 $temporal['intitule'][$dd]="Dominica II Quadragesimae";
 $temporal['temporal'][$dd]="Dominica II Quadragesimae";
@@ -381,8 +424,8 @@ $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada II Quadragesimae";
 $temporal['couleur'][$dd]="Violet-careme";
-//$temporal['tempus'][$dd]="Tempus Quadragesimae";
-$un_quadragesima=$deux_quadragesima-$semaine;
+
+$un_quadragesima=$deux_quadragesima-$semaine; // 1er Dim de Careme
 $dd=date("Ymd", $un_quadragesima);
 $temporal['intitule'][$dd]="Dominica I Quadragesimae";
 $temporal['temporal'][$dd]="Dominica I Quadragesimae";
@@ -392,7 +435,7 @@ $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada I Quadragesimae";
 $temporal['couleur'][$dd]="Violet-careme";
 
-$cinerum=$un_quadragesima-4*$jour;
+$cinerum=$un_quadragesima-4*$jour; // Mercredi des cendres
 $dd=date("Ymd", $cinerum);
 $temporal['intitule'][$dd]="Feria IV Cinerum";
 $temporal['temporal'][$dd]="Feria IV Cinerum";
@@ -406,8 +449,8 @@ $dd=date("Ymd", $post_cineres);
 $temporal['hebdomada'][$dd]="Dies post Cineres";
 $temporal['couleur'][$dd]="Violet-careme";
 
-
-$pa=date("Ymd", $paques);
+// Temps Pascal
+$pa=date("Ymd", $paques); // Jour de Pâques
 $dd=$pa;
 $temporal['intitule'][$dd]="DOMINICA RESURRECTIONIS";
 $temporal['temporal'][$dd]="DOMINICA RESURRECTIONIS";
@@ -470,13 +513,11 @@ $ascensione=$six_paques+4*$jour;
 $dd=date("Ymd",$ascensione);
 $temporal['intitule'][$dd]="IN ASCENSIONE DOMINI";
 $temporal['temporal'][$dd]="IN ASCENSIONE DOMINI";
-//$temporal['rang'][$dd]="Sollemnitas";
 $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 
 $sept_paques=$paques+6*$semaine;
 $dd=date("Ymd", $sept_paques);
-//$septpa=$dd;
 $temporal['intitule'][$dd]="Dominica VII Paschae";
 $temporal['temporal'][$dd]="Dominica VII Paschae";
 $temporal['priorite'][$dd]="2";
@@ -484,104 +525,7 @@ $temporal['1V'][$dd]=1;
 $temporal['hebdomada'][$dd]="Hebdomada VII Paschae";
 $temporal['hp'][$dd]=3;
 
-$pentecostes=$paques+7*$semaine;
-
-$sacritissimicordis=$pentecostes+2*$semaine+5*$jour;
-$sacri=date("Ymd", $sacritissimicordis);
-$temporal['couleur'][$sacri]="Rouge";
-$temporal['intitule'][$sacri]="SACRATISSIMI CORDIS IESU";
-$temporal['temporal'][$sacri]="SACRATISSIMI CORDIS IESU";
-$temporal['priorite'][$sacri]="5";
-$temporal['1V'][$sacri]=1;
-$temporal['rang'][$sacri]="Sollemnitas";
-$cordismaria=$sacritissimicordis+$jour;
-$cordi=date("Ymd", $cordismaria);
-$temporal['intitule'][$cordi]="ï¿½Immaculati Cordis B. Mariae Virginis";
-$temporal['temporal'][$cordi]="ï¿½Immaculati Cordis B. Mariae Virginis";
-$temporal['priorite'][$cordi]="10";
-$temporal['rang'][$cordi]="Memoria";
-
-$temporal['couleur'][$cordi]="Rouge";
-$perannum=$cordismaria+$jour;
-$perann=date("Ymd", $perannum);
-$temporal['couleur'][$perann]="Vert";
-//$temporal['hebdomada'][$penteco]="Hebdomada VII Paschae";
-
-$noe=date("d-M-Y", $noel);
-
-
-//print"<br>$noe";
-$journoel=date("w",$noel);
-if ($journoel==0) $journoel=7;
-
-$quatre_dim_avent=$noel-$journoel*$jour;
-$dd=date("Ymd", $quatre_dim_avent);
-$temporal['intitule'][$dd]="Dominica IV Adventus";
-$temporal['temporal'][$dd]="Dominica IV Adventus";
-$temporal['hp'][$dd]=4;
-$temporal['priorite'][$dd]="2";
-$temporal['1V'][$dd]=1;
-$temporal['hebdomada'][$dd]="Hebdomada IV Adventus";
-$temporal['couleur'][$dd]="Violet-avent";
-
-
-$trois_dim_avent=$quatre_dim_avent-$semaine;
-$dd=date("Ymd", $trois_dim_avent);
-$temporal['intitule'][$dd]="Dominica III Adventus";
-$temporal['temporal'][$dd]="Dominica III Adventus";
-$temporal['hp'][$dd]=3;
-$temporal['priorite'][$dd]="2";
-$temporal['1V'][$dd]=1;
-$temporal['couleur'][$dd]="Rose";
-$temporal['hebdomada'][$dd]="Hebdomada III Adventus";
-$coul_adventus=$trois_dim_avent+$jour;
-$dd=date("Ymd", $coul_adventus);
-$temporal['couleur'][$dd]="Violet-avent";
-
-
-$deux_dim_avent=$trois_dim_avent-$semaine;
-$dd=date("Ymd", $deux_dim_avent);
-$temporal['intitule'][$dd]="Dominica II Adventus";
-$temporal['temporal'][$dd]="Dominica II Adventus";
-$temporal['hp'][$dd]=2;
-$temporal['1V'][$dd]=1;
-$temporal['priorite'][$dd]="2";
-$temporal['hebdomada'][$dd]="Hebdomada II Adventus";
-
-$un_dim_avent=$deux_dim_avent-$semaine;
-$dd=date("Ymd", $un_dim_avent);
-$temporal['intitule'][$dd]="Dominica I Adventus";
-$temporal['temporal'][$dd]="Dominica I Adventus";
-$temporal['hp'][$dd]=1;
-$temporal['1V'][$dd]=1;
-$temporal['priorite'][$dd]="2";
-$temporal['hebdomada'][$dd]="Hebdomada I Adventus";
-$temporal['tempus'][$dd]="Tempus Adventus";
-$temporal['couleur'][$dd]="Violet-avent";
-$dnisuchrisitiunivregis=$un_dim_avent-$semaine;
-
-$entre_tempspascal_et_avent=$dnisuchrisitiunivregis-$sept_paques;
-$nbsemaines_perannum=intval($entre_tempspascal_et_avent/$semaine);
-
-//print"
-//<br>DNICUR : $dnisuchrisitiunivregis
-//<br>entre temps pascal et avent : $nbsemaines_perannum";
-$reprise_perannum=34-$nbsemaines_perannum+1;
-
-$entre_tempsnoel_et_careme=$un_quadragesima-$baptisma;
-$nbsemaines_perannum=intval($entre_tempsnoel_et_careme/$semaine)+1;
-//print"<br>per annum jusqu'ï¿½ : $nbsemaines_perannum";
-//print"<br>reprise per annum : $reprise_perannum";
-
-$dim_courant=$reprise_perannum;
-$date=$pentecostes;
-
-$hebdomada_reprise=$pentecostes+$jour;
-$numero = $romains[$dim_courant];
-$hp=(($dim_courant/4)-intval($dim_courant/4))*4;
-if($hp==0) $hp=4;
-
-//Pentecï¿½te
+$pentecostes=$paques+7*$semaine; // Pentecostes
 $dd=date("Ymd", $pentecostes);
 $temporal['intitule'][$dd]="Dominica Pentecostes";
 $temporal['temporal'][$dd]="Dominica Pentecostes";
@@ -591,6 +535,67 @@ $temporal['hp'][$dd]=$hp;
 $temporal['tempus'][$dd]="Tempus Paschale";
 $temporal['hebdomada'][$dd]="";
 $temporal['couleur'][$dd]="Rouge";
+
+$trinitatis=$pentecostes+$semaine; // Ste Trinité
+$trini=date("Ymd", $trinitatis);
+$temporal['couleur'][$trini]="Blanc";
+$temporal['intitule'][$trini]="SANCTISSIMAE TRINITATIS";
+$temporal['temporal'][$trini]="SANCTISSIMAE TRINITATIS";
+$temporal['priorite'][$trini]="3";
+$temporal['1V'][$trini]=1;
+$temporal['rang'][$trini]="Sollemnitas";
+$perannum=$trinitatis+$jour;
+$perann=date("Ymd", $perannum);
+$temporal['couleur'][$perann]="Vert";
+
+$corporis=$trinitatis+4*$jour; // Fete Dieu
+$corpo=date("Ymd", $corporis);
+$temporal['couleur'][$corpo]="Blanc";
+$temporal['intitule'][$corpo]="SS.MI CORPORIS ET SANGUINIS CHRISTI";
+$temporal['temporal'][$corpo]="SS.MI CORPORIS ET SANGUINIS CHRISTI";
+$temporal['rang'][$corpo]="Sollemnitas";
+$temporal['priorite'][$corpo]="3";
+$temporal['1V'][$corpo]=1;
+$perannum=$trinitatis+$jour;
+$perannum=$corporis+$jour;
+$perann=date("Ymd", $perannum);
+$temporal['couleur'][$perann]="Vert";
+
+$sacritissimicordis=$pentecostes+2*$semaine+5*$jour; // Coeur sacré de Jésus
+$sacri=date("Ymd", $sacritissimicordis);
+$temporal['couleur'][$sacri]="Rouge";
+$temporal['intitule'][$sacri]="SACRATISSIMI CORDIS IESU";
+$temporal['temporal'][$sacri]="SACRATISSIMI CORDIS IESU";
+$temporal['priorite'][$sacri]="5";
+$temporal['1V'][$sacri]=1;
+$temporal['rang'][$sacri]="Sollemnitas";
+
+$cordismaria=$sacritissimicordis+$jour; // Coeur immaculé de Marie
+$cordi=date("Ymd", $cordismaria);
+$temporal['intitule'][$cordi]="Immaculati Cordis B. Mariae Virginis";
+$temporal['temporal'][$cordi]="Immaculati Cordis B. Mariae Virginis";
+$temporal['priorite'][$cordi]="10";
+$temporal['rang'][$cordi]="Memoria";
+$temporal['couleur'][$cordi]="Rouge";
+
+$perannum=$cordismaria+$jour;
+$perann=date("Ymd", $perannum);
+$temporal['couleur'][$perann]="Vert";
+
+// Calcul du dimanche de reprise du temps ordinaire après le cyle de Pâques
+$entre_tempspascal_et_avent=$dnisuchrisitiunivregis-$sept_paques;
+$nbsemaines_perannum=intval($entre_tempspascal_et_avent/$semaine);
+$reprise_perannum=34-$nbsemaines_perannum+1;
+$dim_courant=$reprise_perannum;
+
+// Calcul de la semaine du temps ordinaire de reprise après la penteceote
+$entre_tempsnoel_et_careme=$un_quadragesima-$baptisma;
+$nbsemaines_perannum=intval($entre_tempsnoel_et_careme/$semaine)+1;
+$date=$pentecostes;
+$hebdomada_reprise=$pentecostes+$jour;
+$numero = $romains[$dim_courant];
+$hp=(($dim_courant/4)-intval($dim_courant/4))*4;
+if($hp==0) $hp=4;
 
 //Semaine aprï¿½s a Pentecï¿½te
 $dd=date("Ymd", $hebdomada_reprise);
@@ -602,9 +607,7 @@ $temporal['couleur'][$perann]="Vert";
 $temporal['tempus'][$perann]="Tempus per annum";
 
 
-
-//$temporal['hebdomada'][$dd]="";
-
+// Temps Ordinaire après la pentecote
 while($dim_courant<34) {
 	$date=$date+$semaine;
 	$dim_courant++;
@@ -617,11 +620,7 @@ while($dim_courant<34) {
 	$temporal['hebdomada'][$dd]="Hebdomada $numero per annum";
 	$hp=(($dim_courant/4)-intval($dim_courant/4))*4;
 	if($hp==0) $hp=4;
-	//if($temporal['hebdomada'][$dd]=="Hebdomada I per annum") $hp=1;
-
-	//print"<br>$dim_courant per annum = psalt heb nï¿½$hp";
 	$temporal['hp'][$dd]=$hp;
-	//print "<br>temporal[priorite][$dd]=".$temporal['priorite'][$dd];
 }
 
 $dnisuchrisitiunivregis=$un_dim_avent-$semaine;
@@ -638,7 +637,7 @@ $perann=date("Ymd", $perannum);
 $temporal['couleur'][$perann]="Vert";
 
 
-
+// Temps Ordinaire après l'épiphanie
 $date=$baptisma;
 $heb_courante=1;
 while($heb_courante<$nbsemaines_perannum) {
@@ -653,45 +652,17 @@ while($heb_courante<$nbsemaines_perannum) {
 	$temporal['hebdomada'][$dd]="Hebdomada $numero per annum";
 	$hp=(($heb_courante/4)-intval($heb_courante/4))*4;
 	if($hp==0) $hp=4;
-	//print"<br>$heb_courante per annum = psalt heb nï¿½$hp";
-	//if ($heb_courante==1) $hp=1;
 	$temporal['hp'][$dd]=$hp;
-	//print"hp=$hp";
-	//print "<br>temporal[priorite][$dd]=".$temporal['priorite'][$dd];
 }
 
-
-$trinitatis=$pentecostes+$semaine;
-$trini=date("Ymd", $trinitatis);
-$temporal['couleur'][$trini]="Blanc";
-$temporal['intitule'][$trini]="SANCTISSIMAE TRINITATIS";
-$temporal['temporal'][$trini]="SANCTISSIMAE TRINITATIS";
-$temporal['priorite'][$trini]="3";
-$temporal['1V'][$trini]=1;
-$temporal['rang'][$trini]="Sollemnitas";
-$perannum=$trinitatis+$jour;
-$perann=date("Ymd", $perannum);
-$temporal['couleur'][$perann]="Vert";
-
-$corporis=$trinitatis+4*$jour;
-$corpo=date("Ymd", $corporis);
-$temporal['couleur'][$corpo]="Blanc";
-$temporal['intitule'][$corpo]="SS.MI CORPORIS ET SANGUINIS CHRISTI";
-$temporal['temporal'][$corpo]="SS.MI CORPORIS ET SANGUINIS CHRISTI";
-$temporal['rang'][$corpo]="Sollemnitas";
-$temporal['priorite'][$corpo]="3";
-$temporal['1V'][$corpo]=1;
-$perannum=$trinitatis+$jour;
-$perannum=$corporis+$jour;
-$perann=date("Ymd", $perannum);
-$temporal['couleur'][$perann]="Vert";
+/*
+ * Chargement du sanctoral
+ */
 
 $date_courante=mktime(12,0,0,1,1,$m);
 $dernier_jour=mktime(12,0,0,12,31,$m);
 $lit=array("A","b","c","d","e","f","g");
 $i=0;
-//print_r($temporal);
-
 
 $row = 1;
 $handle = fopen("propres_r/sanctoral/sanctoral.csv", "r");
@@ -707,60 +678,57 @@ while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
     	$sanctoral['couleur'][$dds]=$data[6];
     	$sanctoral['priorite'][$dds]=$data[7];
 
-    	if ($data[4]=="S. IOSEPH, SPONSI B. M. V.") {
+    	if ($data[4]=="S. IOSEPH, SPONSI B. M. V.") {    		
     	    if ($m=="2006") {
-			$sanctoral['intitule']['20060320']=$data[4];
-    		$sanctoral['rang']['20060320']=$data[5];
-    		$sanctoral['couleur']['20060320']=$data[6];
-    		$sanctoral['priorite']['20060320']=$data[7];
-    		$sanctoral['vita']['20060320']=$data[8];;
+    	    	$sanctoral['intitule']['20060320']=$data[4];
+	    		$sanctoral['rang']['20060320']=$data[5];
+	    		$sanctoral['couleur']['20060320']=$data[6];
+	    		$sanctoral['priorite']['20060320']=$data[7];
+	    		$sanctoral['vita']['20060320']=$data[8];;
 			}
 			if ($m=="2008") {
 				$sanctoral['intitule']['20080315']=$data[4];
-    		$sanctoral['rang']['20080315']=$data[5];
-    		$sanctoral['couleur']['20080315']=$data[6];
-    		$sanctoral['priorite']['20080315']=$data[7];
-    		$sanctoral['vita']['20080315']=$data[8];
+	    		$sanctoral['rang']['20080315']=$data[5];
+	    		$sanctoral['couleur']['20080315']=$data[6];
+	    		$sanctoral['priorite']['20080315']=$data[7];
+	    		$sanctoral['vita']['20080315']=$data[8];
 			}
     	}
 
     	if (($data[4]=="IN ANNUNTIATIONE DOMINI")) {
     	    if ($m=="2005") {
 				$sanctoral['intitule']['20050404']=$data[4];
-    		$sanctoral['rang']['20050404']=$data[5];
-    		$sanctoral['couleur']['20050404']=$data[6];
-    		$sanctoral['priorite']['20050404']=$data[7];;
+	    		$sanctoral['rang']['20050404']=$data[5];
+	    		$sanctoral['couleur']['20050404']=$data[6];
+	    		$sanctoral['priorite']['20050404']=$data[7];
 			}
 			if ($m=="2007") {
 				$sanctoral['intitule']['20070326']=$data[4];
-    		$sanctoral['rang']['20070326']=$data[5];
-    		$sanctoral['couleur']['20070326']=$data[6];
-    		$sanctoral['priorite']['20070326']=$data[7];;
+	    		$sanctoral['rang']['20070326']=$data[5];
+	    		$sanctoral['couleur']['20070326']=$data[6];
+	    		$sanctoral['priorite']['20070326']=$data[7];
 			}
 			if ($m=="2008") {
 				$sanctoral['intitule']['20080331']=$data[4];
-    		$sanctoral['rang']['20080331']=$data[5];
-    		$sanctoral['couleur']['20080331']=$data[6];
-    		$sanctoral['priorite']['20080331']=$data[7];;
+	    		$sanctoral['rang']['20080331']=$data[5];
+	    		$sanctoral['couleur']['20080331']=$data[6];
+	    		$sanctoral['priorite']['20080331']=$data[7];
 			}
 			if ($m=="2012") {
 				$sanctoral['intitule']['20120326']=$data[4];
-    		$sanctoral['rang']['20120326']=$data[5];
-    		$sanctoral['couleur']['20120326']=$data[6];
-    		$sanctoral['priorite']['20120326']=$data[7];;
+	    		$sanctoral['rang']['20120326']=$data[5];
+	    		$sanctoral['couleur']['20120326']=$data[6];
+	    		$sanctoral['priorite']['20120326']=$data[7];
 			}
 			if ($m=="2013") {
 				$sanctoral['intitule']['20130408']=$data[4];
-    		$sanctoral['rang']['20130408']=$data[5];
-    		$sanctoral['couleur']['20130408']=$data[6];
-    		$sanctoral['priorite']['20130408']=$data[7];;
+	    		$sanctoral['rang']['20130408']=$data[5];
+	    		$sanctoral['couleur']['20130408']=$data[6];
+	    		$sanctoral['priorite']['20130408']=$data[7];
 			}
     	}
-
-
-
-    }
-}
+    } // fin du si l'intitulÃ© n'est pas vide
+}// fin du while lisant le fichier sanctoral
 
 
 $m=@date("Y",$day);
@@ -768,7 +736,6 @@ $date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'année $m
 $dernier_jour=mktime(12,0,0,12,31,$m); // 31 décembre de l'année $m
 
 while($date_courante <= $dernier_jour) {
-	
     // Initialisation des propiétés du calendrier
 	$vita="";
     $tempo="";
@@ -820,6 +787,7 @@ while($date_courante <= $dernier_jour) {
 		$priorite=$sanctoral['priorite'][$date];
 		$propre=date("m",$date_courante).date("d",$date_courante);
 	}
+	
 	if($couleurs) {
 		$coul=$hexa[$couleurs];
 		$couleur_template[$d]=$couleurs;
