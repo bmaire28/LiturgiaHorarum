@@ -149,7 +149,7 @@ switch ($tem) {
         break;
 }
 $fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
-if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 $fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$latin=$data[1];$francais=$data[2];
@@ -164,7 +164,7 @@ fclose($fp);
  */
 
 $fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
-if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+if (!file_exists($fichier)) print_r("<p>Psautier : ".$fichier." introuvable !</p>");
 $fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$ref=$data[1];
@@ -182,7 +182,7 @@ fclose($fp);
 if($calendarium['rang'][$jour]) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -199,19 +199,20 @@ if($calendarium['rang'][$jour]) {
 /*
  * octave glissante précédente noel 
  */
-if(
-		($calendarium['intitule'][$jour]=="Die 17 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 18 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 19 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 20 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 21 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 22 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 23 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 24 Decembris")
-		) {
+if(($mense==12)AND(
+		($die==17)
+		OR($die==18)
+		OR($die==19)
+		OR($die==20)
+		OR($die==21)
+		OR($die==22)
+		OR($die==23)
+		OR($die==24)
+		)
+	) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -236,7 +237,7 @@ if(
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
 	$fichier="propres_r/temporal/".$tempo.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Temporal : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];

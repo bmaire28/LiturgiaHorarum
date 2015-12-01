@@ -728,6 +728,7 @@ while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 			}
     	}
     } // fin du si l'intitulé n'est pas vide
+    /*
     // 17 Décembre
     $date_sanctoral=@mktime(12,0,0,12,17,$m);
     $dds=date("Ymd", $date_sanctoral);
@@ -798,7 +799,7 @@ while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
     $sanctoral['intitule'][$dds]="Die 24 Decembris";
     $sanctoral['rang'][$dds]="";
     $sanctoral['couleur'][$dds]="Violet-avent";
-    $sanctoral['priorite'][$dds]="9";
+    $sanctoral['priorite'][$dds]="9";*/
 }// fin du while lisant le fichier sanctoral
 
 

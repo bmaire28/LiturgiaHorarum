@@ -202,16 +202,17 @@ if($calendarium['rang'][$jour]) {
 /*
  * octave glissante précédente noel
  */
-if(
-		($calendarium['intitule'][$jour]=="Die 17 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 18 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 19 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 20 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 21 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 22 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 23 Decembris")
-		OR($calendarium['intitule'][$jour]=="Die 24 Decembris")
-) {
+if(($mense==12)AND(
+		($die==17)
+		OR($die==18)
+		OR($die==19)
+		OR($die==20)
+		OR($die==21)
+		OR($die==22)
+		OR($die==23)
+		OR($die==24)
+		)
+	) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
 	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
