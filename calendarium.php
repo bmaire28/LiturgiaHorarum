@@ -148,10 +148,10 @@ $hexa['Noir']="000000";
 $hexa['Blanc']="f3f1bc";
 $hexa['Rouge']="c50520";
 
-$anno=substr($date,0,4); // année de la date demandée
-$mense=substr($date,4,2); // mois de la date demandée
-$die=substr($date,6,2); // jour de la date demandée
-$day=mktime(12,0,0,$mense,$die,$anno); // date de mandée au format informatique
+$anno=substr($date,0,4); // annï¿½e de la date demandï¿½e
+$mense=substr($date,4,2); // mois de la date demandï¿½e
+$die=substr($date,6,2); // jour de la date demandï¿½e
+$day=mktime(12,0,0,$mense,$die,$anno); // date de mandï¿½e au format informatique
 
 //// Forme de la variable date : AAAAMMJJ
 /*
@@ -177,20 +177,20 @@ Par exemple, si le rï¿½sultat est -7, le quantiï¿½me est 31 + -7 = 24.
 */
 
 
-$m=@date("Y",$day); // extraction de l'année demandée au format informatique
-$n=$m-1900; // opération 1 
-$a=$n%19; // opération 2
-$b=intval((7*$a+1)/19); // opération 3
-$c=(11*$a-$b+4)%29; // opération 4
-$d=intval($n/4); // opération 5
-$e=($n-$c+$d+31)%7; // opération 6
+$m=@date("Y",$day); // extraction de l'annï¿½e demandï¿½e au format informatique
+$n=$m-1900; // opï¿½ration 1 
+$a=$n%19; // opï¿½ration 2
+$b=intval((7*$a+1)/19); // opï¿½ration 3
+$c=(11*$a-$b+4)%29; // opï¿½ration 4
+$d=intval($n/4); // opï¿½ration 5
+$e=($n-$c+$d+31)%7; // opï¿½ration 6
 
-// Si e est positif, Pâques est en avril
+// Si e est positif, Pï¿½ques est en avril
 if($e>=0) {
 	$p=25-$c-$e;
 	$paques=mktime(12, 0, 0, 4, $p, $m);
 }
-// Si e est négatif, Pâques est en mars
+// Si e est nï¿½gatif, Pï¿½ques est en mars
 if($e<0) {
 	$p=31+$e;
 	$paques=mktime(12, 0, 0, 3, $p, $m);
@@ -204,11 +204,11 @@ $jour=60*60*24;
 $semaine=60*60*24*7;
 
 /*
- * Cycle de Noël
+ * Cycle de Noï¿½l
  */
 
 
-// Date de noël au format informatique
+// Date de noï¿½l au format informatique
 $noel=mktime(12,0,0,12,25,$m);
 $noe=date("d-M-Y", $noel);
 $no=date("Ymd", $noel);
@@ -283,7 +283,7 @@ $temporal['couleur'][$dd]="Blanc";
 $temporal['priorite'][$dd]="7";
 $temporal['1V'][$dd]=1;
 
-$noel_annee_precedente=mktime(12,0,0,12,25,$m-1); // Noel de l'année précédente
+$noel_annee_precedente=mktime(12,0,0,12,25,$m-1); // Noel de l'annï¿½e prï¿½cï¿½dente
 $dd=date("Ymd", $noel_annee_precedente);
 $temporal['intitule'][$dd]="IN NATIVITATE DOMINI";
 $temporal['couleur'][$dd]="Blanc";
@@ -293,7 +293,7 @@ $temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 $temporal['1V'][$dd]=1;
 $jour_noel_precedent=date("w", $noel_annee_precedente);
 
-$sanctae_familiae=$noel_annee_precedente+(7-$jour_noel_precedent)*$jour; // Ste famille de l'année précédente
+$sanctae_familiae=$noel_annee_precedente+(7-$jour_noel_precedent)*$jour; // Ste famille de l'annï¿½e prï¿½cï¿½dente
 $jj=date("w", $sanctae_familiae);
 $dd=date("Ymd", $sanctae_familiae);
 $temporal['intitule'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
@@ -303,7 +303,7 @@ $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 $temporal['1V'][$dd]=1;
 
-$infra_oct_nativ=$noel_annee_precedente+7*$jour; // Octave de noel de l'année précédente
+$infra_oct_nativ=$noel_annee_precedente+7*$jour; // Octave de noel de l'annï¿½e prï¿½cï¿½dente
 $dd=date("Ymd", $infra_oct_nativ);
 $temporal['hebdomada'][$dd]="Infra Octavam Nativitatis";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
@@ -318,7 +318,7 @@ $temporal['couleur'][$dd]="Blanc";
 $epiphania=mktime(12,0,0,1,6,$m); // Epiphanie
 $jour_epiphanie=date("w", $epiphania);
 
-$baptisma=$epiphania+(7-$jour_epiphanie)*$jour; // Baptême du Seigneur
+$baptisma=$epiphania+(7-$jour_epiphanie)*$jour; // Baptï¿½me du Seigneur
 $dd=date("Ymd", $baptisma);
 $temporal['intitule'][$dd]="IN BAPTISMATE DOMINI";
 $temporal['rang'][$dd]="Festum";
@@ -327,7 +327,7 @@ $temporal['1V'][$dd]=1;
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 
-$perannum=$baptisma+$jour; // début de temps ordinaire
+$perannum=$baptisma+$jour; // dï¿½but de temps ordinaire
 $dd=date("Ymd", $perannum);
 $temporal['tempus'][$dd]="Tempus per annum";
 $temporal['hebdomada'][$dd]="Hebdomada I per annum";
@@ -337,7 +337,7 @@ $temporal['psautier'][$dd]="perannum";
 
 
 /*
- * cycle de Pâques
+ * cycle de Pï¿½ques
  */
 
 // temps de la Passion
@@ -378,7 +378,7 @@ $temporal['priorite'][$dd]="1";
 $temporal['couleur'][$dd]="Violet-careme";
 
 
-// Temps du carême
+// Temps du carï¿½me
 
 $cinq_quadragesima=$palmis-$semaine; // 5e Dim de Careme
 $dd=date("Ymd", $cinq_quadragesima);
@@ -450,7 +450,7 @@ $temporal['hebdomada'][$dd]="Dies post Cineres";
 $temporal['couleur'][$dd]="Violet-careme";
 
 // Temps Pascal
-$pa=date("Ymd", $paques); // Jour de Pâques
+$pa=date("Ymd", $paques); // Jour de Pï¿½ques
 $dd=$pa;
 $temporal['intitule'][$dd]="DOMINICA RESURRECTIONIS";
 $temporal['temporal'][$dd]="DOMINICA RESURRECTIONIS";
@@ -536,7 +536,7 @@ $temporal['tempus'][$dd]="Tempus Paschale";
 $temporal['hebdomada'][$dd]="";
 $temporal['couleur'][$dd]="Rouge";
 
-$trinitatis=$pentecostes+$semaine; // Ste Trinité
+$trinitatis=$pentecostes+$semaine; // Ste Trinitï¿½
 $trini=date("Ymd", $trinitatis);
 $temporal['couleur'][$trini]="Blanc";
 $temporal['intitule'][$trini]="SANCTISSIMAE TRINITATIS";
@@ -561,7 +561,7 @@ $perannum=$corporis+$jour;
 $perann=date("Ymd", $perannum);
 $temporal['couleur'][$perann]="Vert";
 
-$sacritissimicordis=$pentecostes+2*$semaine+5*$jour; // Coeur sacré de Jésus
+$sacritissimicordis=$pentecostes+2*$semaine+5*$jour; // Coeur sacrï¿½ de Jï¿½sus
 $sacri=date("Ymd", $sacritissimicordis);
 $temporal['couleur'][$sacri]="Rouge";
 $temporal['intitule'][$sacri]="SACRATISSIMI CORDIS IESU";
@@ -570,7 +570,7 @@ $temporal['priorite'][$sacri]="5";
 $temporal['1V'][$sacri]=1;
 $temporal['rang'][$sacri]="Sollemnitas";
 
-$cordismaria=$sacritissimicordis+$jour; // Coeur immaculé de Marie
+$cordismaria=$sacritissimicordis+$jour; // Coeur immaculï¿½ de Marie
 $cordi=date("Ymd", $cordismaria);
 $temporal['intitule'][$cordi]="Immaculati Cordis B. Mariae Virginis";
 $temporal['temporal'][$cordi]="Immaculati Cordis B. Mariae Virginis";
@@ -582,13 +582,13 @@ $perannum=$cordismaria+$jour;
 $perann=date("Ymd", $perannum);
 $temporal['couleur'][$perann]="Vert";
 
-// Calcul du dimanche de reprise du temps ordinaire après le cyle de Pâques
+// Calcul du dimanche de reprise du temps ordinaire aprï¿½s le cyle de Pï¿½ques
 $entre_tempspascal_et_avent=$dnisuchrisitiunivregis-$sept_paques;
 $nbsemaines_perannum=intval($entre_tempspascal_et_avent/$semaine);
 $reprise_perannum=34-$nbsemaines_perannum+1;
 $dim_courant=$reprise_perannum;
 
-// Calcul de la semaine du temps ordinaire de reprise après la penteceote
+// Calcul de la semaine du temps ordinaire de reprise aprï¿½s la penteceote
 $entre_tempsnoel_et_careme=$un_quadragesima-$baptisma;
 $nbsemaines_perannum=intval($entre_tempsnoel_et_careme/$semaine)+1;
 $date=$pentecostes;
@@ -607,7 +607,7 @@ $temporal['couleur'][$perann]="Vert";
 $temporal['tempus'][$perann]="Tempus per annum";
 
 
-// Temps Ordinaire après la pentecote
+// Temps Ordinaire aprï¿½s la pentecote
 while($dim_courant<34) {
 	$date=$date+$semaine;
 	$dim_courant++;
@@ -637,7 +637,7 @@ $perann=date("Ymd", $perannum);
 $temporal['couleur'][$perann]="Vert";
 
 
-// Temps Ordinaire après l'épiphanie
+// Temps Ordinaire aprï¿½s l'ï¿½piphanie
 $date=$baptisma;
 $heb_courante=1;
 while($heb_courante<$nbsemaines_perannum) {
@@ -728,27 +728,98 @@ while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 			}
     	}
     } // fin du si l'intitulÃ© n'est pas vide
+    // 17 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,17,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 17 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 18 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,18,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 18 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 19 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,19,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 17 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 20 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,20,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 20 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 21 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,21,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 21 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 22 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,22,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 22 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 23 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,23,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 23 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
+    
+    // 24 DÃ©cembre
+    $date_sanctoral=@mktime(12,0,0,12,24,$m);
+    $dds=date("Ymd", $date_sanctoral);
+    $sanctoral['vita'][$dds]="";
+    $sanctoral['intitule'][$dds]="Die 24 Decembris";
+    $sanctoral['rang'][$dds]="";
+    $sanctoral['couleur'][$dds]="Violet-avent";
+    $sanctoral['priorite'][$dds]="9";
 }// fin du while lisant le fichier sanctoral
 
 
 $m=@date("Y",$day);
-$date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'année $m
-$dernier_jour=mktime(12,0,0,12,31,$m); // 31 décembre de l'année $m
+$date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'annï¿½e $m
+$dernier_jour=mktime(12,0,0,12,31,$m); // 31 dï¿½cembre de l'annï¿½e $m
 
 while($date_courante <= $dernier_jour) {
-    // Initialisation des propiétés du calendrier
+    // Initialisation des propiï¿½tï¿½s du calendrier
 	$vita="";
     $tempo="";
     $pV="";
     $priorite="";
 	$couleurs="";
 	
-	// Manipulation sur la date du jour à mettre dans le calendrier
+	// Manipulation sur la date du jour ï¿½ mettre dans le calendrier
 	$d=date("Ymd", $date_courante);
 	$f=date("w", $date_courante);
 	$date=date("Ymd", $date_courante);
 
-	// initialisation des variables à partir du temporal 
+	// initialisation des variables ï¿½ partir du temporal 
 	$intitule = $temporal['intitule'][$date];
 	if ($temporal['tempus'][$date]!="") $tempus=$temporal['tempus'][$date];
 	if ($temporal['hebdomada'][$date]!="") $hebdomada=$temporal['hebdomada'][$date];

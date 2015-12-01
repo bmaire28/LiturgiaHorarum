@@ -178,6 +178,35 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 }
 fclose($fp);
 
+/*
+ * octave glissante précédente noel 
+ */
+if(
+		($calendarium['intitule'][$jour]=="Die 17 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 18 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 19 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 20 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 21 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 22 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 23 Decembris")
+		OR($calendarium['intitule'][$jour]=="Die 24 Decembris")
+		) {
+	$prop=$mense.$die;
+	$fichier="propres_r/sanctoral/".$prop.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$propre[$id]['latin']=$data[1];
+		$propre[$id]['francais']=$data[2];
+		$row++;
+	}
+	fclose($fp);
+	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
+	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
+	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
+}
+
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
 	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
