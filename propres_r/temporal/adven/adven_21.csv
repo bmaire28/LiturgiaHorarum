@@ -8,13 +8,13 @@ V/. Qui ventúrus es in mundum. * Miserére nobis. Glória Patri. Christe.";"R/. O 
 V/. Toi qui viens dans le monde. * Aie pitié de nous. Gloire au Père. O Christ."
 benedictus;<i>Antiphona propria.</i>;<i>Antienne propre</i>
 oratio_laudes;<i>Oratio propria</i>;<i>Oraison propre</i>
-preces_matin;preces_XII;
+preces_matin;preces_II;
 HYMNUS_tertiam;hy_Nunc, Sancte, nobis, Spíritus;
 HYMNUS_sextam;hy_Rector_potens_verax_Deus;
 HYMNUS_nonam;hy_Rerum_Deus_tenax_vigor;
-ant4;Prophétæ prædicavérunt nasci Salvatórem de Vírgine María.;Les prophètes ont prédi la naissance du Sauveurde la Vierge Marie.
-ant5;"Gábriel ángelus locútus est Maríæ, dicens: Ave, grátia plena; Dóminus tecum; benedícta tu inter mulíeres.";"L'ange Gabriel s'adressa à Marie en disant : Salut,pleine de grâce ; le Seigneur est avec vous ; vous êtesbénie entre les femmes."
-ant6;María dixit: Qualis est ista salutátio? quia conturbáta est ánima mea, et quia paritúra sum Regem, qui claustrum virginitátis meæ non violábit.;Marie dit : quelle est cette salutation ? Mon âmeest troublée, et parce que je suis enceinte du Roi, quin'a pas brisé le sceau de ma virginité.
+ant4;Prophétæ prædicavérunt nasci Salvatórem de Vírgine María.;Les prophètes ont prédi la naissance du Sauveur de la Vierge Marie.
+ant5;"Gábriel ángelus locútus est Maríæ, dicens: Ave, grátia plena; Dóminus tecum; benedícta tu inter mulíeres.";"L'ange Gabriel s'adressa à Marie en disant : Salut, pleine de grâce ; le Seigneur est avec vous ; vous êtes bénie entre les femmes."
+ant6;María dixit: Qualis est ista salutátio? quia conturbáta est ánima mea, et quia paritúra sum Regem, qui claustrum virginitátis meæ non violábit.;Marie dit : quelle est cette salutation ? Mon âme est troublée, et parce que je suis enceinte du Roi, qui n'a pas brisé le sceau de ma virginité.
 LB_3;LB_Rom 13, 13-14a;
 RB_3;"V/. Timébunt gentes nomen tuum, Dómine.
 R/. Et omnes reges terræ glóriam tuam.";"V/. Les nations craindront ton nom, Seigneur
@@ -32,11 +32,12 @@ R/. Remets à ton peuple ses péchés."
 oratio_9;;
 HYMNUS_vesperas;hy_Cónditor alme síderum;
 ant7;Ecce in núbibus cæli Dóminus véniet cum potestáte magna, allelúia. ;Voici que des nuées du ciel, le Seigneur vient avec grande puissance, alléluia. 
-ant8;"Ecce apparébit Dóminus, et non mentiétur; si moram fécerit, exspécta eum quia véniet et non tardábit, allelúia. ";"Voici qu'apparaît le Seigneur, il ne décevera pas ; s'il se fait attendre, patientez cart il va venir sans retard, alléluia. "
-ant9;Dóminus légifer noster, Dóminus rex noster: ipse véniet et salvábit nos. ;Le Seigneur est notre legislateur, le Seigneur est notre roi : lui-même viendra et nous sauvera. 
+ant8;"Ecce apparébit Dóminus, et non mentiétur; si moram fécerit, exspécta eum quia véniet et non tardábit, allelúia. ";"Voici qu'apparaît le Seigneur, il ne décevera pas ; s'il se fait attendre, patientez car il va venir sans retard, alléluia. "
+ant9;Dóminus légifer noster, Dóminus rex noster: ipse véniet et salvábit nos. ;Le Seigneur est notre législateur, le Seigneur est notre roi : lui-même viendra et nous sauvera. 
 LB_soir;LB_Phil 4, 4-5;
 RB_soir;"R/. Osténde nobis, Dómine, * Misericórdiam tuam. Osténde.
-V/. Et salutáre tuum da nobis. * Misericórdiam tuam. Glória Patri. Osténde.";R/. Montre-nous, Seigneur, * Ta miséricorde. Montrenous. V/. Et donne-nous ton salut. * Ta miséricorde. Gloireau Père. Montre nous.
+V/. Et salutáre tuum da nobis. * Misericórdiam tuam. Glória Patri. Osténde.";"R/. Montre-nous, Seigneur, * Ta miséricorde. Montre nous.
+V/. Et donne-nous ton salut. * Ta miséricorde. Gloireau Père. Montre nous."
 magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>
 oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>
-preces_soir;preces_XIII;
+preces_soir;preces_III;
