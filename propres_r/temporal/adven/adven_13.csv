@@ -1,38 +1,43 @@
 HYMNUS_laudes;hy_Vox clara ecce íntonat, ;
-ant1;Innocens mánibus et mundo corde ascéndet in montem Dómini.;L'homme aux mains innocentes et au c?ur pur gravira la montagne du Seigneur.
-ant2;Exaltáte Regem sæculórum in opéribus vestris.;Exaltez le Roi des siècles par vos ?uvres.
+ant1;Innocens mánibus et mundo corde ascéndet in montem Dómini.;"L'homme aux mains innocentes et au c&oelig;ur pur gravira la montagne du Seigneur."
+ant2;Exaltáte Regem sæculórum in opéribus vestris.;"Exaltez le Roi des siècles par vos &oelig;uvres."
 ant3;Rectos decet collaudátio.;Hommes droits, à vous la louange.
 LB_matin;LB_Gen 49, 10;
 RB_matin;"R/. Super te, Ierúsalem, * Oriétur Dóminus. Super te.
-V/. Et glória eius in te vidébitur. * Oriétur Dóminus. Glória Patri. Super te.";R/. Sur toi, Jérusalem,* se lève le Seigneur. Sur toi. V/. Et sa gloire se manifeste en toi.* se lève leSeigneur. Gloire au Père. Sur toi.
+V/. Et glória eius in te vidébitur. * Oriétur Dóminus. Glória Patri. Super te.";"R/. Sur toi, Jérusalem,* se lève le Seigneur. Sur toi.
+V/. Et sa gloire se manifeste en toi.* se lève le Seigneur. Gloire au Père. Sur toi."
 benedictus;Egrediétur virga de radíce Iesse, et replébitur omnis terra glória Domini: et vidébit omnis caro salutáre Dei.;Un rameau sortira du tronc de Jessé, et toute la terre sera remplie de la gloire duSeigneur : et toute chair verra le salut de Dieu.
-oratio_laudes;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu,et dans l'épreuve, accorde-nous l'aide de ta bonté, afinque, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes despéchés d'autrefois.
+oratio_laudes;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu,et dans l'épreuve, accorde-nous l'aide de ta bonté, afin que, consolés par la présence de ton Fils qui vient, nous ne soyons plus souillés par les atteintes despéchés d'autrefois.
 preces_matin;preces_II;
 HYMNUS_tertiam;hy_Nunc, Sancte, nobis, Spíritus;
 HYMNUS_sextam;hy_Rector_potens_verax_Deus;
 HYMNUS_nonam;hy_Rerum_Deus_tenax_vigor;
 ant4;Prophétæ prædicavérunt nasci Salvatórem de Vírgine María.;Les prophètes ont prédi la naissance du Sauveurde la Vierge Marie.
-ant5;"Gábriel ángelus locútus est Maríæ, dicens: Ave, grátia plena; Dóminus tecum; benedícta tu inter mulíeres.";"L'ange Gabriel s'adressa à Marie en disant : Salut,pleine de grâce ; le Seigneur est avec vous ; vous êtesbénie entre les femmes."
-ant6;María dixit: Qualis est ista salutátio? quia conturbáta est ánima mea, et quia paritúra sum Regem, qui claustrum virginitátis meæ non violábit.;Marie dit : quelle est cette salutation ? Mon âmeest troublée, et parce que je suis enceinte du Roi, quin'a pas brisé le sceau de ma virginité.
+ant5;"Gábriel ángelus locútus est Maríæ, dicens: Ave, grátia plena; Dóminus tecum; benedícta tu inter mulíeres.";"L'ange Gabriel s'adressa à Marie en disant : Salut, pleine de grâce ; le Seigneur est avec vous ; vous êtes bénie entre les femmes."
+ant6;María dixit: Qualis est ista salutátio? quia conturbáta est ánima mea, et quia paritúra sum Regem, qui claustrum virginitátis meæ non violábit.;Marie dit : quelle est cette salutation ? Mon âme est troublée, et parce que je suis enceinte du Roi, qui n'a pas brisé le sceau de ma virginité.
 LB_3;LB_Ier 23, 5;
 RB_3;"V/. Timébunt gentes nomen tuum, Dómine.
-R/. Et omnes reges terræ glóriam tuam.";V/. Les nations craindront ton nom, SeigneurR/. Et tous les rois de la terre, ta gloire.
-oratio_3;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu,et dans l'épreuve, accorde-nous l'aide de ta bonté, afinque, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes despéchés d'autrefois.
+R/. Et omnes reges terræ glóriam tuam.";"V/. Les nations craindront ton nom, Seigneur
+R/. Et tous les rois de la terre, ta gloire."
+oratio_3;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu, et dans l'épreuve, accorde-nous l'aide de ta bonté, afin que, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes des péchés d'autrefois.
 LB_6;LB_Ier 23, 6;
 RB_6;"V/. Meménto nostri, Dómine, in beneplácito pópuli tui.
-R/. Vísita nos in salutári tuo.";V/. Souviens-toi, Seigneur , dans ta bonté pour tonpeuple,R/. Visite-nous avec ton secours.
-oratio_6;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu,et dans l'épreuve, accorde-nous l'aide de ta bonté, afinque, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes despéchés d'autrefois.
+R/. Vísita nos in salutári tuo.";"V/. Souviens-toi, Seigneur , dans ta bonté pour ton peuple,
+R/. Visite-nous avec ton secours."
+oratio_6;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu, et dans l'épreuve, accorde-nous l'aide de ta bonté, afinq ue, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes des péchés d'autrefois.
 LB_9;LB_Cf.Ez 34, 15-16;
 RB_9;"V/. Veni, Dómine, et noli tardáre.
-R/. Reláxa facínora plebi tuæ.";V/. Viens, Seigneur, ne tarde pas.R/. Remets à ton peuple ses péchés.
-oratio_9;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu,et dans l'épreuve, accorde-nous l'aide de ta bonté, afinque, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes despéchés d'autrefois.
+R/. Reláxa facínora plebi tuæ.";"V/. Viens, Seigneur, ne tarde pas.
+R/. Remets à ton peuple ses péchés."
+oratio_9;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu, et dans l'épreuve, accorde-nous l'aide de ta bonté, afinq ue, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes des péchés d'autrefois.
 HYMNUS_vesperas;hy_Cónditor alme síderum;
 ant7;Tríbuit Dóminus victóriam Christo suo.;Le Seigneur a donné la victoire à son Christ.
 ant8;Cantábimus et psallémus virtútes tuas.;Nous chanterons et psalmodirons tes vertus.
-ant9;Fecísti nos, Dómine, regnum et sacerdótes Deo nostro.;Le Seigneur nous a faits rois et prêtres de notreDieu.
+ant9;Fecísti nos, Dómine, regnum et sacerdótes Deo nostro.;Le Seigneur nous a faits rois et prêtres de notre Dieu.
 LB_soir;LB_Cf 1 Cor 1, 7b-9;
 RB_soir;"R/. Veni ad liberándum nos, * Dómine Deus virtútum. Veni.
-V/. Osténde fáciem tuam, et salvi érimus. * Dómine Deus virtútum. Glória Patri. Veni.";R/. Viens pour nous libérer, * Seigneur Dieu des armées. Viens. V/. Montre-nous ton visage et nous serons sauvés. * Seigneur Dieu des armées. Gloire au Père. Viens.
+V/. Osténde fáciem tuam, et salvi érimus. * Dómine Deus virtútum. Glória Patri. Veni.";"R/. Viens pour nous libérer, * Seigneur Dieu des armées. Viens.
+V/. Montre-nous ton visage et nous serons sauvés. * Seigneur Dieu des armées. Gloire au Père. Viens."
 magnificat;Angelus Dómini nuntiávit Maríæ, et concépit de Spíritu Sancto, allelúia.;L'Ange du Seigneur a porté son message à Marie, et elle conçu du Saint-Esprit, alléluia.
-oratio_vesperas;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu,et dans l'épreuve, accorde-nous l'aide de ta bonté, afinque, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes despéchés d'autrefois.
+oratio_vesperas;Matutina supplicum vota, Domine, propitius intuére, et occulta cordis nostri remédio tuae clarifica pietatis, ut desidéria tenebrosa non téneant, quo lu caelestis gratiae reparavit. Per Dominum.;Sois favorable à nos supplications, Seigneur notre Dieu, et dans l'épreuve, accorde-nous l'aide de ta bonté, afinq ue, consolés par la présence de ton Fils qui vient,nous ne soyons plus souillés par les atteintes des péchés d'autrefois.
 preces_soir;preces_III;

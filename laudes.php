@@ -8,6 +8,10 @@ if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
 	$temp['ps3']['latin']="ps149";
 }
 
+//test 1�res v�pres
+//print_r("<p> 1V : ".$calendarium['1V'][$jour]."</p>");
+
+
 $jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
 $jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
 	
@@ -144,7 +148,9 @@ switch ($tem) {
         return;
         break;
 }
-$fp = fopen ("propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv","r");
+$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$latin=$data[1];$francais=$data[2];
 	$var[$id]['latin']=$latin;
@@ -157,7 +163,9 @@ fclose($fp);
  * Chargement du psautier du jour
  */
 
-$fp=fopen("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
+$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>Psautier : ".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$ref=$data[1];
 	$reference[$id]=$ref;
@@ -173,7 +181,9 @@ fclose($fp);
 
 if($calendarium['rang'][$jour]) {
 	$prop=$mense.$die;
-	$fp = fopen ("propres_r/sanctoral/".$prop.".csv","r");
+	$fichier="propres_r/sanctoral/".$prop.".csv";
+	if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 	    $propre[$id]['latin']=$data[1];
@@ -186,6 +196,37 @@ if($calendarium['rang'][$jour]) {
 	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
 }
 
+/*
+ * octave glissante précédente noel 
+ */
+if(($mense==12)AND(
+		($die==17)
+		OR($die==18)
+		OR($die==19)
+		OR($die==20)
+		OR($die==21)
+		OR($die==22)
+		OR($die==23)
+		OR($die==24)
+		)
+	) {
+	$prop=$mense.$die;
+	$fichier="propres_r/sanctoral/".$prop.".csv";
+	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$propre[$id]['latin']=$data[1];
+		$propre[$id]['francais']=$data[2];
+		$row++;
+	}
+	fclose($fp);
+	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
+	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
+	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
+}
+
+
 
 /*
  * Vérifier qu'il n'y a pas une solennité
@@ -195,7 +236,9 @@ if($calendarium['rang'][$jour]) {
 
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
-	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	$fichier="propres_r/temporal/".$tempo.".csv";
+	if (!file_exists($fichier)) print_r("<p>Temporal : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 	    $temp[$id]['latin']=$data[1];
@@ -223,7 +266,6 @@ if($calendarium['temporal'][$jour]) {
 	$rang_lat=$temp['rang']['latin'];
 	$rang_fr=$temp['rang']['francais'];
 }
-
 
 
 /*
@@ -288,8 +330,10 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#HYMNUS" :
-			if(!$hymne) $laudes.=hymne($var['HYMNUS_laudes']['latin']);
-			else $laudes.= hymne($hymne);
+			if($propre['HYMNUS_laudes']['latin']) $hymne=$propre['HYMNUS_laudes']['latin'];
+			elseif ($temp['HYMNUS_laudes']['latin']) $hymne=$temp['HYMNUS_laudes']['latin'];
+			else $hymne=$var['HYMNUS_laudes']['latin'];
+			$laudes.= hymne($hymne);
 			break;
 		
 		case "#ANT1*":
@@ -419,9 +463,10 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#LB":
-			if ($LB_matin) $lectiobrevis=lectiobrevis($LB_matin);
-			else $lectiobrevis =lectiobrevis($var['LB_matin']['latin']);
-			$laudes.=$lectiobrevis;
+			if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
+			elseif ($temp['LB_matin']['latin']) $LB_matin=$temp['LB_matin']['latin'];
+			else $LB_matin=$var['LB_matin']['latin'];
+			$laudes.=lectiobrevis($LB_matin);
 			break;
 		
 		case "#RB":
@@ -461,7 +506,7 @@ for($row=0;$row<$max;$row++){
 		
 		case "#PRECES":
 			if($propre['preces_matin']['latin']) $preces=$propre['preces_matin']['latin'];
-			if($temp['preces_matin']['latin']) $preces=$temp['preces_matin']['latin'];
+			elseif($temp['preces_matin']['latin']) $preces=$temp['preces_matin']['latin'];
 			else $preces=$var['preces_matin']['latin'];
 			$laudes.=preces($preces);
 			break;
