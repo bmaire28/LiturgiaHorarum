@@ -3,38 +3,7 @@
 function sexte($jour,$calendarium,$my) {
 
 $tem=$calendarium['tempus'][$jour];
-switch ($tem) {
-    case "Tempus Adventus" :
-        $psautier="adven";
-        break;
-
-    case "Tempus Nativitatis" :
-        $psautier="noel";
-        break;
-
-    case "Tempus per annum" :
-        $psautier="perannum";
-        break;
-
-    case "Tempus Quadragesimae" :
-        $psautier="quadragesimae";
-        break;
-
-    case "Tempus passionis" :
-        $psautier="hebdomada_sancta";
-        break;
-
-    case "Tempus Paschale" :
-        $psautier="pascha";
-        break;
-
-    default :
-        print"<br><i>Cet office n'est pas encore compl�tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider � compl�ter ce travail.</a></i>";
-        return;
-        break;
-
-}
-
+$spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
 $jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
 $jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
@@ -48,73 +17,9 @@ $jrdelasemaine=date("w",$day);
 $date_fr=$jours_fr[$jrdelasemaine];
 $date_l=$jours_l[$jrdelasemaine];
 
-if($calendarium['rang'][$jour]) {
-	    $prop=$mense.$die;
-	    $fichier="propres_r/sanctoral/".$prop.".csv";
-		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-		$fp = fopen ($fichier,"r");while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];
-	    $propre[$id]['latin']=$data[1];
-	    $propre[$id]['francais']=$data[2];
-	    $row++;
-		}
-	fclose($fp);
-	}
-
-	/*
-	 * octave glissante précédente noel
-	 */
-if(($mense==12)AND(
-		($die==17)
-		OR($die==18)
-		OR($die==19)
-		OR($die==20)
-		OR($die==21)
-		OR($die==22)
-		OR($die==23)
-		OR($die==24)
-		)
-	) {
-		$prop=$mense.$die;
-		$fichier="propres_r/sanctoral/".$prop.".csv";
-		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-		$fp = fopen ($fichier,"r");
-		while ($data = fgetcsv ($fp, 1000, ";")) {
-			$id=$data[0];
-			$propre[$id]['latin']=$data[1];
-			$propre[$id]['francais']=$data[2];
-			$row++;
-		}
-		fclose($fp);
-		if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
-		if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
-		if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
-	}
-	
-	
-$fp = fopen ("offices_r/jours.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $jo[$id]['latin']=$latin;
-	    $jo[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
-
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
-$row = 0;
-$fp = fopen ("offices_r/sexte.csv","r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$latin=$data[0];$francais=$data[1];
-	$lau[$row]['latin']=$latin;
-	$lau[$row]['francais']=$francais;
-	$row++;
-}
-fclose($fp);
 
-$spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
-$tem=$calendarium['tempus'][$jour];
 switch ($tem) {
     case "Tempus Adventus" :
         $psautier="adven";
@@ -207,6 +112,72 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 }
 fclose($fp);
 
+
+if($calendarium['rang'][$jour]) {
+	    $prop=$mense.$die;
+	    $fichier="propres_r/sanctoral/".$prop.".csv";
+		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");while ($data = fgetcsv ($fp, 1000, ";")) {
+	    $id=$data[0];
+	    $propre[$id]['latin']=$data[1];
+	    $propre[$id]['francais']=$data[2];
+	    $row++;
+		}
+	fclose($fp);
+	}
+
+	/*
+	 * octave glissante précédente noel
+	 */
+if(($mense==12)AND(
+		($die==17)
+		OR($die==18)
+		OR($die==19)
+		OR($die==20)
+		OR($die==21)
+		OR($die==22)
+		OR($die==23)
+		OR($die==24)
+		)
+	) {
+		$prop=$mense.$die;
+		$fichier="propres_r/sanctoral/".$prop.".csv";
+		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$propre[$id]['latin']=$data[1];
+			$propre[$id]['francais']=$data[2];
+			$row++;
+		}
+		fclose($fp);
+		if($propre['HYMNUS_sextam']['latin']) $hymne = $propre['HYMNUS_sextam']['latin'];
+		if($propre['LB_6']['latin']) $LB_matin=$propre['LB_6']['latin'];
+		if($propre['RB_6']['latin']) $RB_matin=$propre['RB_6']['latin'];
+		
+		$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
+		if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];$latin=$data[1];$francais=$data[2];
+			$var[$id]['latin']=$latin;
+			$var[$id]['francais']=$francais;
+			$row++;
+		}
+		fclose($fp);
+	}
+	
+	
+$fp = fopen ("offices_r/jours.csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+	    $id=$data[0];$latin=$data[1];$francais=$data[2];
+	    $jo[$id]['latin']=$latin;
+	    $jo[$id]['francais']=$francais;
+	    $row++;
+	}
+	fclose($fp);
+
+
 $fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 	    $id=$data[0];$ref=$data[1];
@@ -244,6 +215,17 @@ if($calendarium['temporal'][$jour]) {
 		$date_fr = $intitule_fr."<br> ";
 
 	}
+
+
+$row = 0;
+$fp = fopen ("offices_r/sexte.csv","r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$latin=$data[0];$francais=$data[1];
+	$lau[$row]['latin']=$latin;
+	$lau[$row]['francais']=$francais;
+	$row++;
+}
+fclose($fp);
 
 $max=$row;
 $sexte="<table>";
@@ -480,7 +462,7 @@ for($row=0;$row<$max;$row++){
 	    		$oratio6fr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
 	    }
-	    $sexte.="<tr><td>Oremus</td>
+	    $sexte.="<tr><td>Or&eacute;mus</td>
 	    		<td>Prions</td></tr>
 	    		<tr><td>$oratio6lat</td>
 	    		 <td>$oratio6fr</td></tr>";

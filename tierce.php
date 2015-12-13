@@ -1,7 +1,5 @@
 <?php
 
-
-
 function tierce($jour,$calendarium,$my) {
 
 $tem=$calendarium['tempus'][$jour];
@@ -203,9 +201,20 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
-	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
-	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
+	if($propre['HYMNUS_tertiam']['latin']) $hymne = $propre['HYMNUS_tertiam']['latin'];
+	if($propre['LB_3']['latin']) $LB_matin=$propre['LB_3']['latin'];
+	if($propre['RB_3']['latin']) $RB_matin=$propre['RB_3']['latin'];
+	
+	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
+	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
+		$var[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
 }
 
 if($calendarium['temporal'][$jour]) {
@@ -466,7 +475,7 @@ for($row=0;$row<$max;$row++){
 	    		$oratio3fr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
 	    }
-	    $tierce.="<tr><td>Oremus</td><td>Prions</td></tr>
+	    $tierce.="<tr><td>Or&eacute;mus</td><td>Prions</td></tr>
 	    		<tr><td>$oratio3lat</td> <td>$oratio3fr</td></tr>";
 	}
 
