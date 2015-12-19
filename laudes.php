@@ -527,6 +527,14 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#ORATIO":
+			if($propre['oratio']['latin']) {
+				$oratiolat=$propre['oratio']['latin'];
+				$oratiofr=$propre['oratio']['francais'];
+			}
+			elseif($temp['oratio']['latin']) {
+				$oratiolat=$temp['oratio']['latin'];
+				$oratiofr=$temp['oratio']['francais'];
+			}
 			if (!$oratiolat) {
 				$oratiolat=$var['oratio_laudes']['latin'];
 				$oratiofr=$var['oratio_laudes']['francais'];

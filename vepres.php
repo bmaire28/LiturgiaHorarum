@@ -201,11 +201,11 @@ if(($mense==12)AND(
 		OR($die==22)
 		OR($die==23)
 		OR($die==24)
-		)
-	) {
+)
+) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p> sanctoral : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -214,12 +214,10 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-	if($propre['HYMNUS_vesperas']['latin']) $hymne = $propre['HYMNUS_vesperas']['latin'];
-	if($propre['LB_soir']['latin']) $LB_matin=$propre['LB_soir']['latin'];
-	if($propre['RB_soir']['latin']) $RB_matin=$propre['RB_soir']['latin'];
-	
+
+
 	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
-	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p> var : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];$latin=$data[1];$francais=$data[2];
@@ -228,8 +226,11 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-}
 
+	/*if ($die=="1") {
+		$prope['latin']['LB_soir']=$var['latin']['LB_soir']
+	}*/
+}
 
 /*
  * Chargement du propre au psautier du jour
@@ -252,7 +253,7 @@ fclose($fp);
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
 	$fichier="propres_r/temporal/".$tempo.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>temporal : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -293,10 +294,10 @@ if($calendarium['temporal'][$jour]) {
 $tomorow = $day+60*60*24;
 $demain=date("Ymd",$tomorow);
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
-	$propre=null;
+	$tempo=null;
 	$tempo=$calendarium['temporal'][$demain];
 	$fichier="propres_r/temporal/".$tempo.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -313,12 +314,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$rang_fr=$temp['rang']['francais'];
 	if($rang_fr)$intitule_fr .="<br>".$rang_fr;
 	$date_fr = $intitule_fr."<br> aux I&egrave;res ";
-	$oratiolat=$temp['oratio']['latin'];
-	$oratiofr=$temp['oratio']['francais'];
-	$magnificat="pmagnificat_".$lettre;
-	$magniflat=$temp[$magnificat]['latin'];
-	$magniffr=$temp[$magnificat]['francais'];
-	$hymne=$temp['HYMNUS_1V']['latin'];
+	$temp['HYMNUS_vepres']['latin']=$temp['HYMNUS_1V']['latin'];
 	$temp['ant7']['latin']=$temp['ant01']['latin'];
 	$temp['ant7']['francais']=$temp['ant01']['francais'];
 	$temp['ant8']['latin']=$temp['ant02']['latin'];
@@ -331,17 +327,23 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$temp['ps8']['francais']=$temp['ps02']['francais'];
 	$temp['ps9']['latin']=$temp['ps03']['latin'];
 	$temp['ps9']['francais']=$temp['ps03']['francais'];
-	$LB_soir=$temp['LB_1V']['latin'];
+	$temp['LB_soir']['latin']=$temp['LB_1V']['latin'];
 	$temp['RB_soir']['latin']=$temp['RB_1V']['latin'];
 	$temp['RB_soir']['francais']=$temp['RB_1V']['francais'];
-	$pr_lat=null;
-	$pr_fr=null;
-	$intitule_lat=null;
-    $intitule_fr=null;
-    $preces=null;
+	$magnificat="pmagnificat_".$lettre;
+	$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
+	$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
+	if ($temp['intitule']['latin']=="Dominica IV Adventus"){
+		$propre['LB_soir']['latin']=$temp['LB_1V']['latin'];
+		$propre['RB_soir']['latin']=$temp['RB_1V']['latin'];
+		$propre['RB_soir']['francais']=$temp['RB_1V']['francais'];
+		$propre['oratio']['latin']=$temp['oratio']['latin'];
+		$propre['oratio']['francais']=$temp['oratio']['francais'];
+	}
 }
 
 
+	
 /*
  * Chargement du squelette des Vêpres et génération de l'affichage de l'office
  */
@@ -549,12 +551,12 @@ for($row=0;$row<$max;$row++){
 	}
 	
 	elseif($lat=="#ANT_MAGN"){
-	    if($propre['magnificat']['latin']) {
-			$magniflat=$propre['magnificat']['latin'];
+		if($propre['magnificat']['latin']) {
+	    	$magniflat=$propre['magnificat']['latin'];
 			$magniffr=$propre['magnificat']['francais'];
 	    }
 	    if($temp['magnificat']['latin']) {
-			$magniflat=$temp['magnificat']['latin'];
+	    	$magniflat=$temp['magnificat']['latin'];
 			$magniffr=$temp['magnificat']['francais'];
 	    }
 	    else {
@@ -581,6 +583,14 @@ for($row=0;$row<$max;$row++){
 	}
 
 	elseif($lat=="#ORATIO"){
+		if($propre['oratio']['latin']) {
+			$oratiolat=$propre['oratio']['latin'];
+			$oratiofr=$propre['oratio']['francais'];
+		}
+		elseif($temp['oratio']['latin']) {
+			$oratiolat=$temp['oratio']['latin'];
+			$oratiofr=$temp['oratio']['francais'];
+		}
 	    if (!$oratiolat) {
 	    	$oratiolat=$var['oratio_vesperas']['latin'];
 	    	$oratiofr=$var['oratio_vesperas']['francais'];
