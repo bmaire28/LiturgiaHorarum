@@ -195,24 +195,18 @@ $fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r")
 	fclose($fp);
 
 if($calendarium['temporal'][$jour]) {
-	    //print"<br>Temporal propre";
 	    $tempo=$calendarium['temporal'][$jour];
 	    $fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
-	    //$fp = fopen ("propres_r/temporal/".$prop.".csv","r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];
-	    $temp[$id]['latin']=$data[1];
-	    $temp[$id]['francais']=$data[2];
-	    $row++;
+		    $id=$data[0];
+		    $temp[$id]['latin']=$data[1];
+		    $temp[$id]['francais']=$data[2];
+		    $row++;
 		}
-		//print_r($temp);
 		$oratiolat=$temp['oratio']['latin'];
 		$oratiofr=$temp['oratio']['francais'];
 		$hymne9=$temp['HYMNUS_nonam']['latin'];
 		$LB_9=$temp['LB_9']['latin'];;
-
-		//print"<br>".$oratiolat;
-		//print_r($tempo);
 		$intitule_lat=$temp['intitule']['latin'];
 		$rang_lat=$temp['rang']['latin'];
 		if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
@@ -224,6 +218,18 @@ if($calendarium['temporal'][$jour]) {
 
 	}
 
+/*
+ * Gestion du 4e Dimanche de l'Avent
+ * si c'est le 24/12, prendre toutes les antiennes au 24
+ * sinon prendre l'antienne benedictus
+ */
+if (($temp['intitule']['latin']=="Dominica IV Adventus") and($die!="24")) $propre=$temp;
+
+/*
+ * Chargement du squelette de None dans $lau
+ * remplissage de $none pour l'affichage de l'office
+ *
+ */
 $row = 0;
 $fp = fopen ("offices_r/none.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {

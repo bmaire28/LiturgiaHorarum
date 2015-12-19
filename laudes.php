@@ -221,6 +221,7 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
+	
 	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
 	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
 	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
@@ -235,6 +236,7 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
+	
 }
 
 
@@ -276,6 +278,21 @@ if($calendarium['temporal'][$jour]) {
 	$preces=$temp['preces_matin']['latin'];
 	$rang_lat=$temp['rang']['latin'];
 	$rang_fr=$temp['rang']['francais'];
+}
+
+/*
+ * Gestion du 4e Dimanche de l'Avent
+ * si c'est le 24/12, prendre toutes les antiennes au 24
+ * sinon prendre l'antienne benedictus
+ */
+if ($temp['intitule']['latin']=="Dominica IV Adventus") {
+	if ($die!="24") {
+		$benelat=$propre['benedictus']['latin'];
+		$benefr=$propre['benedictus']['francais'];
+		$propre=$temp;
+		$propre['benedictus']['latin']=$benelat;
+		$propre['benedictus']['francais']=$benefr;
+	}
 }
 
 

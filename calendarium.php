@@ -220,6 +220,7 @@ $temporal['couleur'][$no]="Blanc";
 $temporal['tempus'][$no]="Tempus Nativitatis";
 $temporal['hebdomada'][$no]="Infra octavam Nativitatis";
 $temporal['priorite'][$no]="2";
+$temporal['hp'][$no]=1;
 $temporal['1V'][$no]=1;
 
 // temsp de l'Avent

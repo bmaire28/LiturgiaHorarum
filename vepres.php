@@ -226,10 +226,6 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-
-	/*if ($die=="1") {
-		$prope['latin']['LB_soir']=$var['latin']['LB_soir']
-	}*/
 }
 
 /*
@@ -284,6 +280,10 @@ if($calendarium['temporal'][$jour]) {
 	else $date_fr = $intitule_fr."<br> aux IIes ";
 	$hymne=$temp['HYMNUS_vepres']['latin'];
 	$preces=$temp['preces_soir']['latin'];
+	if ($temp['intitule']['latin']=="IN NATIVITATE DOMINI") {
+		$temp['oratio']['latin']=$temp['oratio_vepres']['latin'];
+		$temp['oratio']['francais']=$temp['oratio_vepres']['francais'];
+	}
 }
 
 /*
@@ -293,7 +293,28 @@ if($calendarium['temporal'][$jour]) {
  */
 $tomorow = $day+60*60*24;
 $demain=date("Ymd",$tomorow);
+/*
+ * Gestion du 4e Dimanche de l'Avent
+ * si c'est le 24/12, prendre toutes les antiennes au 24, rien à modifier
+ * sinon prendre uniquement l'antienne benedictus ==> recopier le temporal dans le sanctoral
+ */
+if ($temp['intitule']['latin']=="Dominica IV Adventus") {
+	if ($die!="24") {
+		$magniflat=$propre['magnificat']['latin'];
+		$magniffr=$propre['magnificat']['francais'];
+		$propre=$temp;
+		$propre['magnificat']['latin']=$magniflat;
+		$propre['magnificat']['francais']=$magniffr;
+	}
+	else {
+		$calendarium['priorite'][$jour]++;
+	}
+}
+/* print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
+print_r("<p> priorite jour : ".$calendarium['priorite'][$jour]."</p>");
+print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>"); */
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
+	/*print_r("<p> 1V</p>");*/
 	$tempo=null;
 	$tempo=$calendarium['temporal'][$demain];
 	$fichier="propres_r/temporal/".$tempo.".csv";
@@ -306,6 +327,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	    $row++;
 	}
 	fclose($fp);
+	$propre=null;
 	$intitule_lat=$temp['intitule']['latin'];
 	$rang_lat=$temp['rang']['latin'];
 	if($rang_lat)$intitule_lat .="<br>".$rang_lat;
@@ -343,9 +365,11 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 }
 
 
-	
+
 /*
- * Chargement du squelette des Vêpres et génération de l'affichage de l'office
+ * Chargement du squelette des Vepres dans $lau
+ * remplissage de $vepres pour l'affichage de l'office
+ *
  */
 $row = 0;
 $fp = fopen ("offices_r/vepres.csv","r");

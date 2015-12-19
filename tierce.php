@@ -241,6 +241,19 @@ if($calendarium['temporal'][$jour]) {
 }
 
 
+/*
+ * Gestion du 4e Dimanche de l'Avent
+ * si c'est le 24/12, prendre toutes les antiennes au 24
+ * sinon prendre l'antienne benedictus
+ */
+if (($temp['intitule']['latin']=="Dominica IV Adventus") and ($die!="24")) $propre=$temp;
+
+/*
+ * Chargement du squelette de tierce dans $lau
+ * remplissage de $tierce pour l'affichage de l'office
+ *
+ */
+
 $row = 0;
 $fp = fopen ("offices_r/tierce.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
