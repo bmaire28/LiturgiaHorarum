@@ -211,6 +211,7 @@ if(($mense==12)AND(
 		)
 	) {
 	$prop=$mense.$die;
+	// Chargement du fichier de la date fixe
 	$fichier="propres_r/sanctoral/".$prop.".csv";
 	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
@@ -222,10 +223,7 @@ if(($mense==12)AND(
 	}
 	fclose($fp);
 	
-	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
-	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
-	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
-	
+	// Chargement du fichier du jour de la semaine
 	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
 	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
@@ -236,6 +234,9 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
+	// Transfert de l'intitule
+	$propre['intitule']['latin']=$var['intitule']['latin'];
+	$propre['intitule']['francais']=$var['intitule']['francais'];
 	
 }
 
@@ -328,32 +329,51 @@ for($row=0;$row<$max;$row++){
 	
 	switch ($lat) {
 		case "#JOUR" :
-			$pr_lat=$propre['jour']['latin'];
-			if (!$pr_lat) $pr_lat=$temp['jour']['latin'];
-			if($pr_lat){
+			if ($propre['jour']['latin']) {
+				$pr_lat=$propre['jour']['latin'];
 				$pr_fr=$propre['jour']['francais'];
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>
-						<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
+			}
+			if (!$pr_lat) {
+				$pr_lat=$temp['jour']['latin'];
+				$pr_fr=$temp['jour']['francais'];
+			}
+			if($pr_lat){
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
+				$oratiolat=$propre['oratio']['latin'];
+				$oratiofr=$propre['oratio']['francais'];
+			}
+			if ($propre['intitule']['latin']) {
 				$intitule_lat=$propre['intitule']['latin'];
 				$intitule_fr=$propre['intitule']['francais'];
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>
-						<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
+			}
+			if (!$intitule_lat) {
+				$intitule_lat=$temp['intitule']['latin'];
+				$intitule_fr=$temp['intitule']['francais'];
+			}
+			if ($intitule_lat){
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
+				$oratiolat=$propre['oratio']['latin'];
+				$oratiofr=$propre['oratio']['francais'];
 			}
 			if(!$rang_lat) {
 				$rang_lat=$propre['rang']['latin'];
 				$rang_fr=$propre['rang']['francais'];
 			}
-			if($pr_lat){
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h3> $rang_lat</h3></td>
-						<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Laudes matutinas</h2></td>";
-				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>Aux Laudes du matin</h2></td></tr>";
+			if($rang_lat){
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h3> $rang_lat</h3></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
 				$oratiolat=$propre['oratio']['latin'];
 				$oratiofr=$propre['oratio']['francais'];
 			}
-			else {
+			if (($pr_lat)and($intitule_lat)and($rang_lat)) {
 				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Laudes matutinas</h2></td>";
 				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$date_fr aux Laudes du matin</h2></td></tr>";
+			}
+			else {
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine], ad Laudes matutinas</h2></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine], aux Laudes du matin</h2></td></tr>";
 			}
 			break;
 		
@@ -520,9 +540,13 @@ for($row=0;$row<$max;$row++){
 				$benelat=$propre['benedictus']['latin'];
 				$benefr=$propre['benedictus']['francais'];
 			}
+			if($temp['benedictus']['latin']) {
+				$benelat=$temp['benedictus']['latin'];
+				$benefr=$temp['benedictus']['francais'];
+			}
 			else {
-				if(!$benelat) $benelat=$var['benedictus']['latin'];
-				if(!$benefr) $benefr=$var['benedictus']['francais'];
+				$benelat=$var['benedictus']['latin'];
+				$benefr=$var['benedictus']['francais'];
 			}
 			$laudes.="<tr><td><p><span style=\"color:red\">Ant. </span>$benelat</p></td>
 					<td><p><span style=\"color:red\">Ant. </span> $benefr</p></td></tr>";

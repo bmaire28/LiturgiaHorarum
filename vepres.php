@@ -190,7 +190,7 @@ if($calendarium['rang'][$jour]) {
 }
 
 /*
- * octave glissante précédente noel
+ * octave glissante précédente noel 
  */
 if(($mense==12)AND(
 		($die==17)
@@ -201,11 +201,12 @@ if(($mense==12)AND(
 		OR($die==22)
 		OR($die==23)
 		OR($die==24)
-)
-) {
+		)
+	) {
 	$prop=$mense.$die;
+	// Chargement du fichier de la date fixe
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p> sanctoral : ".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -214,10 +215,10 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-
-
+	
+	// Chargement du fichier du jour de la semaine
 	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
-	if (!file_exists($fichier)) print_r("<p> var : ".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];$latin=$data[1];$francais=$data[2];
@@ -226,7 +227,12 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
+	// Transfert de l'intitule
+	$propre['intitule']['latin']=$var['intitule']['latin'];
+	$propre['intitule']['francais']=$var['intitule']['francais'];
+	
 }
+
 
 /*
  * Chargement du propre au psautier du jour
@@ -328,14 +334,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	}
 	fclose($fp);
 	$propre=null;
-	$intitule_lat=$temp['intitule']['latin'];
-	$rang_lat=$temp['rang']['latin'];
-	if($rang_lat)$intitule_lat .="<br>".$rang_lat;
-	$date_l = $intitule_lat."<br> ad I ";
-	$intitule_fr=$temp['intitule']['francais'];
-	$rang_fr=$temp['rang']['francais'];
-	if($rang_fr)$intitule_fr .="<br>".$rang_fr;
-	$date_fr = $intitule_fr."<br> aux I&egrave;res ";
+	$date_l = "ad I ";
+	$date_fr = "aux I&egrave;res ";
 	$temp['HYMNUS_vepres']['latin']=$temp['HYMNUS_1V']['latin'];
 	$temp['ant7']['latin']=$temp['ant01']['latin'];
 	$temp['ant7']['francais']=$temp['ant01']['francais'];
@@ -396,21 +396,55 @@ for($row=0;$row<$max;$row++){
 	}
 	
 	if($lat=="#JOUR") {
+		if ($propre['jour']['latin']) {
+			$pr_lat=$propre['jour']['latin'];
+			$pr_fr=$propre['jour']['francais'];
+		}
+		if (!$pr_lat) {
+			$pr_lat=$temp['jour']['latin'];
+			$pr_fr=$temp['jour']['francais'];
+		}
 		if($pr_lat){
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>";
-            $vepres.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
-        	$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\"> $intitule_lat</p></td>
-        			<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
-        	$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h3>$rang_lat</h3></td>
-        			<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
-        	$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Vesperas</h2></td>
-        			<td style=\"width: 49%; text-align: center;\"><h2>Aux V&ecirc;pres</h2></td></tr>";
-        	$oratiolat=$propre['oratio']['latin'];
+			$vepres.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
+			$oratiolat=$propre['oratio']['latin'];
 			$oratiofr=$propre['oratio']['francais'];
 		}
+		if ($propre['intitule']['latin']) {
+			$intitule_lat=$propre['intitule']['latin'];
+			$intitule_fr=$propre['intitule']['francais'];
+		}
+		if (!$intitule_lat) {
+			$intitule_lat=$temp['intitule']['latin'];
+			$intitule_fr=$temp['intitule']['francais'];
+		}
+		if ($intitule_lat){
+			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>";
+			$vepres.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
+			$oratiolat=$propre['oratio']['latin'];
+			$oratiofr=$propre['oratio']['francais'];
+		}
+		if($propre['rang']['latin']) {
+			$rang_lat=$propre['rang']['latin'];
+			$rang_fr=$propre['rang']['francais'];
+		}
+		if(!$rang_lat) {
+			$rang_lat=$temp['rang']['latin'];
+			$rang_fr=$temp['rang']['francais'];
+		}
+		if($rang_lat){
+			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h3> $rang_lat</h3></td>";
+			$vepres.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
+			$oratiolat=$propre['oratio']['latin'];
+			$oratiofr=$propre['oratio']['francais'];
+		}
+		if (($pr_lat)or($intitule_lat)or($rang_lat)) {
+			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l Vesperas</h2></td>";
+			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$date_fr V&ecirc;pres</h2></td></tr>";
+		}
 		else {
-			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l Vesperas</h2></td>
-					<td style=\"width: 49%; text-align: center;\"><h2>$date_fr V&ecirc;pres</h2></td></tr>";
+			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] Vesperas</h2></td>";
+			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] V&ecirc;pres</h2></td></tr>";
 		}
 	}
 

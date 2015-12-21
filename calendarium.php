@@ -273,18 +273,31 @@ $temporal['couleur'][$dd]="Violet-avent";
 $dnisuchrisitiunivregis=$un_dim_avent-$semaine; // Christ-Roi
 
 // Temsp de Noel
-
-$sanctae_familiae2=$noel+(7-$jour_noel)*$jour; // Ste Famille
-$jj=date("w", $sanctae_familiae2);
-$dd=date("Ymd", $sanctae_familiae2);
+/*
+ *  Ste Famille
+ *  Celebrer comme un dimanche du temps de noel, priorite 6 et 1V, si noel ne tombe pas dimanche
+ *  Celebrer comme une fete du calendrier general si noel est un dimanche
+ */
+if ($jour_noel!=0) {
+	$sanctae_familiae2=$noel+(7-$jour_noel)*$jour; //Si Noel n'est pas un dimanche, la Ste Famille est le dimanche suivant noel
+	$jj=date("w", $sanctae_familiae2);
+	$dd=date("Ymd", $sanctae_familiae2);
+	$temporal['1V'][$dd]=1;
+	$temporal['priorite'][$dd]="6";
+}
+else {
+	$sanctae_familiae2=mktime(12,0,0,12,30,$m); // Sinon, c'est le 30 decembre
+	$jj=date("w", $sanctae_familiae2);
+	$dd=date("Ymd", $sanctae_familiae2);
+	$temporal['priorite'][$dd]="7";
+}
 $temporal['intitule'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
 $temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
-$temporal['priorite'][$dd]="7";
-$temporal['1V'][$dd]=1;
 
-$noel_annee_precedente=mktime(12,0,0,12,25,$m-1); // Noel de l'ann�e pr�c�dente
+// Noel de l'ann�e pr�c�dente
+$noel_annee_precedente=mktime(12,0,0,12,25,$m-1);
 $dd=date("Ymd", $noel_annee_precedente);
 $temporal['intitule'][$dd]="IN NATIVITATE DOMINI";
 $temporal['couleur'][$dd]="Blanc";
@@ -292,9 +305,12 @@ $temporal['priorite'][$dd]="2";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 $temporal['1V'][$dd]=1;
+$temporal['hp'][$dd]=1;
 $jour_noel_precedent=date("w", $noel_annee_precedente);
 
-$sanctae_familiae=$noel_annee_precedente+(7-$jour_noel_precedent)*$jour; // Ste famille de l'ann�e pr�c�dente
+// Ste famille de l'ann�e pr�c�dente
+if ($jour_noel_precedent!=0)$sanctae_familiae=$noel_annee_precedente+(7-$jour_noel_precedent)*$jour; //Noel n'etait pas un dimanche
+else  $sanctae_familiae=mktime(12,0,0,12,30,$m-1); // Noel etait un dimanche et la Ste Famille le 30 decembre
 $jj=date("w", $sanctae_familiae);
 $dd=date("Ymd", $sanctae_familiae);
 $temporal['intitule'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
@@ -309,24 +325,55 @@ $dd=date("Ymd", $infra_oct_nativ);
 $temporal['hebdomada'][$dd]="Infra Octavam Nativitatis";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
+$temporal['hp'][$dd]=1;
 
-$fin_oct_nativitatis=$noel_annee_precedente+9*$jour;
+$fin_oct_nativitatis=$noel_annee_precedente+8*$jour;
 $dd=date("Ymd", $fin_oct_nativitatis);
 $temporal['hebdomada'][$dd]=" ";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 
-$epiphania=mktime(12,0,0,1,6,$m); // Epiphanie
-$jour_epiphanie=date("w", $epiphania);
 
-$baptisma=$epiphania+(7-$jour_epiphanie)*$jour; // Bapt�me du Seigneur
+/*
+ * Epiphanie
+ * Le 2nd dimanche après noel en France
+ */
+$epiphania=$noel_annee_precedente+(14-$jour_noel_precedent)*$jour;
+//$epiphania=mktime(12,0,0,1,6,$m);
+$dd=date("Ymd", $epiphania);
+$temporal['intitule'][$dd]="IN EPIPHANIA DOMINI";
+$temporal['rang'][$dd]="Sollemnitas";
+$temporal['priorite'][$dd]="2";
+$temporal['1V'][$dd]=1;
+$temporal['tempus'][$dd]="Tempus Nativitatis";
+$temporal['couleur'][$dd]="Blanc";
+$temporal['hebdomada'][$dd]="";
+
+/*
+ * Bapteme du Seigneur
+ * Le dimanche qui suit l'Epiphanie
+ * sauf si l'Epiphanie est le 7 ou 8 janvier, alors c'est le lendemain
+ */
+$jour_epiphanie=date("w", $epiphania);
+$epipha=date("d", $epiphania);
+if ($epipha<7) {
+	$infra_oct_epiphanie=$epiphania+$jour;
+	$dd=date("Ymd",$infra_oct_epiphanie);
+	$temporal['hebdomada'][$dd]="Post Dominicam Epiphani&aelig;";
+	$temporal['hp'][$dd]=2;
+	$baptisma=$epiphania+(7-$jour_epiphanie)*$jour;
+}
+else $baptisma=$epiphania+$jour;
+
 $dd=date("Ymd", $baptisma);
+$temporal['hebdomada'][$dd]="";
 $temporal['intitule'][$dd]="IN BAPTISMATE DOMINI";
 $temporal['rang'][$dd]="Festum";
 $temporal['priorite'][$dd]="5";
 $temporal['1V'][$dd]=1;
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
+$temporal['hp'][$dd]=1;
 
 $perannum=$baptisma+$jour; // d�but de temps ordinaire
 $dd=date("Ymd", $perannum);

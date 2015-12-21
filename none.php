@@ -134,7 +134,7 @@ if($calendarium['rang'][$jour]) {
 	}
 
 /*
- * octave glissante précédente noel
+ * octave glissante précédente noel 
  */
 if(($mense==12)AND(
 		($die==17)
@@ -148,8 +148,9 @@ if(($mense==12)AND(
 		)
 	) {
 	$prop=$mense.$die;
+	// Chargement du fichier de la date fixe
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -158,10 +159,8 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-	if($propre['HYMNUS_nonam']['latin']) $hymne = $propre['HYMNUS_nonam']['latin'];
-	if($propre['LB_9']['latin']) $LB_matin=$propre['LB_9']['latin'];
-	if($propre['RB_9']['latin']) $RB_matin=$propre['RB_9']['latin'];
 	
+	// Chargement du fichier du jour de la semaine
 	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
 	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
@@ -172,6 +171,10 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
+	// Transfert de l'intitule
+	$propre['intitule']['latin']=$var['intitule']['latin'];
+	$propre['intitule']['francais']=$var['intitule']['francais'];
+	
 }
 	
 	
@@ -254,28 +257,48 @@ for($row=0;$row<$max;$row++){
 		$fr="";
 	}
 	if($lat=="#JOUR") {
-		$pr_lat=$propre['jour']['latin'];
-		if($pr_lat){
-            $pr_fr=$propre['jour']['francais'];
-            $none.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>
-            		<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
-            $intitule_lat=$propre['intitule']['latin'];
-            $intitule_fr=$propre['intitule']['francais'];
-            $none.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\"> $intitule_lat</p></td>
-            		<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
-            $rang_lat=$propre['rang']['latin'];
-            $rang_fr=$propre['rang']['francais'];
-            $none.="<tr><td style=\"width: 49%; text-align: center;\"><h3>$rang_lat</h3></td>
-            		<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
-            $none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Nonam</h2></td>
-            		<td style=\"width: 49%; text-align: center;\"><h2>A None</h2></td></tr>";
+		if ($propre['jour']['latin']) {
+			$pr_lat=$propre['jour']['latin'];
+			$pr_fr=$propre['jour']['francais'];
 		}
-		else {
-			$l=$jo[$jrdelasemaine]['latin'];
-			$f=$jo[$jrdelasemaine]['francais'];
-			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Nonam.</h2></td>
-					<td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; None.</h2></td></tr>";
+		if (!$pr_lat) {
+			$pr_lat=$temp['jour']['latin'];
+			$pr_fr=$temp['jour']['francais'];
 		}
+	    if($pr_lat){
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>";
+            $none.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
+	    }
+	    if ($propre['intitule']['latin']) {
+	    	$intitule_lat=$propre['intitule']['latin'];
+	    	$intitule_fr=$propre['intitule']['francais'];
+	    }
+	    if (!$intitule_lat) {
+	    	$intitule_lat=$temp['intitule']['latin'];
+	    	$intitule_fr=$temp['intitule']['francais'];
+	    }
+	    if ($intitule_lat){
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>";
+            $none.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
+	    }
+	    if(!$rang_lat) {
+	    	$rang_lat=$propre['rang']['latin'];
+	    	$rang_fr=$propre['rang']['francais'];
+	    }
+	    if($rang_lat){
+            $none.="<tr><td style=\"width: 49%; text-align: center;\"><h3>$rang_lat</h3></td>";
+            $none.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
+	    }
+	    if ((!$pr_lat)and(!$intitule_lat)and(!$rang_lat)) {
+  			$l=$jo[$jrdelasemaine]['latin'];
+  			$f=$jo[$jrdelasemaine]['francais'];
+  			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Nonam.</h2></td>
+  					<td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; None.</h2></td></tr>";
+  		}
+  		else {
+  			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Nonam</h2></td>";
+  			$none.="<td style=\"width: 49%; text-align: center;\"><h2>A None</h2></td></tr>";
+  		}
 	}
 	
 	elseif($lat=="#HYMNUS_nonam") {
