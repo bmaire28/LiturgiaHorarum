@@ -1,7 +1,5 @@
 <?php
 
-
-
 function tierce($jour,$calendarium,$my) {
 
 $tem=$calendarium['tempus'][$jour];
@@ -193,8 +191,9 @@ if(($mense==12)AND(
 		)
 	) {
 	$prop=$mense.$die;
+	// Chargement du fichier de la date fixe
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
@@ -203,9 +202,22 @@ if(($mense==12)AND(
 		$row++;
 	}
 	fclose($fp);
-	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
-	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
-	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
+	
+	// Chargement du fichier du jour de la semaine
+	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
+	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$var[$id]['latin']=$latin;
+		$var[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
+	// Transfert de l'intitule
+	$propre['intitule']['latin']=$var['intitule']['latin'];
+	$propre['intitule']['francais']=$var['intitule']['francais'];
+	
 }
 
 if($calendarium['temporal'][$jour]) {
@@ -232,6 +244,19 @@ if($calendarium['temporal'][$jour]) {
 }
 
 
+/*
+ * Gestion du 4e Dimanche de l'Avent
+ * si c'est le 24/12, prendre toutes les antiennes au 24
+ * sinon prendre l'antienne benedictus
+ */
+if (($temp['intitule']['latin']=="Dominica IV Adventus") and ($die!="24")) $propre=$temp;
+
+/*
+ * Chargement du squelette de tierce dans $lau
+ * remplissage de $tierce pour l'affichage de l'office
+ *
+ */
+
 $row = 0;
 $fp = fopen ("offices_r/tierce.csv","r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -255,27 +280,47 @@ for($row=0;$row<$max;$row++){
 		$fr="";
 	}
 	if($lat=="#JOUR") {
-		$pr_lat=$propre['jour']['latin'];
-	    if($pr_lat){
-	    	$pr_fr=$propre['jour']['francais'];
-            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>
-            		<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
-            $intitule_lat=$propre['intitule']['latin'];
-            $intitule_fr=$propre['intitule']['francais'];
-            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>
-            		<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
-            $rang_lat=$propre['rang']['latin'];
-            $rang_fr=$propre['rang']['francais'];
-            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h3> $rang_lat</h3></td>
-        		<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
-            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Tertiam.</h2></td>
-            		<td style=\"width: 49%; text-align: center;\"><h2>A Tierce.</h2></td></tr>";
+		if ($propre['jour']['latin']) {
+			$pr_lat=$propre['jour']['latin'];
+			$pr_fr=$propre['jour']['francais'];
 		}
-  		else {
+		if (!$pr_lat) {
+			$pr_lat=$temp['jour']['latin'];
+			$pr_fr=$temp['jour']['francais'];
+		}
+	    if($pr_lat){
+            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>";
+            $tierce.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
+	    }
+	    if ($propre['intitule']['latin']) {
+	    	$intitule_lat=$propre['intitule']['latin'];
+	    	$intitule_fr=$propre['intitule']['francais'];
+	    }
+	    if (!$intitule_lat) {
+	    	$intitule_lat=$temp['intitule']['latin'];
+	    	$intitule_fr=$temp['intitule']['francais'];
+	    }
+	    if ($intitule_lat){
+            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>";
+            $tierce.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>";
+	    }
+	    if(!$rang_lat) {
+	    	$rang_lat=$propre['rang']['latin'];
+	    	$rang_fr=$propre['rang']['francais'];
+	    }
+	    if($rang_lat){
+            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h3> $rang_lat</h3></td>";
+            $tierce.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
+	    }
+  		if ((!$pr_lat)and(!$intitule_lat)and(!$rang_lat)) {
   			$l=$jo[$jrdelasemaine]['latin'];
   			$f=$jo[$jrdelasemaine]['francais'];
-  			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Tertiam.</h2></td>
-  					<td td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; Tierce.</h2></td></tr>";
+  			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Tertiam</h2></td>";
+  			$tierce.="<td td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; Tierce</h2></td></tr>";
+		}
+		else {
+			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Tertiam</h2></td>";
+			$tierce.="<td style=\"width: 49%; text-align: center;\"><h2>A Tierce</h2></td></tr>";
 		}
 	}
 
@@ -466,7 +511,7 @@ for($row=0;$row<$max;$row++){
 	    		$oratio3fr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
 	    	break;
 	    }
-	    $tierce.="<tr><td>Oremus</td><td>Prions</td></tr>
+	    $tierce.="<tr><td>Or&eacute;mus</td><td>Prions</td></tr>
 	    		<tr><td>$oratio3lat</td> <td>$oratio3fr</td></tr>";
 	}
 
