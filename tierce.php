@@ -315,12 +315,12 @@ for($row=0;$row<$max;$row++){
   		if ((!$pr_lat)and(!$intitule_lat)and(!$rang_lat)) {
   			$l=$jo[$jrdelasemaine]['latin'];
   			$f=$jo[$jrdelasemaine]['francais'];
-  			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Tertiam.</h2></td>";
-  			$tierce.="<td td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; Tierce.</h2></td></tr>";
+  			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Tertiam</h2></td>";
+  			$tierce.="<td td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; Tierce</h2></td></tr>";
 		}
 		else {
-			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Tertiam.</h2></td>";
-			$tierce.="<td style=\"width: 49%; text-align: center;\"><h2>A Tierce.</h2></td></tr>";
+			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Tertiam</h2></td>";
+			$tierce.="<td style=\"width: 49%; text-align: center;\"><h2>A Tierce</h2></td></tr>";
 		}
 	}
 

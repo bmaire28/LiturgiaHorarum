@@ -22,7 +22,37 @@ $day=mktime(12,0,0,$mense,$die,$anno);
 $jrdelasemaine=date("w",$day);
 $date_fr=$jours_fr[$jrdelasemaine];
 $date_l=$jours_l[$jrdelasemaine];
-	
+
+/*
+ * Calcul de la lettre de l'année
+ * récupérer l'année du 27 novembre précédent
+ * diviser l'année par 3 et regarder le reste
+ * 0 = A, 1 = B, 2 = C
+ */
+$num_mois_cour=intval($mense);
+$num_annee_cour=intval($anno);
+$num_jour_cour=intval($die);
+//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
+//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
+
+// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
+if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
+if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
+
+switch (fmod($num_annee_cour, 3)) {
+	case 0 :
+		$lettre="A";
+		break;
+	case 1:
+		$lettre="B";
+		break;
+	case 2:
+		$lettre="C";
+		break;
+}
+//print_r($lettre."<br>");
+
+
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
@@ -53,6 +83,7 @@ break;
 		$lettre="C";
 		break;
 }
+
 //print_r($lettre."<br>");
 	
 /*
@@ -263,11 +294,6 @@ if($calendarium['temporal'][$jour]) {
 	$oratiolat=$temp['oratio']['latin'];
 	$oratiofr=$temp['oratio']['francais'];
 	$hymne=$temp['HYMNUS_laudes']['latin'];
-	$benedictus="benedictus_".$lettre;
-	$benelat=$temp[$benedictus]['latin'];
-	if(!$benelat) $benelat=$temp['benedictus']['latin'];
-	$benefr=$temp[$benedictus]['francais'];
-	if(!$benefr) $benefr=$temp['benedictus']['francais'];
 	$intitule_lat=$temp['intitule']['latin'];
 	$date_l = $intitule_lat."</b><br> ";
 	$rang_lat=$temp['rang']['latin'];
@@ -305,6 +331,7 @@ if ($temp['intitule']['latin']=="Dominica IV Adventus") {
 
 $row = 0;
 $fp = fopen ("offices_r/laudes.csv","r");
+$jrdelasemaine--;
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$latin=$data[0];$francais=$data[1];
 	$lau[$row]['latin']=$latin;
@@ -367,13 +394,13 @@ for($row=0;$row<$max;$row++){
 				$oratiolat=$propre['oratio']['latin'];
 				$oratiofr=$propre['oratio']['francais'];
 			}
-			if (($pr_lat)and($intitule_lat)and($rang_lat)) {
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Laudes matutinas</h2></td>";
-				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$date_fr aux Laudes du matin</h2></td></tr>";
+			if (($pr_lat)or($intitule_lat)or($rang_lat)) {
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Laudes matutinas</h2></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>Aux Laudes du matin</h2></td></tr>";
 			}
 			else {
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine], ad Laudes matutinas</h2></td>";
-				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine], aux Laudes du matin</h2></td></tr>";
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] ad Laudes matutinas</h2></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] aux Laudes du matin</h2></td></tr>";
 			}
 			break;
 		
@@ -536,11 +563,20 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#ANT_BENE":
-			if($propre['benedictus']['latin']) {
+			$benedictus="benedictus_".$lettre;
+			if($propre[$benedictus]['latin']) {
+				$benelat=$propre[$benedictus]['latin'];
+				$benefr=$propre[$benedictus]['francais'];
+			}
+			elseif($propre['benedictus']['latin']) {
 				$benelat=$propre['benedictus']['latin'];
 				$benefr=$propre['benedictus']['francais'];
 			}
-			if($temp['benedictus']['latin']) {
+			elseif ($temp[$benedictus]['latin']) {
+				$benelat=$temp[$benedictus]['latin'];
+				$benefr=$temp[$benedictus]['francais'];
+			}
+			elseif ($temp['benedictus']['latin']) {
 				$benelat=$temp['benedictus']['latin'];
 				$benefr=$temp['benedictus']['francais'];
 			}

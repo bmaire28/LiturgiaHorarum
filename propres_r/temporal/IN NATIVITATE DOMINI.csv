@@ -28,9 +28,7 @@ LB_matin;LB_Hebr 1, 1-2;
 RB_matin;"R/. Notum fecit Dóminus, * Allelúia, allelúia. Notum.
 V/. Salutáre suum, * Allelúia, allelúia. Glória Patri. Notum.";"R/. Le Seigneur a fait connaître * Alléluia, alléluia. 
 V/. Son Salut. * Alléluia, alléluia. Gloire au Père. Alléluia, alléluia."
-benedictus_A;Glória in excélsis Deo, et in terra pax homínibus bonæ voluntátis, allelúia.;Gloire à Dieu au plus haut des cieux, et paix sur la terre aux hommes qu'il aime, alléluia, alléluia.
-benedictus_B;Glória in excélsis Deo, et in terra pax homínibus bonæ voluntátis, allelúia.;Gloire à Dieu au plus haut des cieux, et paix sur la terre aux hommes qu'il aime, alléluia, alléluia.
-benedictus_C;Glória in excélsis Deo, et in terra pax homínibus bonæ voluntátis, allelúia.;Gloire à Dieu au plus haut des cieux, et paix sur la terre aux hommes qu'il aime, alléluia, alléluia.
+benedictus;Glória in excélsis Deo, et in terra pax homínibus bonæ voluntátis, allelúia.;Gloire à Dieu au plus haut des cieux, et paix sur la terre aux hommes qu'il aime, alléluia, alléluia.
 oratio;Da, quæsumus, omnípotens Deus, ut, dum nova incarnáti Verbi tui luce perfúndimur, hoc in nostro respléndeat ópere, quod per fidem fulget in mente. Per Dóminum.;"Dieu tout-puissant, en ton Verbe fait chair une lumière nouvelle nous envahit : puisqu'elle éclaire déjà nos c&oelig;rs par la foi, fais qu'elle resplendisse dans toute notre vie."
 HYMNUS_tertiam;hy_Nunc, Sancte, nobis, Spíritus;
 HYMNUS_sextam;hy_Rector_potens_verax_Deus;
@@ -42,16 +40,16 @@ ps4;ps18B;
 ps5;ps46;
 ps6;ps47;
 LB_3;LB_Tit 2, 11-12;
-RB_3;"V/. Recordátus est Dóminus misericórdiæ suæ, allelúia.
-R/. Et veritátis suæ dómui Israel, allelúia.";"V/. Le Seigneur roi trône dans l'éternité. 
+RB_3;"V/. Stola iucunditátis índuit eum Dóminus.
+R/. Et corónam pulchritúdinis pósuit super caput eius.";"V/. Le Seigneur roi trône dans l'éternité. 
 R/. Le Seigneur bénit son peuple dans la paix."
-LB_6;LB_1 Io 4, 9;
-RB_6;"V/. Vidérunt omnes fines terræ, allelúia.
-R/. Salutáre Dei nostri, allelúia.";"V/. Chantez pour notre roi, chantez. 
+LB_6;LB_Iac 1, 12;
+RB_6;"V/. In Deo sperávi.
+R/. Non timébo quid fáciat mihi homo.";"V/. Chantez pour notre roi, chantez. 
 R/. Car il est le roi de toute la terre."
-LB_9;LB_Act 10, 36;
-RB_9;"V/. Misericórdia et véritas obviavérunt sibi, allelúia.
-R/. Iustítia et pax osculátæ sunt, allelúia.";"V/. Jubilez en présence du roi, le, Seigneur
+LB_9;LB_Sap 3, 1-2a. 3B;
+RB_9;"V/. Veniéntes vénient cum exsultatióne.
+R/. Portántes manípulos suos.";"V/. Jubilez en présence du roi, le, Seigneur
 R/. Car il vient juger la terre."
 HYMNUS_vepres;hy_Christe, redémptor ómnium,;
 ant7;Tecum princípium in die virtútis tuæ, in splendóribus sanctórum, ex útero ante lucíferum génui te.;Avec toi la souveraineté, au jour de ta puissance, dans les splendeurs des Saints, de mon sein, avant l'aurore, je t'ai engendré.

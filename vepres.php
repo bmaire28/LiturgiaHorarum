@@ -316,9 +316,10 @@ if ($temp['intitule']['latin']=="Dominica IV Adventus") {
 		$calendarium['priorite'][$jour]++;
 	}
 }
-/* print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
+/*print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
 print_r("<p> priorite jour : ".$calendarium['priorite'][$jour]."</p>");
-print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>"); */
+print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>");
+print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
 	/*print_r("<p> 1V</p>");*/
 	$tempo=null;
@@ -355,6 +356,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$magnificat="pmagnificat_".$lettre;
 	$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
 	$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
+	$temp['oratio']['latin']=$temp['oratio_1V']['latin'];
+	$temp['oratio']['francais']=$temp['oratio_1V']['francais'];
 	if ($temp['intitule']['latin']=="Dominica IV Adventus"){
 		$propre['LB_soir']['latin']=$temp['LB_1V']['latin'];
 		$propre['RB_soir']['latin']=$temp['RB_1V']['latin'];
@@ -400,7 +403,7 @@ for($row=0;$row<$max;$row++){
 			$pr_lat=$propre['jour']['latin'];
 			$pr_fr=$propre['jour']['francais'];
 		}
-		if (!$pr_lat) {
+		if ((!$pr_lat)or($calendarium['1V'][$demain])) {
 			$pr_lat=$temp['jour']['latin'];
 			$pr_fr=$temp['jour']['francais'];
 		}
@@ -414,7 +417,7 @@ for($row=0;$row<$max;$row++){
 			$intitule_lat=$propre['intitule']['latin'];
 			$intitule_fr=$propre['intitule']['francais'];
 		}
-		if (!$intitule_lat) {
+		if ((!$intitule_lat)or($calendarium['1V'][$demain])) {
 			$intitule_lat=$temp['intitule']['latin'];
 			$intitule_fr=$temp['intitule']['francais'];
 		}
@@ -428,11 +431,11 @@ for($row=0;$row<$max;$row++){
 			$rang_lat=$propre['rang']['latin'];
 			$rang_fr=$propre['rang']['francais'];
 		}
-		if(!$rang_lat) {
+		if ((!$rang_lat)or($calendarium['1V'][$demain])) {
 			$rang_lat=$temp['rang']['latin'];
 			$rang_fr=$temp['rang']['francais'];
 		}
-		if($rang_lat){
+		if ($rang_lat){
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h3> $rang_lat</h3></td>";
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
 			$oratiolat=$propre['oratio']['latin'];
@@ -641,9 +644,17 @@ for($row=0;$row<$max;$row++){
 	}
 
 	elseif($lat=="#ORATIO"){
-		if($propre['oratio']['latin']) {
+		if($propre['oratio_soir']['latin']) {
+			$oratiolat=$propre['oratio_soir']['latin'];
+			$oratiofr=$propre['oratio_soir']['francais'];
+		}
+		elseif($propre['oratio']['latin']) {
 			$oratiolat=$propre['oratio']['latin'];
 			$oratiofr=$propre['oratio']['francais'];
+		}
+		elseif($temp['oratio_soir']['latin']) {
+			$oratiolat=$temp['oratio_soir']['latin'];
+			$oratiofr=$temp['oratio_soir']['francais'];
 		}
 		elseif($temp['oratio']['latin']) {
 			$oratiolat=$temp['oratio']['latin'];
