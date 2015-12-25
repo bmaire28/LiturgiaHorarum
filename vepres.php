@@ -264,16 +264,9 @@ if($calendarium['temporal'][$jour]) {
 	    $row++;
 	}
 	fclose($fp);
-	$yy=$temp['magnificat']['francais'];
-	print"<br>$yy";
 	$oratiolat=$temp['oratio']['latin'];
 	$oratiofr=$temp['oratio']['francais'];
 	$LB_soir=$temp['LB_soir']['latin'];
-	$magniflat=$temp['magnificat']['latin'];
-	$magniffr=$temp['magnificat']['francais'];
-	$magnificat2="2magnificat_".$lettre;
-	if (!$magniflat)$magniflat=$temp[$magnificat2]['latin'];
-	if (!$magniffr) $magniffr=$temp[$magnificat2]['francais'];
 	$intitule_lat=$temp['intitule']['latin'];
 	$rang_lat=$temp['rang']['latin'];
 	if($rang_lat)$intitule_lat .="<br>".$rang_lat;
@@ -316,7 +309,8 @@ if ($temp['intitule']['latin']=="Dominica IV Adventus") {
 		$calendarium['priorite'][$jour]++;
 	}
 }
-/*print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
+/*print_r("<p> demain : ".$demain."</p>");
+print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
 print_r("<p> priorite jour : ".$calendarium['priorite'][$jour]."</p>");
 print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>");
 print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
@@ -356,8 +350,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$magnificat="pmagnificat_".$lettre;
 	$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
 	$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
-	$temp['oratio']['latin']=$temp['oratio_1V']['latin'];
-	$temp['oratio']['francais']=$temp['oratio_1V']['francais'];
+	$temp['oratio_soir']['latin']=$temp['oratio']['latin']=$temp['oratio_1V']['latin'];
+	$temp['oratio_soir']['francais']=$temp['oratio']['francais']=$temp['oratio_1V']['francais'];
 	if ($temp['intitule']['latin']=="Dominica IV Adventus"){
 		$propre['LB_soir']['latin']=$temp['LB_1V']['latin'];
 		$propre['RB_soir']['latin']=$temp['RB_1V']['latin'];
@@ -612,11 +606,20 @@ for($row=0;$row<$max;$row++){
 	}
 	
 	elseif($lat=="#ANT_MAGN"){
-		if($propre['magnificat']['latin']) {
-	    	$magniflat=$propre['magnificat']['latin'];
+		$magnificat="magnificat_".$lettre;
+		if($propre[$magnificat]['latin']) {
+			$magniflat=$propre[$magnificat]['latin'];
+			$magniffr=$propre[$magnificat]['francais'];
+		}
+		elseif($propre['magnificat']['latin']) {
+			$magniflat=$propre['magnificat']['latin'];
 			$magniffr=$propre['magnificat']['francais'];
-	    }
-	    if($temp['magnificat']['latin']) {
+		}
+		elseif ($temp[$magnificat]['latin']) {
+			$magniflat=$temp[$magnificat]['latin'];
+			$magniffr=$temp[$magnificat]['francais'];
+		}
+		elseif($temp['magnificat']['latin']) {
 	    	$magniflat=$temp['magnificat']['latin'];
 			$magniffr=$temp['magnificat']['francais'];
 	    }
@@ -668,8 +671,8 @@ for($row=0;$row<$max;$row++){
 	    	$oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
 	    	$oratiofr.=" Par notre Seigneur J&eacute;sus-Christ, ton Fils, qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
 	    }
-	    if ((substr($oratiolat,-11))==" Qui tecum.") {
-	        $oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+	    if ((substr($oratiolat,-17))==" Qui tecum vivit.") {
+	        $oratiolat=str_replace(" Qui tecum vivit.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
 	    	$oratiofr.=" Lui qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
 	    }
 	    if ((substr($oratiolat,-11))==" Qui vivis.") {

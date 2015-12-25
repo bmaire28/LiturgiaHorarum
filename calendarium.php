@@ -289,6 +289,7 @@ else {
 	$dd=date("Ymd", $sanctae_familiae2);
 }
 $temporal['intitule'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
+$temporal['temporal'][$dd]="SANCTAE FAMILIAE IESU, MARIAE ET IOSEPH";
 $temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
@@ -332,6 +333,7 @@ $jj=date("w", $jour5);
 if ($jj!=0) {
 	$dd=date("Ymd", $jour5);
 	$temporal['temporal'][$dd]="DE DIE V INFRA OCTAVAM NATIVITATIS";
+	$temporal['intitule'][$dd]="DE DIE V INFRA OCTAVAM NATIVITATIS";
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="9";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
@@ -344,6 +346,7 @@ $jj=date("w", $jour6);
 $dd=date("Ymd", $jour6);
 if (($jj==5)and(!$temporal['intitule'][$dd])) {
 	$temporal['temporal'][$dd]="DE DIE VI INFRA OCTAVAM NATIVITATIS";
+	$temporal['intitule'][$dd]="DE DIE VI INFRA OCTAVAM NATIVITATIS";
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="9";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
@@ -356,11 +359,37 @@ $jj=date("w", $jour7);
 $dd=date("Ymd", $jour7);
 if ($jj!=0) {
 	$temporal['temporal'][$dd]="DE DIE VII INFRA OCTAVAM NATIVITATIS";
+	$temporal['intitule'][$dd]="DE DIE VII INFRA OCTAVAM NATIVITATIS";
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="9";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
 	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
 }
+
+// 1er Janvier
+$stemarie=mktime(12,0,0,1,1,$m);
+$jj=date("w", $stemarie);
+$dd=date("Ymd", $stemarie);
+$temporal['temporal'][$dd]="IN OCTAVA NATIVITATIS DOMINI";
+$temporal['intitule'][$dd]="IN OCTAVA NATIVITATIS DOMINI";
+$temporal['couleur'][$dd]="Blanc";
+$temporal['priorite'][$dd]="3";
+$temporal['tempus'][$dd]="Tempus Nativitatis";
+$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+$temporal['1V'][$dd]=1;
+
+// 1er Janvier de l'année suivante
+$stemariesuivant=mktime(12,0,0,1,1,$m+1);
+$jj=date("w", $stemariesuivant);
+$dd=date("Ymd", $stemariesuivant);
+$temporal['temporal'][$dd]="IN OCTAVA NATIVITATIS DOMINI";
+$temporal['intitule'][$dd]="IN OCTAVA NATIVITATIS DOMINI";
+$temporal['couleur'][$dd]="Blanc";
+$temporal['priorite'][$dd]="3";
+$temporal['tempus'][$dd]="Tempus Nativitatis";
+$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+$temporal['1V'][$dd]=1;
+
 
 $infra_oct_nativ=$noel_annee_precedente+7*$jour; // Octave de noel de l'ann�e pr�c�dente
 $dd=date("Ymd", $infra_oct_nativ);
@@ -384,7 +413,7 @@ $epiphania=$noel_annee_precedente+(14-$jour_noel_precedent)*$jour;
 //$epiphania=mktime(12,0,0,1,6,$m);
 $dd=date("Ymd", $epiphania);
 $temporal['intitule'][$dd]="IN EPIPHANIA DOMINI";
-$temporal['rang'][$dd]="Sollemnitas";
+//$temporal['rang'][$dd]="Sollemnitas";
 $temporal['priorite'][$dd]="2";
 $temporal['1V'][$dd]=1;
 $temporal['tempus'][$dd]="Tempus Nativitatis";
@@ -410,7 +439,7 @@ else $baptisma=$epiphania+$jour;
 $dd=date("Ymd", $baptisma);
 $temporal['hebdomada'][$dd]="";
 $temporal['intitule'][$dd]="IN BAPTISMATE DOMINI";
-$temporal['rang'][$dd]="Festum";
+//$temporal['rang'][$dd]="Festum";
 $temporal['priorite'][$dd]="5";
 $temporal['1V'][$dd]=1;
 $temporal['tempus'][$dd]="Tempus Nativitatis";
@@ -748,12 +777,6 @@ while($heb_courante<$nbsemaines_perannum) {
 /*
  * Chargement du sanctoral
  */
-
-$date_courante=mktime(12,0,0,1,1,$m);
-$dernier_jour=mktime(12,0,0,12,31,$m);
-$lit=array("A","b","c","d","e","f","g");
-$i=0;
-
 $row = 1;
 $handle = fopen("propres_r/sanctoral/sanctoral.csv", "r");
 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
@@ -822,8 +845,12 @@ while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 
 
 $m=@date("Y",$day);
-$date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'ann�e $m
-$dernier_jour=mktime(12,0,0,12,31,$m); // 31 d�cembre de l'ann�e $m
+$date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'annee $m
+$dernier_jour=mktime(12,0,0,1,1,$m+1); // 1er janvier de l'annee *m+1
+$lit=array("A","b","c","d","e","f","g");
+$i=0;
+//$date_courante=mktime(12,0,0,1,1,$m); // 1er janvier de l'ann�e $m
+//$dernier_jour=mktime(12,0,0,12,31,$m); // 31 d�cembre de l'ann�e $m
 
 while($date_courante <= $dernier_jour) {
     // Initialisation des propi�t�s du calendrier
