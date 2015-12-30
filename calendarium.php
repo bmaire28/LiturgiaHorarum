@@ -403,7 +403,7 @@ $dd=date("Ymd", $fin_oct_nativitatis);
 $temporal['hebdomada'][$dd]=" ";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
-$temporal['hp'][$dd]=2;
+$temporal['hp'][$dd]=1;
 
 
 /*

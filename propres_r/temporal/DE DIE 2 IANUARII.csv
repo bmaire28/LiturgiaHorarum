@@ -4,8 +4,8 @@ LB_matin;LB_Is 49, 8b-9a;
 RB_matin;"R/. Notum fecit Dóminus, * Allelúia, allelúia. Notum.
 V/. Salutáre suum, * Allelúia, allelúia. Glória Patri. Notum.";"R/. Le Seigneur a fait connaître * Alléluia, alléluia. 
 V/. Son Salut. * Alléluia, alléluia. Gloire au Père. Alléluia, alléluia."
-benedictus;"In præsépio iacébat et in cælis fulgébat; ad nos veniébat, et apud Patrem manébat. ";
-oratio;Da, quæsumus, Dómine, pópulo tuo inviolábilem fídei firmitátem, ut, qui Unigénitum tuum in tua tecum glória sempitérnum in veritáte nostri córporis natum de Matre Vírgine confiténtur, et a præséntibus liberéntur advérsis, et mansúris gáudiis inserántur. Per Dóminum.;
+benedictus;"In præsépio iacébat et in cælis fulgébat; ad nos veniébat, et apud Patrem manébat. ";"Couché dans une crèche, il brillait dans les cieux ; il venait jusqu'à nous, demeurait près du Père."
+oratio;Da, quæsumus, Dómine, pópulo tuo inviolábilem fídei firmitátem, ut, qui Unigénitum tuum in tua tecum glória sempitérnum in veritáte nostri córporis natum de Matre Vírgine confiténtur, et a præséntibus liberéntur advérsis, et mansúris gáudiis inserántur. Per Dóminum.;Garde ton peuple, Seigneur, dans une foi inébranlable, pour que, nous qui confessons que ton Fils unique, l'éternel partenaire de ta gloire, a reçu de la Vierge Marie un corps semblable au nôtre, soyons délivrés des maux d'ici bas, et introduit dans la joie qui demeure.
 preces_matin;preces_III;
 HYMNUS_tertiam;hy_Nunc, Sancte, nobis, Spíritus;
 ant4;Erant Ioseph et María, mater Iesu, mirántes super iis, quæ dicebántur de illo.;Joseph et Marie s'émerveillaient de ce que l'on disait de lui.
@@ -25,10 +25,10 @@ LB_9;LB_1 Io 1, 5;
 RB_9;"V/. Misericórdia et véritas obviavérunt sibi, allelúia.
 R/. Iustítia et pax osculátæ sunt, allelúia.";"V/. Amour et vérité se rencontrent, alléluia.
 R/. Justice et pax s'embrassent, alléluia."
-HYMNUS_vesperas;hy_Christe, redémptor ómnium,;
+HYMNUS_vepres;hy_Christe, redémptor ómnium,;
 LB_soir;LB_Phil 3, 20b-21;
 RB_soir;"R/. Verbum caro factum est, * Allelúia, allelúia. Verbum.
 V/. Et habitávit in nobis. * Allelúia, allelúia. Glória Patri. Verbum.";"R/. Le Verbe s'est fait chair * Alléluia, alléluia. 
 V/. Et il a habité parmi nous. * Alléluia, alléluia. Gloire au Père. Le Verbe. "
-magnificat;O beáta Infántia, per quam géneris nostri vita est reparáta, quia tamquam sponsus de thálamo, Maríæ Christus procéssit ex útero. ;
+magnificat;O beáta Infántia, per quam géneris nostri vita est reparáta, quia tamquam sponsus de thálamo, Maríæ Christus procéssit ex útero. ;Ô bienheureux Enfant, par qui la vie de notre race est renouvelée, car comme l'époux de la chambre, le Christ est sorti du sein de Marie.
 preces_soir;preces_IV;
