@@ -344,7 +344,7 @@ if ($jj!=0) {
 $jour6=mktime(12,0,0,12,30,$m);
 $jj=date("w", $jour6);
 $dd=date("Ymd", $jour6);
-if (($jj==5)and(!$temporal['intitule'][$dd])) {
+if (($jj!=0)and(!$temporal['intitule'][$dd])) {
 	$temporal['temporal'][$dd]="DE DIE VI INFRA OCTAVAM NATIVITATIS";
 	$temporal['intitule'][$dd]="DE DIE VI INFRA OCTAVAM NATIVITATIS";
 	$temporal['couleur'][$dd]="Blanc";
@@ -403,6 +403,7 @@ $dd=date("Ymd", $fin_oct_nativitatis);
 $temporal['hebdomada'][$dd]=" ";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
+$temporal['hp'][$dd]=2;
 
 
 /*
@@ -412,6 +413,7 @@ $temporal['couleur'][$dd]="Blanc";
 $epiphania=$noel_annee_precedente+(14-$jour_noel_precedent)*$jour;
 //$epiphania=mktime(12,0,0,1,6,$m);
 $dd=date("Ymd", $epiphania);
+$temporal['jour'][$dd]="IN EPIPHANIA DOMINI";
 $temporal['intitule'][$dd]="IN EPIPHANIA DOMINI";
 //$temporal['rang'][$dd]="Sollemnitas";
 $temporal['priorite'][$dd]="2";
@@ -419,6 +421,90 @@ $temporal['1V'][$dd]=1;
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 $temporal['hebdomada'][$dd]="";
+
+
+/*
+ * Temps de la nativite entre l'octave de Noel et l'Epiphanie
+ * 
+ */
+
+// 2 Janvier
+$jour0102=mktime(12,0,0,1,2,$m);
+$jj=date("w", $jour0102);
+$dd=date("Ymd", $jour0102);
+if (($jj!=0)and($jour0102<$epiphania)) {
+	$temporal['temporal'][$dd]="DE DIE 2 IANUARII";
+	$temporal['intitule'][$dd]="DE DIE 2 IANUARII";
+	$temporal['couleur'][$dd]="Blanc";
+	$temporal['priorite'][$dd]="13";
+	$temporal['tempus'][$dd]="Tempus Nativitatis";
+	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+}
+
+// 3 Janvier
+$jour0103=mktime(12,0,0,1,3,$m);
+$jj=date("w", $jour0103);
+$dd=date("Ymd", $jour0103);
+if (($jj!=0)and($jour0103<$epiphania)) {
+	$temporal['temporal'][$dd]="DE DIE 3 IANUARII";
+	$temporal['intitule'][$dd]="DE DIE 3 IANUARII";
+	$temporal['couleur'][$dd]="Blanc";
+	$temporal['priorite'][$dd]="13";
+	$temporal['tempus'][$dd]="Tempus Nativitatis";
+	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+}
+
+// 4 Janvier
+$jour0104=mktime(12,0,0,1,4,$m);
+$jj=date("w", $jour0104);
+$dd=date("Ymd", $jour0104);
+if (($jj!=0)and($jour0104<$epiphania)) {
+	$temporal['temporal'][$dd]="DE DIE 4 IANUARII";
+	$temporal['intitule'][$dd]="DE DIE 4 IANUARII";
+	$temporal['couleur'][$dd]="Blanc";
+	$temporal['priorite'][$dd]="13";
+	$temporal['tempus'][$dd]="Tempus Nativitatis";
+	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+}
+
+// 5 Janvier
+$jour0105=mktime(12,0,0,1,5,$m);
+$jj=date("w", $jour0105);
+$dd=date("Ymd", $jour0105);
+if (($jj!=0)and($jour0105<$epiphania)) {
+	$temporal['temporal'][$dd]="DE DIE 5 IANUARII";
+	$temporal['intitule'][$dd]="DE DIE 5 IANUARII";
+	$temporal['couleur'][$dd]="Blanc";
+	$temporal['priorite'][$dd]="13";
+	$temporal['tempus'][$dd]="Tempus Nativitatis";
+	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+}
+
+// 6 Janvier
+$jour0106=mktime(12,0,0,1,6,$m);
+$jj=date("w", $jour0106);
+$dd=date("Ymd", $jour0106);
+if (($jj!=0)and($jour0106<$epiphania)) {
+	$temporal['temporal'][$dd]="DE DIE 6 IANUARII";
+	$temporal['intitule'][$dd]="DE DIE 6 IANUARII";
+	$temporal['couleur'][$dd]="Blanc";
+	$temporal['priorite'][$dd]="13";
+	$temporal['tempus'][$dd]="Tempus Nativitatis";
+	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+}
+
+// 7 Janvier
+$jour0107=mktime(12,0,0,1,7,$m);
+$jj=date("w", $jour0107);
+$dd=date("Ymd", $jour0107);
+if (($jj!=0)and($jour0107<$epiphania)) {
+	$temporal['temporal'][$dd]="DE DIE 7 IANUARII";
+	$temporal['intitule'][$dd]="DE DIE 7 IANUARII";
+	$temporal['couleur'][$dd]="Blanc";
+	$temporal['priorite'][$dd]="13";
+	$temporal['tempus'][$dd]="Tempus Nativitatis";
+	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+}
 
 /*
  * Bapteme du Seigneur

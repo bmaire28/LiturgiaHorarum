@@ -274,9 +274,11 @@ if($calendarium['temporal'][$jour]) {
 	$rang_fr=$temp['rang']['francais'];
 	if($rang_fr)$intitule_fr .="<br>".$rang_fr;
 	if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>VENDREDI SAINT")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l=$intitule_lat."<br> ad ";
-	else $date_l = $intitule_lat."<br> ad II ";
+	elseif ($calendarium['1V'][$jour]) $date_l = $intitule_lat."<br> ad II ";
+	else $date_l = $intitule_lat."<br> ad ";
 	if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr=$intitule_fr."<br> aux ";
-	else $date_fr = $intitule_fr."<br> aux IIes ";
+	elseif ($calendarium['1V'][$jour]) $date_l = $intitule_lat."<br> aux IIes ";
+	else $date_fr = $intitule_fr."<br> aux ";
 	$hymne=$temp['HYMNUS_vepres']['latin'];
 	$preces=$temp['preces_soir']['latin'];
 	if ($temp['intitule']['latin']=="IN NATIVITATE DOMINI") {
@@ -285,13 +287,6 @@ if($calendarium['temporal'][$jour]) {
 	}
 }
 
-/*
- * Vérification de premieres vepres au temporal - solennités et fetes
- * Chargement de $temp avec les valeurs du temporal
- * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
- */
-$tomorow = $day+60*60*24;
-$demain=date("Ymd",$tomorow);
 /*
  * Gestion du 4e Dimanche de l'Avent
  * si c'est le 24/12, prendre toutes les antiennes au 24, rien à modifier
@@ -309,6 +304,15 @@ if ($temp['intitule']['latin']=="Dominica IV Adventus") {
 		$calendarium['priorite'][$jour]++;
 	}
 }
+
+/*
+ * Vérification de premieres vepres au temporal - solennités et fetes
+ * Chargement de $temp avec les valeurs du temporal
+ * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
+ */
+$tomorow = $day+60*60*24;
+$demain=date("Ymd",$tomorow);
+
 /*print_r("<p> demain : ".$demain."</p>");
 print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
 print_r("<p> priorite jour : ".$calendarium['priorite'][$jour]."</p>");
