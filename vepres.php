@@ -264,28 +264,27 @@ if($calendarium['temporal'][$jour]) {
 	    $row++;
 	}
 	fclose($fp);
-	$oratiolat=$temp['oratio']['latin'];
-	$oratiofr=$temp['oratio']['francais'];
-	$LB_soir=$temp['LB_soir']['latin'];
-	$intitule_lat=$temp['intitule']['latin'];
-	$rang_lat=$temp['rang']['latin'];
-	if($rang_lat)$intitule_lat .="<br>".$rang_lat;
-	$intitule_fr=$temp['intitule']['francais'];
-	$rang_fr=$temp['rang']['francais'];
-	if($rang_fr)$intitule_fr .="<br>".$rang_fr;
-	if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>VENDREDI SAINT")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l=$intitule_lat."<br> ad ";
-	elseif ($calendarium['1V'][$jour]) $date_l = $intitule_lat."<br> ad II ";
-	else $date_l = $intitule_lat."<br> ad ";
-	if (($intitule_lat == "FERIA QUARTA CINERUM")||($intitule_lat == "DOMINICA RESURRECTIONIS")||($intitule_fr == "TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr=$intitule_fr."<br> aux ";
-	elseif ($calendarium['1V'][$jour]) $date_l = $intitule_lat."<br> aux IIes ";
-	else $date_fr = $intitule_fr."<br> aux ";
-	$hymne=$temp['HYMNUS_vepres']['latin'];
-	$preces=$temp['preces_soir']['latin'];
+	if ($temp['oratio_soir']['latin']) {
+		$temp['oratio']['latin']=$temp['oratio_soir']['latin'];
+		$temp['oratio']['francais']=$temp['oratio_soir']['francais'];
+	}
+	$date_fr=$date_l=null;
+	// Gestion intitule Ieres ou IIndes vepres en latin
+	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
+	elseif ($calendarium['1V'][$jour]) $date_l="<br> ad II ";
+	else $date_l = "<br> ad ";
+	
+	// Gestion intitule Ieres ou IIndes vepres en francais
+	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
+	elseif ($calendarium['1V'][$jour]) $date_fr = "<br> aux IIdes ";
+	else $date_fr = "<br> aux ";
+	
 	if ($temp['intitule']['latin']=="IN NATIVITATE DOMINI") {
 		$temp['oratio']['latin']=$temp['oratio_vepres']['latin'];
 		$temp['oratio']['francais']=$temp['oratio_vepres']['francais'];
 	}
 }
+
 
 /*
  * Gestion du 4e Dimanche de l'Avent
@@ -352,8 +351,15 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$temp['RB_soir']['latin']=$temp['RB_1V']['latin'];
 	$temp['RB_soir']['francais']=$temp['RB_1V']['francais'];
 	$magnificat="pmagnificat_".$lettre;
-	$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
-	$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
+	if ($temp[$magnificat]['latin']) {
+		$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
+		$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
+	}
+	else {
+		$temp['magnificat']['latin']=$temp['pmagnificat']['latin'];
+		$temp['magnificat']['francais']=$temp['pmagnificat']['francais'];
+	}
+	$temp['preces_soir']['latin']=$temp['preces_1V']['latin'];
 	$temp['oratio_soir']['latin']=$temp['oratio']['latin']=$temp['oratio_1V']['latin'];
 	$temp['oratio_soir']['francais']=$temp['oratio']['francais']=$temp['oratio_1V']['francais'];
 	if ($temp['intitule']['latin']=="Dominica IV Adventus"){
@@ -443,7 +449,7 @@ for($row=0;$row<$max;$row++){
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l Vesperas</h2></td>";
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$date_fr V&ecirc;pres</h2></td></tr>";
 		}
-		else {
+		if (!$date_l) {
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] Vesperas</h2></td>";
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] V&ecirc;pres</h2></td></tr>";
 		}
