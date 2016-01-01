@@ -290,21 +290,6 @@ if($calendarium['temporal'][$jour]) {
 	    $temp[$id]['francais']=$data[2];
 	    $row++;
 	}
-	$LB_matin=$temp['LB_matin']['latin'];
-	$oratiolat=$temp['oratio']['latin'];
-	$oratiofr=$temp['oratio']['francais'];
-	$hymne=$temp['HYMNUS_laudes']['latin'];
-	$intitule_lat=$temp['intitule']['latin'];
-	$date_l = $intitule_lat."</b><br> ";
-	$rang_lat=$temp['rang']['latin'];
-	if($rang_lat)$date_l .=$rang_lat."<br><b>";
-	$intitule_fr=$temp['intitule']['francais'];
-	$date_fr = $intitule_fr."</b><br> ";
-	$rang_fr=$temp['rang']['francais'];
-	if($rang_fr)$date_fr .="</b>".$rang_fr."<br><b>";
-	$preces=$temp['preces_matin']['latin'];
-	$rang_lat=$temp['rang']['latin'];
-	$rang_fr=$temp['rang']['francais'];
 }
 
 /*
