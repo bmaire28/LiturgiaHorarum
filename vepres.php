@@ -30,8 +30,8 @@ function vepres($jour,$calendarium,$my) {
 	$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
 	$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
 	$jrdelasemaine=date("w",$day);
-	$date_fr=$jours_fr[$jrdelasemaine];
-	$date_l=$jours_l[$jrdelasemaine];
+	//$date_fr=$jours_fr[$jrdelasemaine];
+	//$date_l=$jours_l[$jrdelasemaine];
 	
 	
 	/*
@@ -450,6 +450,7 @@ for($row=0;$row<$max;$row++){
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$date_fr V&ecirc;pres</h2></td></tr>";
 		}
 		if (!$date_l) {
+			$jrdelasemaine--;
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] Vesperas</h2></td>";
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] V&ecirc;pres</h2></td></tr>";
 		}

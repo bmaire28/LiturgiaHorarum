@@ -1,4 +1,4 @@
-intitule;FERIA VI POST DOMINICAM EPIPHANIÆ;MERCREDI APRÈS L’ÉPIPHANIE
+intitule;FERIA IV POST DOMINICAM EPIPHANIÆ;MERCREDI APRÈS L’ÉPIPHANIE
 HYMNUS_laudes;hy_Quicúmque Christum quæritis;
 ant1;Deus, in sancto via tua: quis Deus magnus sicut Deus noster? ;O Dieu, tes voies sont saintes:  quel Dieu est grand comme notre Dieu ?
 ant2;Exsultávit cor meum in Dómino, qui humíliat et súblevat. ;Mon coeur tressaille de joie dans le Seigneur, il abaisse et il élève.
@@ -7,8 +7,8 @@ LB_matin;LB_Is 49, 8b-9a;
 RB_matin;"R/. Adorábunt eum * Omnes reges terræ. Adorábunt.
 V/. Omnes gentes sérvient ei. * Omnes reges terræ. Glória Patri. Adorábunt.";"R/. Ils se prosterneront devant lui, * tous les rois de la terre. Ils se prosterneront. 
 V/. Toutes les nations le serviront. * tous les rois de la terre. Gloire au Père. Ils se prosterneront.."
-benedictus;Vídimus stellam eius in Oriénte, et vénimus cum munéribus adoráre Dóminum. ;Nous avons vu son étoile en Orient, et nous sommes venus, avec des présents, pour l'adorer.
-oratio_laudes;Deus, illuminátor ómnium géntium, da pópulis tuis perpétua pace gaudére, et illud córdibus nostris spléndidum lumen infúnde, quod patrum nostrórum méntibus aspersísti. Per Dóminum. ;
+benedictus;Vídimus stellam eius in Oriénte, et vénimus cum munéribus adoráre Dóminum. ;Nous avons vu son étoile en Orient, et nous sommes venus, avec des présents, pour adorer le Seigneur.
+oratio_laudes;Deus, illuminátor ómnium géntium, da pópulis tuis perpétua pace gaudére, et illud córdibus nostris spléndidum lumen infúnde, quod patrum nostrórum méntibus aspersísti. Per Dóminum. ;"Dieu, qui illumine toutes les nations, accorde aux peuples de la terre de vivre en paix, et fais lever en nos c&oelig;urs l'admirable lumière qui a guidé les mages vers ton Fils."
 preces_matin;preces_VIII;
 HYMNUS_tertiam;hy_Certum tenéntes;
 HYMNUS_sextam;hy_Dicámus laudes;
@@ -20,17 +20,17 @@ LB_3;LB_1 Tim 1, 15;
 RB_3;"V/. In terris visus est.
 R/. Et cum homínibus conversátus est.";"V/. il est apparu sur terre. 
 R/. et il a vécue parmi les hommes."
-oratio_3;;
+oratio_3;Deus, illuminátor ómnium géntium, da pópulis tuis perpétua pace gaudére, et illud córdibus nostris spléndidum lumen infúnde, quod patrum nostrórum méntibus aspersísti. Per Dóminum. ;"Dieu, qui illumine toutes les nations, accorde aux peuples de la terre de vivre en paix, et fais lever en nos c&oelig;urs l'admirable lumière qui a guidé les mages vers ton Fils."
 LB_6;LB_Ap 21, 23-24;
 RB_6;"V/. Vidébunt gentes iustum tuum.
 R/. Et cuncti reges ínclitum tuum.";"V/. Les nations verront ta justice. 
 R/. Et tous les rois ta gloire."
-oratio_6;;
+oratio_6;Deus, illuminátor ómnium géntium, da pópulis tuis perpétua pace gaudére, et illud córdibus nostris spléndidum lumen infúnde, quod patrum nostrórum méntibus aspersísti. Per Dóminum. ;"Dieu, qui illumine toutes les nations, accorde aux peuples de la terre de vivre en paix, et fais lever en nos c&oelig;urs l'admirable lumière qui a guidé les mages vers ton Fils."
 LB_9;LB_1 Io 1, 5;
 RB_9;"V/. Benedícite, gentes, Deum nostrum.
 R/. Et audítam fácite vocem laudis eius.";"V/. Peuples bénissez notre Dieu
 R/. Et donnez une voix à sa louange."
-oratio_9;;
+oratio_9;Deus, illuminátor ómnium géntium, da pópulis tuis perpétua pace gaudére, et illud córdibus nostris spléndidum lumen infúnde, quod patrum nostrórum méntibus aspersísti. Per Dóminum. ;"Dieu, qui illumine toutes les nations, accorde aux peuples de la terre de vivre en paix, et fais lever en nos c&oelig;urs l'admirable lumière qui a guidé les mages vers ton Fils."
 HYMNUS_vesperas;hy_Hostis Heródes ímpie;
 ant7;Exspectémus beátam spem et advéntum glóriæ Salvatóris nostri. ;Nous attendons la bienheureuse espérance et l'avènement glorieux de notre Sauveur.
 ant8;Illúminet vultum suum super nos Deus, et benedícat nobis. ;Que Dieu fasse briller sur nous la lumière de son visage, et qu’il nous bénisse.
@@ -40,5 +40,5 @@ RB_soir;"R/. Benedicéntur in ipso * Omnes tribus terræ. Benedicéntur.
 V/. Omnes gentes magnificábunt eum. * Omnes tribus terræ. Glória Patri. Benedicéntur.";"R/. Bénies seront en lui * toutes les races de la terre. Bénies. 
 V/. Que toutes les nations le proclament heureux ! * toutes les races de la terre. Gloire au Père. Bénies."
 magnificat;Interrogábat magos Heródes: Quod signum vidístis super natum Regem? Stellam vídimus fulgéntem, cuius splendor illúminat mundum.;Hérode interrogeait les Mages : Quel signe avez-vous vu sur le Roi nouveau-né ? Nous avons vu une étoile étincelante, dont la splendeur illumine le monde.
-oratio_vesperas;;
+oratio_vesperas;Deus, illuminátor ómnium géntium, da pópulis tuis perpétua pace gaudére, et illud córdibus nostris spléndidum lumen infúnde, quod patrum nostrórum méntibus aspersísti. Per Dóminum. ;"Dieu, qui illumine toutes les nations, accorde aux peuples de la terre de vivre en paix, et fais lever en nos c&oelig;urs l'admirable lumière qui a guidé les mages vers ton Fils."
 preces_soir;preces_IX;
