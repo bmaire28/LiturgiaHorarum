@@ -393,7 +393,7 @@ $temporal['1V'][$dd]=1;
 
 $infra_oct_nativ=$noel_annee_precedente+7*$jour; // Octave de noel de l'ann�e pr�c�dente
 $dd=date("Ymd", $infra_oct_nativ);
-$temporal['hebdomada'][$dd]="Infra Octavam Nativitatis";
+$temporal['hebdomada'][$dd]="";
 $temporal['tempus'][$dd]="Tempus Nativitatis";
 $temporal['couleur'][$dd]="Blanc";
 $temporal['hp'][$dd]=1;
@@ -438,7 +438,7 @@ if (($jj!=0)and($jour0102<$epiphania)) {
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="13";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
-	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+	$temporal['hebdomada'][$dd]="";
 }
 
 // 3 Janvier
@@ -451,7 +451,7 @@ if (($jj!=0)and($jour0103<$epiphania)) {
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="13";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
-	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+	$temporal['hebdomada'][$dd]="";
 }
 
 // 4 Janvier
@@ -464,7 +464,7 @@ if (($jj!=0)and($jour0104<$epiphania)) {
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="13";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
-	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+	$temporal['hebdomada'][$dd]="";
 }
 
 // 5 Janvier
@@ -477,7 +477,7 @@ if (($jj!=0)and($jour0105<$epiphania)) {
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="13";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
-	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+	$temporal['hebdomada'][$dd]="";
 }
 
 // 6 Janvier
@@ -490,7 +490,7 @@ if (($jj!=0)and($jour0106<$epiphania)) {
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="13";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
-	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+	$temporal['hebdomada'][$dd]="";
 }
 
 // 7 Janvier
@@ -503,7 +503,7 @@ if (($jj!=0)and($jour0107<$epiphania)) {
 	$temporal['couleur'][$dd]="Blanc";
 	$temporal['priorite'][$dd]="13";
 	$temporal['tempus'][$dd]="Tempus Nativitatis";
-	$temporal['hebdomada'][$dd]="Infra octavam Nativitatis";
+	$temporal['hebdomada'][$dd]="";
 }
 
 /*
@@ -962,7 +962,7 @@ while($date_courante <= $dernier_jour) {
 	$tempo=$temporal['temporal'][$date];
 	$pV=$temporal['1V'][$date];
 	
-	// conflit temporal / sanctoral
+	// s'il y a conflit temporal / sanctoral
 	if(($sanctoral['priorite'][$date]!="")&&($temporal['priorite'][$date]!="")) {
 		// sanctoral prioritaire sur le temporal 
 		if ($sanctoral['priorite'][$date]<$temporal['priorite'][$date]) {

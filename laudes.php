@@ -209,8 +209,7 @@ fclose($fp);
  * Chargement du propre du sanctoral dans $propre
  * 
  */
-
-if($calendarium['rang'][$jour]) {
+if (($calendarium['rang'][$jour])or($calendarium['priorite'][$jour]==12)) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
 	if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
