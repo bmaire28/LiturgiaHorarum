@@ -246,7 +246,7 @@ function affiche_nav($do,$office,$place) {
 	for($o=0;$offices[$o];$o++) {
 		if ($office==$offices[$o]) {
 			$officeactuel=$o;
-	 		break;
+			break;
 		}
 	}
 	$suivant = $offices[$officeactuel+1];
@@ -289,19 +289,29 @@ function affiche_nav($do,$office,$place) {
 	print"
 		<div id=\"$place\">
 			<ul>
-				<li><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a> | </li>
-				<li><a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a> | </li>
-				<li><a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a> | </li>
-				<li><a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a> | </li>
-				<li><a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a> | </li>
-				<li><a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a> | </li>
-				<li><a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a> | </li>
-				<li><a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a> | </li>
-				<li><a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a> | </li>
+				<li><a href=\"index.php?date=$hier&amp;office=$office\">&lt;&lt; </a></li>
+				<li><a href=\"index.php?date=$date_prec&amp;office=$precedent\">&lt; </a></li>";
+	if ($office=="laudes") print "<li class=\"selection\"><a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a></li>";
+	else print "<li><a href=\"index.php?date=$do&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\">Laudes</a></li>";
+	if ($office=="tierce") print "<li class=\"selection\"><a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a></li>";
+	else print "<li><a href=\"index.php?date=$do&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\">Tierce</a></li>";
+	if ($office=="sexte") print "<li class=\"selection\"><a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a></li>";
+	else print "<li><a href=\"index.php?date=$do&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\">Sexte</a></li>";
+	if ($office=="none") print "<li class=\"selection\"><a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a></li>";
+	else print "<li><a href=\"index.php?date=$do&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\">None</a></li>";
+	if ($office=="vepres") print "<li class=\"selection\"><a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a></li>";
+	else print "<li><a href=\"index.php?date=$do&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\">V&ecirc;pres</a></li>";
+	if ($office=="complies") print "<li class=\"selection\"><a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a></li>";
+	else print "<li><a href=\"index.php?date=$do&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\">Complies</a></li>";
+	
+	print"
+				<li><a href=\"index.php?date=$date_suiv&amp;office=$suivant\">></a></li>
 				<li><a href=\"index.php?date=$demain&amp;office=$office\"> >></a></li>
 			</ul>
-			<p><a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a> </p>
-			<p><a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\">Revenir au jour pr&eacute;sent</a></p>
+			<ul>
+				<li id=\"defunts\"><a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\">Office des d&eacute;funts</a></li>
+				<li><a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\">Revenir au jour pr&eacute;sent</a></li>
+			</ul>
 		</div>";//div navigation
 //<a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
 		

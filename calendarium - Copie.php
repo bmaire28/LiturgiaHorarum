@@ -18,17 +18,17 @@ print"/templates/js_naturale/css/template_$couleur.css";
 
 
 
-function mod_calendarium($mois_courant,$an,$jour_courant) {
+function mod_calendarium($mois_courant,$an) {
 if($mois_courant=="") $jl=time();
 else $jl=mktime(12,12,0,$mois_courant,01,$an);
 $an.$mois_courant."01";
 $datj=date("Ymd",$jl);
 $calend=calendarium($datj);
+$task=$_GET['task'];
 $office=$_GET['office'];
 
 $couleurs=$calend[couleur_template];
 $mois= array("Ianuarii","Februarii","Martii","Aprilis","Maii","Iunii","Iulii","Augustii","Septembris","Octobris","Novembris","Decembris");
-
 $hodie=time();
 if($an=="") $anno=@date("Y",$hodie);
 else $anno=$an;
@@ -67,7 +67,7 @@ $coul['Rose']="#FE00F9";
 $coul['Noir']="#000000";
 
 print"
-<table>
+<table style=\"text-align: center; width: 100px; height: 134px; border: 1px solid black; border-spacing: 1px; margin: auto; \"  >
   <thead><tr>
   <th><b>Do.</b></th>
   <th>F.2</th>
@@ -84,26 +84,25 @@ for ($u=0;$u<6;$u++) {
     $f=$sem[$u][0];
     $jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
     $jour=date("Ymd",$jour_ts);
-    $class="";
-		if ($jour == $jour_courant) {
-			$class="style=\"font-weight : bold; border : 2px black solid;\"";
-		}
-        $iff=$couleurs[$jour];
+    $iff=$couleurs[$jour];
+    $coloris=$coul[$iff];
+    $couleur_fonte=$coul['Noir'];
+    if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
+
     $titre=$calend['intitule'][$jour];
-    if($f!="")    print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\">$f</a></td>";
-    else print"<td></td>";
+    if($f!="")    print"<td style=\"width: 25px; background-color: $coloris; color:$couleur_fonte; text-align: center;  text-decoration: underline;\"><a style=\"color: #000000;\"  href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><span style=\"color:$couleur_fonte \">$f</span></a></td>";
+    else print"<td style=\"width: 25px; color: #000000; text-align: center; text-decoration: underline;\"></td>";
 	for($n=1;$n<7;$n++) {
 		$f=$sem[$u][$n];
 		$jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
 		$jour=date("Ymd",$jour_ts);
-		$class="";
-		if ($jour == $jour_courant) {
-			$class="style=\"font-weight : bold; border : 2px black solid;\"";
-		}
 		$iff=$couleurs[$jour];
+		$coloris=$coul[$iff];
+		$couleur_fonte=$coul['Noir'];
+		if (($coloris==$coul['Noir'])OR($coloris==$coul['Violet-avent'])OR($coloris==$coul['Violet-careme'])OR($coloris==$coul['Vert'])) $couleur_fonte="#ffffff";
 		$titre=$calend['intitule'][$jour];
-		if($f!="") print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\">$f</a></td>";
-		else print"<td></td>";
+		if($f!="") print"<td style=\"width: 25px; background-color: $coloris; text-align: center;\"><a style=\"color: #000000;\" href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\"><span style=\"color:$couleur_fonte \">$f</span></a></td>";
+		else print"<td style=\"width: 25px; text-align: center;  text-decoration: underline;\"></td>";
 	}
 }
     print"</tbody><tfoot>
@@ -112,7 +111,7 @@ for ($u=0;$u<6;$u++) {
     $mois_plus=$mois_courant+1;
     print"
       <td><a href=\"index.php?mois_courant=$mois_moins&amp;an=$anno\">&lt;&lt;</a></td>
-      <td colspan=\"5\" rowspan=\"1\"><a href=\"index.php?mense=$mois_courant\">$mense</a></td>
+      <td style=\"text-align: center;\" colspan=\"5\" rowspan=\"1\"><a href=\"index.php?mense=$mois_courant\">$mense</a></td>
       <td><a href=\"index.php?mois_courant=$mois_plus&amp;an=$anno\">&gt;&gt;</a></td>
     </tr>
   </tfoot>
