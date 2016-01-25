@@ -51,44 +51,52 @@ $demain=date("Ymd",$dtsplusun);
 //print_r("initialisation des variables GET <br>");
 
 $calendarium=calendarium($do,0);
-
 //print_r("initialisation du calendrier <br>");
-?>
-<head>
-	<?php print "<title>Liturgia Horarum, ".$datelatin."</title>"; ?>
-	<meta http-equiv=Content-Type content=text/html charset=utf-8>
-	<link type="text/css" rel="stylesheet" href="CSS/stylesheet.css" />
-</head>
 
-<body>
-	<header>
-	<!-- Tableau du haut -->
-		<?php affiche_nav($do,$office,"tete"); ?>
-		<div id="entete">
-			<div id="ordo">
-				<?php
-				print"<p>".$calendarium['hebdomada'][$do]."</p>";
-				print"<p>".$datelatin."</p>";
-				print"<p>Semaine du psautier : ".$calendarium['hebdomada_psalterium'][$do]."</p>";
-				if($calendarium['intitule'][$do]) print"<h1>".$calendarium['intitule'][$do]."</h1>";
-				if($calendarium['rang'][$do]) print"<p>Rang : ".$calendarium['rang'][$do].",<p/> ";
-				print"<p>Couleur : ".$calendarium['couleur_template'][$do]."</p>";
-				?>
-			</div>
-			<div id="calendrier">
-				<?php 
-					print "<h1>Calendarium liturgicum $anno</h1>";
-					print mod_calendarium($mense,$anno,$do);
-				?>
-			</div>
-		</div>
-	</header>
+print "		<head>
+			<title>Liturgia Horarum, ".$datelatin."</title>
+			<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
+			<link type=\"text/css\" rel=\"stylesheet\" href=\"CSS/stylesheet.css\" />
+		</head>
+		<body>
+		";
+/*
+ * Ins�rer une feuille de style :
+ * <link rel="stylesheet" type="text/css" href="mystyle.css">
+ * 
+ */
 	
-	<section>
 
-<?php 
+//// Tableau du haut
+if($task!="martyrologe") {
+	print "<header>
+		";
+	affiche_nav($do,$office,"tete");
+	print "<div id=\"entete\">";
+	print"<div id=\"ordo\">";
+		print"<p>".$calendarium['hebdomada'][$do]."<br/>";
+		print"".$datelatin."<br/>";
+		print"Semaine du psautier : ".$calendarium['hebdomada_psalterium'][$do]."</p>";
+		if($calendarium['intitule'][$do]) print"<h1>".$calendarium['intitule'][$do]."</h1>";
+		print "<p>";
+		if($calendarium['rang'][$do]) print"Rang : ".$calendarium['rang'][$do].",<br/> ";
+		print"Couleur : ".$calendarium['couleur_template'][$do]."</p>";
+	print"</div>";//div ordo
+	print "
+			<div id=\"calendrier\">
+			<h1>Calendarium liturgicum $anno</h1>";
+	print mod_calendarium($mense,$anno);
+	print"	</div>
+			</div>
+			</header>
+			";
+	}
+
+
 //// Heure de l'Office � afficher
 
+print "
+		<section>";
 switch($office){
 	case "laudes" :
 		print epuration(laudes($do,$calendarium,$my));
@@ -122,13 +130,15 @@ switch($office){
 		print epuration(messe($do,$calendarium,$my));
 	break;
 }
+print "
+		</section>";
+print "
+		<footer>";
+affiche_nav($do,$office,"pied");
+print "
+		</footer>
+";
 
 ?>
-	</section>
-	<footer>
-	<?php 
-		affiche_nav($do,$office,"pied");
-	?>
-		</footer>
 	</body>
 </html>
