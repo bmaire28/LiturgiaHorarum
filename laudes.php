@@ -329,11 +329,11 @@ for($row=0;$row<$max;$row++){
 	$fr=$lau[$row]['francais'];
 	
 	// Suppression de l'AllÃ©luia en CarÃªme et semaine Sainte
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelï¿½ia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allelï¿½ia.")) {
+	if(($tem=="Tempus passionis")&&($lat=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}

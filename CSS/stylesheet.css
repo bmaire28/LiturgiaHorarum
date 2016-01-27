@@ -4,6 +4,10 @@
     font-family: Verdana, sans-serif;
 }
 
+a {
+	text-decoration : none;
+}
+
 .Rouge {
     background-color: #ff0000;
 }
@@ -125,12 +129,12 @@ li{
 	padding : 0.5em;
 }
 
-li a, li a:visited {
+a li, a:visited li {
     text-decoration: none;
     color : blue;
 }
 
-li:hover, li:hover a {
+a:hover, a li:hover, li:hover {
     font-weight: bold;
     background-color: blue;
     border-color: blue;
@@ -143,13 +147,13 @@ li:hover, li:hover a {
     font-weight: bold;
 }
 
-#defunts, #defunts a, #defunts a:visited {
+a #defunts, a:visited #defunts{
     background-color: black;
     font-weight: bold;
     color: white;
 }
 
-#defunts:hover {
+a:hover #defunts, #defunts:hover {
     border-color: black;
 }
 
