@@ -167,12 +167,12 @@ for($row=0;$row<$max;$row++){
 
     //Suppression de l'Alléluia en Carême et Semaine Sainte
 
-    if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
+    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
         $lat="";
         $fr="";
     }
 
-    if(($tem=="Tempus passionis")&&($lat=="Allelúia.")) {
+    if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")) {
        $lat="";
        $fr="";
     }

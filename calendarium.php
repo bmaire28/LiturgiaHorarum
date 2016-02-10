@@ -86,7 +86,7 @@ for ($u=0;$u<6;$u++) {
     $jour=date("Ymd",$jour_ts);
     $class="";
 		if ($jour == $jour_courant) {
-			$class="style=\"font-weight : bold; border : 2px black solid;\"";
+			$class="style=\"font-weight : bold; border : 3px black solid;\"";
 		}
         $iff=$couleurs[$jour];
     $titre=$calend['intitule'][$jour];
@@ -98,7 +98,7 @@ for ($u=0;$u<6;$u++) {
 		$jour=date("Ymd",$jour_ts);
 		$class="";
 		if ($jour == $jour_courant) {
-			$class="style=\"font-weight : bold; border : 2px black solid;\"";
+			$class="style=\"font-weight : bold; border : 3px black solid;\"";
 		}
 		$iff=$couleurs[$jour];
 		$titre=$calend['intitule'][$jour];

@@ -246,11 +246,11 @@ $sexte="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelï¿½ia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allelï¿½ia.")){
+	if(($tem=="Tempus passionis")&&($lat=="Allelúia.")){
 		$lat="";
 		$fr="";
 	}

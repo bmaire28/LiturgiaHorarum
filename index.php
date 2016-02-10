@@ -56,7 +56,7 @@ $calendarium=calendarium($do,0);
 ?>
 <head>
 	<?php print "<title>Liturgia Horarum, ".$datelatin."</title>"; ?>
-	<meta http-equiv=Content-Type content=text/html charset=utf-8>
+	<meta charset="utf-8">
 	<link type="text/css" rel="stylesheet" href="CSS/stylesheet.css" />
 </head>
 

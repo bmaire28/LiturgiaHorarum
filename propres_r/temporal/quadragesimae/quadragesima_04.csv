@@ -11,7 +11,7 @@ RB_matin;"R/. Ipse liberábit me * De láqueo venántium. Ipse.
 V/. Et a verbo malígno. * De láqueo venántium. Glória Patri. Ipse.";"R/. C'est lui qui m'a dégagé * des filets du chasseur. Il me. 
 V/. Et des paroles haineuses. * Des filets du chasseur. Gloire au Père. C'est lui."
 benedictus;Cum ieiunátis, nolíte fíeri, sicut hypócritæ, tristes.;Quand vous jeûnez, ne soyez pas tristes, comme les hypocrites.
-preces_matin;preces_V;
+preces_matin;preces_I;
 oratio;Concéde nobis, Dómine, præsídia milítiæ christiánæ sanctis inchoáre ieiúniis, ut, contra spiritáles nequítias pugnatúri, continéntiæ muniámur auxíliis. Per Dóminum.;Accorde-nous, Seigneur, d'entrer par de saints jeûnes dans les rangs de la milice chrétienne, de sorte qu'ayant à lutter contre les esprits mauvais, nous soyons munis des secours que nous procure l'abstinence.
 HYMNUS_tertiam;hy_Dei fide, qua vívimus;
 HYMNUS_sextam;hy_Qua Christus hora sítiit;
@@ -23,24 +23,24 @@ LB_3;LB_Ez 18, 30b-32;
 RB_3;"V/. Cor mundum crea in me, Deus. 
 R/. Et spíritum firmum ínnova in viscéribus meis.";"V/.O Dieu, crée en moi un coeur pur;  
 R/. Et renouvelle au dedans de moi un esprit ferme."
-LB_6;LB_1 Tim 1, 14-15;
+LB_6;LB_Zac 1, 3b-4b;
 RB_6;"V/. Avérte fáciem tuam a peccátis meis. 
 R/. Et omnes iniquitátes meas dele.";"V/. Détourne ta face de mes péchés, 
 R/. Efface toutes mes iniquités. "
-LB_9;LB_1 Tim 1, 16;
+LB_9;LB_Dan 4, 24b;
 RB_9;"V/. Sacrifícium Deo spíritus contribulátus. 
 R/. Cor contrítum et humiliátum, Deus, non despícies.";"V/. Les sacrifices de Dieu, c'est un esprit brisé; 
 R/. ô Dieu, tu ne dédaignes pas un coeur brisé et contrit. "
-HYMNUS_vepres;hy_Iesu, quadragenáriæ;
-ant7;Magnus est Dóminus, et Deus noster præ ómnibus diis.;Le Seigneur est grand, notre Seigneur est au-dessus de tous les dieux. 
-ps7;ps134I;
-ant8;"Domus Israel, benedícite Dómino; psállite nómini eius, quóniam suáve.";"Maison d'Israël, bénis le Seigneur; chante son nom, car il est bon."
-ps8;ps134II;
-ant9;Omnes gentes vénient et adorábunt coram te, Dómine.;Toutes les nations viendront près de toi et t'adoreront, Seigneur.
-ps9;NT10;
+HYMNUS_vesperas;hy_Iesu, quadragenáriæ;
+ant7;Mirábilis facta est sciéntia tua super me, Dómine. ;Le Seigneur est grand, notre Seigneur est au-dessus de tous les dieux. 
+ps7;ps138I;
+ant8;Ego Dóminus scrutans cor et probans renes, qui do unicuíque secúndum viam suam. ;"Maison d'Israël, bénis le Seigneur; chante son nom, car il est bon."
+ps8;ps138II;
+ant9;In ipso cóndita sunt univérsa, et ómnia in ipso constant. ;Toutes les nations viendront près de toi et t'adoreront, Seigneur.
+ps9;NT6;
 LB_soir;LB_Phil 2, 12b-15a;
 RB_soir;"R/. Ego dixi: Dómine, * Miserére mei. Ego. 
 V/. Sana ánimam meam, quia peccávi tibi.* Miserére mei. Glória Patri. Ego.";"R/. J'ai dit Seigneur, * aie pitié de moi. J'ai dit. 
 V/. Guéris mon âme car j'ai péché contre toi.* Aie pitié de moi. Gloire au Père. * J'ai dit."
 magnificat;Cum facis eleemósynam, nésciat sinístra tua quid fáciat déxtera tua.; Quand tu fais l'aumône, que ta main gauche ne sache pas ce que fait ta main droite
-preces_soir;preces_XVI;
+preces_soir;preces_II;
