@@ -309,7 +309,7 @@ function affiche_nav($do,$office,$place) {
 				<li><a href=\"index.php?date=$demain&amp;office=$office\"><span>>></span></a></li>
 			</ul>
 			<ul>
-				<li><a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\"><span id=\"defunts\">Office des d&eacute;funts</span></a></li>
+				<li><a href=\"index.php?date=$date_defunts&amp;office=$office&amp;mois_courant=11&amp;an=$anno\"><span class=\"defunts\">Office des d&eacute;funts</span></a></li>
 				<li><a href=\"index.php?date=$date_aujourdhui&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\"><span>Revenir au jour pr&eacute;sent</span></a></li>
 			</ul>
 		</div>";//div navigation

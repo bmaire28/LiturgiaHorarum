@@ -149,17 +149,17 @@ a:hover, a span:hover, span:hover {
     font-weight: bold;
 }
 
-a #defunts, a:visited #defunts{
+a .defunts, a:visited .defunts{
     background-color: black;
     font-weight: bold;
     color: white;
 }
 
-a:hover #defunts, #defunts:hover {
+a:hover .defunts, .defunts:hover {
     border-color: black;
 }
 
-#defunts:hover, #defunts:hover a {
+.defunts:hover, .defunts:hover a {
     background-color: white;
     font-weight: bold;
     color: black;
