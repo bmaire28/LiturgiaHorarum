@@ -120,20 +120,23 @@ ul {
     margin: 2em;
 }
 
-li{
+li {
 	display: inline;
+}
+
+a span{
 	border : 1px black solid;
 	border-radius: 10px;
 	margin : 0.1em;
 	padding : 0.5em;
 }
 
-a li, a:visited li {
+a span, a:visited span {
     text-decoration: none;
     color : blue;
 }
 
-a:hover, a li:hover, li:hover {
+a:hover, a span:hover, span:hover {
     font-weight: bold;
     background-color: blue;
     border-color: blue;
