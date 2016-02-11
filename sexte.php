@@ -466,13 +466,13 @@ for($row=0;$row<$max;$row++){
 	    	$oratio6lat=$temp['oratio']['latin'];
 	    	$oratio6fr=$temp['oratio']['francais'];
 	    }
-	    else {
-	    	if(!$oratiolat)$oratio6lat=$var['oratio_6']['latin'];
-	    	if(!$oratiofr)$oratio6fr=$var['oratio_6']['francais'];
-	    	if($oratiolat) {
-	    		$oratio6lat=$oratiolat;
-	    		$oratio6fr=$oratiofr;
-	    	}
+	    elseif ($var['oratio_6']['latin']) {
+	    	$oratio6lat=$var['oratio_6']['latin'];
+	    	$oratio6fr=$var['oratio_6']['francais'];
+	    }
+	    elseif ($var['oratio']['latin']) {
+	    	$oratio6lat=$var['oratio']['latin'];
+	    	$oratio6fr=$var['oratio']['francais'];
 	    }
 	    switch (substr($oratio6lat,-6)){
 	    	case "istum." :

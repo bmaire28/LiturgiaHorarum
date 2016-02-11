@@ -674,9 +674,13 @@ for($row=0;$row<$max;$row++){
 			$oratiolat=$temp['oratio']['latin'];
 			$oratiofr=$temp['oratio']['francais'];
 		}
-	    if (!$oratiolat) {
+	    elseif ($oratiolat=$var['oratio_vesperas']['latin']) {
 	    	$oratiolat=$var['oratio_vesperas']['latin'];
 	    	$oratiofr=$var['oratio_vesperas']['francais'];
+	    }
+	    elseif ($oratiolat=$var['oratio']['latin']) {
+	    	$oratiolat=$var['oratio']['latin'];
+	    	$oratiofr=$var['oratio']['francais'];
 	    }
 	    if ((substr($oratiolat,-6))=="minum.") {
 	    	$oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
