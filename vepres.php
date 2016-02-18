@@ -360,8 +360,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 		$temp['magnificat']['francais']=$temp['pmagnificat']['francais'];
 	}
 	$temp['preces_soir']['latin']=$temp['preces_1V']['latin'];
-	$temp['oratio_soir']['latin']=$temp['oratio']['latin']=$temp['oratio_1V']['latin'];
-	$temp['oratio_soir']['francais']=$temp['oratio']['francais']=$temp['oratio_1V']['francais'];
+	$temp['oratio_soir']['latin']=$temp['oratio_1V']['latin'];
+	$temp['oratio_soir']['francais']=$temp['oratio_1V']['francais'];
 	if ($temp['intitule']['latin']=="Dominica IV Adventus"){
 		$propre['LB_soir']['latin']=$temp['LB_1V']['latin'];
 		$propre['RB_soir']['latin']=$temp['RB_1V']['latin'];
@@ -393,11 +393,11 @@ $vepres="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$vesp[$row]['latin'];
 	$fr=$vesp[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelï¿½ia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allelúia.")) {
+	if(($tem=="Tempus passionis")&&($lat=="Allelï¿½ia.")) {
 		$lat="";
 		$fr="";
 	}

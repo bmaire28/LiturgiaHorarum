@@ -248,11 +248,11 @@ $none="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelï¿½ia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allelúia.")){
+	if(($tem=="Tempus passionis")&&($lat=="Allelï¿½ia.")){
 		$lat="";
 		$fr="";
 	}
@@ -463,7 +463,7 @@ for($row=0;$row<$max;$row++){
 	    }
 	    elseif ($var['oratio']['latin']) {
 	    	$oratio9lat=$var['oratio']['latin'];
-	    	$oratio3fr=$var['oratio']['francais'];
+	    	$oratio9fr=$var['oratio']['francais'];
 	    }
 	    switch (substr($oratio9lat,-6)){
 	    	case "istum." :
