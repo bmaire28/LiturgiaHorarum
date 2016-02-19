@@ -11,6 +11,49 @@ body {
   position: relative;
 }
 
+p, h1, h2, h3, h4, h5 {
+	padding-top : 0px;
+	padding-bottom : 0px;
+	margin-top : 0px;
+	margin-bottom : 0px;
+}
+
+h1 {
+	color: black;
+	text-align: center;
+	font-weight: bold;
+	font-size: medium;
+}
+
+h2 {
+	color: red;
+	text-align: center;
+	font-weight: bold;
+	font-size: medium;
+}
+
+h3 {
+	color: red;
+	text-align: center;
+	font-weight: normal;
+	font-size: medium;
+}
+
+h4 {
+	color: black;
+	text-align:center;
+	font-weight: normal;
+	font-style: italic;
+	font-size: medium;
+}
+
+h5 {
+	color: red;
+	font-weight: normal;
+	font-size: smaller;
+}
+
+
 /* Initial menu */
 .menu {
   left: -285px;  /* start off behind the scenes */
