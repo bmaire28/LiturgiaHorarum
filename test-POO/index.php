@@ -175,10 +175,7 @@ spl_autoload_register('chargerClasse');
 	<div class="latin">
 		<div class="ordo"></div>
         <div class="verset-intro"></div>
-        <div class="invitatoire">
-            <p><span class="red">R.</span> Domine, labia mea aperies,</p>
-            <p><span class="red">V.</span> et os meum annuntiabit laudem tuam.</p>
-        </div>
+        <div class="invitatoire"></div>
 		<div class="examen-conscience"></div>
 		<div class="hymne"></div>
 		<div class="ant11"></div>
@@ -195,10 +192,10 @@ spl_autoload_register('chargerClasse');
 		<div class="ant32"></div>
 		<div class="lectio"></div>
 		<div class="repons"></div>
-		<div class="antEv1"></div>
+		<div class="antEv"></div>
 		<div class="cantiqueEv"></div>
 		<div class="gloriapatriEv"></div>
-		<div class="antEv2"></div>
+		<div class="antEv"></div>
 		<div class="preces"></div>
 		<div class="pater"></div>
 		<div class="benedicion"></div>
@@ -208,10 +205,7 @@ spl_autoload_register('chargerClasse');
 	<div class="francais">
 		<div class="ordo"></div>
         <div class="verset-intro"></div>
-        <div class="invitatoire">
-            <p><span class="red">R.</span> Seigneur, ouvre mes l&egrave;vres,</p>
-            <p><span class="red">V.</span> et ma bouche publiera ta louange.</p>
-        </div>
+        <div class="invitatoire"></div>
 		<div class="examen-conscience"></div>
 		<div class="hymne"></div>
 		<div class="ant11"></div>

@@ -16,6 +16,7 @@ class Office {
 	var $psEv;
 	var $preces;
 	var $oratio;
+	var $cantiqueMarial;
 	
 	/*
 	 * getters
@@ -53,6 +54,7 @@ class Office {
 		if ($langue == 'latin') { return $this->ant1['latin'];}
 		elseif ($langue == 'francais') { return $this->ant1['francais'];}
 	}
+	function cantiqueMarial() { return $this->cantiqueMarial; }
 	
 	/*
 	 * setters
@@ -93,6 +95,7 @@ class Office {
 		$this->oratio['latin'] = $oratioLat;
 		$this->oratio['francais'] = $oratioFr;
 	}
+	function setCantiqueMarial($cantiqueMarial) { $this->cantiqueMarial=$cantiqueMarial; }
 	/*
 	 * Affichage de l'hymne
 	 */
@@ -183,6 +186,62 @@ class Office {
 				$('<p>').appendTo('.francais $emplacement').text('Et dans les siècles des siècles. Amen.');
 					
 				";
+	}
+	
+	/*
+	 * Affiche la lectio
+	 */
+	function AfficheLectio($ref) {
+		$row = 0;
+		$lectio = "$('.lectio').show()";
+		// Creation du chemin relatif vers le fichier de lectio de facon brut
+		$fichier="lectionnaire/".$ref.".csv";
+		// Verification du chemin brut, sinon creation du chemin relatif utf8
+		if (!file_exists($fichier)) $fichier="lectionnaire/".utf8_encode($ref).".csv";
+		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$latin=$data[0];$francais=$data[1];
+			if($row==0) {
+				$lectio.="$('<h2>').appendTo('.latin .lectio').text('$latin');";
+				$lectio.="$('<h2>').appendTo('.francais .lectio').text('$francais');";
+			}
+			else {
+				$lectio.="$('<p>').appendTo('.lectio .latin').text('$latin');";
+				$lectio.="$('<p>').appendTo('.lectio .latin').text('$francais');";
+			}
+			$row++;
+		}
+		fclose ($fp);
+		return $lectio;
+	}
+	
+	/*
+	 * Affiche les preces
+	 */
+	function affichePreces($ref){
+		$row = 0;
+		$preces="$('.preces').show();";
+		// Creation du chemin relatif vers le fichier de preces de facon brut
+		$fichier="preces/".$ref.".csv";
+		// Verification du chemin brut, sinon creation du chemin relatif utf8
+		if (!file_exists($fichier)) $fichier="preces/".utf8_encode($ref).".csv";
+		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$latin=$data[0];$francais=$data[1];
+			if($row==0) {
+				$preces.="$('<h2>').appendTo('.latin .preces').text('$latin');";
+				$preces.="$('<h2>').appendTo('.francais .preces').text('$francais');";
+			}
+			else {
+				$preces.="$('<p>').appendTo('.latin .preces').text('$latin');";
+				$preces.="$('<p>').appendTo('.francais .preces').text('$francais');";
+			}
+			$row++;
+		}
+		fclose ($fp);
+		return $preces;
 	}
 	
 	/*
@@ -335,7 +394,7 @@ class Office {
 				// gloria patri3
 				print $this->gloriaPatri('.gloriapatri3');
 				//antienne apres le psaume position 32
-				print "$('.ant11').show();";
+				print "$('.ant32').show();";
 				print "$('<p>').appendTo('.latin .ant32').text(\"$this->ant1('latin')\");";
 				print "$('<p>').appendTo('.francais .ant32').text(\"$this->ant1('francais')\");";
 				print "$('<span>').addClass('red').prependTo('.ant32 p').text('Ant. : ');";
@@ -377,26 +436,150 @@ class Office {
 		/*
 		 * lectio
 		 */
+		print $this->AfficheLectio($this->lectio());
 		
 		/*
 		 * répons grandes heures et complies / verset petites heures
 		 */
+		print "$('.repons').show();";
+		print "$('<p>').appendTo('.latin . repons').text(\"$this->repons('latin')\");";
+		print "$('<p>').appendTo('.francais . repons').text(\"$this->repons('francais')\");";
 		
 		/*
 		 * Cantique Evangélique aux grandes heures et complies
 		 */
+		switch ($this->typeOffice()) {
+			case "laudes":
+				// Antienne avant et apres cantique
+				print "$('.antEv').show();";
+				print "$('<p>').appendTo('.latin .antEv').text(\"$this->antEv('latin')\");";
+				print "$('<p>').appendTo('.francais .antEv').text(\"$this->antEv('francais')\");";
+				print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');";
+				// Benedictus
+				print $this->affichePsaume('benedictus', '.cantiqueEv');
+				//Gloria Patri
+				print $this->gloriaPatri('.cantiqueEv');
+				break;
+			case "vepres":
+				// Antienne avant et apres cantique
+				print "$('.antEv').show();";
+				print "$('<p>').appendTo('.latin .antEv').text(\"$this->antEv('latin')\");";
+				print "$('<p>').appendTo('.francais .antEv').text(\"$this->antEv('francais')\");";
+				print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');";
+				// Benedictus
+				print $this->affichePsaume('magnificat', '.cantiqueEv');
+				//Gloria Patri
+				print $this->gloriaPatri('.cantiqueEv');
+				break;
+			case "complies":
+				// Antienne avant et apres cantique
+				print "$('.antEv').show();";
+				print "$('<p>').appendTo('.latin .antEv').text(\"$this->antEv('latin')\");";
+				print "$('<p>').appendTo('.francais .antEv').text(\"$this->antEv('francais')\");";
+				print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');";
+				// Benedictus
+				print $this->affichePsaume('nuncdimittis', '.cantiqueEv');
+				//Gloria Patri
+				print $this->gloriaPatri('.cantiqueEv');
+				break;
+		}
 		
 		/*
 		 * Preces aux grandes heures
 		 */
+		if (($this->typeOffice() == "laudes")||($this->typeOffice() == "vepres")) {
+			print $this->affichePreces($this->preces());
+		}
 		
 		/*
 		 * Pater aux grandes heures
 		 */
+		if (($this->typeOffice() == "laudes")||($this->typeOffice() == "vepres")) {
+			print "$('.pater').show()";
+			print "$('<h2>').appendTo('.latin .pater').text('Pater Noster');";
+			print "$('<h2>').appendTo('.francais . pater').text('Notre Père');";
+			print "$('<p>').appendTo('.latin .pater').text('Pater noster, qui es in cælis:');";
+			print "$('<p>').appendTo('.latin .pater').text('sanctificétur nomen tuum;');";
+			print "$('<p>').appendTo('.latin .pater').text('advéniat regnum tuum;');";
+			print "$('<p>').appendTo('.latin .pater').text('fiat volúntas tua, sicut in cælo et in terra.');";
+			print "$('<p>').appendTo('.latin .pater').text('Panem nostrum cotidiánum da nobis hódie;');";
+			print "$('<p>').appendTo('.latin .pater').text('et dimítte nobis débita nostra,');";
+			print "$('<p>').appendTo('.latin .pater').text('sicut et nos dimíttimus debitóribus nostris;');";
+			print "$('<p>').appendTo('.latin .pater').text('et ne nos indúcas in tentatiónem;');";
+			print "$('<p>').appendTo('.latin .pater').text('sed líbera nos a malo.');";
+			
+			print "$('<p>').appendTo('.francais .pater').text('Notre Père, qui es aux Cieux,');";
+			print "$('<p>').appendTo('.francais .pater').text('que ton nom soit sanctifié;');";
+			print "$('<p>').appendTo('.francais .pater').text('que ton règne arrive;');";
+			print "$('<p>').appendTo('.francais .pater').text('que ta volonté soit faite au Ciel comme sur la terre.');";
+			print "$('<p>').appendTo('.francais .pater').text(\"Donne-nous aujourd'hui notre pain quotidien,\");";
+			print "$('<p>').appendTo('.francais .pater').text('et remets-nous nos dettes,');";
+			print "$('<p>').appendTo('.francais .pater').text('comme nous les remettons nous-mêmes à nos débiteurs ;');";
+			print "$('<p>').appendTo('.francais .pater').text(\"et ne nous abandonne pas dans l'épreuve,\");";
+			print "$('<p>').appendTo('.francais .pater').text('mais délivre-nous du malin.');";
+		}
 		
 		/*
 		 * Oratio
 		 */
+		print "$('.oratio').show();";
+		print "$('<h2>').appendTo('.latin .oratio').text('Oratio');";
+		print "$('<h2>').appendTo('.francais . oratio').text('Oraison');";
+		$oratiolat=$this->oratio('latin');
+		$oratiofr=$this->oratio('francais');
+		
+		switch ($this->typeOffice()) {
+			case "laudes":
+			case "vepres":
+				if ((substr($oratiolat,-6))=="minum.") {
+					$oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+					$oratiofr.=" Par notre Seigneur J&eacute;sus-Christ, ton Fils, qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+				}
+				if ((substr($oratiolat,-11))==" Qui tecum.") {
+					$oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+					$oratiofr.=" Lui qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+				}
+				if ((substr($oratiolat,-11))==" Qui vivis.") {
+					$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+					$oratiofr.=" Toi qui vis et r&egrave;gnes avec Dieu le P&egrave;re dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+				}
+				break;
+			case "tierce":
+			case "sexte":
+			case "none":
+			case "complies":
+				print "$('<p>').appendTo('.latin .oratio').text('Orémus.');";
+				print "$('<p>').appendTo('.francais . oratio').text('Prions.');";
+				switch (substr($oratiolat,-6)){
+					case "istum." :
+						$oratiolat=str_replace(" Per Christum.", " Per Christum D&oacute;minum nostrum.",$oratio3lat);
+						$oratiofr.=" Par le Christ notre Seigneur.";
+						break;
+					case "minum." :
+						$oratiolat=str_replace(substr($oratio3lat,-13), " Per Christum D&oacute;minum nostrum.",$oratio3lat);
+						$oratiofr.=" Par le Christ notre Seigneur.";
+						break;
+					case "tecum." :
+						$oratiolat=str_replace(" Qui tecum.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
+						$oratiofr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
+						break;
+					case "vivit.":
+						$oratiolat=str_replace(" Qui vivit.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
+						$oratiofr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
+						break;
+					case "vivis." :
+						$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
+						$oratiofr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
+						break;
+				}
+				break;
+		}
+		print "$('<p>').appendTo('.latin .oratio').text('$oratiolat');";
+		print "$('<p>').appendTo('.francais . oratio').text('$oratiofr');";
+		print "$('<p>').appendTo('.latin .oratio').text('Amen.');";
+		print "$('<p>').appendTo('.francais . oratio').text('Amen.');";
+		$dernierP = "$('.oratio p').last()";
+		print "$('<span>').addClass('red').prependTo('$dernierP').text('R. ');";
 		
 		/*
 		 * Benedictio aux grandes heures et complies
@@ -409,6 +592,7 @@ class Office {
 		/*
 		 * Cantique mariale aux complies
 		 */
+		print $this->affichePsaume($this->cantiqueMarial(), 'antMariale');
 		
 		print "</script>";
 	}
