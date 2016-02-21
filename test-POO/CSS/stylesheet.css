@@ -109,16 +109,17 @@ h5 {
 }
 
 .office {
-    height: auto;
+    /*height: auto;*/
     width: 100%;
 }
 
 .latin {
     float: left;
     width: 45%;
-    margin-left: 5%;
+    margin-left: 2.5%;
     border: 1px red solid;
     border-radius: 15px;
+    padding-bottom: 1em;
 }
 
 .francais {
@@ -127,6 +128,7 @@ h5 {
     margin-right: 2.5%;
     border: 1px red solid;
     border-radius: 15px;
+    padding-bottom: 1em;
 }
 
 p{
