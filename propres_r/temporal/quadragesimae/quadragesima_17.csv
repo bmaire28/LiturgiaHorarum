@@ -7,7 +7,7 @@ RB_matin;"R/. Ipse liberábit me * De láqueo venántium. Ipse.
 V/. Et a verbo malígno. * De láqueo venántium. Glória Patri. Ipse.";"R/. C'est lui qui m'a dégagé * des filets du chasseur. Il me. 
 V/. Et des paroles haineuses. * Des filets du chasseur. Gloire au Père. C'est lui.";
 benedictus;Oráte pro persequéntibus et calumniántibus vos, ut sitis fílii Patris vestri, qui in cælis est, dicit Dóminus.;"Priez pour ceux qui vous persécutent et vous calomnient, afin que vous deveniez enfants de votre Père qui est dans les cieux; dit le Seigneur";Mat V 43
-preces_matin;preces_XIII;;
+preces_matin;preces_XIV;;
 oratio_laudes;Ad te corda nostra, Pater ætérne, convérte, ut nos, unum necessárium semper quæréntes et ópera caritátis exercéntes, tuo cúltui præstes esse dicátos. Per Dóminum.;Convertis nos cœurs vers toi, Père éternel, pour qu'en cherchant toujours l'unique nécessaire et en mena t à bien des oeuvres de charité, tu nous donnes d'être dédiés à ton culte.;
 HYMNUS_tertiam;hy_Dei fide, qua vívimus;;
 HYMNUS_sextam;hy_Qua Christus hora sítiit;;
@@ -40,4 +40,4 @@ V/. Exáudi, Christe, supplicántum preces.* Quia peccávimus tibi. Glória Patri. A
 V/. Exauce, ô Christ, nos prières suppliantes.* Car nous avons péché contre toi. Gloire au Père. Ecoute.";
 magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>;
 oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>;
-preces_soir;preces_I
+preces_soir;preces_I;;
