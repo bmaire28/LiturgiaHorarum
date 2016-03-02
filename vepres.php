@@ -393,11 +393,12 @@ $vepres="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$vesp[$row]['latin'];
 	$fr=$vesp[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
+	$testAlleluia=utf8_encode($lat);
+		if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}

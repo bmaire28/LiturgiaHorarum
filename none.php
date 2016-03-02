@@ -248,11 +248,12 @@ $none="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelï¿½ia.")) {
+	$testAlleluia=utf8_encode($lat);
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allelï¿½ia.")){
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelï¿½ia.")){
 		$lat="";
 		$fr="";
 	}
