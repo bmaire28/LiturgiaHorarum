@@ -1,14 +1,14 @@
 HYMNUS_laudes;hy_Iam, Christe, sol iustítiæ;
-ant1;Lætífica ánimam servi tui: ad te, Dómine, ánimam meam levávi. ;Réjouis l’âme de ton serviteur : vers toi, Seigneur, j’élève mon âme. 
-ant2;Beátus vir qui ámbulat in iustítia et lóquitur veritátem. ;Heureux l‘homme qui marche dans la justice et profère la vérité. 
-ant3;Iubiláte in conspéctu regis Dómini. ;Jubilez en présence du roi, le Seigneur. 
+ant1;Parátum cor meum, Deus, parátum cor meum.;"Mon c&oelig;ur est prêt, ô Dieu, mon c&oelig;ur est prêt. "
+ant2;Induit me Dóminus induménto salútis et iustítiæ. ;Le Seigneur m’a revêtu des vêtements du salut et de la justice. 
+ant3;Laudábo Deum meum in vita mea. ;Je louerai le Seigneur pendant ma vie. 
 LB_matin;LB_Deut 7, 6b. 8-9;
 RB_matin;"R/. Ipse liberábit me * De láqueo venántium. Ipse. 
 V/. Et a verbo malígno. * De láqueo venántium. Glória Patri. Ipse.";"R/. C'est lui qui m'a dégagé * des filets du chasseur. Il me. 
 V/. Et des paroles haineuses. * Des filets du chasseur. Gloire au Père. C'est lui."
-benedictus;"Nolíte putáre quóniam veni sólvere legem aut prophétas; non veni sólvere, sed adimplére, dicit Dóminus. ";"Ne pensez pas que je sois venu abolir la loi ou les prophètes ; je ne suis pas venu les abolir, mais les accomplir, dit le Seigneur."
+benedictus;Qui verbum meum audit, et credit ei qui misit me, habet vitam ætérnam, dicit Dóminus. ;Celui qui entend ma parole et qui croit en celui qui m'envoie, a la vie éternelle, dit le Seigneur. 
 preces_matin;preces_VIII;
-oratio;Præsta, quæsumus, Dómine, ut, per quadragesimálem observántiam erudíti et tuo verbo nutríti, sancta continéntia tibi simus toto corde devóti, et in oratióne tua semper efficiámur concórdes. Per Dóminum.;"Seigneur, tu nous accordes ce temps de Carême pour nous former à la vie avec le Christ et nous alimenter de ta parole ; que notre effort de pénitence nous obtienne la fidélité à te servir et le goût de te prier d’un même c&oelig;ur. "
+oratio;Deus, qui et iustis præmia meritórum et peccatóribus véniam per pæniténtiam præbes, tuis supplícibus miserére, ut reátus nostri conféssio indulgéntiam váleat percípere delictórum. Per Dóminum.;Dieu qui réponds à la pénitence en récompensant les justes et en pardonnant aux pécheurs, aie pitié de nous, nous t'en supplions, et que l'aveu de nos fautes nous obtienne la grâce de ton pardon. 
 HYMNUS_tertiam;hy_Dei fide, qua vívimus;
 HYMNUS_sextam;hy_Qua Christus hora sítiit;
 HYMNUS_nonam;hy_Ternis ter horis númerus;
@@ -28,12 +28,12 @@ RB_9;"V/. Sacrifícium Deo spíritus contribulátus.
 R/. Cor contrítum et humiliátum, Deus, non despícies.";"V/. Les sacrifices de Dieu, c'est un esprit brisé; 
 R/. ô Dieu, tu ne dédaignes pas un c&oelig;ur brisé et contrit. "
 HYMNUS_vesperas;hy_Iesu, quadragenáriæ;
-ant7;Qui séminant in lácrimis, in exsultatióne metent. ;Ceux qui sèment dans les larmes moissonnent dans l’exultation. 
-ant8;Dóminus ædíficet nobis domum, et custódiat civitátem. ;Le Seigneur édifiera pour nous une demeure, et il gardera la cité. 
-ant9;Ipse primogénitus omnis creatúræ, in ómnibus primátum tenens. ;Voici le premier né avant toute créature, à lui la primauté sur toutes choses. 
+ant7;Mirábilis facta est sciéntia tua super me, Dómine. ;Ta science a fait sur moi des merveilles, Seigneur. 
+ant8;Ego Dóminus scrutans cor et probans renes, qui do unicuíque secúndum viam suam. ;"Moi, le Seigneur, qui sonde les c&oelig;urs et qui éprouve les reins, pour rendre à chacun selon ses voies. "
+ant9;In ipso cóndita sunt univérsa, et ómnia in ipso constant. ;En lui tout fut créé, et tout subsiste en lui. 
 LB_soir;LB_Phil 2, 12b-15a;
 RB_soir;"R/. Ego dixi: Dómine, * Miserére mei. Ego. 
 V/. Sana ánimam meam, quia peccávi tibi.* Miserére mei. Glória Patri. Ego.";"R/. J'ai dit : Seigneur, * aie pitié de moi. J'ai dit. 
 V/.Guéris mon âme, car j'ai péché contre toi.* aie pitié de moi. Gloire au Père. J'ai dit."
-magnificat;Qui fécerit et docúerit mandáta Dómini, hic magnus vocábitur in regno cælórum. ;Celui qui fera et enseignera les commandements du Seigneur, celui-là sera appelé grand dans le royaume des cieux.
+magnificat;"Non possum ego a meípso fácere quidquam, sed sicut áudio et iúdico; et iudícium meum iustum est, dicit Dóminus. ";"Je ne peux rien faire de ma propre autorité, mais comme j'entends, je juge ; et mon jugement est juste, dit le Seigneur. "
 preces_soir;preces_IX;
