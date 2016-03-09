@@ -350,10 +350,11 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$temp['LB_soir']['latin']=$temp['LB_1V']['latin'];
 	$temp['RB_soir']['latin']=$temp['RB_1V']['latin'];
 	$temp['RB_soir']['francais']=$temp['RB_1V']['francais'];
-	$magnificat="pmagnificat_".$lettre;
-	if ($temp[$magnificat]['latin']) {
-		$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
-		$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
+	$pmagnificat="pmagnificat_".$lettre;
+	$magnificat="magnificat_".$lettre;
+	if ($temp[$pmagnificat]['latin']) {
+		$temp[$magnificat]['latin']=$temp[$pmagnificat]['latin'];
+		$temp[$magnificat]['francais']=$temp[$pmagnificat]['francais'];
 	}
 	else {
 		$temp['magnificat']['latin']=$temp['pmagnificat']['latin'];
