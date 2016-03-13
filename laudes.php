@@ -7,6 +7,7 @@ if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
 	$temp['ps2']['latin']="AT41";
 	$temp['ps3']['latin']="ps149";
 }
+
 /*
  * Initialisation des variables
  * $anno = année de l'office
