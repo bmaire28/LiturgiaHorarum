@@ -1,13 +1,12 @@
 <?php
 
 function vepres($jour,$calendarium,$my) {
-	//print_r($calendarium);
-	//print_r($calendarium['hebdomada'][$jour]);
-	if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
-	    $temp['ps7']['latin']="ps109";
-		$temp['ps8']['latin']="ps113A";
-		$temp['ps9']['latin']="NT12";
-	}
+
+if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
+	$temp['ps7']['latin']="ps109";
+	$temp['ps8']['latin']="ps113A";
+	$temp['ps9']['latin']="NT12";
+}
 	
 	/*
 	 * Initialisation des variables
@@ -66,6 +65,17 @@ function vepres($jour,$calendarium,$my) {
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
+/*
+ * Déterminer le temps liturgique :
+ * $psautier prend la caleur du temps liturgique abrégé
+ *
+ * Ouvrir et charger le propre du jour dans $var:
+ * $q prend la valeur du nom du fichier en fonction du temps liturgique, du numéro de semaine et du jour :
+ * - temps liturgique via $psautier
+ * - numéro de la semaine soit dans $psautier pour Pascal et Carême, soit 1 à 4
+ * - jour de la semaine de 1 pour Dimanche à 7 pour Samedi
+ *
+ */
 $tem=$calendarium['tempus'][$jour];
 switch ($tem) {
     case "Tempus Adventus" :
@@ -160,11 +170,23 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 fclose($fp);
 
 /*
+ * Chargement du propre au psautier du jour
+ */
+$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+$fp = fopen ($fichier,"r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$ref=$data[1];
+	$reference[$id]=$ref;
+	$row++;
+}
+fclose($fp);
+
+/*
  * Vérification du sanctoral
  * Chargement de $propre avec les valeurs du sanctoral
  * Affectation des valeurs hymne, LB, RB, ... à partir de $propre
  */
-//print_r($calendarium['rang'][$jour]);
 if($calendarium['rang'][$jour]) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
@@ -177,20 +199,10 @@ if($calendarium['rang'][$jour]) {
 		$row++;
 	}
 	fclose($fp);
-	if($propre['HYMNUS_vepres']['latin']) $hymne=$propre['HYMNUS_vepres']['latin'];
-	if($propre['LB_soir']['latin']) $LB_soir=$propre['LB_soir']['latin'];
-	if($propre['RB_soir']['latin']) $RB_soir=$propre['RB_soir']['latin'];
-	if($propre['jour']['latin']) $pr_lat=$propre['jour']['latin'];
-	if($propre['jour']['francais'])	$pr_fr=$propre['jour']['francais'];
-	if($propre['intitule']['latin']) $intitule_lat=$propre['intitule']['latin'];
-   	if($propre['intitule']['francais']) $intitule_fr=$propre['intitule']['francais'];
-   	if($propre['rang']['latin']) $rang_lat=$propre['rang']['latin'];
-   	if($propre['rang']['francais']) $rang_fr=$propre['rang']['francais'];
-   	if($propre['preces_soir']['latin']) $preces=$propre['preces_soir']['latin'];
 }
 
 /*
- * octave glissante précédente noel 
+ * octave glissante précédent noel 
  */
 if(($mense==12)AND(
 		($die==17)
@@ -234,18 +246,7 @@ if(($mense==12)AND(
 }
 
 
-/*
- * Chargement du propre au psautier du jour
- */
-$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
-if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-$fp = fopen ($fichier,"r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$ref=$data[1];
-	$reference[$id]=$ref;
-	$row++;
-}
-fclose($fp);
+
 
 /*
  * Vérification du temporal - solennités et fetes

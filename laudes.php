@@ -8,84 +8,63 @@ if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
 	$temp['ps3']['latin']="ps149";
 }
 
-//test 1�res v�pres
-//print_r("<p> 1V : ".$calendarium['1V'][$jour]."</p>");
-
-
-$jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
-$jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
+	/*
+	 * Initialisation des variables
+	 * $anno = année de l'office
+	 * $mense = mois de l'office
+	 * $die = jour de l'office
+	 * $day = timestamp du jour de l'office
+	 * $jour_l = liste de noms des jours en latin
+	 * $jour_fr = liste de noms des jours en français
+	 * $jrdelasemaine = numéro du jour dans la semaine (0 à 6)
+	 * $date_l = nom du jour de l'office en latin
+	 * $date_fr = nom du jour de l'office en français
+	 *  
+	 */
+	$anno=substr($jour,0,4);
+	$mense=substr($jour,4,2);
+	$die=substr($jour,6,2);
+	$day=mktime(12,0,0,$mense,$die,$anno);
 	
-$anno=substr($jour,0,4);
-$mense=substr($jour,4,2);
-$die=substr($jour,6,2);
-$day=mktime(12,0,0,$mense,$die,$anno);
-$jrdelasemaine=date("w",$day);
-$date_fr=$jours_fr[$jrdelasemaine];
-$date_l=$jours_l[$jrdelasemaine];
-
-/*
- * Calcul de la lettre de l'année
- * récupérer l'année du 27 novembre précédent
- * diviser l'année par 3 et regarder le reste
- * 0 = A, 1 = B, 2 = C
- */
-$num_mois_cour=intval($mense);
-$num_annee_cour=intval($anno);
-$num_jour_cour=intval($die);
-//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
-//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
-
-// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
-if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
-if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
-
-switch (fmod($num_annee_cour, 3)) {
-	case 0 :
-		$lettre="A";
-		break;
-	case 1:
-		$lettre="B";
-		break;
-	case 2:
-		$lettre="C";
-		break;
-}
-//print_r($lettre."<br>");
-
+	$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
+	$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
+	$jrdelasemaine=date("w",$day);
+	//$date_fr=$jours_fr[$jrdelasemaine];
+	//$date_l=$jours_l[$jrdelasemaine];
+	
+	
+	/*
+	 * Calcul de la lettre de l'année
+	 * récupérer l'année du 27 novembre précédent
+	 * diviser l'année par 3 et regarder le reste
+	 * 0 = A, 1 = B, 2 = C
+	 */
+	$num_mois_cour=intval($mense);
+	$num_annee_cour=intval($anno);
+	$num_jour_cour=intval($die);
+	//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
+	//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
+	
+	// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
+	if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
+	if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
+	
+	switch (fmod($num_annee_cour, 3)) {
+		case 0 :
+			$lettre="A";
+			break;
+		case 1:
+			$lettre="B";
+			break;
+		case 2:
+			$lettre="C";
+			break;
+	}
+	//print_r($lettre."<br>");
 
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
-/*
- * Calcul de la lettre de l'année
- * récupérer l'année du 27 novembre précédent
- * diviser l'année par 3 et regarder le reste
- * 0 = A, 1 = B, 2 = C
- */
-$num_mois_cour=intval($mense);
-$num_annee_cour=intval($anno);
-$num_jour_cour=intval($die);
-//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
-//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
-
-// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
-if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
-if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
-
-switch (fmod($num_annee_cour, 3)) {
-case 0 :
-$lettre="A";
-break;
-		case 1:
-		$lettre="B";
-		break;
-		case 2:
-		$lettre="C";
-		break;
-}
-
-//print_r($lettre."<br>");
-	
 /*
  * Déterminer le temps liturgique :
  * $psautier prend la caleur du temps liturgique abrégé
@@ -191,9 +170,8 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 fclose($fp);
 
 /*
- * Chargement du psautier du jour
+ * Chargement du propre au psautier du jour
  */
-
 $fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>Psautier : ".$fichier." introuvable !</p>");
 $fp = fopen ($fichier,"r");
@@ -221,9 +199,6 @@ if (($calendarium['rang'][$jour])or($calendarium['priorite'][$jour]==12)) {
 	    $row++;
 	}
 	fclose($fp);
-	if($propre['HYMNUS_laudes']['latin']) $hymne = $propre['HYMNUS_laudes']['latin'];
-	if($propre['LB_matin']['latin']) $LB_matin=$propre['LB_matin']['latin'];
-	if($propre['RB_matin']['latin']) $RB_matin=$propre['RB_matin']['latin'];
 }
 
 /*
@@ -328,11 +303,11 @@ for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
 	$testAlleluia=utf8_encode($lat);
-	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allel�ia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allel�ia.")) {
 		$lat="";
 		$fr="";
 	}
