@@ -144,13 +144,13 @@ $laudes->setOratio('Oratio', 'Oraison');
         Fermer
       </div>
 	<ul>
-		<li><a href=?office=laudes-invit><div class="item">Laudes (avec invitatoire)</div></a></li>
-		<li><a href=?office=laudes><div class="item">Laudes (sans invitatoire)</div></a></li>
-		<li><a href=?office=tierce><div class="item">Tierce</div></a></li>
-		<li><a href=?office=sexte><div class="item">Sexte</div></a></li>
-		<li><a href=?office=none><div class="item">None</div></a></li>
-		<li><a href=?office=vepres><div class="item">V&ecirc;pres</div></a></li>
-		<li><a href=?office=complies><div class="item">Complies</div></a></li>
+		<li><a href=?office=laudes-invit><span class="item">Laudes (avec invitatoire)</span></a></li>
+		<li><a href=?office=laudes><span class="item">Laudes (sans invitatoire)</span></a></li>
+		<li><a href=?office=tierce><span class="item">Tierce</span></a></li>
+		<li><a href=?office=sexte><span class="item">Sexte</span></a></li>
+		<li><a href=?office=none><span class="item">None</span></a></li>
+		<li><a href=?office=vepres><span class="item">V&ecirc;pres</span></a></li>
+		<li><a href=?office=complies><span class="item">Complies</span></a></li>
 	</ul>
 </div>
 
@@ -164,67 +164,36 @@ $laudes->setOratio('Oratio', 'Oraison');
     
     <div class = "erreurs"></div>
 	
-	<div class="latin">
-		<div class="ordo"></div>
-        <div class="verset-intro"></div>
-        <div class="invitatoire"></div>
-		<div class="examen-conscience"></div>
-		<div class="hymne"></div>
-		<div class="ant11"></div>
-		<div class="psaume1"></div>
-		<div class="gloriapatri1"></div>
-		<div class="ant12"></div>
-		<div class="ant21"></div>
-		<div class="psaume2"></div>
-		<div class="gloriapatri2"></div>
-		<div class="ant22"></div>
-		<div class="ant31"></div>
-		<div class="psaume3"></div>
-		<div class="gloriapatri3"></div>
-		<div class="ant32"></div>
-		<div class="lectio"></div>
-		<div class="repons"></div>
-		<div class="antEv"></div>
-		<div class="cantiqueEv"></div>
-		<div class="gloriapatriEv"></div>
-		<div class="antEv"></div>
-		<div class="preces"></div>
-		<div class="pater"></div>
-		<div class="oratio"></div>
-		<div class="benediction"></div>
-		<div class="acclamation"></div>
-		<div class="antMariale"></div>
-	</div>
-	<div class="francais">
-		<div class="ordo"></div>
-        <div class="verset-intro"></div>
-        <div class="invitatoire"></div>
-		<div class="examen-conscience"></div>
-		<div class="hymne"></div>
-		<div class="ant11"></div>
-		<div class="psaume1"></div>
-		<div class="gloriapatri1"></div>
-		<div class="ant12"></div>
-		<div class="ant21"></div>
-		<div class="psaume2"></div>
-		<div class="gloriapatri2"></div>
-		<div class="ant22"></div>
-		<div class="ant31"></div>
-		<div class="psaume3"></div>
-		<div class="gloriapatri3"></div>
-		<div class="ant32"></div>
-		<div class="lectio"></div>
-		<div class="repons"></div>
-		<div class="antEv"></div>
-		<div class="cantiqueEv"></div>
-		<div class="gloriapatriEv"></div>
-		<div class="antEv"></div>
-		<div class="preces"></div>
-		<div class="pater"></div>
-		<div class="oratio"></div>
-		<div class="benediction"></div>
-		<div class="acclamation"></div>
-		<div class="antMariale"></div>
+	<div class="affichage">
+		<div class="ordo"><div class="latin"></div><div class="francais"></div></div>
+        <div class="verset-intro"><div class="latin"></div><div class="francais"></div></div>
+        <div class="invitatoire"><div class="latin"></div><div class="francais"></div></div>
+		<div class="examen-conscience"><div class="latin"></div><div class="francais"></div></div>
+		<div class="hymne"><div class="latin"></div><div class="francais"></div></div>
+		<div class="ant11"><div class="latin"></div><div class="francais"></div></div>
+		<div class="psaume1"><div class="latin"></div><div class="francais"></div></div>
+		<div class="gloriapatri1"><div class="latin"></div><div class="francais"></div></div>
+		<div class="ant12"><div class="latin"></div><div class="francais"></div></div>
+		<div class="ant21"><div class="latin"></div><div class="francais"></div></div>
+		<div class="psaume2"><div class="latin"></div><div class="francais"></div></div>
+		<div class="gloriapatri2"><div class="latin"></div><div class="francais"></div></div>
+		<div class="ant22"><div class="latin"></div><div class="francais"></div></div>
+		<div class="ant31"><div class="latin"></div><div class="francais"></div></div>
+		<div class="psaume3"><div class="latin"></div><div class="francais"></div></div>
+		<div class="gloriapatri3"><div class="latin"></div><div class="francais"></div></div>
+		<div class="ant32"><div class="latin"></div><div class="francais"></div></div>
+		<div class="lectio"><div class="latin"></div><div class="francais"></div></div>
+		<div class="repons"><div class="latin"></div><div class="francais"></div></div>
+		<div class="antEv"><div class="latin"></div><div class="francais"></div></div>
+		<div class="cantiqueEv"><div class="latin"></div><div class="francais"></div></div>
+		<div class="gloriapatriEv"><div class="latin"></div><div class="francais"></div></div>
+		<div class="antEv"><div class="latin"></div><div class="francais"></div></div>
+		<div class="preces"><div class="latin"></div><div class="francais"></div></div>
+		<div class="pater"><div class="latin"></div><div class="francais"></div></div>
+		<div class="oratio"><div class="latin"></div><div class="francais"></div></div>
+		<div class="benediction"><div class="latin"></div><div class="francais"></div></div>
+		<div class="acclamation"><div class="latin"></div><div class="francais"></div></div>
+		<div class="antMariale"><div class="latin"></div><div class="francais"></div></div>
 	</div>
 </div>
 

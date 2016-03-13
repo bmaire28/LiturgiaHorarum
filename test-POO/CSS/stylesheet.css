@@ -117,18 +117,12 @@ h5 {
     float: left;
     width: 45%;
     margin-left: 2.5%;
-    border: 1px red solid;
-    border-radius: 15px;
-    padding-bottom: 1em;
 }
 
 .francais {
 	float: right;
     width: 45%;
     margin-right: 2.5%;
-    border: 1px red solid;
-    border-radius: 15px;
-    padding-bottom: 1em;
 }
 
 p{
