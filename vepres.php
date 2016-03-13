@@ -183,20 +183,20 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 fclose($fp);
 
 /*
- * Vérification du sanctoral
- * Chargement de $propre avec les valeurs du sanctoral
- * Affectation des valeurs hymne, LB, RB, ... à partir de $propre
+ * Vérifier qu'il n'y a pas de saint à célébrer
+ * Chargement du propre du sanctoral dans $propre
+ * 
  */
-if($calendarium['rang'][$jour]) {
+if (($calendarium['rang'][$jour])or($calendarium['priorite'][$jour]==12)) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
-		$propre[$id]['latin']=$data[1];
-		$propre[$id]['francais']=$data[2];
-		$row++;
+	    $propre[$id]['latin']=$data[1];
+	    $propre[$id]['francais']=$data[2];
+	    $row++;
 	}
 	fclose($fp);
 }
@@ -245,14 +245,12 @@ if(($mense==12)AND(
 	
 }
 
-
-
-
 /*
  * Vérification du temporal - solennités et fetes
  * Chargement de $temp avec les valeurs du temporal
- * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
+ *
  */
+
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
 	$fichier="propres_r/temporal/".$tempo.".csv";
@@ -265,10 +263,7 @@ if($calendarium['temporal'][$jour]) {
 	    $row++;
 	}
 	fclose($fp);
-	if ($temp['oratio_soir']['latin']) {
-		$temp['oratio']['latin']=$temp['oratio_soir']['latin'];
-		$temp['oratio']['francais']=$temp['oratio_soir']['francais'];
-	}
+	
 	$date_fr=$date_l=null;
 	// Gestion intitule Ieres ou IIndes vepres en latin
 	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
@@ -279,11 +274,6 @@ if($calendarium['temporal'][$jour]) {
 	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
 	elseif ($calendarium['1V'][$jour]) $date_fr = "<br> aux IIdes ";
 	else $date_fr = "<br> aux ";
-	
-	if ($temp['intitule']['latin']=="IN NATIVITATE DOMINI") {
-		$temp['oratio']['latin']=$temp['oratio_vepres']['latin'];
-		$temp['oratio']['francais']=$temp['oratio_vepres']['francais'];
-	}
 }
 
 
@@ -376,7 +366,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 
 
 /*
- * Chargement du squelette des Vepres dans $lau
+ * Chargement du squelette des Vepres dans $vesp
  * remplissage de $vepres pour l'affichage de l'office
  *
  */
