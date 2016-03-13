@@ -136,7 +136,7 @@ a span, a:visited span {
     color : blue;
 }
 
-a:hover, a span:hover, span:hover {
+a:hover, a span:hover {
     font-weight: bold;
     background-color: blue;
     border-color: blue;

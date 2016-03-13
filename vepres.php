@@ -350,10 +350,11 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$temp['LB_soir']['latin']=$temp['LB_1V']['latin'];
 	$temp['RB_soir']['latin']=$temp['RB_1V']['latin'];
 	$temp['RB_soir']['francais']=$temp['RB_1V']['francais'];
-	$magnificat="pmagnificat_".$lettre;
-	if ($temp[$magnificat]['latin']) {
-		$temp['magnificat']['latin']=$temp[$magnificat]['latin'];
-		$temp['magnificat']['francais']=$temp[$magnificat]['francais'];
+	$pmagnificat="pmagnificat_".$lettre;
+	$magnificat="magnificat_".$lettre;
+	if ($temp[$pmagnificat]['latin']) {
+		$temp[$magnificat]['latin']=$temp[$pmagnificat]['latin'];
+		$temp[$magnificat]['francais']=$temp[$pmagnificat]['francais'];
 	}
 	else {
 		$temp['magnificat']['latin']=$temp['pmagnificat']['latin'];
@@ -393,11 +394,12 @@ $vepres="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$vesp[$row]['latin'];
 	$fr=$vesp[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
+	$testAlleluia=utf8_encode($lat);
+		if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}

@@ -6,7 +6,7 @@ LB_matin;LB_Neh 8, 9b. l0b;;
 RB_matin;"R/. Christe, Fili Dei vivi, * Miserére nobis. Christe. 
 V/. Qui attrítus es propter scélera nostra.* Miserére nobis. Glória Patri. Christe.";"R/. O Christ, fils du Dieu vivant, * Aie pitié de nous. O Christ. 
 V/. Toi qui fus broyé pour nos iniquités.* Aie peité de nous. Gloire au Père. O Christ.";
-preces_matin;preces_IX;;
+preces_matin;preces_II;;
 oratio_laudes;Concéde nobis, omnípotens Deus, ut, per ánnua quadragesimális exercítia sacraménti, et ad intellegéndum Christi proficiámus arcánum, et efféctus eius digna conversatióne sectémur. Per Dóminum.;Donne-nous, Dieu tout-puissant, par les exercices annuels du mystère des quarante jours, de progresser à la fois dans la compréhension de la dimension cachée du Christ et d'en imiter les conséquences par une vie vertueuse.;
 HYMNUS_tertiam;hy_Dei fide, qua vívimus;;
 HYMNUS_sextam;hy_Qua Christus hora sítiit;;
@@ -39,4 +39,4 @@ RB_soir;"R/. Atténde, Dómine, et miserére, * Quia peccávimus tibi. Atténde.
 V/. Exáudi, Christe, supplicántum preces. * Quia peccávimus tibi. Glória Patri. Atténde.";"R/. Écoute-nous, Seigneur, et aie pitié de nous, * car nous avons péché contre toi. Ecoute. 
 V/. Exauce, ô Christ, nos prières suppliantes. * car nous avons péché contre toi. Gloire au Père. Ecoute.";
 oratio_vesperas;Concéde nobis, omnípotens Deus, ut, per ánnua quadragesimális exercítia sacraménti, et ad intellegéndum Christi proficiámus arcánum, et efféctus eius digna conversatióne sectémur. Per Dóminum.;Donne-nous, Dieu tout-puissant, par les exercices annuels du mystère des quarante jours, de progresser à la fois dans la compréhension de la dimension cachée du Christ et d'en imiter les conséquences par une vie vertueuse.;
-preces_soir;preces_X;;
+preces_soir;preces_III;;

@@ -327,13 +327,12 @@ $laudes="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
-	
-	// Suppression de l'AllÃ©luia en CarÃªme et semaine Sainte
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allelúia.")) {
+	$testAlleluia=utf8_encode($lat);
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allelúia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
