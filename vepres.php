@@ -3,82 +3,91 @@
 function vepres($jour,$calendarium,$my) {
 
 if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
+	$temp['ps1']['latin']="ps62";
+	$temp['ps2']['latin']="AT41";
+	$temp['ps3']['latin']="ps149";
 	$temp['ps7']['latin']="ps109";
 	$temp['ps8']['latin']="ps113A";
 	$temp['ps9']['latin']="NT12";
 }
-	
-	/*
-	 * Initialisation des variables
-	 * $anno = année de l'office
-	 * $mense = mois de l'office
-	 * $die = jour de l'office
-	 * $day = timestamp du jour de l'office
-	 * $jour_l = liste de noms des jours en latin
-	 * $jour_fr = liste de noms des jours en français
-	 * $jrdelasemaine = numéro du jour dans la semaine (0 à 6)
-	 * $date_l = nom du jour de l'office en latin
-	 * $date_fr = nom du jour de l'office en français
-	 *  
-	 */
-	$anno=substr($jour,0,4);
-	$mense=substr($jour,4,2);
-	$die=substr($jour,6,2);
-	$day=mktime(12,0,0,$mense,$die,$anno);
-	
+
+/*
+ * Initialisation des variables
+ * $anno = année de l'office
+ * $mense = mois de l'office
+ * $die = jour de l'office
+ * $day = timestamp du jour de l'office
+ * $jour_l = liste de noms des jours en latin
+ * $jour_fr = liste de noms des jours en français
+ * $jrdelasemaine = numéro du jour dans la semaine (0 à 6)
+ * $date_l = nom du jour de l'office en latin
+ * $date_fr = nom du jour de l'office en français
+ *
+ */
+$anno=substr($jour,0,4);
+$mense=substr($jour,4,2);
+$die=substr($jour,6,2);
+$day=mktime(12,0,0,$mense,$die,$anno);
+
+if ($_GET['office']=='vepres') {
 	$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
 	$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
-	$jrdelasemaine=date("w",$day);
-	//$date_fr=$jours_fr[$jrdelasemaine];
-	//$date_l=$jours_l[$jrdelasemaine];
-	
-	
-	/*
-	 * Calcul de la lettre de l'année
-	 * récupérer l'année du 27 novembre précédent
-	 * diviser l'année par 3 et regarder le reste
-	 * 0 = A, 1 = B, 2 = C
-	 */
-	$num_mois_cour=intval($mense);
-	$num_annee_cour=intval($anno);
-	$num_jour_cour=intval($die);
-	//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
-	//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
-	
-	// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
-	if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
-	if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
-	
-	switch (fmod($num_annee_cour, 3)) {
-		case 0 :
-			$lettre="A";
-			break;
-		case 1:
-			$lettre="B";
-			break;
-		case 2:
-			$lettre="C";
-			break;
-	}
-	//print_r($lettre."<br>");
+}
+else {
+	$jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
+	$jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
+}
+
+$jrdelasemaine=date("w",$day);
+$date_fr=$jours_fr[$jrdelasemaine];
+$date_l=$jours_l[$jrdelasemaine];
+
+/*
+ * Calcul de la lettre de l'année
+ * récupérer l'année du 27 novembre précédent
+ * diviser l'année par 3 et regarder le reste
+ * 0 = A, 1 = B, 2 = C
+*/
+$num_mois_cour=intval($mense);
+$num_annee_cour=intval($anno);
+$num_jour_cour=intval($die);
+//print_r("année : ".$num_annee_cour."<br>mois : ".$num_mois_cour."<br>jour : ".$num_jour_cour);
+//print_r("<br>reste :".fmod($num_annee_cour, 3)."<br>");
+
+// si nous sommes avant novembre ou en novembre avant le 27, nous sommes dans l'année liturgique précédente
+if ($num_mois_cour < 11) $num_annee_cour=$num_annee_cour-1;
+if (($num_mois_cour == 11)&&($num_jour_cour < 27)) $num_annee_cour=$num_annee_cour-1;
+
+switch (fmod($num_annee_cour, 3)) {
+	case 0 :
+		$lettre="A";
+		break;
+	case 1:
+		$lettre="B";
+		break;
+	case 2:
+		$lettre="C";
+		break;
+}
+//print_r($lettre."<br>");
 
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
 /*
- * Déterminer le temps liturgique :
- * $psautier prend la caleur du temps liturgique abrégé
- *
- * Ouvrir et charger le propre du jour dans $var:
- * $q prend la valeur du nom du fichier en fonction du temps liturgique, du numéro de semaine et du jour :
- * - temps liturgique via $psautier
- * - numéro de la semaine soit dans $psautier pour Pascal et Carême, soit 1 à 4
- * - jour de la semaine de 1 pour Dimanche à 7 pour Samedi
- *
- */
+* Déterminer le temps liturgique :
+* $psautier prend la caleur du temps liturgique abrégé
+*
+* Ouvrir et charger le propre du jour dans $var:
+* $q prend la valeur du nom du fichier en fonction du temps liturgique, du numéro de semaine et du jour :
+* - temps liturgique via $psautier
+* - numéro de la semaine soit dans $psautier pour Pascal et Carême, soit 1 à 4
+* - jour de la semaine de 1 pour Dimanche à 7 pour Samedi
+*
+*/
 $tem=$calendarium['tempus'][$jour];
 switch ($tem) {
-    case "Tempus Adventus" :
+	case "Tempus Adventus" :
         $psautier="adven";
         $q=$psautier."_".$spsautier;
         break;
@@ -170,8 +179,8 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 fclose($fp);
 
 /*
- * Chargement du propre au psautier du jour
- */
+* Chargement du propre au psautier du jour
+*/
 $fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 $fp = fopen ($fichier,"r");
@@ -183,10 +192,10 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 fclose($fp);
 
 /*
- * Vérifier qu'il n'y a pas de saint à célébrer
- * Chargement du propre du sanctoral dans $propre
- * 
- */
+* Vérifier qu'il n'y a pas de saint à célébrer
+* Chargement du propre du sanctoral dans $propre
+*
+*/
 if (($calendarium['rang'][$jour])or($calendarium['priorite'][$jour]==12)) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
@@ -194,16 +203,16 @@ if (($calendarium['rang'][$jour])or($calendarium['priorite'][$jour]==12)) {
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
-	    $propre[$id]['latin']=$data[1];
-	    $propre[$id]['francais']=$data[2];
-	    $row++;
+		$propre[$id]['latin']=$data[1];
+		$propre[$id]['francais']=$data[2];
+		$row++;
 	}
 	fclose($fp);
 }
 
 /*
- * octave glissante précédent noel 
- */
+* octave glissante précédent noel
+*/
 if(($mense==12)AND(
 		($die==17)
 		OR($die==18)
@@ -214,42 +223,41 @@ if(($mense==12)AND(
 		OR($die==23)
 		OR($die==24)
 		)
-	) {
-	$prop=$mense.$die;
-	// Chargement du fichier de la date fixe
-	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$propre[$id]['latin']=$data[1];
-		$propre[$id]['francais']=$data[2];
-		$row++;
-	}
-	fclose($fp);
-	
-	// Chargement du fichier du jour de la semaine
-	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
-	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];$latin=$data[1];$francais=$data[2];
-		$var[$id]['latin']=$latin;
-		$var[$id]['francais']=$francais;
-		$row++;
-	}
-	fclose($fp);
-	// Transfert de l'intitule
-	$propre['intitule']['latin']=$var['intitule']['latin'];
-	$propre['intitule']['francais']=$var['intitule']['francais'];
-	
+		) {
+			$prop=$mense.$die;
+			// Chargement du fichier de la date fixe
+			$fichier="propres_r/sanctoral/".$prop.".csv";
+			if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
+			$fp = fopen ($fichier,"r");
+			while ($data = fgetcsv ($fp, 1000, ";")) {
+				$id=$data[0];
+				$propre[$id]['latin']=$data[1];
+				$propre[$id]['francais']=$data[2];
+				$row++;
+			}
+			fclose($fp);
+			
+			// Chargement du fichier du jour de la semaine
+			$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
+			if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
+			$fp = fopen ($fichier,"r");
+			while ($data = fgetcsv ($fp, 1000, ";")) {
+				$id=$data[0];$latin=$data[1];$francais=$data[2];
+				$var[$id]['latin']=$latin;
+				$var[$id]['francais']=$francais;
+				$row++;
+			}
+			fclose($fp);
+			// Transfert de l'intitule
+			$propre['intitule']['latin']=$var['intitule']['latin'];
+			$propre['intitule']['francais']=$var['intitule']['francais'];
 }
 
 /*
- * Vérification du temporal - solennités et fetes
- * Chargement de $temp avec les valeurs du temporal
- *
- */
+* Vérification du temporal - solennités et fetes
+* Chargement de $temp avec les valeurs du temporal
+*
+*/
 
 if($calendarium['temporal'][$jour]) {
 	$tempo=$calendarium['temporal'][$jour];
@@ -258,35 +266,41 @@ if($calendarium['temporal'][$jour]) {
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
-	    $temp[$id]['latin']=$data[1];
-	    $temp[$id]['francais']=$data[2];
-	    $row++;
+		$temp[$id]['latin']=$data[1];
+		$temp[$id]['francais']=$data[2];
+		$row++;
 	}
 	fclose($fp);
 	
 	$date_fr=$date_l=null;
-	// Gestion intitule Ieres ou IIndes vepres en latin
-	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
-	elseif ($calendarium['1V'][$jour]) $date_l="<br> ad II ";
-	else $date_l = "<br> ad ";
-	
-	// Gestion intitule Ieres ou IIndes vepres en francais
-	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
-	elseif ($calendarium['1V'][$jour]) $date_fr = "<br> aux IIdes ";
-	else $date_fr = "<br> aux ";
+	if($_GET['office']=='vepres') {
+		// Gestion intitule Ieres ou IIndes vepres en latin
+		if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
+		elseif ($calendarium['1V'][$jour]) $date_l="<br> ad II ";
+		else $date_l = "<br> ad ";
+		
+		// Gestion intitule Ieres ou IIndes vepres en francais
+		if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
+		elseif ($calendarium['1V'][$jour]) $date_fr = "<br> aux IIdes ";
+		else $date_fr = "<br> aux ";
+	}
 }
 
 
 /*
- * Gestion du 4e Dimanche de l'Avent
- * si c'est le 24/12, prendre toutes les antiennes au 24, rien à modifier
- * sinon prendre uniquement l'antienne benedictus ==> recopier le temporal dans le sanctoral
- */
+* Gestion du 4e Dimanche de l'Avent
+* si c'est le 24/12, prendre toutes les antiennes au 24, rien à modifier
+* sinon prendre uniquement l'antienne benedictus ==> recopier le temporal dans le sanctoral
+*/
 if ($temp['intitule']['latin']=="Dominica IV Adventus") {
 	if ($die!="24") {
+		$benelat=$propre['benedictus']['latin'];
+		$benefr=$propre['benedictus']['francais'];
 		$magniflat=$propre['magnificat']['latin'];
 		$magniffr=$propre['magnificat']['francais'];
 		$propre=$temp;
+		$propre['benedictus']['latin']=$benelat;
+		$propre['benedictus']['francais']=$benefr;
 		$propre['magnificat']['latin']=$magniflat;
 		$propre['magnificat']['francais']=$magniffr;
 	}
@@ -296,10 +310,10 @@ if ($temp['intitule']['latin']=="Dominica IV Adventus") {
 }
 
 /*
- * Vérification de premieres vepres au temporal - solennités et fetes
- * Chargement de $temp avec les valeurs du temporal
- * Affectation des valeurs hymne, LB, RB, ... à partir de $temp
- */
+* Vérification de premieres vepres au temporal - solennités et fetes
+* Chargement de $temp avec les valeurs du temporal
+* Affectation des valeurs hymne, LB, RB, ... à partir de $temp
+*/
 $tomorow = $day+60*60*24;
 $demain=date("Ymd",$tomorow);
 
@@ -308,7 +322,7 @@ print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
 print_r("<p> priorite jour : ".$calendarium['priorite'][$jour]."</p>");
 print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>");
 print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
-if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
+if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
 	/*print_r("<p> 1V</p>");*/
 	$tempo=null;
 	$tempo=$calendarium['temporal'][$demain];
@@ -317,7 +331,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
-	    $temp[$id]['latin']=$data[1];
+		$temp[$id]['latin']=$data[1];
 	    $temp[$id]['francais']=$data[2];
 	    $row++;
 	}
@@ -362,8 +376,6 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 		$propre['oratio']['francais']=$temp['oratio']['francais'];
 	}
 }
-
-
 
 /*
  * Chargement du squelette des Vepres dans $vesp

@@ -7,7 +7,7 @@
 body {
   left: 0;
   margin: 0;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
 }
 
@@ -51,6 +51,14 @@ h5 {
 	color: red;
 	font-weight: normal;
 	font-size: smaller;
+}
+
+p{
+    font-size: normal;
+}
+
+.red {
+    color: red;
 }
 
 
@@ -108,8 +116,8 @@ h5 {
   text-transform: uppercase;
 }
 
+/* Affichage de l'office */
 .office {
-    /*height: auto;*/
     width: 100%;
 }
 
@@ -117,27 +125,20 @@ h5 {
     float: left;
     width: 45%;
     margin-left: 2.5%;
+    display: block;
 }
 
 .francais {
 	float: right;
     width: 45%;
     margin-right: 2.5%;
+    display: block;
 }
 
-p{
-    padding: 0px;
-    margin: 0px;
-    font-size: normal;
-}
-
-.red {
-    color: red;
-}
-
-.ordo, .verset-intro, .invitatoire, .examen-conscience, .hymne, .ant1, .psaume1, .gloriapatri1, .ant2, .psaume2, .gloriapatri2, .ant3, .psaume3, .gloriapatri3, .lectio, .repons, .antEv, .cantiqueEv, .gloriapatriEv, .preces, .pater, .benedicion, .acclamation, .antMariale {
+.ordo, .verset-intro, .invitatoire, .examen-conscience, .hymne, .ant11, .psaume1, .gloriapatri1, .ant12, .ant21, .psaume2, .gloriapatri2, .ant22, .ant31, .psaume3, .gloriapatri3, .ant32, .lectio, .repons, .antEv, .cantiqueEv, .gloriapatriEv, .preces, .pater, .benedicion, .acclamation, .antMariale {
     display: none;
     margin: 0.5em;
+    clear: both;
 }
 
 .ordo {

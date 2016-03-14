@@ -1,14 +1,10 @@
 <?php
 
 function none($jour,$calendarium,$my) {
-/*
-if(!$my->email) {
-	print"<center><i>Le textes des offices latin/fran�ais ne sont disponibles que pour les utilisateurs enregistr�s. <a href=\"index.php?option=com_registration&task=register\">Enregistrez-vous ici pour continuer (simple et gratuit)</a>.</i></center>";
-	return;
-}*/
 
 $tem=$calendarium['tempus'][$jour];
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
+
 $jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
 $jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
 
@@ -24,8 +20,6 @@ $date_l=$jours_l[$jrdelasemaine];
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
 
 
-
-$tem=$calendarium['tempus'][$jour];
 switch ($tem) {
     case "Tempus Adventus" :
         $psautier="adven";
@@ -120,18 +114,27 @@ fclose($fp);
 
 
 if($calendarium['rang'][$jour]) {
-	    $prop=$mense.$die;
-		$fichier="propres_r/sanctoral/".$prop.".csv";
-		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-		$fp = fopen ($fichier,"r");
-		while ($data = fgetcsv ($fp, 1000, ";")) {
-		    $id=$data[0];
-		    $propre[$id]['latin']=$data[1];
-		    $propre[$id]['francais']=$data[2];
-		    $row++;
-		}
-	fclose($fp);
+	$prop=$mense.$die;
+	$fichier="propres_r/sanctoral/".$prop.".csv";
+	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$propre[$id]['latin']=$data[1];
+		$propre[$id]['francais']=$data[2];
+		$row++;
 	}
+	fclose($fp);
+}
+
+
+$fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$ref=$data[1];
+	$reference[$id]=$ref;
+	$row++;
+}
+fclose($fp);
 
 /*
  * octave glissante précédente noel 
@@ -176,50 +179,42 @@ if(($mense==12)AND(
 	$propre['intitule']['francais']=$var['intitule']['francais'];
 	
 }
-	
-	
+
 $fp = fopen ("offices_r/jours.csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$latin=$data[1];$francais=$data[2];
-	    $jo[$id]['latin']=$latin;
-	    $jo[$id]['francais']=$francais;
-	    $row++;
-	}
-	fclose($fp);
-
-
-	
-$fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-	    $id=$data[0];$ref=$data[1];
-	    $reference[$id]=$ref;
-	    $row++;
-	}
-	fclose($fp);
+while ($data = fgetcsv ($fp, 1000, ";")) {
+	$id=$data[0];$latin=$data[1];$francais=$data[2];
+	$jo[$id]['latin']=$latin;
+	$jo[$id]['francais']=$francais;
+	$row++;
+}
+fclose($fp);
 
 if($calendarium['temporal'][$jour]) {
-	    $tempo=$calendarium['temporal'][$jour];
-	    $fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
-		while ($data = fgetcsv ($fp, 1000, ";")) {
-		    $id=$data[0];
-		    $temp[$id]['latin']=$data[1];
-		    $temp[$id]['francais']=$data[2];
-		    $row++;
-		}
-		$oratiolat=$temp['oratio']['latin'];
-		$oratiofr=$temp['oratio']['francais'];
-		$hymne9=$temp['HYMNUS_nonam']['latin'];
-		$LB_9=$temp['LB_9']['latin'];;
-		$intitule_lat=$temp['intitule']['latin'];
-		$rang_lat=$temp['rang']['latin'];
-		if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
-		$date_l = $intitule_lat."<br> ";
-		$intitule_fr=$temp['intitule']['francais'];
-		$rang_fr=$temp['rang']['francais'];
-		if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
-		$date_fr = $intitule_fr."<br> ";
-
+	$tempo=$calendarium['temporal'][$jour];
+	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$temp[$id]['latin']=$data[1];
+		$temp[$id]['francais']=$data[2];
+		$row++;
 	}
+	$oratiolat=$temp['oratio']['latin'];
+	$oratiofr=$temp['oratio']['francais'];
+	$hymne3=$temp['HYMNUS_tertiam']['latin'];
+	$LB_3=$temp['LB_3']['latin'];
+	$hymne6=$temp['HYMNUS_sextam']['latin'];
+	$LB_6=$temp['LB_6']['latin'];
+	$hymne9=$temp['HYMNUS_nonam']['latin'];
+	$LB_9=$temp['LB_9']['latin'];
+	$intitule_lat=$temp['intitule']['latin'];
+	$rang_lat=$temp['rang']['latin'];
+	if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
+	$date_l = $intitule_lat."<br> ";
+	$intitule_fr=$temp['intitule']['francais'];
+	$rang_fr=$temp['rang']['francais'];
+	if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
+	$date_fr = $intitule_fr."<br> ";
+}
 
 /*
  * Gestion du 4e Dimanche de l'Avent

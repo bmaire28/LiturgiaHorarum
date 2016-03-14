@@ -6,6 +6,9 @@ if($calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
 	$temp['ps1']['latin']="ps62";
 	$temp['ps2']['latin']="AT41";
 	$temp['ps3']['latin']="ps149";
+	$temp['ps7']['latin']="ps109";
+	$temp['ps8']['latin']="ps113A";
+	$temp['ps9']['latin']="NT12";
 }
 
 /*
@@ -26,12 +29,18 @@ $mense=substr($jour,4,2);
 $die=substr($jour,6,2);
 $day=mktime(12,0,0,$mense,$die,$anno);
 
-$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
-$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
-$jrdelasemaine=date("w",$day);
-//$date_fr=$jours_fr[$jrdelasemaine];
-//$date_l=$jours_l[$jrdelasemaine];
+if ($_GET['office']=='vepres') {
+	$jours_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
+	$jours_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
+}
+else {
+	$jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
+	$jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
+}
 
+$jrdelasemaine=date("w",$day);
+$date_fr=$jours_fr[$jrdelasemaine];
+$date_l=$jours_l[$jrdelasemaine];
 
 /*
  * Calcul de la lettre de l'année
@@ -66,7 +75,7 @@ $jrdelasemaine++; // pour avoir dimanche=1 etc...
 $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 
 /*
- * Déterminer le temps liturgique :
+* Déterminer le temps liturgique :
 * $psautier prend la caleur du temps liturgique abrégé
 *
 * Ouvrir et charger le propre du jour dans $var:
@@ -78,84 +87,85 @@ $spsautier=$calendarium['hebdomada_psalterium'][$jour];
 */
 $tem=$calendarium['tempus'][$jour];
 switch ($tem) {
-		case "Tempus Adventus" :
-			$psautier="adven";
-			$q=$psautier."_".$spsautier;
-			break;
+	case "Tempus Adventus" :
+        $psautier="adven";
+        $q=$psautier."_".$spsautier;
+        break;
 
-		case "Tempus Nativitatis" :
-			$psautier="noel";
-			$q=$psautier."_".$spsautier;
-			break;
+    case "Tempus Nativitatis" :
+        $psautier="noel";
+        $q=$psautier."_".$spsautier;
+        break;
 
-      	case "Tempus per annum" :
-      		$psautier="perannum";
-      		$q=$psautier."_".$spsautier;
-      		break;
+    case "Tempus per annum" :
+        $psautier="perannum";
+        $q=$psautier."_".$spsautier;
+        break;
 
-		case "Tempus Quadragesimae" :
-			$psautier="quadragesimae";
-			if ($calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
-			switch ($calendarium['hebdomada'][$jour]) {
-				case "Dies post Cineres" :
-					$q="quadragesima_0";
-        			break;
-        		case "Hebdomada I Quadragesimae" :
-        			$q="quadragesima_1";
-        			break;
-        		case "Hebdomada II Quadragesimae" :
-        			$q="quadragesima_2";
-        			break;
-        		case "Hebdomada III Quadragesimae" :
-        			$q="quadragesima_3";
-        			break;
-        		case "Hebdomada IV Quadragesimae" :
-        			$q="quadragesima_4";
-        			break;
-        		case "Hebdomada V Quadragesimae" :
-        			$q="quadragesima_5";
-        			break;
-			}
-			break;
+    case "Tempus Quadragesimae" :
+        $psautier="quadragesimae";
+        if ($calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
+        switch ($calendarium['hebdomada'][$jour]) {
+        	case "Dies post Cineres" :
+        		$q="quadragesima_0";
+        		break;
+        	case "Hebdomada I Quadragesimae" :
+        		$q="quadragesima_1";
+        		break;
+        	case "Hebdomada II Quadragesimae" :
+        		$q="quadragesima_2";
+        		break;
+        	case "Hebdomada III Quadragesimae" :
+        		$q="quadragesima_3";
+        		break;
+        	case "Hebdomada IV Quadragesimae" :
+        		$q="quadragesima_4";
+        		break;
+        	case "Hebdomada V Quadragesimae" :
+        		$q="quadragesima_5";
+        		break;
+        }
+        break;
 
-   		case "Tempus passionis" :
-   			$psautier="hebdomada_sancta";
-   			$q="hebdomada_sancta";
-   			break;
+    case "Tempus passionis" :
+        $psautier="hebdomada_sancta";
+        $q="hebdomada_sancta";
+        break;
 
-        case "Tempus Paschale" :
-        	$psautier="pascha";
-        	switch ($calendarium['hebdomada'][$jour]) {
-        		case "Infra octavam paschae" :
-        			$q="pascha_1";
-        			break;
-        		case "Hebdomada II Paschae" :
-        			$q="pascha_2";
-        			break;
-        		case "Hebdomada III Paschae" :
-        			$q="pascha_3";
-        			break;
-        		case "Hebdomada IV Paschae" :
-        			$q="pascha_4";
-        			break;
-        		case "Hebdomada V Paschae" :
-        			$q="pascha_5";
-        			break;
-        		case "Hebdomada VI Paschae" :
-        			$q="pascha_6";
-        			break;
-       			case "Hebdomada VII Paschae" :
-       		 		$q="pascha_7";
-        			break;
-       			case " " :
-       				$q="pascha_8";
-       				break;
-       		}
-       		break;
-       	default :
-       		print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
-       		return;
-       		break;
+    case "Tempus Paschale" :
+        $psautier="pascha";
+        switch ($calendarium['hebdomada'][$jour]) {
+        	case "Infra octavam paschae" :
+        		$q="pascha_1";
+        		break;
+        	case "Hebdomada II Paschae" :
+        		$q="pascha_2";
+        		break;
+        	case "Hebdomada III Paschae" :
+        		$q="pascha_3";
+        		break;
+        	case "Hebdomada IV Paschae" :
+        		$q="pascha_4";
+        		break;
+        	case "Hebdomada V Paschae" :
+        		$q="pascha_5";
+        		break;
+        	case "Hebdomada VI Paschae" :
+        		$q="pascha_6";
+        		break;
+        	case "Hebdomada VII Paschae" :
+        		$q="pascha_7";
+        		break;
+        	case " " :
+        		$q="pascha_8";
+        		break;
+        }
+        break;
+
+    default :
+        print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
+        return;
+        break;
 }
 $fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
@@ -170,7 +180,7 @@ fclose($fp);
 
 /*
 * Chargement du propre au psautier du jour
- */
+*/
 $fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 $fp = fopen ($fichier,"r");
@@ -256,24 +266,25 @@ if($calendarium['temporal'][$jour]) {
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
-	    $temp[$id]['latin']=$data[1];
-	    $temp[$id]['francais']=$data[2];
+		$temp[$id]['latin']=$data[1];
+		$temp[$id]['francais']=$data[2];
 		$row++;
 	}
 	fclose($fp);
 	
 	$date_fr=$date_l=null;
-	// Gestion intitule Ieres ou IIndes vepres en latin
-	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
-	elseif ($calendarium['1V'][$jour]) $date_l="<br> ad II ";
-	else $date_l = "<br> ad ";
-	
-	// Gestion intitule Ieres ou IIndes vepres en francais
-	if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
-	elseif ($calendarium['1V'][$jour]) $date_fr = "<br> aux IIdes ";
-	else $date_fr = "<br> aux ";
+	if($_GET['office']=='vepres') {
+		// Gestion intitule Ieres ou IIndes vepres en latin
+		if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
+		elseif ($calendarium['1V'][$jour]) $date_l="<br> ad II ";
+		else $date_l = "<br> ad ";
+		
+		// Gestion intitule Ieres ou IIndes vepres en francais
+		if (($calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
+		elseif ($calendarium['1V'][$jour]) $date_fr = "<br> aux IIdes ";
+		else $date_fr = "<br> aux ";
+	}
 }
-
 
 /*
 * Gestion du 4e Dimanche de l'Avent
@@ -310,7 +321,7 @@ print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
 print_r("<p> priorite jour : ".$calendarium['priorite'][$jour]."</p>");
 print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>");
 print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
-if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])) {
+if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
 	/*print_r("<p> 1V</p>");*/
 	$tempo=null;
 	$tempo=$calendarium['temporal'][$demain];
@@ -320,8 +331,8 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$id=$data[0];
 		$temp[$id]['latin']=$data[1];
-	    $temp[$id]['francais']=$data[2];
-	    $row++;
+		$temp[$id]['francais']=$data[2];
+		$row++;
 	}
 	fclose($fp);
 	$propre=null;
@@ -370,7 +381,6 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
  * remplissage de $laudes pour l'affichage de l'office
  *
  */
-
 $row = 0;
 $fp = fopen ("offices_r/laudes.csv","r");
 $jrdelasemaine--;
@@ -386,11 +396,11 @@ for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
 	$testAlleluia=utf8_encode($lat);
-	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
@@ -440,8 +450,8 @@ for($row=0;$row<$max;$row++){
 				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>Aux Laudes du matin</h2></td></tr>";
 			}
 			else {
-				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] ad Laudes matutinas</h2></td>";
-				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] aux Laudes du matin</h2></td></tr>";
+				$laudes.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] Laudes matutinas</h2></td>";
+				$laudes.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] Laudes du matin</h2></td></tr>";
 			}
 			break;
 		
@@ -701,8 +711,6 @@ for($row=0;$row<$max;$row++){
 }
 $laudes.="</table>";
 $laudes= rougis_verset ($laudes);
-
 return $laudes;
 }
-
 ?>

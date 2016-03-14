@@ -345,12 +345,12 @@ class Office {
 				// gloria patri2
 				print $this->gloriaPatri('.gloriapatri2');
 				//Antienne 2 apres le psaume position 22
-				print "$('.ant11').show();\n";
+				print "$('.ant22').show();\n";
 				print "$('<p>').appendTo('.ant22 .latin').text('$ant2Lat');\n";
 				print "$('<p>').appendTo('.ant22 .francais').text('$ant2Fr');\n";
 				print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
 				//Antienne 3 avant le psaume position 31
-				print "$('.ant11').show();\n";
+				print "$('.ant31').show();\n";
 				print "$('<p>').appendTo('.ant31 .latin').text('$ant3Lat');\n";
 				print "$('<p>').appendTo('.ant31 .francais').text('$ant3Fr');\n";
 				print "$('<span>').addClass('red').prependTo('.ant31 p').text('Ant. 3 : ');\n";
@@ -359,7 +359,7 @@ class Office {
 				// gloria patri3
 				print $this->gloriaPatri('.gloriapatri3');
 				//Antienne 3 apres le psaume position 32
-				print "$('.ant11').show();\n";
+				print "$('.ant32').show();\n";
 				print "$('<p>').appendTo('.ant32 .latin').text('$ant3Lat');\n";
 				print "$('<p>').appendTo('.ant32 .francais').text('$ant3Fr');\n";
 				print "$('<span>').addClass('red').prependTo('.ant32 p').text('Ant. : ');\n";
