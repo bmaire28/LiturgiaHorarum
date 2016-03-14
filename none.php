@@ -440,10 +440,8 @@ for($row=0;$row<$max;$row++){
             $none.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
 	    }
 	    if ((!$pr_lat)and(!$intitule_lat)and(!$rang_lat)) {
-  			$l=$jo[$jrdelasemaine]['latin'];
-  			$f=$jo[$jrdelasemaine]['francais'];
-  			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Nonam.</h2></td>
-  					<td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; None.</h2></td></tr>";
+  			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] ad Nonam.</h2></td>
+  					<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] &agrave; None.</h2></td></tr>";
   		}
   		else {
   			$none.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Nonam</h2></td>";

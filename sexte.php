@@ -398,11 +398,11 @@ for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
 	$testAlleluia=utf8_encode($lat);
-	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($testAlleluia=="Allel�ia.")){
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")){
 		$lat="";
 		$fr="";
 	}
@@ -441,10 +441,9 @@ for($row=0;$row<$max;$row++){
             $sexte.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
 	    }
 	    if ((!$pr_lat)and(!$intitule_lat)and(!$rang_lat)) {
-  			$l=$jo[$jrdelasemaine]['latin'];
-  			$f=$jo[$jrdelasemaine]['francais'];
-  			$sexte.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Sextam.</h2></td>
-  					<td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; Sexte.</h2></td></tr>";
+  			
+  			$sexte.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] ad Sextam.</h2></td>
+  					<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] &agrave; Sexte.</h2></td></tr>";
   		}
   		else {
   			$sexte.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Sextam</h2></td>";

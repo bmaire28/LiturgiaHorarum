@@ -4,6 +4,10 @@
     font-family: Verdana, sans-serif;
 }
 
+section {
+    overflow: auto;
+}
+
 p {
     font-size: normal;
 }

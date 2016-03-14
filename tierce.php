@@ -397,11 +397,11 @@ for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
 	$testAlleluia=utf8_encode($lat);
-	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($testAlleluia=="Allel�ia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
