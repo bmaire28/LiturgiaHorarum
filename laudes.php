@@ -390,6 +390,8 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 	$lau[$row]['francais']=$francais;
 	$row++;
 }
+fclose($fp);
+
 $max=$row;
 $laudes="<table>";
 for($row=0;$row<$max;$row++){

@@ -286,7 +286,6 @@ if($calendarium['temporal'][$jour]) {
 	}
 }
 
-
 /*
 * Gestion du 4e Dimanche de l'Avent
 * si c'est le 24/12, prendre toutes les antiennes au 24, rien à modifier
@@ -384,6 +383,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
  */
 $row = 0;
 $fp = fopen ("offices_r/vepres.csv","r");
+$jrdelasemaine--;
 while ($data = fgetcsv ($fp, 1000, ";")) {
     $latin=$data[0];$francais=$data[1];
     $vesp[$row]['latin']=$latin;
@@ -454,8 +454,7 @@ for($row=0;$row<$max;$row++){
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l Vesperas</h2></td>";
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$date_fr V&ecirc;pres</h2></td></tr>";
 		}
-		if (!$date_l) {
-			$jrdelasemaine--;
+		else {
 			$vepres.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] Vesperas</h2></td>";
 			$vepres.="<td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] V&ecirc;pres</h2></td></tr>";
 		}
