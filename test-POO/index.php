@@ -8,7 +8,9 @@ spl_autoload_register('chargerClasse');
 */
 
 require './romain/Office.php';
+require './romain/GestionOffice.php';
 
+$divinumOfficium = new GestionOffice();
 $laudes = new Office();
 $laudes->setTypeOffice('laudes');
 $laudes->setInvitatoire(false);
