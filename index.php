@@ -414,7 +414,7 @@ print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
 	/*print_r("<p> 1V</p>");*/
 	$temporalo=null;
-	$temporal=numm;
+	$temporal=null;
 	$temporalo=$calendarium['temporal'][$demain];
 	$fichier="propres_r/temporal/".$temporalo.".csv";
 	if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
