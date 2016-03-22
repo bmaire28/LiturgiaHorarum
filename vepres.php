@@ -2,7 +2,6 @@
 
 function vepres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 
-
 /*
  * Chargement du squelette des Vepres dans $vesp
  * remplissage de $vepres pour l'affichage de l'office

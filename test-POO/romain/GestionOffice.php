@@ -370,6 +370,7 @@ class GestionOffice {
 		if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
 			/*print_r("<p> 1V</p>");*/
 			$tempo=null;
+			$temp=null;
 			$tempo=$calendarium['temporal'][$demain];
 			$fichier="propres_r/temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");

@@ -2,6 +2,7 @@
 
 function sexte($jour,$date_l,$date_fr,$var,$propre,$temp) {
 
+
 /*
  * Chargement du squelette de Sexte dans $lau
  * remplissage de $sexte pour l'affichage de l'office
