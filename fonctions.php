@@ -16,7 +16,7 @@ function respbrevis($ref) {
 	$row = 0;
 	// Cr�ation du chemin relatif vers le fichier de r�pons de fa�on brut
 	$fichier="calendrier/liturgia/".$ref.".csv";
-	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
+	// Vérification du chemin brut, sinon création du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
 	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
@@ -250,8 +250,8 @@ function affiche_nav($do,$office,$place) {
 		}
 	}
 	$suivant = $offices[$officeactuel+1];
-	$precedent = $offices[$officeactuel-1];
-
+	$precedent = $offices[$officeactuel-1];	
+	
 	$anno=substr($do,0,4);
 	$mense=substr($do,4,2);
 	$die=substr($do,6,2);
@@ -284,8 +284,7 @@ function affiche_nav($do,$office,$place) {
 	$date_aujourdhui=date("Ymd",$tfc);
 	$annee_aujourdhui=substr($date_aujourdhui,0,4);
 	$mois_aujourdhui=substr($date_aujourdhui,4,2);
-	
-	
+
 	print"
 		<div id=\"$place\">
 			<ul>
