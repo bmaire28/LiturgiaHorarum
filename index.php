@@ -20,7 +20,6 @@ include("sexte.php");
 include("none.php");
 include("vepres.php");
 include("complies.php");
-include("messe.php");
 include("fonctions.php");
 //print_r("apr&egrave;s chargement des inclusions<br>");
 
