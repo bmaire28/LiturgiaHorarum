@@ -1,7 +1,7 @@
 <?php
 
 /// ici le code pour les complies
-function complies($jour,$calendarium,$my) {
+function complies($jour,$calendarium) {
 
 
 $var=null;
@@ -167,12 +167,12 @@ for($row=0;$row<$max;$row++){
 
     //Suppression de l'Alléluia en Carême et Semaine Sainte
 
-    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
+    if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
         $lat="";
         $fr="";
     }
 
-    if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")) {
+    if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")) {
        $lat="";
        $fr="";
     }
@@ -190,7 +190,7 @@ for($row=0;$row<$max;$row++){
         case "#HYMNUS":
         	switch ($tem) {
                 case "Tempus Paschale":
-                    $complies.=hymne("hy_Iesu, redémptor");
+                    $complies.=hymne(utf8_decode("hy_Iesu, redémptor"));
                     break;
                 
                 case "Tempus Quadragesimae":
@@ -198,11 +198,11 @@ for($row=0;$row<$max;$row++){
                 	switch ($calendarium['hebdomada_psalterium'][$jour]) {
                         case 1:
                         case 3:
-                            $complies.=hymne("hy_Te lucis");
+                            $complies.=hymne(utf8_decode("hy_Te lucis"));
                             break;
                         case 2:
                         case 4:
-                        	$complies.=hymne("hy_Christe, qui, splendor");
+                        	$complies.=hymne(utf8_decode("hy_Christe, qui, splendor"));
                             break;
                     }
                     break;
