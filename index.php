@@ -23,13 +23,14 @@ include("complies.php");
 include("fonctions.php");
 //print_r("apr&egrave;s chargement des inclusions<br>");
 
-
+/*
+ * récupération des paramètres via GET
+ */
 $task=$_GET['task'];
 $office=$_GET['office'];
+
 $do=$_GET['do'];
 $do=$_GET['date'];
-
-
 if(!$do) {
 	$tfc=time();
 	$do=date("Ymd",$tfc);
@@ -40,6 +41,11 @@ if ($anno=="") $anno=substr($do,0,4);
 
 $mense=$_GET['mois_courant'];
 if ($mense=="") $mense=substr($do,4,2);
+
+/*
+ * initialisation des variables de date
+ */
+
 $die=substr($do,6,2);
 $dts=mktime(12,0,0,$mense,$die,$anno);
 $datelatin=date_latin($dts);
@@ -49,7 +55,7 @@ $hier=date("Ymd",$dtsmoinsun);
 $demain=date("Ymd",$dtsplusun);
 //print_r("initialisation des variables GET <br>");
 
-$calendarium=calendarium($do,0);
+$calendarium=calendarium($do);
 
 //print_r("initialisation du calendrier <br>");
 ?>
