@@ -3,7 +3,9 @@
 function rougis_verset($string) {
 $string1=str_replace("V/.", "<span style=\"color:red\">V/. </span>",$string);
 $string2= str_replace("R/.", "<span style=\"color:red\">R/. </span>",$string1);
-return $string2;
+$string3= str_replace("+", "<span style=\"color:red\">&dagger;</span>",$string2);
+$string4= str_replace("*", "<span style=\"color:red\">*</span>",$string3);
+return $string4;
 }
 
 function epuration($string) {

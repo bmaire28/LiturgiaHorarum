@@ -10,12 +10,17 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	
 	$intitule_lat=nl2br($temp['intitule']['latin']);
 	$intitule_fr=nl2br($temp['intitule']['francais']);
-	$tenebres.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_lat</p></td>\n";
-	$tenebres.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$intitule_fr</p></td></tr>\n";
-
+	$tenebres.="<tr><td style=\"width: 49%; text-align: center;\"><h1>Tenebr&aelig;</H1></td>\n";
+	$tenebres.="<td style=\"width: 49%; text-align: center;\"><h1>Office des T&eacute;n&egrave;bres</h1></td></tr>\n";
+	$tenebres.="<tr><td style=\"width: 49%; text-align: center;\"><h1>$intitule_lat</h1></td>\n";
+	$tenebres.="<td style=\"width: 49%; text-align: center;\"><h1>$intitule_fr</h1></td></tr>\n";
+	
 	/*
 	 * Invitatoire
 	 */
+	$tenebres.="<tr><td><h2>AD INVITATORIUM</h2></td>\n
+					<td><h2>INVITATOIRE</h2></td></tr>\n";
+	
 	$tenebres.="<tr><td>V/. Domine, labia mea aperies.</td>\n
 					<td>V/. Seigneur, ouvre mes l&egrave;vres,</td></tr>\n
 	    		<tr><td>R/. Et os meum annuntiabit laudem tuam.</td>
@@ -37,6 +42,9 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	/*
 	 * Hymne
 	 */
+	$tenebres.="<tr><td><h2>AD VIGILIAS</h2></td>\n
+					<td><h2>VIGILES</h2></td></tr>\n";
+	
 	$hymne=$temp['hymne']['latin'];
 	$tenebres.= hymne($hymne);
 	
@@ -44,8 +52,8 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	 * 1er Nocturne
 	 */
 	
-	$tenebres.="<tr><td><h2>In Nocturno I</h2></td>\n
-					<td><h2>au Ier Nocturne</h2></td></tr>\n";
+	$tenebres.="<tr><td><h2>IN I NOCTURNO</h2></td>\n
+					<td><h2>Ier NOCTURNE</h2></td></tr>\n";
 	// PS VIG1-1
 	$antlat=nl2br($temp['ant11']['latin']);
 	$antfr=nl2br($temp['ant11']['francais']);
@@ -142,8 +150,6 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	
 	
 	// Lectio 1
-	$tenebres.="<tr><td><h2>Lectio</h2></td>\n
-					<td><h2>Lecture</h2></td></tr>\n";
 	$LB_matin=$temp['LB_1']['latin'];
 	$tenebres.=lectiobrevis($LB_matin);
 	
@@ -159,8 +165,8 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	 * 2e Nocturne
 	 */
 	
-	$tenebres.="<tr><td><h2>In Nocturno II</h2></td>\n
-					<td><h2>au IIe Nocturne</h2></td></tr>\n";
+	$tenebres.="<tr><td><h2>IN II NOCTURNO</h2></td>\n
+					<td><h2>IIe NOCTURNE</h2></td></tr>\n";
 	// PS VIG2-1
 	$antlat=nl2br($temp['ant21']['latin']);
 	$antfr=nl2br($temp['ant21']['francais']);
@@ -251,8 +257,6 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	    		<td><h5>On garde le silence, le temps d'un Notre P&egrave;re.</h5></td></tr>\n";
 	
 	// Lectio 2
-	$tenebres.="<tr><td><h2>Lectio</h2></td>\n
-					<td><h2>Lecture</h2></td></tr>\n";
 	$LB_matin=$temp['LB_2']['latin'];
 	$tenebres.=lectiobrevis($LB_matin);
 	
@@ -268,8 +272,8 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	 * 3 cantique AT sous 1 antienne unique
 	 */
 	
-	$tenebres.="<tr><td><h2>In Nocturno III</h2></td>\n
-					<td><h2>au IIIe Nocturne</h2></td></tr>\n";
+	$tenebres.="<tr><td><h2>IN III NOCTURNO</h2></td>\n
+					<td><h2>IIIe NOCTURNE</h2></td></tr>\n";
 	//
 	$antlat=nl2br($temp['ant31']['latin']);
 	$antfr=nl2br($temp['ant31']['francais']);
@@ -310,8 +314,6 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	    		<td><h5>On garde le silence, le temps d'un Notre P&egrave;re.</h5></td></tr>\n";
 	
 	// Lectio 3
-	$tenebres.="<tr><td><h2>Lectio</h2></td>\n
-					<td><h2>Lecture</h2></td></tr>\n";
 	$LB_matin=$temp['LB_3']['latin'];
 	$tenebres.=lectiobrevis($LB_matin);
 	
@@ -325,8 +327,8 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	/*
 	 * Laudes
 	 */
-	$tenebres.="<tr><td><h2>Ad Laudes Matutinas</h2></td>\n
-					<td><h2>aux Laudes</h2></td></tr>\n";
+	$tenebres.="<tr><td><h2>AD LAUDES MATUTINAS</h2></td>\n
+					<td><h2>AUX LAUDES</h2></td></tr>\n";
 	
 	// PS L-1
 	$antlat=nl2br($temp['antl1']['latin']);
@@ -398,16 +400,7 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 	$tenebres.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>\n
 						<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>\n";
 	
-	// verset 
-	$verslat=nl2br($temp['V_L']['latin']);
-	$versfr=nl2br($temp['V_L']['francais']);
-	$tenebres.="<tr><td><h2>Versus</h2></td>\n
-				<td><h2>Verset</h2></td></tr>\n
-	    		<tr><td>$verslat</td><td>$versfr</td></tr>\n";
-	
 	// Lectio L
-	$tenebres.="<tr><td><h2>Lectio</h2></td>\n
-					<td><h2>Lecture</h2></td></tr>\n";
 	$LB_matin=$temp['LB_matin']['latin'];
 	$tenebres.=lectiobrevis($LB_matin);
 	
@@ -443,7 +436,7 @@ function tenebres($jour,$date_l,$date_fr,$var,$propre,$temp) {
 					<td>V/. Seigneur, ayez piti&eacute; R/. Seigneur, ayez piti&eacute;</td></tr>\n";
 	
 	$tenebres.="<tr><td>V/. Pater noster, qui es in c&aelig;lis,</td><td>V/. Notre P&egravere, qui es aux Cieux,</td></tr>\n
-			<tr><td>sanctific&eacute;tur nomen tuum: adv&eacute;niat regnum tuum:</td><td>que ton nom soit sanctifi&eacute;;que ton r&egrave;gne arrive;</td></tr>\n
+			<tr><td>sanctific&eacute;tur nomen tuum: adv&eacute;niat regnum tuum:</td><td>que ton nom soit sanctifi&eacute;; que ton r&egrave;gne arrive;</td></tr>\n
 			<tr><td>fiat vol&uacute;ntas tua, sicut in c&aelig;lo et in terra.</td><td>que ta volont&eacute; soit faite au Ciel comme sur la terre.</td></tr>\n
 			<tr><td>Panem nostrum quotidi&aacute;num da nobis h&oacute;die:</td><td>Donne-nous aujourd'hui notre pain quotidien,</td></tr>\n
 			 <tr><td>et dim&iacute;tte nobis d&eacute;bita nostra, sicut et nos dim&iacute;ttimus debit&oacute;ribus nostris:</td><td>et remets-nous nos dettes, comme nous les remettons nous-m&ecirc;mes &agrave; nos d&eacute;biteurs ;</td></tr>\n
