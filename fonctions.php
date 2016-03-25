@@ -124,9 +124,9 @@ function hymne($ref) {
 
 function psaume($ref) {
 	$row = 0;
-	// Cr�ation du chemin relatif vers le fichier du psaume de fa�on brut
+	// Création du chemin relatif vers le fichier du psaume de façon brut
 	$fichier="psautier/".$ref.".csv";
-	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
+	// Vérification du chemin brut, sinon création du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="psautier/".utf8_encode($ref).".csv";
 	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");

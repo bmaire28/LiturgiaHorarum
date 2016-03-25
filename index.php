@@ -21,6 +21,7 @@ include("none.php");
 include("vepres.php");
 include("complies.php");
 include("fonctions.php");
+include("tenebres.php");
 //print_r("apr&egrave;s chargement des inclusions<br>");
 
 /*
@@ -472,10 +473,13 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendariu
 	}
 }
 
+
+
 switch($office){
 	case "laudes" :
 		//print epuration(laudes($do,$calendarium));
-		print epuration(laudes($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		else print epuration(laudes($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "mdj" :
