@@ -1,0 +1,44 @@
+HYMNUS_laudes;hy_Precémur omnes cérnui;
+ant1;Déxtera Dómini fecit virtútem, déxtera Dómini exaltávit me.;La droite du Seigneur a fait éclater sa puissance, la droite du Seigneur m'a exalté
+ant2;Trium puerórum cantémus hymnum, quem cantábant in camíno ignis, benedicéntes Dóminum.;Chantons le cantique des trois enfants, qu'ils ont chanté dans la fournaise, en bénissant le Seigneur.
+ant3;Laudáte Dóminum in firmaménto virtútis eius.;Louez le Seigneur au firmament de sa puissance.
+LB_matin;LB_Neh 8, 9b. 10b;
+RB_matin;"R/. Christe, Fili Dei vivi, * Miserére nobis. Christe. 
+V/. Qui attrítus es propter scélera nostra.* Miserére nobis. Glória Patri. Christe.";"R/. O Christ, fils du Dieu vivant, * Aie pitié de nous. O Christ. 
+V/. Toi qui fus broyé pour nos iniquités.* Aie pité de nous. Gloire au Père. O Christ."
+benedictus;<i>Antiphona propria.</i>;<i>Antienne propre</i>
+oratio_laudes;<i>Oratio propria</i>;<i>Oraison propre</i>
+preces_matin;preces_II;
+HYMNUS_tertiam;hy_Dei fide, qua vívimus;
+HYMNUS_sextam;hy_Qua Christus hora sítiit;
+HYMNUS_nonam;hy_Ternis ter horis númerus;
+ant4;Advenérunt nobis dies pæniténtiæ ad rediménda peccáta, ad salvándas ánimas.;Les jours de la pénitence nous sont advenus, pour l'expiation des péchés, et le salut de nos âmes.
+ant5;"Vivo ego, dicit Dóminus; nolo mortem peccatóris, sed ut magis convertátur et vivat.";Moi je vis, dit le Seigneur. Je ne prends pas plaisir dans la mort du pêcheur, mais à qu'il se convertisse et qu'il vive.
+ant6;Per arma iustítiæ virtútis Dei, commendémus nosmetípsos in multa patiéntia.;Par les armes de la justice et de la force de Dieu, nous rendons recommandables d'une grande constance.                         
+LB_3;LB_1 Th 4, 1. 7;
+RB_3;"V/. Cor mundum crea in me, Deus. 
+R/. Et spíritum firmum ínnova in viscéribus meis.";"V/.O Dieu, crée en moi un coeur pur;  
+R/. Et renouvelle au dedans de moi un esprit ferme."
+oratio_3;;
+LB_6;LB_Is 30, 15. 18;
+RB_6;"V/. Avérte fáciem tuam a peccátis meis. 
+R/. Et omnes iniquitátes meas dele.";"V/. Détourne ta face de mes péchés, 
+R/. Efface toutes mes iniquités. "
+oratio_6;;
+LB_9;LB_Deut 4, 29-31;
+RB_9;"V/. Sacrifícium Deo spíritus contribulátus. 
+R/. Cor contrítum et humiliátum, Deus, non despícies.";"V/. Les sacrifices de Dieu, c'est un esprit brisé; 
+R/. ô Dieu, tu ne dédaignes pas un coeur brisé et contrit. "
+oratio_9;;
+HYMNUS_vesperas;hy_Audi, benígne Cónditor;
+ant7;Virgam virtútis tuæ emíttet Dóminus in splendóribus sanctórum.;Le Seigneur fera sortir le sceptre de ta puissance de la splendeur du sanctuaire.
+ant8;Deus unus est, quem cólimus, qui fecit cælum et terram.;Dieu est unique, celui que nous servons, qui a fait le ciel et la terre.
+ant9;Próprio Fílio suo non pepércit Deus, sed pro nobis ómnibus trádidit illum.;Dieu n'a pas épargné son propre Fils, mais pour nous tous, il l'a livré.
+ps9;Canticum 1 Petr 2, 21-24;
+LB_soir;LB_Cf. 1 Cor 9, 24-25;
+RB_soir;"R/. Atténde, Dómine, et miserére, * Quia peccávimus tibi. Atténde. 
+V/. Exáudi, Christe, supplicántum preces. * Quia peccávimus tibi. Glória Patri. Atténde.";"R/. Écoute-nous, Seigneur, et aie pitié de nous, * car nous avons péché contre toi. Ecoute. 
+V/. Exauce, ô Christ, nos prières suppliantes. * car nous avons péché contre toi. Gloire au Père. Ecoute."
+magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>
+oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>
+preces_soir;preces_III;

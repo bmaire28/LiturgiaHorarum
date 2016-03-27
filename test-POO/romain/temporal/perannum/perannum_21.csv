@@ -1,0 +1,43 @@
+HYMNUS_laudes;hy_Ecce iam noctis tenuátur umbra;
+ant1;Benedíctus qui venit in nómine Dómini, allelúia.;Béni soit celui qui vient au nom du Seigneur.
+ant2;Hymnum dicámus Dómino Deo nostro, allelúia.;Chantons une hymne au Seigneur notre Dieu, alléluia.
+ant3;Laudáte Dóminum secúndum multitúdinem magnitúdinis eius, allelúia.;Louez le Seigneur selon ses nombreux bienfaits, alleluia.
+LB_matin;LB_Ez 36, 25-27;
+RB_matin;"R/. Confitébimur tibi, Deus, * Et invocábimus nomen tuum. Confitébimur.
+V/. Narrábimus mirabília tua. * Et invocábimus nomen tuum. Glória Patri. Confitébimur.";"R/. Nous te louerons, Dieu, et nous invoquerons ton nom.
+V/. Nous raconterons tes merveilles. Et nous invoquerons ton nom. Gloire au Père. Je te louerai."
+benedictus;<i>Antiphona propria.</i>;<i>Antienne propre</i>
+oratio_laudes;<i>Oratio propria</i>;<i>Oraison propre</i>
+preces_matin;preces_II;
+HYMNUS_tertiam;hy_Nunc_Sancte_nobis_Spíritus;
+HYMNUS_sextam;hy_Rector_potens_verax_Deus;
+HYMNUS_nonam;hy_Rerum_Deus_tenax_vigor;
+ant4;In páscuis viréntibus Dóminus me collocávit, allelúia.;Le Seigneur me mène vers de verts pâturages. 
+ant5;In Israel magnum nomen Dómini, allelúia.;En Israël, il est grand, le nom du Seigneur.
+ant6;Terra trémuit et quiévit, cum exsúrgeret in iudícium Deus, allelúia.;La terre a tremblé puis s’est calmée, lorsque Dieu s’estlevé pour le jugement, alléluia.
+LB_3;LB_Rom 5, 1-2. 5;
+RB_3;"V/. Misericórdias Dómini in ætérnum cantábo.
+R/. In generatiónem et generatiónem annuntiábo veritátem tuam.";"V/. Je chanterai la miséricorde du Seigneur dans l’éternité.
+R/. De générations en générations j’annoncerai ta vérité."
+oratio_3;;
+LB_6;LB_Rom 8, 26;
+RB_6;"V/. Appropínquet deprecátio mea in conspéctu tuo, Dómine.
+R/. Iuxta verbum tuum da mihi intelléctum.";"V/. Que ma prière parvienne en ta présence, Seigneur.
+R/. donne-moi la connaissance de ta parole."
+oratio_6;;
+LB_9;LB_2 Cor 1, 21-22;
+RB_9;"V/. Dóminus illuminátio mea et salus mea.
+R/. Dóminus protéctor vitæ meæ.";"V/. Le Seigneur est ma lumire et mon salut.
+R/. Le Seigneur est le protecteur de ma vie."
+oratio_9;;
+HYMNUS_vesperas;hy_O lux, beáta Trínitas;
+ant7;Sacérdos in ætérnum Christus Dóminus secúndum órdinem Melchísedech, allelúia.;Le Christ Seigneur est prêtre dans l’éternité, selon l’ordre de Melchisedech, alleluia.
+ant8;"Deus noster in cælo; ómnia quæcúmque vóluit, fecit, allelúia.";Notre Dieu est au ciel, tout ce qu’il veut, il le fait, alleluia.
+ant9;Laudem dícite Deo, omnes servi eius, pusílli et magni, allelúia.;Chantez la louange du Seigneur, tous ceux qui le cherchent, les petits et les grands, alleluia.
+LB_soir;LB_2 Th 2, 13-14;
+RB_soir;"R/. Magnus Dóminus noster, * Et magna virtus eius. Magnus.
+V/. Et sapiéntiæ eius non est númerus. * Et magna virtus eius. Glória Patri. Magnus.";"R/. Notre Seigneur est grand, et grande est sa puissance. Le Seigneur.
+V/. Et ses sagesses sont innombrables. Et grande est sa puissance. Gloire au Père. Notre Seigneur."
+magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>
+oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>
+preces_soir;preces_III

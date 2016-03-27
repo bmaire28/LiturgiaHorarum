@@ -4,6 +4,18 @@
     font-family: Verdana, sans-serif;
 }
 
+section {
+    overflow: auto;
+}
+
+p {
+    font-size: normal;
+}
+
+a {
+	text-decoration : none;
+}
+
 .Rouge {
     background-color: #ff0000;
 }
@@ -51,7 +63,6 @@ h1 {
 	text-align: center;
 	font-weight: bold;
 	font-size: medium;
-	/*line-height: 16px;*/
 }
 
 h2 {
@@ -59,7 +70,6 @@ h2 {
 	text-align: center;
 	font-weight: bold;
 	font-size: medium;
-	/*line-height: 16px;*/
 }
 
 h3 {
@@ -67,7 +77,6 @@ h3 {
 	text-align: center;
 	font-weight: normal;
 	font-size: medium;
-	/*line-height: 16px;*/
 }
 
 h4 {
@@ -76,14 +85,12 @@ h4 {
 	font-weight: normal;
 	font-style: italic;
 	font-size: medium;
-	/*line-height: 16px;*/
 }
 
 h5 {
 	color: red;
 	font-weight: normal;
 	font-size: smaller;
-	/*line-height: 5px;*/
 }
 
 th {
@@ -117,20 +124,23 @@ ul {
     margin: 2em;
 }
 
-li{
+li {
 	display: inline;
+}
+
+a span{
 	border : 1px black solid;
 	border-radius: 10px;
 	margin : 0.1em;
 	padding : 0.5em;
 }
 
-li a, li a:visited {
+a span, a:visited span {
     text-decoration: none;
     color : blue;
 }
 
-li:hover, li:hover a {
+a:hover, a span:hover {
     font-weight: bold;
     background-color: blue;
     border-color: blue;
@@ -143,17 +153,17 @@ li:hover, li:hover a {
     font-weight: bold;
 }
 
-#defunts, #defunts a, #defunts a:visited {
+a .defunts, a:visited .defunts{
     background-color: black;
     font-weight: bold;
     color: white;
 }
 
-#defunts:hover {
+a:hover .defunts, .defunts:hover {
     border-color: black;
 }
 
-#defunts:hover, #defunts:hover a {
+.defunts:hover, .defunts:hover a {
     background-color: white;
     font-weight: bold;
     color: black;

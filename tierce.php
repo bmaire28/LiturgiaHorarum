@@ -1,264 +1,15 @@
 <?php
 
-function tierce($jour,$calendarium,$my) {
-
-$tem=$calendarium['tempus'][$jour];
-switch ($tem) {
-    case "Tempus Adventus" :
-        $psautier="adven";
-        break;
-
-    case "Tempus Nativitatis" :
-        $psautier="noel";
-        break;
-
-    case "Tempus per annum" :
-        $psautier="perannum";
-        break;
-
-    case "Tempus Quadragesimae" :
-        $psautier="quadragesimae";
-        break;
-
-    case "Tempus passionis" :
-        $psautier="hebdomada_sancta";
-        break;
-
-    case "Tempus Paschale" :
-        $psautier="pascha";
-        break;
-
-    default :
-        print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
-    	return;
-        break;
-
-}
-
-$jours_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
-$jours_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
-
-$anno=substr($jour,0,4);
-$mense=substr($jour,4,2);
-$die=substr($jour,6,2);
-$day=mktime(12,0,0,$mense,$die,$anno);
-$jrdelasemaine=date("w",$day);
-//print " <br>jrdelasemaine : $jrdelasemaine";
-$date_fr=$jours_fr[$jrdelasemaine];
-$date_l=$jours_l[$jrdelasemaine];
-
-if($calendarium['rang'][$jour]) {
-	    $prop=$mense.$die;
-	    $fichier="propres_r/sanctoral/".$prop.".csv";
-		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-		$fp = fopen ($fichier,"r");
-	    while ($data = fgetcsv ($fp, 1000, ";")) {
-	    	$id=$data[0];
-	    	$propre[$id]['latin']=$data[1];
-	    	$propre[$id]['francais']=$data[2];
-	    	$row++;
-		}
-	fclose($fp);
-	}
-
-
-$fp = fopen ("offices_r/jours.csv","r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$latin=$data[1];$francais=$data[2];
-	$jo[$id]['latin']=$latin;
-	$jo[$id]['francais']=$francais;
-	$row++;
-}
-fclose($fp);
-
-$jrdelasemaine++; // pour avoir dimanche=1 etc...
-
-$spsautier=$calendarium['hebdomada_psalterium'][$jour];
-
-$tem=$calendarium['tempus'][$jour];
-switch ($tem) {
-    case "Tempus Adventus" :
-        $psautier="adven";
-        $q=$psautier."_".$spsautier;
-        break;
-
-    case "Tempus Nativitatis" :
-        $psautier="noel";
-        $q=$psautier."_".$spsautier;
-        break;
-
-    case "Tempus per annum" :
-        $psautier="perannum";
-        $q=$psautier."_".$spsautier;
-        break;
-
-    case "Tempus Quadragesimae" :
-        $psautier="quadragesimae";
-        if ($calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
-        switch ($calendarium['hebdomada'][$jour]) {
-        	case "Dies post Cineres" :
-        		$q="quadragesima_0";
-        		break;
-        	case "Hebdomada I Quadragesimae" :
-        		$q="quadragesima_1";
-        		break;
-        	case "Hebdomada II Quadragesimae" :
-        		$q="quadragesima_2";
-        		break;
-        	case "Hebdomada III Quadragesimae" :
-        		$q="quadragesima_3";
-        		break;
-        	case "Hebdomada IV Quadragesimae" :
-        		$q="quadragesima_4";
-        		break;
-        	case "Hebdomada V Quadragesimae" :
-        		$q="quadragesima_5";
-        		break;
-        }
-        break;
-
-    case "Tempus passionis" :
-        $psautier="hebdomada_sancta";
-        $q="hebdomada_sancta";
-        break;
-
-    case "Tempus Paschale" :
-        $psautier="pascha";
-        switch ($calendarium['hebdomada'][$jour]) {
-        	case "Infra octavam paschae" :
-        		$q="pascha_1";
-        		break;
-        	case "Hebdomada II Paschae" :
-        		$q="pascha_2";
-        		break;
-        	case "Hebdomada III Paschae" :
-        		$q="pascha_3";
-        		break;
-        	case "Hebdomada IV Paschae" :
-        		$q="pascha_4";
-        		break;
-        	case "Hebdomada V Paschae" :
-        		$q="pascha_5";
-        		break;
-        	case "Hebdomada VI Paschae" :
-        		$q="pascha_6";
-        		break;
-        	case "Hebdomada VII Paschae" :
-        		$q="pascha_7";
-        		break;
-        	case " " :
-        		$q="pascha_8";
-        		break;
-        }
-        break;
-
-    default :
-        print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
-        return;
-        break;
-}
-$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
-if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-$fp = fopen ($fichier,"r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$latin=$data[1];$francais=$data[2];
-	$var[$id]['latin']=$latin;
-	$var[$id]['francais']=$francais;
-	$row++;
-}
-fclose($fp);
-
-$fp = fopen ("propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv","r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$ref=$data[1];
-	$reference[$id]=$ref;
-	$row++;
-}
-fclose($fp);
-
-/*
- * octave glissante précédente noel 
- */
-if(($mense==12)AND(
-		($die==17)
-		OR($die==18)
-		OR($die==19)
-		OR($die==20)
-		OR($die==21)
-		OR($die==22)
-		OR($die==23)
-		OR($die==24)
-		)
-	) {
-	$prop=$mense.$die;
-	// Chargement du fichier de la date fixe
-	$fichier="propres_r/sanctoral/".$prop.".csv";
-	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$propre[$id]['latin']=$data[1];
-		$propre[$id]['francais']=$data[2];
-		$row++;
-	}
-	fclose($fp);
-	
-	// Chargement du fichier du jour de la semaine
-	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
-	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];$latin=$data[1];$francais=$data[2];
-		$var[$id]['latin']=$latin;
-		$var[$id]['francais']=$francais;
-		$row++;
-	}
-	fclose($fp);
-	// Transfert de l'intitule
-	$propre['intitule']['latin']=$var['intitule']['latin'];
-	$propre['intitule']['francais']=$var['intitule']['francais'];
-	
-}
-
-if($calendarium['temporal'][$jour]) {
-	$tempo=$calendarium['temporal'][$jour];
-	$fp = fopen ("propres_r/temporal/".$tempo.".csv","r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-	    $temp[$id]['latin']=$data[1];
-	    $temp[$id]['francais']=$data[2];
-	    $row++;
-	}
-	$oratiolat=$temp['oratio']['latin'];
-	$oratiofr=$temp['oratio']['francais'];
-	$hymne3=$temp['HYMNUS_tertiam']['latin'];
-	$LB_3=$temp['LB_3']['latin'];
-	$intitule_lat=$temp['intitule']['latin'];
-	$rang_lat=$temp['rang']['latin'];
-	if($rang_lat)$intitule_lat .="</b><br>".$rang_lat."<b>";
-	$date_l = $intitule_lat."<br> ";
-	$intitule_fr=$temp['intitule']['francais'];
-	$rang_fr=$temp['rang']['francais'];
-	if($rang_fr)$intitule_fr .="</b><br></b>".$rang_fr."<b>";
-	$date_fr = $intitule_fr."<br> ";
-}
-
-
-/*
- * Gestion du 4e Dimanche de l'Avent
- * si c'est le 24/12, prendre toutes les antiennes au 24
- * sinon prendre l'antienne benedictus
- */
-if (($temp['intitule']['latin']=="Dominica IV Adventus") and ($die!="24")) $propre=$temp;
+function tierce($jour,$date_l,$date_fr,$var,$propre,$temp) {
 
 /*
  * Chargement du squelette de tierce dans $lau
  * remplissage de $tierce pour l'affichage de l'office
  *
  */
-
 $row = 0;
 $fp = fopen ("offices_r/tierce.csv","r");
+$jrdelasemaine--;
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$latin=$data[0];$francais=$data[1];
 	$lau[$row]['latin']=$latin;
@@ -271,11 +22,12 @@ $tierce="<table>";
 for($row=0;$row<$max;$row++){
 	$lat=$lau[$row]['latin'];
 	$fr=$lau[$row]['francais'];
-	if(($tem=="Tempus Quadragesimae")&&($lat=="Allel�ia.")) {
+	$testAlleluia=utf8_encode($lat);
+	if(($tem=="Tempus Quadragesimae")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
-	if(($tem=="Tempus passionis")&&($lat=="Allel�ia.")) {
+	if(($tem=="Tempus passionis")&&($testAlleluia=="Allelúia.")) {
 		$lat="";
 		$fr="";
 	}
@@ -289,7 +41,7 @@ for($row=0;$row<$max;$row++){
 			$pr_fr=$temp['jour']['francais'];
 		}
 	    if($pr_lat){
-            $tierce.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>";
+	    	$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_lat</p></td>";
             $tierce.="<td style=\"width: 49%; text-align: center;\"><p style=\"font-weight: bold;\">$pr_fr</p></td></tr>";
 	    }
 	    if ($propre['intitule']['latin']) {
@@ -313,10 +65,8 @@ for($row=0;$row<$max;$row++){
             $tierce.="<td style=\"width: 49%; text-align: center;\"><h3>$rang_fr</h3></td></tr>";
 	    }
   		if ((!$pr_lat)and(!$intitule_lat)and(!$rang_lat)) {
-  			$l=$jo[$jrdelasemaine]['latin'];
-  			$f=$jo[$jrdelasemaine]['francais'];
-  			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l ad Tertiam</h2></td>";
-  			$tierce.="<td td style=\"width: 49%; text-align: center;\"><h2>$date_fr &agrave; Tierce</h2></td></tr>";
+  			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$jours_l[$jrdelasemaine] ad Tertiam</h2></td>";
+  			$tierce.="<td td style=\"width: 49%; text-align: center;\"><h2>$jours_fr[$jrdelasemaine] &agrave; Tierce</h2></td></tr>";
 		}
 		else {
 			$tierce.="<tr><td style=\"width: 49%; text-align: center;\"><h2>Ad Tertiam</h2></td>";
@@ -481,13 +231,13 @@ for($row=0;$row<$max;$row++){
 	    	$oratio3lat=$temp['oratio']['latin'];
 	    	$oratio3fr=$temp['oratio']['francais'];
 	    }
-	    else {
-	    	if(!$oratiolat)$oratio3lat=$var['oratio_3']['latin'];
-	    	if(!$oratiofr)$oratio3fr=$var['oratio_3']['francais'];
-	    	if($oratiolat) {
-	    		$oratio3lat=$oratiolat;
-	    		$oratio3fr=$oratiofr;
-	    	}
+	    elseif ($var['oratio_3']['latin']) {
+	    	$oratio3lat=$var['oratio_3']['latin'];
+	    	$oratio3fr=$var['oratio_3']['francais'];
+	    }
+	    elseif ($var['oratio']['latin']) {
+	    	$oratio3lat=$var['oratio']['latin'];
+	    	$oratio3fr=$var['oratio']['francais'];
 	    }
 	    switch (substr($oratio3lat,-6)){
 	    	case "istum." :

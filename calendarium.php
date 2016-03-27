@@ -19,19 +19,32 @@ print"/templates/js_naturale/css/template_$couleur.css";
 
 
 function mod_calendarium($mois_courant,$an,$jour_courant) {
+
+/*
+ * $jl prend la date au format informatique
+ * si mois_courant n'est pas donné, alors on récupère la date actuelle dans $jl
+ */
 if($mois_courant=="") $jl=time();
 else $jl=mktime(12,12,0,$mois_courant,01,$an);
-$an.$mois_courant."01";
+
 $datj=date("Ymd",$jl);
 $calend=calendarium($datj);
 $office=$_GET['office'];
 
 $couleurs=$calend[couleur_template];
-$mois= array("Ianuarii","Februarii","Martii","Aprilis","Maii","Iunii","Iulii","Augustii","Septembris","Octobris","Novembris","Decembris");
 
+/*
+ * $hodie : date informatique du jour courant
+ * $anno prends l'année donnée sinon l'année courante calculée via $hodie
+ */
 $hodie=time();
 if($an=="") $anno=@date("Y",$hodie);
 else $anno=$an;
+
+/*
+ * Si $mois_courant n'a pas de valeur, on récupère le mois en court via $hodie
+ * si $mois_courant vaut 13 ou 0, on change d'année et $mois_courant vaut 1 ou 12
+ */
 if($mois_courant=="") $mois_courant=@date("m",$hodie);
 if($mois_courant=="13") {
 	$mois_courant=1;
@@ -41,20 +54,38 @@ if($mois_courant=="0") {
 	$mois_courant=12;
 	$anno--;
 }
+
+/*
+ * conversion du numéro du mois en nom latin du mois
+ */
+$mois= array("Ianuarii","Februarii","Martii","Aprilis","Maii","Iunii","Iulii","Augustii","Septembris","Octobris","Novembris","Decembris");
 $mense=$mois[$mois_courant-1];
-//$anno=@date("Y",$hodie);
+
 $date_courante=mktime(12,0,0,$mois_courant,1,$anno);
-$s=0;$i=1;$sem=array();
+
+/*
+ * Création du tableau $sem pour les semaines du mois courant avec 2 indices :
+ * $s pour le numéro de la semaine et $jour pour le numéro du jour dans la semaine avec 0 = dimanche
+ * $i représente le numéro du jour dans le mois
+ * 
+ * Si $jour=6 donc samedi, alors ensuite on change semaine, donc on incrémente $s
+ * 
+ * A la fin on ajoute 1 jour en secondes à $date_courante  
+ * 
+ * On boucle jusqu'a ce qu'on change de mois
+ */
+$s=0;
+$i=1;
+$sem=array();
+
 while(date("m",$date_courante)==$mois_courant) {
 	$jour=date("w",$date_courante);
-
 	$sem[$s][$jour]=$i;
 	if ($jour==6) { $jour=0; $s++;}
- 	//print"[$s|$jour]=$i";
 	$i++;
 	$date_courante=$date_courante+60*60*24;
-
 }
+
 $feria=@date("w",$hodie);
 $coul['Rouge']="#ff0000";
 $coul['Vert']="#1b6f1f";
@@ -67,8 +98,8 @@ $coul['Rose']="#FE00F9";
 $coul['Noir']="#000000";
 
 print"
-<table>
-  <thead><tr>
+<table>\n
+  <thead><tr>\n
   <th><b>Do.</b></th>
   <th>F.2</th>
   <th>F.3</th>
@@ -77,37 +108,43 @@ print"
   <th>F.6</th>
   <th>Sa.</th>
   </tr>
-  	</thead><tbody>";
+  	</thead><tbody>\n";
 
-for ($u=0;$u<6;$u++) {
-	print"<tr>";
-    $f=$sem[$u][0];
+for ($u=0;$u<$s+1;$u++) {
+	print"<tr>\n";
+    $f=$sem[$u][0]; //$f est initialisé à la première cellule à gauche de la ligne/semaine en cours
     $jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
     $jour=date("Ymd",$jour_ts);
     $class="";
 		if ($jour == $jour_courant) {
-			$class="style=\"font-weight : bold; border : 2px black solid;\"";
+			$class="style=\"font-weight : bold; border : 3px black solid;\"";
 		}
         $iff=$couleurs[$jour];
     $titre=$calend['intitule'][$jour];
-    if($f!="")    print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\">$f</a></td>";
-    else print"<td></td>";
+    
+    // gestion de l'affichage de la première cellule de la semaine
+    if($f!="")    print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;office=$office\" title=\"$titre\">$f</a></td>\n";
+    else print"<td></td>\n";
+    
+    // $f va parcourir toute la ligne/semaine en cours
 	for($n=1;$n<7;$n++) {
 		$f=$sem[$u][$n];
 		$jour_ts=mktime(12,0,0,$mois_courant,$f,$anno);
 		$jour=date("Ymd",$jour_ts);
 		$class="";
 		if ($jour == $jour_courant) {
-			$class="style=\"font-weight : bold; border : 2px black solid;\"";
+			$class="style=\"font-weight : bold; border : 3px black solid;\"";
 		}
 		$iff=$couleurs[$jour];
 		$titre=$calend['intitule'][$jour];
-		if($f!="") print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;task=$task&amp;office=$office\" title=\"$titre\">$f</a></td>";
-		else print"<td></td>";
+		if($f!="") print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;office=$office\" title=\"$titre\">$f</a></td>\n";
+		else print"<td></td>\n";
 	}
+	//on passe à la semaine/ligne suivante
 }
-    print"</tbody><tfoot>
-    <tr>";
+
+    print"</tbody><tfoot>\n
+    <tr>\n";
     $mois_moins=$mois_courant-1;
     $mois_plus=$mois_courant+1;
     print"

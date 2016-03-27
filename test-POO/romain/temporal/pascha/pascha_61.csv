@@ -1,0 +1,43 @@
+HYMNUS_laudes;hy_Aurora lucis rutilat;
+ant1;Hæc dies quam fecit Dóminus, allelúia.;Voici le jour que fit le Seigneur, alléuia.
+ant2;Benedíctus es in firmaménto cæli, et laudábilis, Deus noster, allelúia.;Que notre Dieu soit béni et loué au firmaent du ciel, alléluia.
+ant3;Adoráte Deum sedéntem super thronum, dicéntes: Amen, allelúia.;Adorez le Seigneur qui siège qur le trône en disant: Amen, alléluia.
+LB_matin;LB_ap10.40-43;
+RB_matin;"R/. Christe, Fili Dei vivi, miserére nobis,* Allelúia, allelúia. Christe. 
+V/. Qui surrexísti a mórtuis. *Allelúia, allelúia. Glória Patri. Christe.";"R/. O Christ, fils du Deiu vivant, aie pitié de nous,* Alléluia, alléluia. O Christ. 
+V/. Toi qui es ressucité des morts. *Alléluia, alléluia. Gloire au Père. O Christ."
+benedictus;;
+oratio_laudes;;
+preces_matin;preces_II;
+HYMNUS_tertiam;hy_Iam surgit hora tértia;
+HYMNUS_sextam;hy_Veníte, servi, súpplices;
+HYMNUS_nonam;hy_Hæc hora, quæ resplénduit;
+ant4;Allelúia, allelúia, allelúia.;Alléluia, alléluia, alléluia.
+ant5;Allelúia, allelúia, allelúia.;Alléluia, alléluia, alléluia.
+ant6;Allelúia, allelúia, allelúia.;Alléluia, alléluia, alléluia.
+LB_3;LB_1 Cor 15, 3b-5;
+RB_3;"V/. Surréxit Dóminus vere, allelúia. 
+R/. Et appáruit Simóni, allelúia.";"V/. Le Seigneur est vraiment ressuscité, alléluia. 
+R/. Et il est apparu à Simon, alléluia."
+oratio_3;;
+LB_6;LB_Eph 2, 4-6;
+RB_6;"V/. Gavísi sunt discípuli, allelúia. 
+R/. Viso Dómino, allelúia.";"V/. Les disciples furent dans la joie, alléluia. 
+R/. En voyant le Seigneur, alléluia."
+oratio_6;;
+LB_9;LB_Rom 6, 4;
+RB_9;"V/. Mane nobíscum, Dómine, allelúia. 
+R/. Quóniam advesperáscit, allelúia.";"V/. Reste avec nous, Seigneur, alléluia. 
+R/. Car le soir tombe, alléluia."
+oratio_9;;
+HYMNUS_vesperas;hy_Ad cenam Agni próvidi;
+ant7;Suscitávit Christum a mórtuis, et constítuit ad déxteram suam in cæléstibus, allelúia.;Ila ressucité le christ des morts, et l'a constitué à sa droite dans les cieux, alléluia.
+ant8;A simulácris convérsi estis ad Deum vivum, allelúia.;Des idoles, vous vous êtes convertis au Dieu vivant, alléluia.
+ant9;Allelúia, salus et glória et virtus Deo nostro, allelúia.;Alléluia, le salut, la gloire et la puissance à notre Dieu, alléluia.
+LB_soir;LB_Hebr 10, 12-14;
+RB_soir;"R/. Surréxit Dóminus vere, *Allelúia, allelúia. Surréxit. 
+V/. Et appáruit Simóni. * Allelúia, allelúia. Glória Patri. Surréxit.";"R/. Le Seigneur est vraiment ressucité, * Alléluia, alléluia. Le Seigneur. 
+V/. Et il est apparu à Simon. * Alléluia, alléluia. Gloire au Père. Le Seigneur."
+magnificat;;
+oratio_vesperas;;
+preces_soir;preces_III;
