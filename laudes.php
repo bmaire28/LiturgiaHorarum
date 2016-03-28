@@ -242,7 +242,6 @@ for($row=0;$row<$max;$row++){
 			break;
 		
 		case "#ANT_BENE":
-			$benedictus="benedictus_".$lettre;
 			if($propre[$benedictus]['latin']) {
 				$benelat=$propre[$benedictus]['latin'];
 				$benefr=$propre[$benedictus]['francais'];
@@ -250,10 +249,6 @@ for($row=0;$row<$max;$row++){
 			elseif($propre['benedictus']['latin']) {
 				$benelat=$propre['benedictus']['latin'];
 				$benefr=$propre['benedictus']['francais'];
-			}
-			elseif ($temp[$benedictus]['latin']) {
-				$benelat=$temp[$benedictus]['latin'];
-				$benefr=$temp[$benedictus]['francais'];
 			}
 			elseif ($temp['benedictus']['latin']) {
 				$benelat=$temp['benedictus']['latin'];

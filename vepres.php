@@ -256,10 +256,6 @@ for($row=0;$row<$max;$row++){
 			$magniflat=$propre['magnificat']['latin'];
 			$magniffr=$propre['magnificat']['francais'];
 		}
-		elseif ($temp[$magnificat]['latin']) {
-			$magniflat=$temp[$magnificat]['latin'];
-			$magniffr=$temp[$magnificat]['francais'];
-		}
 		elseif($temp['magnificat']['latin']) {
 	    	$magniflat=$temp['magnificat']['latin'];
 			$magniffr=$temp['magnificat']['francais'];
