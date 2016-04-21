@@ -10,32 +10,25 @@ class GestionOffice {
 	var $sanctoral;
 	var $temporal;
 	var $ferial;
+	var $calendarium;
+	var $date_l;
+	var $date_fr;
 	
 	/*
 	 * getters
 	 */
-	function sanctoral() {
-		return $this->sanctoral;
-	}
-	function temporal() {
-		return $this->temporal;
-	}
-	function ferial() {
-		return $this->ferial;
-	}
-	
+	function sanctoral() { return $this->sanctoral; }
+	function temporal() { return $this->temporal; }
+	function ferial() { return $this->ferial; }
+	function date_l() { return $this->date_l; }
+	function date_fr() { return $this->date_fr; }
+
 	/*
 	 * setters
 	 */
-	function setSanctoral($id,$langue,$valeur) {
-		$this->sanctoral[$id][$langue]=$valeur;
-	}
-	function setTemporal($id,$langue,$valeur) {
-		$this->temporal[$id][$langue]=$valeur;
-	}
-	function setFerial($id,$langue,$valeur) {
-		$this->ferial[$id][$langue]=$valeur;
-	}
+	function setSanctoral($id,$langue,$valeur) { $this->sanctoral[$id][$langue]=$valeur; }
+	function setTemporal($id,$langue,$valeur) { $this->temporal[$id][$langue]=$valeur; }
+	function setFerial($id,$langue,$valeur) { $this->ferial[$id][$langue]=$valeur; }
 	
 	/*
 	 * méthodes
@@ -45,7 +38,7 @@ class GestionOffice {
 	 * Calcul du calendrier liturgique pour l'année à partir d'une date $date donnée
 	 * $date = aaaaammjj
 	 */
-	function calendarium($date) {
+	function setCalendarium($date) {
 		
 		$feriae=array("Dominica","Feria II","Feria III","Feria IV","Feria V","Feria VI","Sabbato");
 		$romains=array("","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI","XXXII","XXXIII","XXXIV");
@@ -912,27 +905,27 @@ class GestionOffice {
 			}
 	
 			//////   Ici confection du tableau
-			$calendarium['couleur_template'][$d]=$couleur_template[$d];
-			$calendarium['littera'][$d]=$lit[$i];
-			$calendarium['tempus'][$d]=$tempus;
-			$calendarium['hebdomada'][$d]=$hebdomada;
-			$calendarium['intitule'][$d]=$intitule;
-			$calendarium['rang'][$d]=$rang;
-			$calendarium['hebdomada_psalterium'][$d]=$hp;
-			$calendarium['vita'][$d]=$vita;
-			$calendarium['temporal'][$d]=$tempo;
+			$calendrier['couleur_template'][$d]=$couleur_template[$d];
+			$calendrier['littera'][$d]=$lit[$i];
+			$calendrier['tempus'][$d]=$tempus;
+			$calendrier['hebdomada'][$d]=$hebdomada;
+			$calendrier['intitule'][$d]=$intitule;
+			$calendrier['rang'][$d]=$rang;
+			$calendrier['hebdomada_psalterium'][$d]=$hp;
+			$calendrier['vita'][$d]=$vita;
+			$calendrier['temporal'][$d]=$tempo;
 	
 			// priorité, si non défini alors priorité la plus basse = 13
 			if(!$priorite) $priorite=13;
-			$calendarium['priorite'][$d]=$priorite;
+			$calendrier['priorite'][$d]=$priorite;
 	
 			// 1ères Vêpres si la priorité est plus haute que 4 ou si déjà validé
-			if(($pV) or ($calendarium['priorite'][$d]<=4)) $pV="1";
+			if(($pV) or ($calendrier['priorite'][$d]<=4)) $pV="1";
 			else $pV="";
-			$calendarium['1V'][$d]=$pV;
+			$calendrier['1V'][$d]=$pV;
 	
 			// S'il y a des premières vêpres, donc solennité, et que le temporal n'est pas défini, alors il prends la valeur de l'intitulé
-			if (($calendarium['1V'][$d]=="1")&&($calendarium['temporal'][$d]=="")) $calendarium['temporal'][$d]=$calendarium['intitule'][$d];
+			if (($calendrier['1V'][$d]=="1")&&($calendrier['temporal'][$d]=="")) $calendrier['temporal'][$d]=$calendrier['intitule'][$d];
 	
 			//Passage au jour suivant, remise à zéro(dimanche) du compteur i après 7(samedi)
 			$date_courante=$date_courante+$jour;
@@ -944,24 +937,29 @@ class GestionOffice {
 		$aujourdhui=@date("Ymd",$day);
 	
 		$datelatin=date_latin($day);
-		$reponse="$datelatin, ".$calendarium['tempus'][$aujourdhui].", <a href=\"http://www.scholasaintmaur.net/index.php?date=$aujourdhui\">".$calendarium['hebdomada'][$aujourdhui];
-		if($calendarium['intitule'][$aujourdhui]) $reponse.= ", ".$calendarium['intitule'][$aujourdhui];
-		if($calendarium['rang'][$aujourdhui]) $reponse.=", ".$calendarium['rang'][$aujourdhui];
+		$reponse="$datelatin, ".$calendrier['tempus'][$aujourdhui].", <a href=\"http://www.scholasaintmaur.net/index.php?date=$aujourdhui\">".$calendrier['hebdomada'][$aujourdhui];
+		if($calendrier['intitule'][$aujourdhui]) $reponse.= ", ".$calendrier['intitule'][$aujourdhui];
+		if($calendrier['rang'][$aujourdhui]) $reponse.=", ".$calendrier['rang'][$aujourdhui];
 		$reponse.=".</a>";
 	
-		$calendarium['datedaujourdhui']=$reponse;
+		$calendrier['datedaujourdhui']=$reponse;
 	
-		return $calendarium;
+		//return $calendrier;
+		$this->calendarium = $calendrier;
 	}
 	
 	/*
 	 * méthode d'initialisation des tableaux $sanctoral, $temporal, $ferial en fonction du calendrier liturgique
 	 * Cette méthode n'est appelé que par les méthodes internes de la classe
-	 * Entrées : $jour = date du jour, $calendarium = calendrier calcuelr pour la date donnée
-	 * Sortie : $sanctoral, $temporal et $ferial sont remplis
+	 * Entrées : $jour = date du jour, au format aaaammjj
+	 * Sortie : $sanctoral, $temporal et $ferial sont remplis, $date_l et $date_fr
 	 */
-	function initialisationSources($jour,$calendarium) {
-		if($calendarium['hebdomada'][$do]=="Infra octavam paschae") {
+	function initialisationSources($jour) {
+		
+		if (!$jour) {$jour = $_GET['date']; }
+		if (!$this->calendarium) { $this->setCalendarium($jour); }
+		
+		if($this->calendarium['hebdomada'][$jour]=="Infra octavam paschae") {
 			$this->temporal['ps1']['latin']="ps62";
 			$this->temporal['ps2']['latin']="AT41";
 			$this->temporal['ps3']['latin']="ps149";
@@ -978,16 +976,16 @@ class GestionOffice {
 		 * $mense = mois de l'office
 		 * $die = jour de l'office
 		 * $day = timestamp du jour de l'office
-		 * $do_l = liste de noms des jours en latin
-		 * $do_fr = liste de noms des jours en français
+		 * $jour_l = liste de noms des jours en latin
+		 * $jour_fr = liste de noms des jours en français
 		 * $jrdelasemaine = numéro du jour dans la semaine (0 à 6)
 		 * $date_l = nom du jour de l'office en latin
 		 * $date_fr = nom du jour de l'office en français
 		 *
 		 */
-		$anno=substr($do,0,4);
-		$mense=substr($do,4,2);
-		$die=substr($do,6,2);
+		$anno=substr($jour,0,4);
+		$mense=substr($jour,4,2);
+		$die=substr($jour,6,2);
 		$day=mktime(12,0,0,$mense,$die,$anno);
 		
 		if ($_GET['office']=='vepres') {
@@ -1000,8 +998,8 @@ class GestionOffice {
 		}
 		
 		$jrdelasemaine=date("w",$day);
-		$date_fr=$jour_fr[$jrdelasemaine];
-		$date_l=$jour_l[$jrdelasemaine];
+		$this->date_fr=$jour_fr[$jrdelasemaine];
+		$this->date_l=$jour_l[$jrdelasemaine];
 		
 		/*
 		 * Calcul de la lettre de l'année
@@ -1033,7 +1031,7 @@ class GestionOffice {
 		//print_r($lettre."<br>");
 		
 		$jrdelasemaine++; // pour avoir dimanche=1 etc...
-		$spsautier=$calendarium['hebdomada_psalterium'][$do];
+		$spsautier=$this->calendarium['hebdomada_psalterium'][$jour];
 		
 		/*
 		 * Chargement du propre au psautier du jour
@@ -1060,7 +1058,7 @@ class GestionOffice {
 		 * - jour de la semaine de 1 pour Dimanche à 7 pour Samedi
 		 *
 		*/
-		$tem=$calendarium['tempus'][$do];
+		$tem=$this->calendarium['tempus'][$jour];
 		switch ($tem) {
 			case "Tempus Adventus" :
 				$psautier="adven";
@@ -1079,8 +1077,8 @@ class GestionOffice {
 		
 			case "Tempus Quadragesimae" :
 				$psautier="quadragesimae";
-				if ($calendarium['intitule'][$do]=="Feria IV Cinerum") { $q="quadragesima_0";}
-				switch ($calendarium['hebdomada'][$do]) {
+				if ($this->calendarium['intitule'][$jour]=="Feria IV Cinerum") { $q="quadragesima_0";}
+				switch ($this->calendarium['hebdomada'][$jour]) {
 					case "Dies post Cineres" :
 						$q="quadragesima_0";
 						break;
@@ -1109,7 +1107,7 @@ class GestionOffice {
 		
 			case "Tempus Paschale" :
 				$psautier="pascha";
-				switch ($calendarium['hebdomada'][$do]) {
+				switch ($this->calendarium['hebdomada'][$jour]) {
 					case "Infra octavam paschae" :
 						$q="pascha_1";
 						break;
@@ -1158,7 +1156,7 @@ class GestionOffice {
 		 * Chargement du propre du sanctoral dans $this->sanctoral
 		 *
 		*/
-		if (($calendarium['rang'][$do])or($calendarium['priorite'][$do]==12)) {
+		if (($this->calendarium['rang'][$jour])or($this->calendarium['priorite'][$jour]==12)) {
 			$prop=$mense.$die;
 			$fichier="propres_r/sanctoral/".$prop.".csv";
 			if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
@@ -1221,8 +1219,8 @@ class GestionOffice {
 		 *
 		 */
 		
-		if($calendarium['temporal'][$do]) {
-			$tempo=$calendarium['temporal'][$do];
+		if($this->calendarium['temporal'][$jour]) {
+			$tempo=$this->calendarium['temporal'][$jour];
 			$fichier="propres_r/temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
@@ -1234,17 +1232,17 @@ class GestionOffice {
 			}
 			fclose($fp);
 		
-			$date_fr=$date_l=null;
+			$this->date_fr=$this->date_l=null;
 			if($_GET['office']=='vepres') {
 				// Gestion intitule Ieres ou IIndes vepres en latin
-				if (($calendarium['intitule'][$do]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$do]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$do]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$do]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
-				elseif ($calendarium['1V'][$do]) $date_l="<br> ad II ";
-				else $date_l = "<br> ad ";
+				if (($this->calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($this->calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($this->calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($this->calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $this->date_l="<br> ad ";
+				elseif ($this->calendarium['1V'][$jour]) $this->date_l="<br> ad II ";
+				else $this->date_l = "<br> ad ";
 		
 				// Gestion intitule Ieres ou IIndes vepres en francais
-				if (($calendarium['intitule'][$do]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$do]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$do]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$do]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_fr="<br> aux ";
-				elseif ($calendarium['1V'][$do]) $date_fr = "<br> aux IIdes ";
-				else $date_fr = "<br> aux ";
+				if (($this->calendarium['intitule'][$jour]=="FERIA QUARTA CINERUM")or($this->calendarium['intitule'][$jour]=="DOMINICA RESURRECTIONIS")or($this->calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($this->calendarium['intitule'][$jour]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $this->date_fr="<br> aux ";
+				elseif ($this->calendarium['1V'][$jour]) $this->date_fr = "<br> aux IIdes ";
+				else $this->date_fr = "<br> aux ";
 			}
 		}
 		
@@ -1266,7 +1264,7 @@ class GestionOffice {
 				$this->sanctoral['magnificat']['francais']=$magniffr;
 			}
 			else {
-				$calendarium['priorite'][$do]++;
+				$this->calendarium['priorite'][$jour]++;
 			}
 		}
 		
@@ -1279,15 +1277,15 @@ class GestionOffice {
 		$demain=date("Ymd",$tomorow);
 		
 		/*print_r("<p> demain : ".$demain."</p>");
-		 print_r("<p> 1V demain : ".$calendarium['1V'][$demain]."</p>");
-		 print_r("<p> priorite jour : ".$calendarium['priorite'][$do]."</p>");
-		 print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>");
-		print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
-		if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
+		 print_r("<p> 1V demain : ".$this->calendarium['1V'][$demain]."</p>");
+		 print_r("<p> priorite jour : ".$this->calendarium['priorite'][$jour]."</p>");
+		 print_r("<p> priorite demain : ".$this->calendarium['priorite'][$demain]."</p>");
+		print_r("<p> intitule demain : ".$this->calendarium['intitule'][$demain]."</p>");*/
+		if (($this->calendarium['1V'][$demain]==1)&&($this->calendarium['priorite'][$jour]>$this->calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
 			/*print_r("<p> 1V</p>");*/
 			$tempo=null;
 			$this->temporal=null;
-			$tempo=$calendarium['temporal'][$demain];
+			$tempo=$this->calendarium['temporal'][$demain];
 			$fichier="propres_r/temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
@@ -1299,8 +1297,8 @@ class GestionOffice {
 			}
 			fclose($fp);
 			$this->sanctoral=null;
-			$date_l = "ad I ";
-			$date_fr = "aux I&egrave;res ";
+			$this->date_l = "ad I ";
+			$this->date_fr = "aux I&egrave;res ";
 			$this->temporal['HYMNUS_vepres']['latin']=$this->temporal['HYMNUS_1V']['latin'];
 			$this->temporal['ant7']['latin']=$this->temporal['ant01']['latin'];
 			$this->temporal['ant7']['francais']=$this->temporal['ant01']['francais'];
@@ -1340,27 +1338,237 @@ class GestionOffice {
 		}
 	}
 	
-	function initialisationLaudes($office,$jour,$calendarium) {
+	/*
+	 * Méthode d'inistialisation d'un objet de type Office en vue d'afficher les Laudes
+	 * Cette méthode est appelée par le fichier index
+	 * Entrée :
+	 * 		$office : objet de type Office à initialiser
+	 * 		$jour au format aaaammjj du jour de l'office,
+	 */
+	function initialisationLaudes($office,$jour) {
+
+		if (!$this->calendarium) $this->setCalendarium($jour);
+		if (!$this->ferial)$this->initialisationSources($jour);
 		
+		// Initialisation de l'ordo
+		if ($this->sanctoral['jour']['latin']) {
+			$pr_lat=$this->sanctoral['jour']['latin'];
+			$pr_fr=$this->sanctoral['jour']['francais'];
+		}
+		if (!$pr_lat) {
+			$pr_lat=$this->temporal['jour']['latin'];
+			$pr_fr=$this->temporal['jour']['francais'];
+		}
+		if($pr_lat){
+			$office->setOrdo($pr_lat, $pr_fr);
+			$office->setOratio($this->sanctoral['oratio']['latin'], $this->sanctoral['oratio']['francais']);
+		}
+		
+		// Initialisation de l'intitule
+		if ($this->sanctoral['intitule']['latin']) {
+			$intitule_lat=$this->sanctoral['intitule']['latin'];
+			$intitule_fr=$this->sanctoral['intitule']['francais'];
+		}
+		if (!$intitule_lat) {
+			$intitule_lat=$this->temporal['intitule']['latin'];
+			$intitule_fr=$this->temporal['intitule']['francais'];
+		}
+		if ($intitule_lat){
+			$office->setIntitule($intitule_lat, $intitule_fr);
+			$office->setOratio($this->sanctoral['oratio']['latin'], $this->sanctoral['oratio']['francais']);
+		}
+		
+		//Intialisation du rang
+		if(!$rang_lat) {
+			$rang_lat=$this->sanctoral['rang']['latin'];
+			$rang_fr=$this->sanctoral['rang']['francais'];
+		}
+		if($rang_lat){
+			$office->setRangOffice($rang_lat, $rang_fr);
+			$office->setOratio($this->sanctoral['oratio']['latin'], $this->sanctoral['oratio']['francais']);
+		}
+		
+		//Initialisation nom de l'office
+		if (($pr_lat)or($intitule_lat)or($rang_lat)) {
+			$office->setNomOffice("Ad Laudes matutinas", "Aux Laudes du matin");
+		}
+		else {
+			$nomOfficeLat = $this->date_l." Laudes matutinas";
+			$nomOfficeFr = $this->date_fr." Laudes du matin";
+			$office->setNomOffice($nomOfficeLat, $nomOfficeFr);
+		}
+		
+		//Initilisation de l'hymne
+		if($this->sanctoral['HYMNUS_laudes']['latin']) $hymne=$this->sanctoral['HYMNUS_laudes']['latin'];
+		elseif ($this->temporal['HYMNUS_laudes']['latin']) $hymne=$this->temporal['HYMNUS_laudes']['latin'];
+		else $hymne=$this->ferial['HYMNUS_laudes']['latin'];
+		$office->setHymne($hymne);
+		
+		// Intilisation de ANT1
+		if($this->sanctoral['ant1']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant1']['latin']);
+			$antfr=nl2br($this->sanctoral['ant1']['francais']);
+		}
+		elseif ($this->temporal['ant1']['latin']) {
+			$antlat=nl2br($this->temporal['ant1']['latin']);
+			$antfr=nl2br($this->temporal['ant1']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant1']['latin'];
+			$antfr=$this->ferial['ant1']['francais'];
+		}
+		$office->setAnt1($antlat, $antfr);
+					
+		// Initialisation de PS1
+		if($this->sanctoral['ps1']['latin']) $psaume=$this->sanctoral['ps1']['latin'];
+		elseif ($this->temporal['ps1']['latin']) $psaume=$this->temporal['ps1']['latin'];
+		else $psaume=$this->ferial['ps1']['latin'];
+		$office->setPs1($psaume);
+		
+		// Initilisation de ANT2
+		if($this->sanctoral['ant2']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant2']['latin']);
+			$antfr=nl2br($this->sanctoral['ant2']['francais']);
+		}
+		elseif($this->temporal['ant2']['latin']) {
+			$antlat=nl2br($this->temporal['ant2']['latin']);
+			$antfr=nl2br($this->temporal['ant2']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant2']['latin'];
+			$antfr=$this->ferial['ant2']['francais'];
+		}
+		$office->setAnt2($antlat, $antfr);
+		
+		// Initilisation de PS2
+		if($this->sanctoral['ps2']['latin']) $psaume=$this->sanctoral['ps2']['latin'];
+		elseif($this->temporal['ps2']['latin']) $psaume=$this->temporal['ps2']['latin'];
+		else $psaume=$this->ferial['ps2']['latin'];
+		$office->setPs2($psaume);
+		
+		// initialisation de ANT3
+		if($this->sanctoral['ant3']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant3']['latin']);
+			$antfr=nl2br($this->sanctoral['ant3']['francais']);
+		}
+		elseif($this->temporal['ant3']['latin']) {
+			$antlat=nl2br($this->temporal['ant3']['latin']);
+			$antfr=nl2br($this->temporal['ant3']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant3']['latin'];
+			$antfr=$this->ferial['ant3']['francais'];
+		}
+		$office->setAnt3($antlat, $antfr);
+		
+		// Initialisation de PS3
+		if($this->sanctoral['ps3']['latin']) $psaume=$this->sanctoral['ps3']['latin'];
+		elseif($this->temporal['ps3']['latin']) $psaume=$this->temporal['ps3']['latin'];
+		else $psaume=$this->ferial['ps3']['latin'];
+		$office->setPs3($psaume);
+		
+		// Initialisation de LB
+		if($this->sanctoral['LB_matin']['latin']) $LB_matin=$this->sanctoral['LB_matin']['latin'];
+		elseif ($this->temporal['LB_matin']['latin']) $LB_matin=$this->temporal['LB_matin']['latin'];
+		else $LB_matin=$this->ferial['LB_matin']['latin'];
+		$office->setLectio($LB_matin);
+		
+		// Initialisation de RB
+		if($this->sanctoral['RB_matin']['latin']) {
+			$rblat=nl2br($this->sanctoral['RB_matin']['latin']);
+			$rbfr=nl2br($this->sanctoral['RB_matin']['francais']);
+		}
+		elseif($this->temporal['RB_matin']['latin']) {
+			$rblat=nl2br($this->temporal['RB_matin']['latin']);
+			$rbfr=nl2br($this->temporal['RB_matin']['francais']);
+		}
+		else {
+			$rblat=nl2br($this->ferial['RB_matin']['latin']);
+			$rbfr=nl2br($this->ferial['RB_matin']['francais']);
+		}
+		$office->setRepons($rblat, $rbfr);
+		
+		// Initialisation de AntEv
+		$benedictus="benedictus_".$lettre;
+		if($this->sanctoral[$benedictus]['latin']) {
+			$benelat=$this->sanctoral[$benedictus]['latin'];
+			$benefr=$this->sanctoral[$benedictus]['francais'];
+		}
+		elseif($this->sanctoral['benedictus']['latin']) {
+			$benelat=$this->sanctoral['benedictus']['latin'];
+			$benefr=$this->sanctoral['benedictus']['francais'];
+		}
+		elseif ($this->temporal[$benedictus]['latin']) {
+			$benelat=$this->temporal[$benedictus]['latin'];
+			$benefr=$this->temporal[$benedictus]['francais'];
+		}
+		elseif ($this->temporal['benedictus']['latin']) {
+			$benelat=$this->temporal['benedictus']['latin'];
+			$benefr=$this->temporal['benedictus']['francais'];
+		}
+		else {
+			$benelat=$this->ferial['benedictus']['latin'];
+			$benefr=$this->ferial['benedictus']['francais'];
+		}
+		$office->setAntEv($benelat, $benefr);
+		
+		// Initialisaiton de PRECES
+		if($this->sanctoral['preces_matin']['latin']) $preces=$this->sanctoral['preces_matin']['latin'];
+		elseif($this->temporal['preces_matin']['latin']) $preces=$this->temporal['preces_matin']['latin'];
+		else $preces=$this->ferial['preces_matin']['latin'];
+		$office->setPreces($preces);
+		
+		//Initialisaiton de ORATIO
+		if($this->sanctoral['oratio']['latin']) {
+			$oratiolat=$this->sanctoral['oratio']['latin'];
+			$oratiofr=$this->sanctoral['oratio']['francais'];
+		}
+		elseif($this->temporal['oratio']['latin']) {
+			$oratiolat=$this->temporal['oratio']['latin'];
+			$oratiofr=$this->temporal['oratio']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio_laudes']['latin']) {
+			$oratiolat=$this->ferial['oratio_laudes']['latin'];
+			$oratiofr=$this->ferial['oratio_laudes']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio']['latin']) {
+			$oratiolat=$this->ferial['oratio']['latin'];
+			$oratiofr=$this->ferial['oratio']['francais'];
+		}
+		if ((substr($oratiolat,-6))=="minum.") {
+			$oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+			$oratiofr.=" Par notre Seigneur J&eacute;sus-Christ, ton Fils, qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+		}
+		if ((substr($oratiolat,-11))==" Qui tecum.") {
+			$oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+			$oratiofr.=" Lui qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+		}
+		if ((substr($oratiolat,-11))==" Qui vivis.") {
+			$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
+			$oratiofr.=" Toi qui vis et r&egrave;gnes avec Dieu le P&egrave;re dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+		}
+		$office->setOratio($oratiolat, $oratiofr);
+		
+		// Fin initialisaiton des Laudes
 	} 
 	
-	function initialisationVepres($office,$jour,$calendarium) {
+	function initialisationVepres($office,$jour) {
 	
 	}
 	
-	function initialisationTierce($office,$jour,$calendarium) {
+	function initialisationTierce($office,$jour) {
 	
 	}
 	
-	function initialisationSexte($office,$jour,$calendarium) {
+	function initialisationSexte($office,$jour) {
 		
 	}
 	
-	function initialisationNone($office,$jour,$calendarium) {
+	function initialisationNone($office,$jour) {
 		
 	}
 	
-	function initialisationComplies($office,$jour,$calendarium) {
+	function initialisationComplies($office,$jour) {
 		
 	}
 }

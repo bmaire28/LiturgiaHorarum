@@ -10,24 +10,20 @@ spl_autoload_register('chargerClasse');
 require './romain/Office.php';
 require './romain/GestionOffice.php';
 
-//$divinumOfficium = new GestionOffice();
+// Récupération de la date demandée ou utilisation de la date courante 
+if ($_GET['date']) { $date = $_GET['date']; }
+else {
+	$tfc=time();
+	$date=date("Ymd",$tfc);
+}
 
-$laudes = new Office();
-$laudes->setTypeOffice('laudes');
-$laudes->setInvitatoire(false);
-$laudes->setHymne('hymne');
-$laudes->setAnt1('Antiphona 1', 'Antienne 1');
-$laudes->setPs1('ps1');
-$laudes->setAnt2('Antiphona 2', 'Antienne 2');
-$laudes->setPs2('ps2');
-$laudes->setAnt3('Antiphona 3', 'Antienne 3');
-$laudes->setPs3('ps3');
-$laudes->setLectio('LB_lectio');
-$laudes->setRepons('Responsio Brevis', 'Répons Bref');
-$laudes->setAntEv('Antiphona Ev', 'Antienne Ev');
-$laudes->setPreces('precesI');
-$laudes->setOratio('Oratio', 'Oraison');
+// Création de l'objet de gestion des offices et initialisation des tableaux
+$divinumOfficium = new GestionOffice();
+$divinumOfficium->setCalendarium($date);
+$divinumOfficium->initialisationSources($date);
 
+$officeCourant = new Office();
+$officeCourant->setTypeOffice($_GET['office']);
 
 ?>
 <!DOCTYPE html>
@@ -59,80 +55,39 @@ $laudes->setOratio('Oratio', 'Oraison');
         });
 
         <?php
-        	switch ($_GET['office']) {
+        	switch ($officeCourant->typeOffice) {
         		case "laudes-invit" :
+        			$officeCourant->setInvitatoire(true);
         			echo "$('.invitatoire').show();\n";
                     echo "$('.verset-intro').hide();\n";
-                    echo "$('.latin .ordo').addClass('red').show().text('Ad Laudes Matutinas.');\n";
-        			echo "$('.francais .ordo').addClass('red').show().text('Aux Laudes.');\n";
+                    echo "$('.ordo .latin ').addClass('red').show().text('Ad Invitatorium.');\n";
+        			echo "$('.ordo .francais').addClass('red').show().text('Invitatoire.');\n";
         			break;
         		case "laudes":
         			echo "$('.invitatoire').hide();\n";
-        			$laudes->affiche();
+        			//echo "$('.ordo .latin ').addClass('red').show().text('Ad Laudes Matutinas.');\n";
+        			//echo "$('.ordo .francais').addClass('red').show().text('Aux Laudes.');\n";
+        			$divinumOfficium->initialisationLaudes($officeCourant, $date);
+        			$officeCourant->affiche();
         			break;
         		case "vepres":
         			echo "$('.invitatoire').hide();\n";
-                    print "
-					$('.latin .verset-intro').show();\n
-					$('<p>').appendTo('.latin .verset-intro').text('Deus in adiutorium meum intende');\n
-					var premierP = $('.latin .verset-intro p:first');
-					$('<span>').addClass('red').prependTo(premierP).text('R. ');\n
-                	$('<p>').appendTo('.latin .verset-intro').text('Domine, ad adiuvandum me festina');\n
-					var secondP = premierP.next();
-					$('<span>').addClass('red').prependTo(secondP).text('V. ');\n
-            		$('<p>').appendTo('.latin .verset-intro').text('Gloria Patri et Filio et Spiritui Sancto,');\n
-					$('<p>').appendTo('.latin .verset-intro').text('Sicut erat in pricipio et nunc et semper,');\n
-					$('<p>').appendTo('.latin .verset-intro').text('Et in s&aelig;cula s&aelig;culorum. Amen.');\n
-					
-					$('.francais .verset-intro').show();\n
-                    $('<p>').appendTo('.francais .verset-intro').text('O Dieu, hâte-toi de me délivrer !');\n
-					var premierP = $('.francais .verset-intro p:first');
-					$('<span>').addClass('red').prependTo(premierP).text('R. ');\n
-                	$('<p>').appendTo('.francais .verset-intro').text('Seigneur, hâte-toi de me secourir !');\n
-					var secondP = premierP.next();
-					$('<span>').addClass('red').prependTo(secondP).text('V. ');\n
-            		$('<p>').appendTo('.francais .verset-intro').text('Gloire au Père et au Fils et au Saint-Esprit,');\n
-					$('<p>').appendTo('.francais .verset-intro').text('Comme il était au commencement, maintenant et toujours,');\n
-					$('<p>').appendTo('.francais .verset-intro').text('Et dans les siècles des siècles. Amen.');\n
-					";
-                    echo "$('.latin .ordo').addClass('red').show().text('Ad Vesperas.');\n";
-        			echo "$('.francais .ordo').addClass('red').show().text('Aux Vêpres.');\n";
+        			echo "$('.ordo .latin ').addClass('red').show().text('Ad Vesperas.');\n";
+        			echo "$('.ordo .francais').addClass('red').show().text('Aux V&ecirc;pres.');\n";
         			break;
         		case "complies":
-        			print "
-					$('.latin .examen-conscience').show();\n
-					$('<h2>').appendTo('.latin .examen-conscience').text('Conscientiæ discussio');\n
-					$('<p>').appendTo('.latin .examen-conscience').text('Confíteor Deo omnipoténti et vobis, fratres, quia peccávi nimis cogitatióne, verbo, ópere et omissióne:');\n
-					$('<h5>').appendTo('.latin .examen-conscience').text('et, percutientes sibi pectus, dicunt :');\n
-					$('<p>').appendTo('.latin .examen-conscience').text('mea culpa, mea culpa, mea máxima culpa.');\n
-					$('<h5>').appendTo('.latin .examen-conscience').text('Deinde prosequuntur:');\n
-					$('<p>').appendTo('.latin .examen-conscience').text('Ideo precor beátam Maríam semper Vírginem, omnes Angelos et Sanctos, et vos, fratres, oráre pro me ad Dóminum Deum nostrum.');\n
-					$('<p>').appendTo('.latin .examen-conscience').text('Misereátur nostri omnípotens Deus et, dimissís peccátis nostris, perdúcat nos ad vitam aetérnam.');\n
-					var dernierP = $('.latin .examen-conscience p').last();\n
-					$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
-					$('<p>').appendTo('.latin .examen-conscience').text('Amen.');\n
-					dernierP = $('.latin .examen-conscience p').last();
-					$('<span>').addClass('red').prependTo(dernierP).text('R. ');\n
-					
-					$('.francais .examen-conscience').show();\n
-					$('<h2>').appendTo('.francais .examen-conscience').text('Examen de conscience');\n
-					$('<p>').appendTo('.francais .examen-conscience').text(\"Je confesse à Dieu tout puissant et à vous, mes frères, car j'ai péché par la pensée, la parole, les actes et par omission :\");\n
-					$('<h5>').appendTo('.francais .examen-conscience').text('et, en se frappant la poitrine, on dit :');\n
-					$('<p>').appendTo('.francais .examen-conscience').text('je suis coupable, je suis coupable, je suis grandement coupable.');\n
-					$('<h5>').appendTo('.francais .examen-conscience').text('ensuite, on continue :');\n
-					$('<p>').appendTo('.francais .examen-conscience').text(\"C'est pourquoi je supplie la bienheureuse Marie toujours Vierge, tous les Anges et les Saints, et vous, frères, de prier pour moi le Seigneur notre Dieu.\");\n
-					$('<p>').appendTo('.francais .examen-conscience').text('Aie pitié de nous Dieu tout puissant et, nos péchés ayant été renvoyés, conduis-nous à la vie éternelle.');\n
-					var dernierP = $('.francais .examen-conscience p').last();
-					$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
-					$('<p>').appendTo('.francais .examen-conscience').text('Amen.');\n
-					dernierP = $('.francais .examen-conscience p').last();
-					$('<span>').addClass('red').prependTo(dernierP).text('R. ');\n
-						";
+        			echo "$('.invitatoire').hide();\n";
+        			echo "$('.ordo .latin ').addClass('red').show().text('Ad Completorim.');\n";
+        			echo "$('.ordo .francais').addClass('red').show().text('Aux Complies.');\n";
+        			break;
                 default:
                     echo "$('.verset-intro').hide();\n";
                     echo "$('.invitatoire').hide();\n";
-        			break;
-        	} 
+        			echo "$('.ordo .latin ').addClass('red').show().text('Ad Media Hora.');\n";
+        			echo "$('.ordo .francais').addClass('red').show().text('Au Milieu du Jour.');\n";
+                    break;
+        	}
+        	echo "$('.ordo').show();\n";
         ?>
 	};
 	$(document).ready(main);

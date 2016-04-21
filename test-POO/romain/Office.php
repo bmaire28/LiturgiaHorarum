@@ -2,6 +2,10 @@
 
 class Office {
 	var $typeOffice;
+	var $ordo;
+	var $intitule;
+	var $nomOffice;
+	var $rangOffice;
 	var $invitatoire;
 	var $hymne;
 	var $ant1;
@@ -21,6 +25,10 @@ class Office {
 	 * getters
 	 */
 	function typeOffice() { return $this->typeOffice; }
+	function ordo($langue) { return $this->ordo[$langue]; }
+	function intitule($langue) { return $this->intitule[$langue]; }
+	function nomOffice($langue) { return $this->nomOffice[$langue]; }
+	function rangOffice($langue) { return $this->rangOffice[$langue]; }
 	function invitatoire() { return $this->invitatoire; }
 	function hymne() { return $this->hymne; }
 	function ant1($langue) { return $this->ant1[$langue]; }
@@ -40,14 +48,30 @@ class Office {
 	 * setters
 	 */
 	function setTypeOffice($typeOffice) { $this->typeOffice = $typeOffice; }
+	function setOrdo($ordoLat, $ordoFr) {
+		$this->ordo['latin'] = $ordoLat;
+		$this->ordo['francais'] = $ordoFr;
+	}
+	function setIntitule($intituleLat, $intituleFr) {
+		$this->intitule['latin'] = $intituleLat;
+		$this->intitule['francais'] = $intituleFr;
+	}
+	function setNomOffice($nomOrdoLat, $nomOrdoFr) {
+		$this->nomOffice['latin'] = $nomOrdoLat;
+		$this->nomOffice['francais'] = $nomOrdoFr;
+	}
+	function setRangOffice($rangLat, $rangFr) {
+		$this->rangOffice['latin'] = $rangLat;
+		$this->rangOffice['francais'] = $rangFr;
+	}
 	function setInvitatoire($invitatoire){
-		if ($invitatoire) $this->invitatoire = false;
-		else $this->invitatoire = true;
+		if ($invitatoire) $this->invitatoire = $invitatoire;
+		else $this->invitatoire = false;
 	}
 	function setHymne($hymne) { $this->hymne = $hymne; }
 	function setAnt1($antLat, $antFr) { 
-		$this->ant1[latin] = $antLat;
-		$this->ant1[francais] = $antFr;
+		$this->ant1['latin'] = $antLat;
+		$this->ant1['francais'] = $antFr;
 	}
 	function setPs1($psaume) { $this->ps1 = $psaume; }
 	function setAnt2($antLat, $antFr) { 
@@ -233,10 +257,72 @@ class Office {
 	 * Fonction d'affichage d'un office
 	 */
 	function affiche() {
+		$nomCourt = false;
+		// Entête de l'office
+		// Nom du jour et ou intitulé pour le temporal et le sanctoral 
+		if ($this->ordo['latin']) {
+			$ordoLatin = $this->ordo('latin');
+			$ordoFrancais = $this->ordo('francais');
+			$nomCourt = true;
+			print "
+					$('.ordo .latin').show()\n
+					$('<p>').appendTo('.ordo .latin').text('$ordoLatin');\n
+
+					$('.ordo .francais').show()\n
+					$('<p>').appendTo('.ordo .francais').text('$ordoFrancais');\n		
+					";
+		}
+		if ($this->intitule['latin']) {
+			$intituleLatin = $this->intitule('latin');
+			$intituleFrancais = $this->intitule('francais');
+			$nomCourt = true;
+			print "
+					$('.ordo .latin').show()\n
+					$('<p>').appendTo('.ordo .latin').text('$intituleLatin');\n
+
+					$('.ordo .francais').show()\n
+					$('<p>').appendTo('.ordo .francais').text('$intituleLatin');\n
+					";
+		}
+		
+		// Rang liturgique du jour au sanctoral		
+		if ($this->rangOffice['latin']) {
+			$rangLatin = $this->rangOffice('latin');
+			$rangFrancais = $this->rangOffice('francais');
+			$nomCourt = true;
+			print "
+					$('.ordo .latin').show()\n
+					$('<h3>').appendTo('.ordo .latin').text('$rangLatin');\n
+
+					$('.ordo .francais').show()\n
+					$('<h3>').appendTo('.ordo .francais').text('$rangFrancais');\n
+					";
+		}
+		
+		//Nom de l'office
+		$nomLatin = $this->nomOffice('latin');
+		$nomFrancais = $this->nomOffice('francais');
+		if ($nomCourt) {	
+			print "
+					$('<h2>').appendTo('.ordo .latin').text('$rangLatin');\n
+			
+					$('<h2>').appendTo('.ordo .francais').text('$rangFrancais');\n
+					";
+		}
+		else {
+			print "
+					$('.ordo .latin').show()\n
+					$('<h2>').appendTo('.ordo .latin').text('$rangLatin');\n
+			
+					$('.ordo .francais').show()\n
+					$('<h2>').appendTo('.ordo .francais').text('$rangFrancais');\n
+					";
+		}
+			
 		
 		// Verset d'introduction sauf si invitatoire aux Laudes et vigiles
 		$invitatoire = $this->invitatoire();
-		if ($invitatoire) {
+		if (!$invitatoire) {
 			print "
 					$('.verset-intro .latin').show()\n
 					$('<p>').appendTo('.verset-intro .latin').text('Deus, in adiutórium meum inténde.');\n
@@ -260,9 +346,15 @@ class Office {
 					$('<p>').appendTo('.verset-intro .francais').text('Et dans les siècles des siècles. Amen.');\n
 					";
 		}
+		else {
+			echo "$('.invitatoire .latin ').addClass('red').show().text('Ad Invitatorium.');\n";
+			echo "$('.invitatoire .francais').addClass('red').show().text('Invitatoire.');\n";
+			echo "$('.verset-intro').hide()\n";
+			echo "$('.invitatoire').show()\n";
+		}
 		
 		// Examen de conscience aux Complies
-		if ($this->typeOffice() == 'Complies') {
+		if ($this->typeOffice() == 'complies') {
 			print "
 					$('.examen-conscience .latin').show();
 					$('<h2>').appendTo('.examen-conscience .latin').text('Conscientiæ discussio');\n
