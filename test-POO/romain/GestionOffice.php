@@ -56,6 +56,7 @@ class GestionOffice {
 		$mense=substr($date,4,2); // mois de la date demandée
 		$die=substr($date,6,2); // jour de la date demandée
 		$day=mktime(12,0,0,$mense,$die,$anno); // date de mandée au format informatique
+		
 	
 		//// Forme de la variable date : AAAAMMJJ
 		/*
@@ -108,9 +109,8 @@ class GestionOffice {
 		$semaine=60*60*24*7;
 	
 		/*
-		 * Cycle de Noél
+		 * Cycle de Noël
 		 */
-	
 	
 		// Date de noél au format informatique
 		$noel=mktime(12,0,0,12,25,$m);
@@ -1534,18 +1534,6 @@ class GestionOffice {
 		elseif ($oratiolat=$this->ferial['oratio']['latin']) {
 			$oratiolat=$this->ferial['oratio']['latin'];
 			$oratiofr=$this->ferial['oratio']['francais'];
-		}
-		if ((substr($oratiolat,-6))=="minum.") {
-			$oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
-			$oratiofr.=" Par notre Seigneur J&eacute;sus-Christ, ton Fils, qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
-		}
-		if ((substr($oratiolat,-11))==" Qui tecum.") {
-			$oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
-			$oratiofr.=" Lui qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
-		}
-		if ((substr($oratiolat,-11))==" Qui vivis.") {
-			$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
-			$oratiofr.=" Toi qui vis et r&egrave;gnes avec Dieu le P&egrave;re dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
 		}
 		$office->setOratio($oratiolat, $oratiofr);
 		

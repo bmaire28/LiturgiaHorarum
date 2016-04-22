@@ -1,0 +1,43 @@
+HYMNUS_laudes;hy_Aurora lucis rutilat;;
+ant1;Non móriar, sed vivam et narrábo ópera Dómini, allelúia.;Je ne mourrai pas, je vivrai,  et je raconterai les oeuvres du Seigneur, alléluia.;Ps CXVIII 17
+ant2;Benedíctum nomen glóriæ tuæ sanctum, allelúia.;Béni est ton nom saint et glorieux, alléluia.;Dan III 52
+ant3;"Date magnificéntiam Deo nostro; Dei perfécta sunt ópera, et omnes viæ eius iudícia, allelúia.";Rendez gloire à notre Dieu! L'œuvre de Dieu est parfaite, car toutes ses voies sont justes, alléluia.;Deut XXXII 3-4
+LB_matin;LB_ap10.40-43;;
+RB_matin;"R/. Christe, Fili Dei vivi, miserére nobis,* Allelúia, allelúia. Christe. 
+V/. Qui surrexísti a mórtuis. *Allelúia, allelúia. Glória Patri. Christe.";"R/. O Christ, Fils du Dieu vivant, aie pitié de nous,* Allelúia, allelúia. O Christ. 
+V/. Toi qui est ressucité des morts. *Allelúia, allelúia. Gloire au Père. O Christ.";
+benedictus;<i>Antiphona propria.</i>;<i>Antienne propre</i>;
+oratio_laudes;<i>Oratio propria</i>;<i>Oraison propre</i>;
+preces_matin;preces_II;;
+HYMNUS_tertiam;hy_Iam surgit hora tértia;;
+HYMNUS_sextam;hy_Veníte, servi, súpplices;;
+HYMNUS_nonam;hy_Hæc hora, quæ resplénduit;;
+ant4;Allelúia, allelúia, allelúia.;Alléluia, alléluia, alléluia.;
+ant5;Allelúia, allelúia, allelúia.;Alléluia, alléluia, alléluia.;
+ant6;Allelúia, allelúia, allelúia.;Alléluia, alléluia, alléluia.;
+LB_3;LB_1 Cor 15, 3b-5;;
+RB_3;"V/. Surréxit Dóminus vere, allelúia. 
+R/. Et appáruit Simóni, allelúia.";"V/. Le Seigneur est vraiment ressuscité, alléluia.
+R/. Et il est apparu à Simon, alléluia.";Luc XXIV 34
+oratio_3;;;
+LB_6;LB_Eph 2, 4-6;;
+RB_6;"V/. Gavísi sunt discípuli, allelúia. 
+R/. Viso Dómino, allelúia.";"V/. Les disciples furent remplis de joie, allelúia. 
+R/. En voyant le  Seigneur, allelúia.";Jean XX 20
+oratio_6;;;
+LB_9;LB_Rom 6, 4;;
+RB_9;"V/. Mane nobíscum, Dómine, allelúia. 
+R/. Quóniam advesperáscit, allelúia.";"V/. Reste avec nous, Seigneur, alléluia.
+R/. Car le soir tombe, alléluia.";Luc XXIV 29
+oratio_9;;;
+HYMNUS_vesperas;hy_Ad cenam Agni próvidi;;
+ant7;Quæ sursum sunt quærite, ubi Christus est in déxtera Dei sedens, allelúia.;Recherchez les choses d'en haut, où le Christ demeure assis à la droite de Dieu, alléluia.;Col III 1
+ant8;Exórtum est in ténebris lumen rectis corde, allelúia.;La lumière se lève dans les ténèbres pour les coeurs droits, alléluia.;Ps CXII 4
+ant9;Allelúia, salus et glória et virtus Deo nostro, allelúia.;Alléluia, le salut, la gloire et la puissance appartiennent à notre Dieu, alléluia.;Ap XIX 1
+LB_soir;LB_Hebr 10, 12-14;;
+RB_soir;"R/. Surréxit Dóminus vere, *Allelúia, allelúia. Surréxit. 
+V/. Et appáruit Simóni. * Allelúia, allelúia. Glória Patri. Surréxit.";"R/. Le Seigneur est vraiment ressucité, *Alléluia, alléluia. Le Seigneur. 
+V/. Et il est apparu à Simon. * Alléluia, alléluia. Gloire au Père. Le Seigneur.";
+magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>;
+oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>;
+preces_soir;preces_III

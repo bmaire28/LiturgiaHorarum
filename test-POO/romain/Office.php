@@ -86,7 +86,7 @@ class Office {
 	function setPs3($psaume) { $this->ps3 = $psaume; }
 	function setLectio($lectio) { $this->lectio = $lectio; }
 	function setRepons($reponsLat, $reponsFr) {
-		$this->repons['latin'] = $reponsFr;
+		$this->repons['latin'] = $reponsLat;
 		$this->repons['francais'] = $reponsFr;
 	}
 	function setAntEv($antLat, $antFr) { 
@@ -99,6 +99,7 @@ class Office {
 		$this->oratio['francais'] = $oratioFr;
 	}
 	function setCantiqueMarial($cantiqueMarial) { $this->cantiqueMarial=$cantiqueMarial; }
+	
 	/*
 	 * Affichage de l'hymne
 	 */
@@ -114,18 +115,20 @@ class Office {
 		else {
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
-				$latin=$data[0];$francais=$data[1];
+				$latin=utf8_encode($data[0]);$francais=utf8_encode(str_replace("\x92", "'",$data[1]));
+
+
 				if($row==0) {
-					$hymne.="$('<h2>').appendTo('.hymne .latin').text('$latin');\n";
-					$hymne.="$('<h2>').appendTo('.hymne .francais').text('$francais');\n";
+					$hymne.="$('<h2>').appendTo('.hymne .latin').text(\"$latin\");\n";
+					$hymne.="$('<h2>').appendTo('.hymne .francais').text(\"$francais\");\n";
 				}
 				elseif ($latin=="") {
 					$hymne.="$('<p>').appendTo('.hymne .latin');\n";
 					$hymne.="$('<p>').appendTo('.hymne .francais');\n";
 				}
 				else {
-					$hymne.="$('<p>').appendTo('.hymne .latin').text('$latin');\n";
-					$hymne.="$('<p>').appendTo('.hymne .francais').text('$francais');\n";
+					$hymne.="$('<p>').appendTo('.hymne .latin').text(\"$latin\");\n";
+					$hymne.="$('<p>').appendTo('.hymne .francais').text(\"$francais\");\n";
 				}
 				$row++;
 			}
@@ -150,25 +153,26 @@ class Office {
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$latin="";
 				$francais="";
-				if (($row==0)&&($data[0]!="")) {
-					$psaume.="$('<h2>').appendTo('$emplacement .latin').text('$data[0]');\n";
-					$psaume.="$('<h2>').appendTo('$emplacement .francais').text('$data[1]');\n";
+				$latin=utf8_encode($data[0]);$francais=utf8_encode(str_replace("\x92", "'",$data[1]));
+				if (($row==0)&&($latin!="")) {
+					$psaume.="$('<h2>').appendTo('$emplacement .latin').text(\"$latin\");\n";
+					$psaume.="$('<h2>').appendTo('$emplacement .francais').text('$francais');\n";
 				}
-				elseif (($row==1)&&($data[0]!="")) {
-					$psaume.="$('<h3>').appendTo('$emplacement .latin').text('$data[0]');\n";
-					$psaume.="$('<h3>').appendTo('$emplacement .francais').text('$data[1]');\n";
+				elseif (($row==1)&&($latin!="")) {
+					$psaume.="$('<h3>').appendTo('$emplacement .latin').text(\"$latin\");\n";
+					$psaume.="$('<h3>').appendTo('$emplacement .francais').text(\"$francais\");\n";
 				}
-				elseif (($row==2)&&($data[0]!="")) {
-					$psaume.="$('<h4>').appendTo('$emplacement .latin').text('$data[0]');\n";
-					$psaume.="$('<h4>').appendTo('$emplacement .francais').text('$data[1]');\n";
+				elseif (($row==2)&&($latin!="")) {
+					$psaume.="$('<h4>').appendTo('$emplacement .latin').text(\"$latin\");\n";
+					$psaume.="$('<h4>').appendTo('$emplacement .francais').text(\"$francais\");\n";
 				}
-				elseif (($row==3)&&($data[0]!="")) {
-					$psaume.="$('<h2>').appendTo('$emplacement .latin').text('$data[0]');\n";
-					$psaume.="$('<h2>').appendTo('$emplacement .francais').text('$data[1]');\n";
+				elseif (($row==3)&&($latin!="")) {
+					$psaume.="$('<h2>').appendTo('$emplacement .latin').text(\"$latin\");\n";
+					$psaume.="$('<h2>').appendTo('$emplacement .francais').text(\"$francais\");\n";
 				}
 				else {
-					$psaume.="$('<p>').appendTo('$emplacement .latin').text('$data[0]');\n";
-					$psaume.="$('<p>').appendTo('$emplacement .francais').text('$data[1]');\n";
+					$psaume.="$('<p>').appendTo('$emplacement .latin').text(\"$latin\");\n";
+					$psaume.="$('<p>').appendTo('$emplacement .francais').text(\"$francais\");\n";
 				}
 				$row++;
 			}
@@ -207,14 +211,16 @@ class Office {
 		else {
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
-				$latin=$data[0];$francais=$data[1];
+				$latin=utf8_encode($data[0]);$francais=utf8_encode($data[1]);
+
+
 				if($row==0) {
-					$lectio.="$('<h2>').appendTo('.lectio .latin').text('$latin');\n";
-					$lectio.="$('<h2>').appendTo('.lectio .francais').text('$francais');\n";
+					$lectio.="$('<h2>').appendTo('.lectio .latin').text(\"$latin\");\n";
+					$lectio.="$('<h2>').appendTo('.lectio .francais').text(\"$francais\");\n";
 				}
 				else {
-					$lectio.="$('<p>').appendTo('.lectio .latin').text('$latin');\n";
-					$lectio.="$('<p>').appendTo('.lectio .latin').text('$francais');\n";
+					$lectio.="$('<p>').appendTo('.lectio .latin').text(\"$latin\");\n";
+					$lectio.="$('<p>').appendTo('.lectio .francais').text(\"$francais\");\n";
 				}
 				$row++;
 			}
@@ -230,21 +236,21 @@ class Office {
 		$row = 0;
 		$preces="$('.preces').show();\n";
 		// Creation du chemin relatif vers le fichier de preces de facon brut
-		$fichier="preces/".$ref.".csv";
+		$fichier="./preces/".$ref.".csv";
 		// Verification du chemin brut, sinon creation du chemin relatif utf8
 		if (!file_exists($fichier)) $fichier="preces/".utf8_encode($ref).".csv";
-		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\".$fichier introuvable !\");\n");
+		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\"$fichier introuvable !\");\n");
 		else {
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
-				$latin=$data[0];$francais=$data[1];
+				$latin=utf8_encode($data[0]);$francais=utf8_encode($data[1]);
 				if($row==0) {
-					$preces.="$('<h2>').appendTo('.preces .latin').text('$latin');\n";
-					$preces.="$('<h2>').appendTo('.preces .francais').text('$francais');\n";
+					$preces.="$('<h2>').appendTo('.preces .latin').text(\"$latin\");\n";
+					$preces.="$('<h2>').appendTo('.preces .francais').text(\"$francais\");\n";
 				}
 				else {
-					$preces.="$('<p>').appendTo('.preces .latin').text('$latin');\n";
-					$preces.="$('<p>').appendTo('.preces .francais').text('$francais');\n";
+					$preces.="$('<p>').appendTo('.preces .latin').text(\"$latin\");\n";
+					$preces.="$('<p>').appendTo('.preces .francais').text(\"$francais\");\n";
 				}
 				$row++;
 			}
@@ -304,18 +310,18 @@ class Office {
 		$nomFrancais = $this->nomOffice('francais');
 		if ($nomCourt) {	
 			print "
-					$('<h2>').appendTo('.ordo .latin').text('$rangLatin');\n
+					$('<h2>').appendTo('.ordo .latin').text('$nomLatin');\n
 			
-					$('<h2>').appendTo('.ordo .francais').text('$rangFrancais');\n
+					$('<h2>').appendTo('.ordo .francais').text('$nomFrancais');\n
 					";
 		}
 		else {
 			print "
 					$('.ordo .latin').show()\n
-					$('<h2>').appendTo('.ordo .latin').text('$rangLatin');\n
+					$('<h2>').appendTo('.ordo .latin').text('$nomLatin');\n
 			
 					$('.ordo .francais').show()\n
-					$('<h2>').appendTo('.ordo .francais').text('$rangFrancais');\n
+					$('<h2>').appendTo('.ordo .francais').text('$nomFrancais');\n
 					";
 		}
 			
@@ -404,19 +410,19 @@ class Office {
 		 * il n'y a qu'un seul jeu d'antiennes/psaumes defini dans l'objet
 		 * autrement dit l'objet est pour un office unique 
 		 */
-		$ant1Lat = $this->ant1('latin');
-		$ant1Fr = $this->ant1('francais');
-		$ant2Lat = $this->ant2('latin');
-		$ant2Fr = $this->ant2('francais');
-		$ant3Lat = $this->ant3('latin');
-		$ant3Fr = $this->ant3('francais');
+		$ant1Lat = utf8_encode($this->ant1('latin'));
+		$ant1Fr = str_replace("’", "'", utf8_encode($this->ant1('francais')));
+		$ant2Lat = utf8_encode($this->ant2('latin'));
+		$ant2Fr = str_replace("’", "'", utf8_encode($this->ant2('francais')));
+		$ant3Lat = utf8_encode($this->ant3('latin'));
+		$ant3Fr = str_replace("’", "'", utf8_encode($this->ant3('francais')));
 		switch ($this->typeOffice()) {
 			case "laudes":
 			case "vepres":
 				//Antienne 1 avant le psaume position 11
 				print "$('.ant11').show();\n";
-				print "$('<p>').appendTo('.ant11 .latin').text('$ant1Lat');\n";
-				print "$('<p>').appendTo('.ant11 .francais').text('$ant1Fr');\n";
+				print "$('<p>').appendTo('.ant11 .latin').text(\"$ant1Lat\");\n";
+				print "$('<p>').appendTo('.ant11 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant11 p').text('Ant. 1 : ');\n";
 				//psaume 1
 				print $this->affichePsaume($this->ps1(), ".psaume1");
@@ -424,13 +430,13 @@ class Office {
 				print $this->gloriaPatri('.gloriapatri1');
 				//Antienne 1 apres le psaume position 12
 				print "$('.ant12').show();\n";
-				print "$('<p>').appendTo('.ant12 .latin').text('$ant1Lat');\n";
-				print "$('<p>').appendTo('.ant12 .francais').text('$ant1Fr');\n";
+				print "$('<p>').appendTo('.ant12 .latin').text(\"$ant1Lat\");\n";
+				print "$('<p>').appendTo('.ant12 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant12 p').text('Ant. : ');\n";
 				//Antienne 2 avant le psaume position 21
 				print "$('.ant21').show();\n";
-				print "$('<p>').appendTo('.ant21 .latin').text('$ant2Lat');\n";
-				print "$('<p>').appendTo('.ant21 .francais').text('$ant2Fr');\n";
+				print "$('<p>').appendTo('.ant21 .latin').text(\"$ant2Lat\");\n";
+				print "$('<p>').appendTo('.ant21 .francais').text(\"$ant2Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant21 p').text('Ant. 2 : ');\n";
 				//psaume 2
 				print $this->affichePsaume($this->ps2(), ".psaume2");
@@ -438,13 +444,13 @@ class Office {
 				print $this->gloriaPatri('.gloriapatri2');
 				//Antienne 2 apres le psaume position 22
 				print "$('.ant22').show();\n";
-				print "$('<p>').appendTo('.ant22 .latin').text('$ant2Lat');\n";
-				print "$('<p>').appendTo('.ant22 .francais').text('$ant2Fr');\n";
+				print "$('<p>').appendTo('.ant22 .latin').text(\"$ant2Lat\");\n";
+				print "$('<p>').appendTo('.ant22 .francais').text(\"$ant2Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
 				//Antienne 3 avant le psaume position 31
 				print "$('.ant31').show();\n";
-				print "$('<p>').appendTo('.ant31 .latin').text('$ant3Lat');\n";
-				print "$('<p>').appendTo('.ant31 .francais').text('$ant3Fr');\n";
+				print "$('<p>').appendTo('.ant31 .latin').text(\"$ant3Lat\");\n";
+				print "$('<p>').appendTo('.ant31 .francais').text(\"$ant3Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant31 p').text('Ant. 3 : ');\n";
 				//psaume 3
 				print $this->affichePsaume($this->ps3(), ".psaume3");
@@ -452,8 +458,8 @@ class Office {
 				print $this->gloriaPatri('.gloriapatri3');
 				//Antienne 3 apres le psaume position 32
 				print "$('.ant32').show();\n";
-				print "$('<p>').appendTo('.ant32 .latin').text('$ant3Lat');\n";
-				print "$('<p>').appendTo('.ant32 .francais').text('$ant3Fr');\n";
+				print "$('<p>').appendTo('.ant32 .latin').text(\"$ant3Lat\");\n";
+				print "$('<p>').appendTo('.ant32 .francais').text(\"$ant3Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant32 p').text('Ant. : ');\n";
 				break;
 			case "tierce":
@@ -461,8 +467,8 @@ class Office {
 			case "none":
 				//Antienne avant le psaume position 11
 				print "$('.ant11').show();\n";
-				print "$('<p>').appendTo('.ant11 .latin').text('$ant1Lat');\n";
-				print "$('<p>').appendTo('.ant11 .francais').text('$ant1Fr');\n";
+				print "$('<p>').appendTo('.ant11 .latin').text(\"$ant1Lat\");\n";
+				print "$('<p>').appendTo('.ant11 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant11 p').text('Ant. : ');\n";
 				//psaume 1
 				print $this->affichePsaume($this->ps1(), ".psaume1");
@@ -477,15 +483,15 @@ class Office {
 				print $this->gloriaPatri('.gloriapatri3');
 				//antienne apres le psaume position 32
 				print "$('.ant32').show();\n";
-				print "$('<p>').appendTo('.ant32 .latin').text('$ant1Lat');\n";
-				print "$('<p>').appendTo('.ant32 .francais').text('$ant1Fr');\n";
+				print "$('<p>').appendTo('.ant32 .latin').text(\"$ant1Lat\");\n";
+				print "$('<p>').appendTo('.ant32 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant32 p').text('Ant. : ');\n";
 				break;
 			case "complies":
 				//Antienne 1 avant le psaume position 11
 				print "$('.ant11').show();\n";
-				print "$('<p>').appendTo('.ant11 .latin').text('$ant1Lat');\n";
-				print "$('<p>').appendTo('.ant11 .francais').text('$ant1Fr'));\n";
+				print "$('<p>').appendTo('.ant11 .latin').text(\"$ant1Lat\");\n";
+				print "$('<p>').appendTo('.ant11 .francais').text(\"$ant1Fr\"));\n";
 				print "$('<span>').addClass('red').prependTo('.ant11 p').text('Ant. : ');\n";
 				//psaume 1
 				print $this->affichePsaume($this->ps1(), ".psaume1");
@@ -493,14 +499,14 @@ class Office {
 				print $this->gloriaPatri('.gloriapatri1');
 				//antienne 1 apres le psaume position 12
 				print "$('.ant12').show();\n";
-				print "$('<p>').appendTo('.ant12 .latin').text('$ant1Lat');\n";
-				print "$('<p>').appendTo('.ant12 .francais').text('$ant1Fr');\n";
+				print "$('<p>').appendTo('.ant12 .latin').text(\"$ant1Lat\");\n";
+				print "$('<p>').appendTo('.ant12 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant12 p').text('Ant. : ');\n";
 				if ($this->ps2()) {
 					//Si psaume2 Antienne 2 avant le psaume position 21
 					print "$('.ant21').show();\n";
-					print "$('<p>').appendTo('.ant21 .latin').text('$ant2Lat');\n";
-					print "$('<p>').appendTo('.ant21 .francais').text('$ant2Fr');\n";
+					print "$('<p>').appendTo('.ant21 .latin').text(\"$ant2Lat\");\n";
+					print "$('<p>').appendTo('.ant21 .francais').text(\"$ant2Fr\");\n";
 					print "$('<span>').addClass('red').prependTo('.ant21 p').text('Ant. 2 : ');\n";
 					//psaume 2
 					print $this->affichePsaume($this->ps2(), ".psaume2");
@@ -508,8 +514,8 @@ class Office {
 					print $this->gloriaPatri('.gloriapatri2');
 					//Antienne 2 apres le psaume position 22
 					print "$('.ant22').show();\n";
-					print "$('<p>').appendTo('.ant22 .latin').text('$ant2Lat');\n";
-					print "$('<p>').appendTo('.ant22 .francais').text('$ant2Fr');\n";
+					print "$('<p>').appendTo('.ant22 .latin').text(\"$ant2Lat\");\n";
+					print "$('<p>').appendTo('.ant22 .francais').text(\"$ant2Fr\");\n";
 					print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
 				}
 				break;
@@ -523,23 +529,36 @@ class Office {
 		/*
 		 * répons grandes heures et complies / verset petites heures
 		 */
-		$reponsLat = $this->repons('latin');
-		$reponsFr = $this->repons('francais');
+		$reponsLat = utf8_encode($this->repons('latin'));
+		$reponsFr = utf8_encode($this->repons('francais'));
+		
+		$posLat = strpos($reponsLat, "<br />");
+		$reponsLat1 = substr($reponsLat, 0, $posLat);
+		$posLat+=6;
+		$reponsLat2 = trim(substr($reponsLat, $posLat));
+		
+		$posFr = strpos($reponsFr, "<br />");
+		$reponsFr1 = str_replace("’", "'", substr($reponsFr, 0, $posFr));
+		$posFr+=6;
+		$reponsFr2 = str_replace("’", "'", trim(substr($reponsFr, $posFr)));
+		
 		print "$('.repons').show();\n";
-		print "$('<p>').appendTo('.repons .latin').text('$reponsLat');\n";
-		print "$('<p>').appendTo('.repons .francais').text('$reponsFr');\n";
+		print "$('<p>').appendTo('.repons .latin').text(\"$reponsLat1\");\n";
+		print "$('<p>').appendTo('.repons .francais').text(\"$reponsFr1\");\n";
+		print "$('<p>').appendTo('.repons .latin').text(\"$reponsLat2\");\n";
+		print "$('<p>').appendTo('.repons .francais').text(\"$reponsFr2\");\n";
 		
 		/*
 		 * Cantique Evangélique aux grandes heures et complies
 		 */
-		$antEvLat = $this->antEv('latin');
-		$antEvFr = $this->antEv('francais');
+		$antEvLat = utf8_encode($this->antEv('latin'));
+		$antEvFr = str_replace("’", "'", utf8_encode($this->antEv('francais')));
 		switch ($this->typeOffice()) {
 			case "laudes":
 				// Antienne avant et apres cantique
 				print "$('.antEv').show();\n";
-				print "$('<p>').appendTo('.antEv .latin').text('$antEvLat');\n";
-				print "$('<p>').appendTo('.antEv .francais').text('$antEvFr');\n";
+				print "$('<p>').appendTo('.antEv .latin').text(\"$antEvLat\");\n";
+				print "$('<p>').appendTo('.antEv .francais').text(\"$antEvFr\");\n";
 				print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');\n";
 				// Benedictus
 				print $this->affichePsaume('benedictus', '.cantiqueEv');
@@ -549,8 +568,8 @@ class Office {
 			case "vepres":
 				// Antienne avant et apres cantique
 				print "$('.antEv').show();\n";
-				print "$('<p>').appendTo('.antEv .latin').text('$antEvLat');\n";
-				print "$('<p>').appendTo('.antEv .francais').text('$antEvFr');\n";
+				print "$('<p>').appendTo('.antEv .latin').text(\"$antEvLat\");\n";
+				print "$('<p>').appendTo('.antEv .francais').text(\"$antEvFr\");\n";
 				print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');\n";
 				// Benedictus
 				print $this->affichePsaume('magnificat', '.cantiqueEv');
@@ -560,8 +579,8 @@ class Office {
 			case "complies":
 				// Antienne avant et apres cantique
 				print "$('.antEv').show();\n";
-				print "$('<p>').appendTo('.antEv .latin').text''$antEvLat');\n";
-				print "$('<p>').appendTo('.antEv .francais').text('$antEvFr');\n";
+				print "$('<p>').appendTo('.antEv .latin').text(\"$antEvLat\");\n";
+				print "$('<p>').appendTo('.antEv .francais').text(\"$antEvFr\");\n";
 				print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');\n";
 				// Benedictus
 				print $this->affichePsaume('nuncdimittis', '.cantiqueEv');
@@ -611,23 +630,23 @@ class Office {
 		print "$('.oratio').show();\n";
 		print "$('<h2>').appendTo('.oratio .latin').text('Oratio');\n";
 		print "$('<h2>').appendTo('.oratio .francais').text('Oraison');\n";
-		$oratiolat=$this->oratio('latin');
-		$oratiofr=$this->oratio('francais');
+		if (!$oratiolat) $oratiolat=utf8_encode($this->oratio('latin'));
+		if (!$oratiofr) $oratiofr=utf8_encode(str_replace("\x92", "'", $this->oratio('francais')));
 		
 		switch ($this->typeOffice()) {
 			case "laudes":
 			case "vepres":
 				if ((substr($oratiolat,-6))=="minum.") {
-					$oratiolat=str_replace(substr($oratiolat,-13), " Per D&oacute;minum nostrum Iesum Christum, F&iacute;lium tuum, qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
-					$oratiofr.=" Par notre Seigneur J&eacute;sus-Christ, ton Fils, qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+					$oratiolat=str_replace(substr($oratiolat,-13), " Per Dóminum nostrum Iesum Christum, Fílium tuum, qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.",$oratiolat);
+					$oratiofr.=" Par notre Seigneur Jésus-Christ, ton Fils, qui vit et règne avec toi dans l'unité du Saint-Esprit, Dieu, pour tous les siècles des siècles.";
 				}
 				if ((substr($oratiolat,-11))==" Qui tecum.") {
-					$oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
-					$oratiofr.=" Lui qui vit et r&egrave;gne avec toi dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+					$oratiolat=str_replace(" Qui tecum.", " Qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.",$oratiolat);
+					$oratiofr.=" Lui qui vit et règne avec toi dans l'unité du Saint-Esprit, Dieu, pour tous les siècles des siècles.";
 				}
 				if ((substr($oratiolat,-11))==" Qui vivis.") {
-					$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unit&aacute;te Sp&iacute;ritus Sancti, Deus, per &oacute;mnia s&aelig;cula s&aelig;cul&oacute;rum.",$oratiolat);
-					$oratiofr.=" Toi qui vis et r&egrave;gnes avec Dieu le P&egrave;re dans l'unit&eacute; du Saint-Esprit, Dieu, pour tous les si&egrave;cles des si&egrave;cles.";
+					$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas cum Deo Patre in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.",$oratiolat);
+					$oratiofr.=" Toi qui vis et règnes avec Dieu le Père dans l'unité du Saint-Esprit, Dieu, pour tous les siècles des siècles.";
 				}
 				break;
 			case "tierce":
@@ -638,30 +657,30 @@ class Office {
 				print "$('<p>').appendTo('.oratio .francais').text('Prions.');\n";
 				switch (substr($oratiolat,-6)){
 					case "istum." :
-						$oratiolat=str_replace(" Per Christum.", " Per Christum D&oacute;minum nostrum.",$oratio3lat);
+						$oratiolat=str_replace(" Per Christum.", " Per Christum Dóminum nostrum.",$oratiolat);
 						$oratiofr.=" Par le Christ notre Seigneur.";
 						break;
 					case "minum." :
-						$oratiolat=str_replace(substr($oratio3lat,-13), " Per Christum D&oacute;minum nostrum.",$oratio3lat);
+						$oratiolat=str_replace(substr($oratiolat,-13), " Per Christum Dóminum nostrum.",$oratiolat);
 						$oratiofr.=" Par le Christ notre Seigneur.";
 						break;
 					case "tecum." :
-						$oratiolat=str_replace(" Qui tecum.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
-						$oratiofr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
+						$oratiolat=str_replace(" Qui tecum.", " Qui vivit et regnat in sǽcula sæculórum.",$oratiolat);
+						$oratiofr.=" Lui qui vit et règne pour tous les siècles des siècles.";
 						break;
 					case "vivit.":
-						$oratiolat=str_replace(" Qui vivit.", " Qui vivit et regnat in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
-						$oratiofr.=" Lui qui vit et r&egrave;gne pour tous les si&egrave;cles des si&egrave;cles.";
+						$oratiolat=str_replace(" Qui vivit.", " Qui vivit et regnat in sǽcula sæculórum.",$oratiolat);
+						$oratiofr.=" Lui qui vit et règne pour tous les siècles des siècles.";
 						break;
 					case "vivis." :
-						$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas in s&aelig;cula s&aelig;cul&oacute;rum.",$oratio3lat);
-						$oratiofr.=" Toi qui vis et r&egrave;gnes pour tous les si&egrave;cles des si&egrave;cles.";
+						$oratiolat=str_replace(" Qui vivis.", " Qui vivis et regnas in sǽcula sæculórum.",$oratiolat);
+						$oratiofr.=" Toi qui vis et règnes pour tous les siècles des siècles.";
 						break;
 				}
 				break;
 		}
-		print "$('<p>').appendTo('.oratio .latin').text('$oratiolat');\n";
-		print "$('<p>').appendTo('.oratio .francais').text('$oratiofr');\n";
+		print "$('<p>').appendTo('.oratio .latin').text(\"$oratiolat\");\n";
+		print "$('<p>').appendTo('.oratio .francais').text(\"$oratiofr\");\n";
 		print "$('<p>').appendTo('.oratio .latin').text('Amen.');\n";
 		print "$('<p>').appendTo('.oratio .francais').text('Amen.');\n";
 		$dernierP = "$('.oratio .latin p').last()";

@@ -7,23 +7,31 @@ function chargerClasse ($classe) {
 spl_autoload_register('chargerClasse');
 */
 
-require './romain/Office.php';
-require './romain/GestionOffice.php';
+include './romain/Office.php';
+include './romain/GestionOffice.php';
+include '../calendarium.php';
 
 // Récupération de la date demandée ou utilisation de la date courante 
-if ($_GET['date']) { $date = $_GET['date']; }
+if ($_GET['date']) { $do = $_GET['date']; }
 else {
 	$tfc=time();
-	$date=date("Ymd",$tfc);
+	$do=date("Ymd",$tfc);
 }
+
 
 // Création de l'objet de gestion des offices et initialisation des tableaux
 $divinumOfficium = new GestionOffice();
-$divinumOfficium->setCalendarium($date);
-$divinumOfficium->initialisationSources($date);
+//$calendarium=$divinumOfficium->setCalendarium($do);
+$divinumOfficium->setCalendarium($do);
+$divinumOfficium->initialisationSources($do);
 
 $officeCourant = new Office();
-$officeCourant->setTypeOffice($_GET['office']);
+if ($_GET['office']) {
+	$officeCourant->setTypeOffice($_GET['office']);
+	$heure = $officeCourant->typeOffice();
+}
+else $heure="complies";
+
 
 ?>
 <!DOCTYPE html>
@@ -55,7 +63,7 @@ $officeCourant->setTypeOffice($_GET['office']);
         });
 
         <?php
-        	switch ($officeCourant->typeOffice) {
+        	switch ($heure) {
         		case "laudes-invit" :
         			$officeCourant->setInvitatoire(true);
         			echo "$('.invitatoire').show();\n";
@@ -65,9 +73,7 @@ $officeCourant->setTypeOffice($_GET['office']);
         			break;
         		case "laudes":
         			echo "$('.invitatoire').hide();\n";
-        			//echo "$('.ordo .latin ').addClass('red').show().text('Ad Laudes Matutinas.');\n";
-        			//echo "$('.ordo .francais').addClass('red').show().text('Aux Laudes.');\n";
-        			$divinumOfficium->initialisationLaudes($officeCourant, $date);
+        			$divinumOfficium->initialisationLaudes($officeCourant,$do);
         			$officeCourant->affiche();
         			break;
         		case "vepres":
@@ -101,15 +107,18 @@ $officeCourant->setTypeOffice($_GET['office']);
         <!-- <img src="http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/close.png"> -->
         Fermer
       </div>
+      <?php 
+      print "
 	<ul>
-		<li><a href=?office=laudes-invit><span class="item">Laudes (avec invitatoire)</span></a></li>
-		<li><a href=?office=laudes><span class="item">Laudes (sans invitatoire)</span></a></li>
-		<li><a href=?office=tierce><span class="item">Tierce</span></a></li>
-		<li><a href=?office=sexte><span class="item">Sexte</span></a></li>
-		<li><a href=?office=none><span class="item">None</span></a></li>
-		<li><a href=?office=vepres><span class="item">V&ecirc;pres</span></a></li>
-		<li><a href=?office=complies><span class="item">Complies</span></a></li>
-	</ul>
+		<li><a href=?office=laudes-invit&date=$do><span class=\"item\">Laudes (avec invitatoire)</span></a></li>
+		<li><a href=?office=laudes&date=$do><span class=\"item\">Laudes (sans invitatoire)</span></a></li>
+		<li><a href=?office=tierce&date=$do><span class=\"item\">Tierce</span></a></li>
+		<li><a href=?office=sexte&date=$do><span class=\"item\">Sexte</span></a></li>
+		<li><a href=?office=none&date=$do><span class=\"item\">None</span></a></li>
+		<li><a href=?office=vepres&date=$do><span class=\"item\">V&ecirc;pres</span></a></li>
+		<li><a href=?office=complies&date=$do><span class=\"item\">Complies</span></a></li>
+	</ul>";
+	?>
 </div>
 
     
