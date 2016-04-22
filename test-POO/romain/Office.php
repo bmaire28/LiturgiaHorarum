@@ -123,8 +123,8 @@ class Office {
 					$hymne.="$('<h2>').appendTo('.hymne .francais').text(\"$francais\");\n";
 				}
 				elseif ($latin=="") {
-					$hymne.="$('<p>').appendTo('.hymne .latin');\n";
-					$hymne.="$('<p>').appendTo('.hymne .francais');\n";
+					$hymne.="$('<br>').appendTo('.hymne .latin');\n";
+					$hymne.="$('<br>').appendTo('.hymne .francais');\n";
 				}
 				else {
 					$hymne.="$('<p>').appendTo('.hymne .latin').text(\"$latin\");\n";
@@ -133,6 +133,8 @@ class Office {
 				$row++;
 			}
 			fclose ($fp);
+			$hymne.="$('<br>').appendTo('.hymne .latin');\n";
+			$hymne.="$('<br>').appendTo('.hymne .francais');\n";
 			return $hymne;
 		}
 	}
@@ -225,6 +227,8 @@ class Office {
 				$row++;
 			}
 			fclose ($fp);
+			$lectio.="$('<brp>').appendTo('.lectio .latin');\n";
+			$lectio.="$('<br>').appendTo('.lectio .francais');\n";
 			return $lectio;
 		}
 	}
@@ -350,6 +354,8 @@ class Office {
             		$('<p>').appendTo('.verset-intro .francais').text('Gloire au Père et au Fils et au Saint-Esprit,');\n
 					$('<p>').appendTo('.verset-intro .francais').text('Comme il était au commencement, maintenant et toujours,');\n
 					$('<p>').appendTo('.verset-intro .francais').text('Et dans les siècles des siècles. Amen.');\n
+					
+					$('.verset-intro').show()\n
 					";
 		}
 		else {
@@ -433,6 +439,8 @@ class Office {
 				print "$('<p>').appendTo('.ant12 .latin').text(\"$ant1Lat\");\n";
 				print "$('<p>').appendTo('.ant12 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant12 p').text('Ant. : ');\n";
+				print "$('<br>').appendTo('.ant12 .latin');\n";
+				print "$('<br>').appendTo('.ant12 .francais');\n";
 				//Antienne 2 avant le psaume position 21
 				print "$('.ant21').show();\n";
 				print "$('<p>').appendTo('.ant21 .latin').text(\"$ant2Lat\");\n";
@@ -447,6 +455,8 @@ class Office {
 				print "$('<p>').appendTo('.ant22 .latin').text(\"$ant2Lat\");\n";
 				print "$('<p>').appendTo('.ant22 .francais').text(\"$ant2Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
+				print "$('<br>').appendTo('.ant22 .latin');\n";
+				print "$('<br>').appendTo('.ant22 .francais');\n";
 				//Antienne 3 avant le psaume position 31
 				print "$('.ant31').show();\n";
 				print "$('<p>').appendTo('.ant31 .latin').text(\"$ant3Lat\");\n";
@@ -461,6 +471,8 @@ class Office {
 				print "$('<p>').appendTo('.ant32 .latin').text(\"$ant3Lat\");\n";
 				print "$('<p>').appendTo('.ant32 .francais').text(\"$ant3Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant32 p').text('Ant. : ');\n";
+				print "$('<br>').appendTo('.ant32 .latin');\n";
+				print "$('<br>').appendTo('.ant32 .francais');\n";
 				break;
 			case "tierce":
 			case "sexte":
@@ -479,6 +491,7 @@ class Office {
 				// gloria patri2
 				print $this->gloriaPatri('.gloriapatri2');
 				//psaume 3
+				print $this->affichePsaume($this->ps3(), ".psaume3");
 				// gloria patri3
 				print $this->gloriaPatri('.gloriapatri3');
 				//antienne apres le psaume position 32
@@ -486,6 +499,8 @@ class Office {
 				print "$('<p>').appendTo('.ant32 .latin').text(\"$ant1Lat\");\n";
 				print "$('<p>').appendTo('.ant32 .francais').text(\"$ant1Fr\");\n";
 				print "$('<span>').addClass('red').prependTo('.ant32 p').text('Ant. : ');\n";
+				print "$('<br>').appendTo('.ant32 .latin');\n";
+				print "$('<br>').appendTo('.ant32 .francais');\n";
 				break;
 			case "complies":
 				//Antienne 1 avant le psaume position 11
@@ -517,6 +532,12 @@ class Office {
 					print "$('<p>').appendTo('.ant22 .latin').text(\"$ant2Lat\");\n";
 					print "$('<p>').appendTo('.ant22 .francais').text(\"$ant2Fr\");\n";
 					print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
+					print "$('<br>').appendTo('.ant22 .latin');\n";
+					print "$('<br>').appendTo('.ant22 .francais');\n";
+				}
+				else {
+					print "$('<br>').appendTo('.ant12 .latin');\n";
+					print "$('<br>').appendTo('.ant12 .francais');\n";
 				}
 				break;
 		}
@@ -533,20 +554,30 @@ class Office {
 		$reponsFr = utf8_encode($this->repons('francais'));
 		
 		$posLat = strpos($reponsLat, "<br />");
-		$reponsLat1 = substr($reponsLat, 0, $posLat);
-		$posLat+=6;
+		$reponsLat1 = substr($reponsLat, 4, $posLat-4);
+		$posLat+=10;
 		$reponsLat2 = trim(substr($reponsLat, $posLat));
 		
 		$posFr = strpos($reponsFr, "<br />");
-		$reponsFr1 = str_replace("’", "'", substr($reponsFr, 0, $posFr));
-		$posFr+=6;
+		$reponsFr1 = str_replace("’", "'", substr($reponsFr, 4, $posFr-4));
+		$posFr+=10;
 		$reponsFr2 = str_replace("’", "'", trim(substr($reponsFr, $posFr)));
 		
-		print "$('.repons').show();\n";
-		print "$('<p>').appendTo('.repons .latin').text(\"$reponsLat1\");\n";
-		print "$('<p>').appendTo('.repons .francais').text(\"$reponsFr1\");\n";
-		print "$('<p>').appendTo('.repons .latin').text(\"$reponsLat2\");\n";
-		print "$('<p>').appendTo('.repons .francais').text(\"$reponsFr2\");\n";
+		print "$('.repons').show();\n
+				$('<p>').appendTo('.repons .latin').text(\"$reponsLat1\");\n
+				$('<p>').appendTo('.repons .francais').text(\"$reponsFr1\");\n
+				$('<span>').addClass('red').prependTo('.repons p').text('R. ');\n
+				
+				$('<p>').appendTo('.repons .latin').text(\"$reponsLat2\");\n
+				var dernierP = $('.repons .latin p').last()
+				$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
+				$('<p>').appendTo('.repons .francais').text(\"$reponsFr2\");\n
+				var dernierP = $('.repons .francais p').last()
+				$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
+								
+				$('<br>').appendTo('.repons .latin');\n
+				$('<br>').appendTo('.repons .francais');\n
+				";
 		
 		/*
 		 * Cantique Evangélique aux grandes heures et complies

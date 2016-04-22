@@ -994,7 +994,7 @@ class GestionOffice {
 		}
 		else {
 			$jour_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
-			$jour_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
+			$jour_fr=array("Le dimanche,","Le lundi,","Le mardi,","Le mercredi,","Le jeudi,","Le vendredi,","Le samedi,");
 		}
 		
 		$jrdelasemaine=date("w",$day);
@@ -1345,8 +1345,9 @@ class GestionOffice {
 	 * 		$office : objet de type Office à initialiser
 	 * 		$jour au format aaaammjj du jour de l'office,
 	 */
-	function initialisationLaudes($office,$jour) {
-
+	
+	function initialisationOffice($office,$jour) {
+		
 		if (!$this->calendarium) $this->setCalendarium($jour);
 		if (!$this->ferial)$this->initialisationSources($jour);
 		
@@ -1390,13 +1391,59 @@ class GestionOffice {
 		
 		//Initialisation nom de l'office
 		if (($pr_lat)or($intitule_lat)or($rang_lat)) {
-			$office->setNomOffice("Ad Laudes matutinas", "Aux Laudes du matin");
+			switch ($office->typeOffice) {
+				case "laudes" :
+				case "laudes-invit" :
+					$office->setNomOffice("Ad Laudes matutinas", "Aux Laudes du matin");
+					break;
+				case "tierce" :
+					$office->setNomOffice("Ad Tertiam", "A Tierce");
+					break;
+				case "sexte" :
+					$office->setNomOffice("Ad Sextam", "A Sexte");
+					break;
+				case "none" :
+					$office->setNomOffice("Ad Nonam", "A None");
+					break;
+				case "vepres" :
+					$office->setNomOffice("Ad Vesperam", "A Vêpres");
+					break;
+				case "complies" :
+					$office->setNomOffice("Ad Completorium", "Aux Complies");
+					break;
+			}
+			
 		}
 		else {
-			$nomOfficeLat = $this->date_l." Laudes matutinas";
-			$nomOfficeFr = $this->date_fr." Laudes du matin";
-			$office->setNomOffice($nomOfficeLat, $nomOfficeFr);
+			switch ($office->typeOffice) {
+				case "laudes" :
+				case "laudes-invit" :
+					$office->setNomOffice($this->date_l." ad Laudes matutinas", $this->date_fr." aux Laudes du matin");
+					break;
+				case "tierce" :
+					$office->setNomOffice($this->date_l." ad Tertiam", $this->date_fr." à Tierce");
+					break;
+				case "sexte" :
+					$office->setNomOffice($this->date_l." ad Sextam", $this->date_fr." à Sexte");
+					break;
+				case "none" :
+					$office->setNomOffice($this->date_l." ad Nonam", $this->date_fr." à None");
+					break;
+				case "vepres" :
+					$office->setNomOffice($this->date_l." ad Vesperam", $this->date_fr." aux Vêpres");
+					break;
+				case "complies" :
+					$office->setNomOffice($this->date_l." ad Completorium", $this->date_fr." aux Complies");
+					break;
+			}
 		}
+		
+		
+	}
+	
+	function initialisationLaudes($office,$jour) {
+
+		$this->initialisationOffice($office, $jour);
 		
 		//Initilisation de l'hymne
 		if($this->sanctoral['HYMNUS_laudes']['latin']) $hymne=$this->sanctoral['HYMNUS_laudes']['latin'];
@@ -1518,7 +1565,7 @@ class GestionOffice {
 		else $preces=$this->ferial['preces_matin']['latin'];
 		$office->setPreces($preces);
 		
-		//Initialisaiton de ORATIO
+		//Initialisation de ORATIO
 		if($this->sanctoral['oratio']['latin']) {
 			$oratiolat=$this->sanctoral['oratio']['latin'];
 			$oratiofr=$this->sanctoral['oratio']['francais'];

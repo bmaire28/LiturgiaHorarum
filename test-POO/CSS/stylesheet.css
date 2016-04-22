@@ -110,17 +110,22 @@ p{
     text-align: center;
     padding-left: 1.0em;
     padding-right: 1.0em;
+    max-width: 285px;
+    max-height: 2em;
 }
 
 .icon-menu {
-  cursor: pointer;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-top: 25px;
-  text-decoration: none;
-  text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-right: 0px;
+    text-decoration: none;
+    text-transform: uppercase;
+    max-height: 1em;
+    max-width: 5em;
 }
 
 /* Affichage de l'office */
@@ -150,4 +155,8 @@ p{
 
 .ordo, .hymne {
     text-align: center;
+}
+
+.ordo {
+    font-weight: bold;
 }
