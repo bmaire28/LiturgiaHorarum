@@ -8,7 +8,7 @@ V/. Qui pro nobis pepéndit in ligno. *Allelúia, allelúia. Glória Patri. Surréxit
 V/. Lui qui pour nous a pendu sur le bois. *Alléluia, alléluia. Gloire au Père. Le Seigneur.";
 benedictus;Amen, amen dico vobis: Si quid petiéritis Patrem in nómine meo, dabit vobis allelúia.;En vérité, en vérité je vous le dis, tout ce que vous  demanderez à mon Père, il vous le donnera en mon nom, alléluia.;Jn XVI 23
 preces_matin;preces_XIII;;
-oratio_laudes;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;"Avant de s'en aller près de toi, notre Père, ton Fils promit aux Apôtres l'Esprit Saint ; ils ont reçu de toi des grâces innombrables qui leur ont fait connaître les choses d'en haut, répands maintenant sur nous les mêmes dons de l'Esprit.";
+oratio;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;"Avant de s'en aller près de toi, notre Père, ton Fils promit aux Apôtres l'Esprit Saint ; ils ont reçu de toi des grâces innombrables qui leur ont fait connaître les choses d'en haut, répands maintenant sur nous les mêmes dons de l'Esprit.";
 HYMNUS_tertiam;hy_Iam surgit hora tértia;;
 HYMNUS_sextam;hy_Veníte, servi, súpplices;;
 HYMNUS_nonam;hy_Hæc hora, quæ resplénduit;;
@@ -19,17 +19,17 @@ LB_3;LB_Rom 5, 10-11;;
 RB_3;"V/. Surréxit Dóminus vere, allelúia. 
 R/. Et appáruit Simóni, allelúia.";"V/. Le Seigneur est vraiment ressuscité, alléluia. 
 R/. Et il est apparu à Simon, alléluia.";Luc XXIV 34
-oratio_3;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;;
+oratio_3;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;"Avant de s'en aller près de toi, notre Père, ton Fils promit aux Apôtres l'Esprit Saint ; ils ont reçu de toi des grâces innombrables qui leur ont fait connaître les choses d'en haut, répands maintenant sur nous les mêmes dons de l'Esprit.";
 LB_6;LB_1 Cor 15, 20-22;;
 RB_6;"V/. Gavísi sunt discípuli, allelúia. 
 R/. Viso Dómino, allelúia.";"V/. Les disciples furent dans la joie, alléluia. 
 R/. En voyant le Seigneur, alléluia.";Jean XX 20
-oratio_6;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;;
+oratio_6;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;"Avant de s'en aller près de toi, notre Père, ton Fils promit aux Apôtres l'Esprit Saint ; ils ont reçu de toi des grâces innombrables qui leur ont fait connaître les choses d'en haut, répands maintenant sur nous les mêmes dons de l'Esprit.";
 LB_9;LB_2 Cor 5, 14-15;;
 RB_9;"V/. Mane nobíscum, Dómine, allelúia. 
 R/. Quóniam advesperáscit, allelúia.";"V/. Reste avec nous, Seigneur, alléluia. 
 R/. Car le soir tombe, alléluia.";Luc XXIV 29
-oratio_9;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;;
+oratio_9;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;"Avant de s'en aller près de toi, notre Père, ton Fils promit aux Apôtres l'Esprit Saint ; ils ont reçu de toi des grâces innombrables qui leur ont fait connaître les choses d'en haut, répands maintenant sur nous les mêmes dons de l'Esprit.";
 HYMNUS_vesperas;hy_Veni, creátor Spíritus,;;
 ant7;Excélsus super omnes cælos Deus, suscitávit a terra ínopem, allelúia.;Exalté au dessus de tous les cieux, Dieu a relevé le malheureux de la poussière, alléluia.;
 ant8;Dirupísti, Dómine, víncula mea: tibi sacrificábo hóstiam laudis, allelúia.;Tu as rompu, Seigneur, mes liens : à toi j'offrirai le sacrifice de louange, alléluia.;

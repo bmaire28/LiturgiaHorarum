@@ -228,7 +228,7 @@ class Office_r {
 				$francais="";
 				$latin=utf8_encode($data[0]);
 				$francais=str_replace("\x92", "'",$data[1]);
-				$francais=str_replace("\x93", "\xAB", $francais);
+				$francais=str_replace("\"", "", $francais);
 				$francais=utf8_encode($francais);
 				if (($row==0)&&($latin!="")) {
 					$psaume.="$('<h2>').appendTo('$emplacement .latin').text(\"$latin\");\n";
@@ -367,7 +367,7 @@ class Office_r {
 		}
 		fclose($fp);
 		$max=$row;
-		
+				
 		// Préparation de l'affichage de l'office
 		for($row=0;$row<$max;$row++){
 			$lat=$office[$row]['latin'];
@@ -384,14 +384,12 @@ class Office_r {
 						$ordoLatin = $this->ordo('latin');
 						$ordoFrancais = $this->ordo('francais');
 						$nomCourt = true;
-						print "
-								$('.ordo .latin').show()\n
-								$('<p>').appendTo('.ordo .latin').text('$ordoLatin');\n
-
-								$('.ordo .francais').show()\n
-								$('<p>').appendTo('.ordo .francais').text('$ordoFrancais');\n
-							";
+						echo "$('.ordo .latin').show();\n";
+						echo "$('<p>').appendTo('.ordo .latin').text('$ordoLatin');\n";
+						echo "$('.ordo .francais').show();\n";
+						echo "$('<p>').appendTo('.ordo .francais').text('$ordoFrancais');\n";
 					}
+					
 					if ($this->intitule['latin']) {
 						$intituleLatin = $this->intitule('latin');
 						$intituleFrancais = $this->intitule('francais');
@@ -423,20 +421,12 @@ class Office_r {
 					$nomLatin = $this->nomOffice('latin');
 					$nomFrancais = $this->nomOffice('francais');
 					if ($nomCourt) {
-						print "
-								$('<h2>').appendTo('.ordo .latin').text('$nomLatin');\n
-		
-								$('<h2>').appendTo('.ordo .francais').text('$nomFrancais');\n
-							";
+						echo "$('<h2>').appendTo('.ordo .latin').text('$nomLatin');\n";
+						echo "$('<h2>').appendTo('.ordo .francais').text('$nomFrancais');\n";
 					}
-					else {
-						print "
-								$('.ordo .latin').show()\n
-								$('<h2>').appendTo('.ordo .latin').text('$nomLatin');\n
-		
-								$('.ordo .francais').show()\n
-								$('<h2>').appendTo('.ordo .francais').text('$nomFrancais');\n
-							";
+					elseif (!$nomCourt) {
+						echo "$('<h2>').appendTo('.ordo .latin').text('$nomLatin');\n";
+						echo "$('<h2>').appendTo('.ordo .francais').text('$nomFrancais');\n";
 					}
 					break; // Fin Entête de l'office
 					

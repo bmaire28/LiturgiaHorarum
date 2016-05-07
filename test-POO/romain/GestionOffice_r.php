@@ -1755,17 +1755,302 @@ class GestionOffice_r {
 	
 	function initialisationTierce($office,$jour) {
 		$this->initialisationOffice($office, $jour);
-	
+		
+		//Initilisation de l'hymne
+		if($this->sanctoral['HYMNUS_tertiam']['latin']) $hymne=$this->sanctoral['HYMNUS_tertiam']['latin'];
+		elseif ($this->temporal['HYMNUS_tertiam']['latin']) $hymne=$this->temporal['HYMNUS_tertiam']['latin'];
+		else $hymne=$this->ferial['HYMNUS_tertiam']['latin'];
+		$office->setHymne($hymne);
+		
+		// Intilisation de ANT1
+		if($this->sanctoral['ant4']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant4']['latin']);
+			$antfr=nl2br($this->sanctoral['ant4']['francais']);
+		}
+		elseif ($this->temporal['ant4']['latin']) {
+			$antlat=nl2br($this->temporal['ant4']['latin']);
+			$antfr=nl2br($this->temporal['ant4']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant4']['latin'];
+			$antfr=$this->ferial['ant4']['francais'];
+		}
+		$office->setAnt1($antlat, $antfr);
+			
+		// Initialisation de PS1
+		/* if($this->sanctoral['ps119']['latin']) $psaume=$this->sanctoral['ps7']['latin'];
+		elseif ($this->temporal['ps7']['latin']) $psaume=$this->temporal['ps7']['latin'];
+		else $psaume=$this->ferial['ps7']['latin'];*/
+		$office->setPs1("ps119");
+				
+		// Initilisation de PS2
+		/*if($this->sanctoral['ps8']['latin']) $psaume=$this->sanctoral['ps8']['latin'];
+		elseif($this->temporal['ps8']['latin']) $psaume=$this->temporal['ps8']['latin'];
+		else $psaume=$this->ferial['ps8']['latin'];*/
+		$office->setPs2("ps120");
+		
+		// initialisation de ANT3
+		if($this->sanctoral['ant4']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant4']['latin']);
+			$antfr=nl2br($this->sanctoral['ant4']['francais']);
+		}
+		elseif($this->temporal['ant4']['latin']) {
+			$antlat=nl2br($this->temporal['ant4']['latin']);
+			$antfr=nl2br($this->temporal['ant4']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant4']['latin'];
+			$antfr=$this->ferial['ant4']['francais'];
+		}
+		$office->setAnt3($antlat, $antfr);
+		
+		// Initialisation de PS3
+		/*if($this->sanctoral['ps9']['latin']) $psaume=$this->sanctoral['ps9']['latin'];
+		elseif($this->temporal['ps9']['latin']) $psaume=$this->temporal['ps9']['latin'];
+		else $psaume=$this->ferial['ps9']['latin'];*/
+		$office->setPs3("ps121");
+		
+		// Initialisation de LB
+		if($this->sanctoral['LB_3']['latin']) $LB_matin=$this->sanctoral['LB_3']['latin'];
+		elseif ($this->temporal['LB_3']['latin']) $LB_matin=$this->temporal['LB_3']['latin'];
+		else $LB_matin=$this->ferial['LB_3']['latin'];
+		$office->setLectio($LB_matin);
+		
+		// Initialisation de RB
+		if($this->sanctoral['RB_3']['latin']) {
+			$rblat=nl2br($this->sanctoral['RB_3']['latin']);
+			$rbfr=nl2br($this->sanctoral['RB_3']['francais']);
+		}
+		elseif($this->temporal['RB_3']['latin']) {
+			$rblat=nl2br($this->temporal['RB_3']['latin']);
+			$rbfr=nl2br($this->temporal['RB_3']['francais']);
+		}
+		else {
+			$rblat=nl2br($this->ferial['RB_3']['latin']);
+			$rbfr=nl2br($this->ferial['RB_3']['francais']);
+		}
+		$office->setRepons($rblat, $rbfr);
+		
+		//Initialisation de ORATIO
+		if($this->sanctoral['oratio']['latin']) {
+			$oratiolat=$this->sanctoral['oratio']['latin'];
+			$oratiofr=$this->sanctoral['oratio']['francais'];
+		}
+		elseif($this->temporal['oratio']['latin']) {
+			$oratiolat=$this->temporal['oratio']['latin'];
+			$oratiofr=$this->temporal['oratio']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio_3']['latin']) {
+			$oratiolat=$this->ferial['oratio_3']['latin'];
+			$oratiofr=$this->ferial['oratio_3']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio']['latin']) {
+			$oratiolat=$this->ferial['oratio']['latin'];
+			$oratiofr=$this->ferial['oratio']['francais'];
+		}
+		$office->setOratio($oratiolat, $oratiofr);
+		
+		// Fin initialisaiton de Tierce
 	}
 	
 	function initialisationSexte($office,$jour) {
 		$this->initialisationOffice($office, $jour);
 		
+		//Initilisation de l'hymne
+		if($this->sanctoral['HYMNUS_sextam']['latin']) $hymne=$this->sanctoral['HYMNUS_sextam']['latin'];
+		elseif ($this->temporal['HYMNUS_sextam']['latin']) $hymne=$this->temporal['HYMNUS_sextam']['latin'];
+		else $hymne=$this->ferial['HYMNUS_sextam']['latin'];
+		$office->setHymne($hymne);
+		
+		// Intilisation de ANT1
+		if($this->sanctoral['ant5']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant5']['latin']);
+			$antfr=nl2br($this->sanctoral['ant5']['francais']);
+		}
+		elseif ($this->temporal['ant5']['latin']) {
+			$antlat=nl2br($this->temporal['ant5']['latin']);
+			$antfr=nl2br($this->temporal['ant5']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant5']['latin'];
+			$antfr=$this->ferial['ant5']['francais'];
+		}
+		$office->setAnt1($antlat, $antfr);
+			
+		// Initialisation de PS1
+		 if($this->sanctoral['ps4']['latin']) $psaume=$this->sanctoral['ps4']['latin'];
+		 elseif ($this->temporal['ps4']['latin']) $psaume=$this->temporal['ps4']['latin'];
+		 else $psaume=$this->ferial['ps4']['latin'];
+		 $office->setPs1($psaume);
+		
+		 // Initilisation de PS2
+		 if($this->sanctoral['ps5']['latin']) $psaume=$this->sanctoral['ps5']['latin'];
+		 elseif($this->temporal['ps5']['latin']) $psaume=$this->temporal['ps5']['latin'];
+		 else $psaume=$this->ferial['ps5']['latin'];
+		 $office->setPs2($psaume);
+		
+		 // initialisation de ANT3
+		 if($this->sanctoral['ant5']['latin']) {
+		 	$antlat=nl2br($this->sanctoral['ant5']['latin']);
+		 	$antfr=nl2br($this->sanctoral['ant5']['francais']);
+		 }
+		 elseif($this->temporal['ant5']['latin']) {
+			$antlat=nl2br($this->temporal['ant5']['latin']);
+			$antfr=nl2br($this->temporal['ant5']['francais']);
+		 }
+		 else {
+		 	$antlat=$this->ferial['ant5']['latin'];
+		 	$antfr=$this->ferial['ant5']['francais'];
+		 }
+		 $office->setAnt3($antlat, $antfr);
+		
+		// Initialisation de PS3
+		if($this->sanctoral['ps6']['latin']) $psaume=$this->sanctoral['ps6']['latin'];
+		elseif($this->temporal['ps6']['latin']) $psaume=$this->temporal['ps6']['latin'];
+		else $psaume=$this->ferial['ps6']['latin'];
+		$office->setPs3($psaume);
+		
+		// Initialisation de LB
+		if($this->sanctoral['LB_6']['latin']) $LB_matin=$this->sanctoral['LB_6']['latin'];
+		elseif ($this->temporal['LB_6']['latin']) $LB_matin=$this->temporal['LB_6']['latin'];
+		else $LB_matin=$this->ferial['LB_6']['latin'];
+		$office->setLectio($LB_matin);
+		
+		// Initialisation de RB
+		if($this->sanctoral['RB_6']['latin']) {
+			$rblat=nl2br($this->sanctoral['RB_6']['latin']);
+			$rbfr=nl2br($this->sanctoral['RB_6']['francais']);
+		}
+		elseif($this->temporal['RB_6']['latin']) {
+			$rblat=nl2br($this->temporal['RB_6']['latin']);
+			$rbfr=nl2br($this->temporal['RB_6']['francais']);
+		}
+		else {
+			$rblat=nl2br($this->ferial['RB_6']['latin']);
+			$rbfr=nl2br($this->ferial['RB_6']['francais']);
+		}
+		$office->setRepons($rblat, $rbfr);
+		
+		//Initialisation de ORATIO
+		if($this->sanctoral['oratio']['latin']) {
+			$oratiolat=$this->sanctoral['oratio']['latin'];
+			$oratiofr=$this->sanctoral['oratio']['francais'];
+		}
+		elseif($this->temporal['oratio']['latin']) {
+			$oratiolat=$this->temporal['oratio']['latin'];
+			$oratiofr=$this->temporal['oratio']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio_6']['latin']) {
+			$oratiolat=$this->ferial['oratio_6']['latin'];
+			$oratiofr=$this->ferial['oratio_6']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio']['latin']) {
+			$oratiolat=$this->ferial['oratio']['latin'];
+			$oratiofr=$this->ferial['oratio']['francais'];
+		}
+		$office->setOratio($oratiolat, $oratiofr);
+		
+		// Fin initialisaiton de Sexte
 	}
 	
 	function initialisationNone($office,$jour) {
 		$this->initialisationOffice($office, $jour);
 		
+		//Initilisation de l'hymne
+		if($this->sanctoral['HYMNUS_nonam']['latin']) $hymne=$this->sanctoral['HYMNUS_nonam']['latin'];
+		elseif ($this->temporal['HYMNUS_nonam']['latin']) $hymne=$this->temporal['HYMNUS_nonam']['latin'];
+		else $hymne=$this->ferial['HYMNUS_nonam']['latin'];
+		$office->setHymne($hymne);
+		
+		// Intilisation de ANT1
+		if($this->sanctoral['ant6']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant6']['latin']);
+			$antfr=nl2br($this->sanctoral['ant6']['francais']);
+		}
+		elseif ($this->temporal['ant6']['latin']) {
+			$antlat=nl2br($this->temporal['ant6']['latin']);
+			$antfr=nl2br($this->temporal['ant6']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant6']['latin'];
+			$antfr=$this->ferial['ant6']['francais'];
+		}
+		$office->setAnt1($antlat, $antfr);
+			
+		// Initialisation de PS1
+		/*if($this->sanctoral['ps4']['latin']) $psaume=$this->sanctoral['ps4']['latin'];
+		elseif ($this->temporal['ps4']['latin']) $psaume=$this->temporal['ps4']['latin'];
+		else $psaume=$this->ferial['ps4']['latin'];*/
+		$office->setPs1("ps125");
+		
+		// Initilisation de PS2
+		/*if($this->sanctoral['ps5']['latin']) $psaume=$this->sanctoral['ps5']['latin'];
+		elseif($this->temporal['ps5']['latin']) $psaume=$this->temporal['ps5']['latin'];
+		else $psaume=$this->ferial['ps5']['latin'];*/
+		$office->setPs2("ps126");
+		
+		// initialisation de ANT3
+		if($this->sanctoral['ant6']['latin']) {
+			$antlat=nl2br($this->sanctoral['ant6']['latin']);
+			$antfr=nl2br($this->sanctoral['ant6']['francais']);
+		}
+		elseif($this->temporal['ant6']['latin']) {
+			$antlat=nl2br($this->temporal['ant6']['latin']);
+			$antfr=nl2br($this->temporal['ant6']['francais']);
+		}
+		else {
+			$antlat=$this->ferial['ant6']['latin'];
+			$antfr=$this->ferial['ant6']['francais'];
+		}
+		$office->setAnt3($antlat, $antfr);
+		
+		// Initialisation de PS3
+		/*if($this->sanctoral['ps6']['latin']) $psaume=$this->sanctoral['ps6']['latin'];
+		elseif($this->temporal['ps6']['latin']) $psaume=$this->temporal['ps6']['latin'];
+		else $psaume=$this->ferial['ps6']['latin'];*/
+		$office->setPs3("ps127");
+		
+		// Initialisation de LB
+		if($this->sanctoral['LB_9']['latin']) $LB_matin=$this->sanctoral['LB_9']['latin'];
+		elseif ($this->temporal['LB_9']['latin']) $LB_matin=$this->temporal['LB_9']['latin'];
+		else $LB_matin=$this->ferial['LB_9']['latin'];
+		$office->setLectio($LB_matin);
+		
+		// Initialisation de RB
+		if($this->sanctoral['RB_9']['latin']) {
+			$rblat=nl2br($this->sanctoral['RB_9']['latin']);
+			$rbfr=nl2br($this->sanctoral['RB_9']['francais']);
+		}
+		elseif($this->temporal['RB_9']['latin']) {
+			$rblat=nl2br($this->temporal['RB_9']['latin']);
+			$rbfr=nl2br($this->temporal['RB_9']['francais']);
+		}
+		else {
+			$rblat=nl2br($this->ferial['RB_9']['latin']);
+			$rbfr=nl2br($this->ferial['RB_9']['francais']);
+		}
+		$office->setRepons($rblat, $rbfr);
+		
+		//Initialisation de ORATIO
+		if($this->sanctoral['oratio']['latin']) {
+			$oratiolat=$this->sanctoral['oratio']['latin'];
+			$oratiofr=$this->sanctoral['oratio']['francais'];
+		}
+		elseif($this->temporal['oratio']['latin']) {
+			$oratiolat=$this->temporal['oratio']['latin'];
+			$oratiofr=$this->temporal['oratio']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio_9']['latin']) {
+			$oratiolat=$this->ferial['oratio_9']['latin'];
+			$oratiofr=$this->ferial['oratio_9']['francais'];
+		}
+		elseif ($oratiolat=$this->ferial['oratio']['latin']) {
+			$oratiolat=$this->ferial['oratio']['latin'];
+			$oratiofr=$this->ferial['oratio']['francais'];
+		}
+		$office->setOratio($oratiolat, $oratiofr);
+		
+		// Fin initialisaiton de None
 	}
 	
 	function initialisationComplies($office,$jour) {

@@ -92,6 +92,21 @@ else $heure="complies";
         			$divinumOfficium->initialisationLaudes($officeCourant,$do);
         			$officeCourant->affiche();
         			break;
+        		case "tierce" :
+        			echo "$('.invitatoire').hide();\n";
+        			$divinumOfficium->initialisationTierce($officeCourant, $do);
+        			$officeCourant->affiche();
+        			break;
+        		case "sexte" :
+        			echo "$('.invitatoire').hide();\n";
+        			 $divinumOfficium->initialisationSexte($officeCourant, $do);
+        			 $officeCourant->affiche();
+        			 break;
+        		case "none" :
+        			echo "$('.invitatoire').hide();\n";
+        			$divinumOfficium->initialisationNone($officeCourant, $do);
+        			$officeCourant->affiche();
+        			break;
         		case "vepres":
         			echo "$('.invitatoire').hide();\n";
         			//echo "$('.ordo .latin ').addClass('red').show().text('Ad Vesperas.');\n";
