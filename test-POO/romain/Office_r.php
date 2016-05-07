@@ -164,6 +164,7 @@ class Office_r {
 		if ($office=="vepres") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">V&ecirc;pres</span></a></li>').appendTo('.$place ul');\n";
 		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span>V&ecirc;pres</span></a></li>').appendTo('.$place ul');\n";
 		if ($office=="complies") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Complies</span></a></li>').appendTo('.$place ul');\n";
+		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span>Complies</span></a></li>').appendTo('.$place ul');\n";
 		echo "$('<li><a href=\"index.php?date=$date_suiv&amp;rite=$rite&amp;office=$suivant\"><span>></span></a></li>').appendTo('.$place ul');\n";
 		echo "$('<li><a href=\"index.php?date=$demain&amp;rite=$rite&amp;office=$office\"><span>>></span></a></li>').appendTo('.$place ul');\n";
 		
@@ -477,7 +478,7 @@ class Office_r {
 				// Examen de conscience aux Complies
 				case "#EXAMEN" :
 					print "
-							$('.examen-conscience .latin').show();
+							$('.examen-conscience').show();
 							$('<h2>').appendTo('.examen-conscience .latin').text('Conscientiæ discussio');\n
 							$('<p>').appendTo('.examen-conscience .latin').text('Confíteor Deo omnipoténti et vobis, fratres, quia peccávi nimis cogitatióne, verbo, ópere et omissióne:');\n
 							$('<h5>').appendTo('.examen-conscience .latin').text('et, percutientes sibi pectus, dicunt :');\n
@@ -490,7 +491,6 @@ class Office_r {
 							$('<p>').appendTo('.examen-conscience .latin').text('Amen.');\n
 							dernierP = $('.examen-conscience .latin p').last();\n
 							$('<span>').addClass('red').prependTo(dernierP).text('R/. ');\n
-							$('.examen-conscience .francais').show();\n
 							$('<h2>').appendTo('.examen-conscience .francais').text('Examen de conscience');\n
 							$('<p>').appendTo('.examen-conscience .francais').text(\"Je confesse à Dieu tout puissant et à vous, mes frères, car j'ai péché par la pensée, la parole, les actes et par omission :\");\n
 							$('<h5>').appendTo('.examen-conscience .francais').text('et, en se frappant la poitrine, on dit :');\n
@@ -560,29 +560,47 @@ class Office_r {
 				// #ANT2*
 				case "#ANT2*" :
 					//Antienne 2 avant le psaume position 21
-					print "$('.ant21').show();\n";
-					print "$('<p>').appendTo('.ant21 .latin').text(\"$ant2Lat\");\n";
-					print "$('<p>').appendTo('.ant21 .francais').text(\"$ant2Fr\");\n";
-					print "$('<span>').addClass('red').prependTo('.ant21 p').text('Ant. 2 : ');\n";
+					if (
+						(($this->typeOffice()=="complies")&&($ant2Lat))
+						or
+						($this->typeOffice()!="complies")
+						) {
+						print "$('.ant21').show();\n";
+						print "$('<p>').appendTo('.ant21 .latin').text(\"$ant2Lat\");\n";
+						print "$('<p>').appendTo('.ant21 .francais').text(\"$ant2Fr\");\n";
+						print "$('<span>').addClass('red').prependTo('.ant21 p').text('Ant. 2 : ');\n";
+					}
 					break; // Fin de #ANT2*
 
 				// #PS2
 				case "#PS2" :
 					//psaume 2
-					print $this->affichePsaume($this->ps2(), ".psaume2");
-					// gloria patri2
-					print $this->gloriaPatri('.gloriapatri2');
+					if (
+						(($this->typeOffice()=="complies")&&($ant2Lat))
+						or
+						($this->typeOffice()!="complies")
+						) {
+							print $this->affichePsaume($this->ps2(), ".psaume2");
+							// gloria patri2
+							print $this->gloriaPatri('.gloriapatri2');
+						}
 					break; // Fin de #PS2
 				
 				// #ANT2
 				case "#ANT2" :
 					//Antienne 2 apres le psaume position 22
-					print "$('.ant22').show();\n";
-					print "$('<p>').appendTo('.ant22 .latin').text(\"$ant2Lat\");\n";
-					print "$('<p>').appendTo('.ant22 .francais').text(\"$ant2Fr\");\n";
-					print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
-					print "$('<br>').appendTo('.ant22 .latin');\n";
-					print "$('<br>').appendTo('.ant22 .francais');\n";
+					if (
+							(($this->typeOffice()=="complies")&&($ant2Lat))
+							or
+							($this->typeOffice()!="complies")
+					) {
+						print "$('.ant22').show();\n";
+						print "$('<p>').appendTo('.ant22 .latin').text(\"$ant2Lat\");\n";
+						print "$('<p>').appendTo('.ant22 .francais').text(\"$ant2Fr\");\n";
+						print "$('<span>').addClass('red').prependTo('.ant22 p').text('Ant. : ');\n";
+						print "$('<br>').appendTo('.ant22 .latin');\n";
+						print "$('<br>').appendTo('.ant22 .francais');\n";
+					}
 					break; // Fin de #ANT2
 					
 				// #ANT3*
@@ -687,7 +705,7 @@ class Office_r {
 							print "$('<p>').appendTo('.antEv .latin').text(\"$antEvLat\");\n";
 							print "$('<p>').appendTo('.antEv .francais').text(\"$antEvFr\");\n";
 							print "$('<span>').addClass('red').prependTo('.antEv p').text('Ant. : ');\n";
-							// Benedictus
+							// Nunc Dimittis
 							print $this->affichePsaume('nuncdimittis', '.cantiqueEv');
 							//Gloria Patri
 							print $this->gloriaPatri('.gloriapatriEv');
@@ -885,7 +903,8 @@ class Office_r {
 				
 				//Cantique mariale aux complies
 				case "#ANT_MARIALE" :
-					print $this->affichePsaume($this->cantiqueMarial(), 'antMariale');
+					print $this->affichePsaume($this->cantiqueMarial(), ".antMariale");
+					echo "$('.antMariale').show();\n";
 					break; // Fin de #ANT_MARIALE
 			}
 		}
