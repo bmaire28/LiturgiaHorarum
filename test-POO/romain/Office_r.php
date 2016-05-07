@@ -288,8 +288,7 @@ class Office_r {
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$latin=utf8_encode($data[0]);$francais=utf8_encode($data[1]);
-
-
+				$francais=str_replace("\" ", "", $francais);
 				if($row==0) {
 					$lectio.="$('<h2>').appendTo('.lectio .latin').text(\"$latin\");\n";
 					$lectio.="$('<h2>').appendTo('.lectio .francais').text(\"$francais\");\n";

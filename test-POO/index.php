@@ -94,8 +94,10 @@ else $heure="complies";
         			break;
         		case "vepres":
         			echo "$('.invitatoire').hide();\n";
-        			echo "$('.ordo .latin ').addClass('red').show().text('Ad Vesperas.');\n";
-        			echo "$('.ordo .francais').addClass('red').show().text('Aux V&ecirc;pres.');\n";
+        			//echo "$('.ordo .latin ').addClass('red').show().text('Ad Vesperas.');\n";
+        			//echo "$('.ordo .francais').addClass('red').show().text('Aux V&ecirc;pres.');\n";
+        			$divinumOfficium->initialisationVepres($officeCourant,$do);
+        			$officeCourant->affiche();
         			break;
         		case "complies":
         			echo "$('.invitatoire').hide();\n";
