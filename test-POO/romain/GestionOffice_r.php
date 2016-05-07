@@ -3,7 +3,7 @@
  * Classe GestionOffice pour remplir définir les valeurs des antiennes et autres variables à partir du calendrier liturgique
  */
 
-class GestionOffice {
+class GestionOffice_r {
 	/*
 	 * variables locales
 	 */
@@ -768,7 +768,7 @@ class GestionOffice {
 		 * Chargement du sanctoral
 		 */
 		$row = 1;
-		$handle = fopen("propres_r/sanctoral/sanctoral.csv", "r");
+		$handle = fopen("./sanctoral/sanctoral.csv", "r");
 		while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 			$num = count($data);
 			$row++;
@@ -1036,7 +1036,7 @@ class GestionOffice {
 		/*
 		 * Chargement du propre au psautier du jour
 		 */
-		$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+		$fichier="./commune/psautier_".$spsautier.$jrdelasemaine.".csv";
 		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 		$fp = fopen ($fichier,"r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1140,7 +1140,7 @@ class GestionOffice {
 				return;
 				break;
 		}
-		$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+		$fichier="./temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
 		if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 		$fp = fopen ($fichier,"r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1158,7 +1158,7 @@ class GestionOffice {
 		*/
 		if (($this->calendarium['rang'][$jour])or($this->calendarium['priorite'][$jour]==12)) {
 			$prop=$mense.$die;
-			$fichier="propres_r/sanctoral/".$prop.".csv";
+			$fichier="./sanctoral/".$prop.".csv";
 			if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1186,7 +1186,7 @@ class GestionOffice {
 		) {
 			$prop=$mense.$die;
 			// Chargement du fichier de la date fixe
-			$fichier="propres_r/sanctoral/".$prop.".csv";
+			$fichier="./sanctoral/".$prop.".csv";
 			if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1198,7 +1198,7 @@ class GestionOffice {
 			fclose($fp);
 				
 			// Chargement du fichier du jour de la semaine
-			$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
+			$fichier="./temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
 			if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1221,7 +1221,7 @@ class GestionOffice {
 		
 		if($this->calendarium['temporal'][$jour]) {
 			$tempo=$this->calendarium['temporal'][$jour];
-			$fichier="propres_r/temporal/".$tempo.".csv";
+			$fichier="./temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1286,7 +1286,7 @@ class GestionOffice {
 			$tempo=null;
 			$this->temporal=null;
 			$tempo=$this->calendarium['temporal'][$demain];
-			$fichier="propres_r/temporal/".$tempo.".csv";
+			$fichier="./temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {

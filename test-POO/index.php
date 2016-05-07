@@ -7,8 +7,8 @@ function chargerClasse ($classe) {
 spl_autoload_register('chargerClasse');
 */
 
-include './romain/Office.php';
-include './romain/GestionOffice.php';
+include './romain/Office_r.php';
+include './romain/GestionOffice_r.php';
 include '../calendarium.php';
 
 // Récupération de la date demandée ou utilisation de la date courante 
@@ -20,12 +20,12 @@ else {
 
 
 // Création de l'objet de gestion des offices et initialisation des tableaux
-$divinumOfficium = new GestionOffice();
+$divinumOfficium = new GestionOffice_r();
 //$calendarium=$divinumOfficium->setCalendarium($do);
-$divinumOfficium->setCalendarium($do);
-$divinumOfficium->initialisationSources($do);
+//$divinumOfficium->setCalendarium($do);
+//$divinumOfficium->initialisationSources($do);
 
-$officeCourant = new Office();
+$officeCourant = new Office_r();
 if ($_GET['office']) {
 	$officeCourant->setTypeOffice($_GET['office']);
 	$heure = $officeCourant->typeOffice();
@@ -73,8 +73,8 @@ else $heure="complies";
         			break;
         		case "laudes":
         			echo "$('.invitatoire').hide();\n";
-        			$divinumOfficium->initialisationLaudes($officeCourant,$do);
-        			$officeCourant->affiche();
+        			//$divinumOfficium->initialisationLaudes($officeCourant,$do);
+        			//$officeCourant->affiche();
         			break;
         		case "vepres":
         			echo "$('.invitatoire').hide();\n";

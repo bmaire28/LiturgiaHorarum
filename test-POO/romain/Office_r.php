@@ -1,6 +1,6 @@
 <?php
 
-class Office {
+class Office_r {
 	var $typeOffice;
 	var $ordo;
 	var $intitule;
