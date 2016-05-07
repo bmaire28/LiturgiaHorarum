@@ -13,15 +13,17 @@ class GestionOffice_r {
 	var $calendarium;
 	var $date_l;
 	var $date_fr;
+	var $lettre;
 	
 	/*
 	 * getters
 	 */
 	function sanctoral() { return $this->sanctoral; }
-	function temporal() { return $this->temporal; }
+	function temporal($id, $langue) { return $this->temporal[$id][$langue]; }
 	function ferial() { return $this->ferial; }
 	function date_l() { return $this->date_l; }
 	function date_fr() { return $this->date_fr; }
+	function lettre() { return $this->lettre; }
 
 	/*
 	 * setters
@@ -29,10 +31,25 @@ class GestionOffice_r {
 	function setSanctoral($id,$langue,$valeur) { $this->sanctoral[$id][$langue]=$valeur; }
 	function setTemporal($id,$langue,$valeur) { $this->temporal[$id][$langue]=$valeur; }
 	function setFerial($id,$langue,$valeur) { $this->ferial[$id][$langue]=$valeur; }
+	function setLettre($valeur) { $this->lettre=$valeur; }
 	
 	/*
 	 * méthodes
 	 */
+
+	/*
+	 * date_latin($j) : renvoie la date en latin pour $j
+	 * $j : date au format informatique
+	 * 
+	 */
+	function date_latin($j)
+	{
+		if($j==null) $j=time();
+		$mois= array("Ianuarii","Februarii","Martii","Aprilis","Maii","Iunii","Iulii","Augustii","Septembris","Octobris","Novembris","Decembris");
+		$jours = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
+		$date= $jours[@date("w",$j)]." ".@date("j",$j)." ".$mois[@date("n",$j)-1]." ".@date("Y",$j);
+		return $date;
+	}
 	
 	/*
 	 * Calcul du calendrier liturgique pour l'année à partir d'une date $date donnée
@@ -768,7 +785,7 @@ class GestionOffice_r {
 		 * Chargement du sanctoral
 		 */
 		$row = 1;
-		$handle = fopen("./sanctoral/sanctoral.csv", "r");
+		$handle = fopen("romain/sanctoral/sanctoral.csv", "r");
 		while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 			$num = count($data);
 			$row++;
@@ -1019,13 +1036,13 @@ class GestionOffice_r {
 		
 		switch (fmod($num_annee_cour, 3)) {
 			case 0 :
-				$lettre="A";
+				$this->setLettre("A");
 				break;
 			case 1:
-				$lettre="B";
+				$this->setLettre("B");
 				break;
 			case 2:
-				$lettre="C";
+				$this->setLettre("C");
 				break;
 		}
 		//print_r($lettre."<br>");
@@ -1036,7 +1053,7 @@ class GestionOffice_r {
 		/*
 		 * Chargement du propre au psautier du jour
 		 */
-		$fichier="./commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+		$fichier="romain/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
 		if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 		$fp = fopen ($fichier,"r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1136,11 +1153,11 @@ class GestionOffice_r {
 				break;
 		
 			default :
-				print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacter./index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
+				print"<br><i>Cet office n'est pas encore compl&egrave;tement disponible. Merci de bien vouloir patienter. <a href=\"nous_contacterromain/index.php\">Vous pouvez nous aider &agrve; compl&eacute;ter ce travail.</a></i>";
 				return;
 				break;
 		}
-		$fichier="./temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
+		$fichier="romain/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
 		if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 		$fp = fopen ($fichier,"r");
 		while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1158,7 +1175,7 @@ class GestionOffice_r {
 		*/
 		if (($this->calendarium['rang'][$jour])or($this->calendarium['priorite'][$jour]==12)) {
 			$prop=$mense.$die;
-			$fichier="./sanctoral/".$prop.".csv";
+			$fichier="romain/sanctoral/".$prop.".csv";
 			if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1186,7 +1203,7 @@ class GestionOffice_r {
 		) {
 			$prop=$mense.$die;
 			// Chargement du fichier de la date fixe
-			$fichier="./sanctoral/".$prop.".csv";
+			$fichier="romain/sanctoral/".$prop.".csv";
 			if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1198,7 +1215,7 @@ class GestionOffice_r {
 			fclose($fp);
 				
 			// Chargement du fichier du jour de la semaine
-			$fichier="./temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
+			$fichier="romain/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
 			if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1221,7 +1238,7 @@ class GestionOffice_r {
 		
 		if($this->calendarium['temporal'][$jour]) {
 			$tempo=$this->calendarium['temporal'][$jour];
-			$fichier="./temporal/".$tempo.".csv";
+			$fichier="romain/temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1286,7 +1303,7 @@ class GestionOffice_r {
 			$tempo=null;
 			$this->temporal=null;
 			$tempo=$this->calendarium['temporal'][$demain];
-			$fichier="./temporal/".$tempo.".csv";
+			$fichier="romain/temporal/".$tempo.".csv";
 			if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -1315,8 +1332,8 @@ class GestionOffice_r {
 			$this->temporal['LB_soir']['latin']=$this->temporal['LB_1V']['latin'];
 			$this->temporal['RB_soir']['latin']=$this->temporal['RB_1V']['latin'];
 			$this->temporal['RB_soir']['francais']=$this->temporal['RB_1V']['francais'];
-			$pmagnificat="pmagnificat_".$lettre;
-			$magnificat="magnificat_".$lettre;
+			$pmagnificat="pmagnificat_".$this->lettre;
+			$magnificat="magnificat_".$this->lettre;
 			if ($this->temporal[$pmagnificat]['latin']) {
 				$this->temporal[$magnificat]['latin']=$this->temporal[$pmagnificat]['latin'];
 				$this->temporal[$magnificat]['francais']=$this->temporal[$pmagnificat]['francais'];
@@ -1536,7 +1553,7 @@ class GestionOffice_r {
 		$office->setRepons($rblat, $rbfr);
 		
 		// Initialisation de AntEv
-		$benedictus="benedictus_".$lettre;
+		$benedictus="benedictus_".$this->lettre;
 		if($this->sanctoral[$benedictus]['latin']) {
 			$benelat=$this->sanctoral[$benedictus]['latin'];
 			$benefr=$this->sanctoral[$benedictus]['francais'];
@@ -1545,7 +1562,7 @@ class GestionOffice_r {
 			$benelat=$this->sanctoral['benedictus']['latin'];
 			$benefr=$this->sanctoral['benedictus']['francais'];
 		}
-		elseif ($this->temporal[$benedictus]['latin']) {
+		elseif ($this->temporal($benedictus,'latin')) {
 			$benelat=$this->temporal[$benedictus]['latin'];
 			$benefr=$this->temporal[$benedictus]['francais'];
 		}

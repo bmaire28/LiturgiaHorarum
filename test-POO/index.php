@@ -11,6 +11,7 @@ include './romain/Office_r.php';
 include './romain/GestionOffice_r.php';
 include '../calendarium.php';
 
+
 // Récupération de la date demandée ou utilisation de la date courante 
 if ($_GET['date']) { $do = $_GET['date']; }
 else {
@@ -18,12 +19,23 @@ else {
 	$do=date("Ymd",$tfc);
 }
 
+$anno=$_GET['an'];
+if ($anno=="") $anno=substr($do,0,4);
+
+$mense=$_GET['mois_courant'];
+if ($mense=="") $mense=substr($do,4,2);
+$die=substr($do,6,2);
+$dts=mktime(12,0,0,$mense,$die,$anno);
+
 
 // Création de l'objet de gestion des offices et initialisation des tableaux
 $divinumOfficium = new GestionOffice_r();
 //$calendarium=$divinumOfficium->setCalendarium($do);
-//$divinumOfficium->setCalendarium($do);
-//$divinumOfficium->initialisationSources($do);
+$divinumOfficium->setCalendarium($do);
+$divinumOfficium->initialisationSources($do);
+$datelatin=$divinumOfficium->date_latin($dts);
+//print_r($datelatin);
+
 
 $officeCourant = new Office_r();
 if ($_GET['office']) {
@@ -33,12 +45,14 @@ if ($_GET['office']) {
 else $heure="complies";
 
 
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<?php echo "<title>$datelatin, $heure</title>"; ?>
+	<!--  <title>Insert title</title> -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400;300' rel='stylesheet' type='text/css'>
 	<link type="text/css" rel="stylesheet" href="CSS/stylesheet.css" />
@@ -63,6 +77,8 @@ else $heure="complies";
         });
 
         <?php
+        $officeCourant->affiche_nav($do, $heure, "entete");
+        $officeCourant->affiche_nav($do, $heure, "pied");
         	switch ($heure) {
         		case "laudes-invit" :
         			$officeCourant->setInvitatoire(true);
@@ -73,8 +89,8 @@ else $heure="complies";
         			break;
         		case "laudes":
         			echo "$('.invitatoire').hide();\n";
-        			//$divinumOfficium->initialisationLaudes($officeCourant,$do);
-        			//$officeCourant->affiche();
+        			$divinumOfficium->initialisationLaudes($officeCourant,$do);
+        			$officeCourant->affiche();
         			break;
         		case "vepres":
         			echo "$('.invitatoire').hide();\n";
@@ -129,9 +145,10 @@ else $heure="complies";
         Menu
     </div>
     
-    <div class = "erreurs"></div>
+    <div class="erreurs"></div>
 	
-	<div class="affichage">
+	<div class="entete"></div>
+    <div class="affichage">
 		<div class="ordo"><div class="latin"></div><div class="francais"></div></div>
         <div class="verset-intro"><div class="latin"></div><div class="francais"></div></div>
         <div class="invitatoire"><div class="latin"></div><div class="francais"></div></div>
@@ -162,6 +179,7 @@ else $heure="complies";
 		<div class="acclamation"><div class="latin"></div><div class="francais"></div></div>
 		<div class="antMariale"><div class="latin"></div><div class="francais"></div></div>
 	</div>
+	<div class="pied"></div>
 </div>
 
 </body>

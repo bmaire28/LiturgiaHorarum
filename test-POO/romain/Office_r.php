@@ -101,6 +101,79 @@ class Office_r {
 	function setCantiqueMarial($cantiqueMarial) { $this->cantiqueMarial=$cantiqueMarial; }
 	
 	/*
+	 * Affichage du menu des offices
+	 */
+	function affiche_nav($do,$office,$place) {
+		$rite=$_GET['rite'];
+		if (!$rite) $rite="romain";
+		$offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
+		for($o=0;$offices[$o];$o++) {
+			if ($office==$offices[$o]) {
+				$officeactuel=$o;
+				break;
+			}
+		}
+		$suivant = $offices[$officeactuel+1];
+		$precedent = $offices[$officeactuel-1];
+	
+		$anno=substr($do,0,4);
+		$mense=substr($do,4,2);
+		$die=substr($do,6,2);
+		$day=mktime(12,0,0,$mense,$die,$anno);
+		$dtsmoinsun=$day-60*60*24;
+		$dtsplusun=$day+60*60*24;
+		$hier=date("Ymd",$dtsmoinsun);
+		$demain=date("Ymd",$dtsplusun);
+	
+		$dsuiv=$day+60*60*24;
+		$dprec=$day-60*60*24;
+	
+		$date_suiv=$do;
+		$date_prec= $do;
+		if ($suivant=="s") {
+			$suivant = "laudes";
+			$date_suiv=date("Ymd",$dsuiv);
+		}
+		if ($precedent=="p") {
+			$precedent = "complies";
+			$date_prec= date("Ymd",$dprec);
+		}
+		$date_defunts=$anno."1102";
+	
+		// date du jour :
+		$tfc=time();
+		$date_aujourdhui=date("Ymd",$tfc);
+		$annee_aujourdhui=substr($date_aujourdhui,0,4);
+		$mois_aujourdhui=substr($date_aujourdhui,4,2);
+	
+		echo "$('.$place').show();\n";
+		// Liste des offices
+		echo "$('<ul>').appendTo('.$place');\n";
+		// Jour précédent
+		echo "$('<li><a href=\"index.php?date=$hier&amp;rite=$rite&amp;office=$office\"><span>&lt;&lt; </span></a></li>').appendTo('.$place ul');\n";
+		// Office précédent
+		echo "$('<li><a href=\"index.php?date=$date_prec&amp;rite=$rite&amp;office=$precedent\"><span>&lt; </span></a></li>').appendTo('.$place ul').text();\n";
+		if ($office=="laudes") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Laudes</span></a></li>').appendTo('.$place ul');\n";
+		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span>Laudes</span></a></li>').appendTo('.$place ul');\n";
+		if ($office=="tierce") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Tierce</span></a></li>').appendTo('.$place ul');\n";
+		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span>Tierce</span></a></li>').appendTo('.$place ul');\n";
+		if ($office=="sexte") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Sexte</span></a></li>').appendTo('.$place ul');\n";
+		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span>Sexte</span></a></li>').appendTo('.$place ul');\n";
+		if ($office=="none") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">None</span></a></li>').appendTo('.$place ul');\n";
+		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span>None</span></a></li>').appendTo('.$place ul');\n";
+		if ($office=="vepres") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">V&ecirc;pres</span></a></li>').appendTo('.$place ul');\n";
+		else echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span>V&ecirc;pres</span></a></li>').appendTo('.$place ul');\n";
+		if ($office=="complies") echo "$('<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Complies</span></a></li>').appendTo('.$place ul');\n";
+		echo "$('<li><a href=\"index.php?date=$date_suiv&amp;rite=$rite&amp;office=$suivant\"><span>></span></a></li>').appendTo('.$place ul');\n";
+		echo "$('<li><a href=\"index.php?date=$demain&amp;rite=$rite&amp;office=$office\"><span>>></span></a></li>').appendTo('.$place ul');\n";
+		
+		echo "$('<br>').appendTo('.$place');\n";
+		echo "$('<ul>').addClass('ligneDeux').appendTo('.$place');\n";
+		echo "$('<li><a href=\"index.php?date=$date_defunts&amp;rite=$rite&amp;office=$office&amp;mois_courant=11&amp;an=$anno\"><span class=\"defunts\">Office des d&eacute;funts</span></a></li>').appendTo('.$place .ligneDeux');\n";
+		echo "$('<li><a href=\"index.php?date=$date_aujourdhui&amp;rite=$rite&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\"><span>Revenir au jour pr&eacute;sent</span></a></li>').appendTo('.$place .ligneDeux').last();\n";
+	}
+	
+	/*
 	 * Affichage de l'hymne
 	 */
 	function afficheHymne($ref) {
@@ -116,8 +189,6 @@ class Office_r {
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$latin=utf8_encode($data[0]);$francais=utf8_encode(str_replace("\x92", "'",$data[1]));
-
-
 				if($row==0) {
 					$hymne.="$('<h2>').appendTo('.hymne .latin').text(\"$latin\");\n";
 					$hymne.="$('<h2>').appendTo('.hymne .francais').text(\"$francais\");\n";
@@ -155,7 +226,10 @@ class Office_r {
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$latin="";
 				$francais="";
-				$latin=utf8_encode($data[0]);$francais=utf8_encode(str_replace("\x92", "'",$data[1]));
+				$latin=utf8_encode($data[0]);
+				$francais=str_replace("\x92", "'",$data[1]);
+				$francais=str_replace("\x93", "\xAB", $francais);
+				$francais=utf8_encode($francais);
 				if (($row==0)&&($latin!="")) {
 					$psaume.="$('<h2>').appendTo('$emplacement .latin').text(\"$latin\");\n";
 					$psaume.="$('<h2>').appendTo('$emplacement .francais').text('$francais');\n";
@@ -240,7 +314,7 @@ class Office_r {
 		$row = 0;
 		$preces="$('.preces').show();\n";
 		// Creation du chemin relatif vers le fichier de preces de facon brut
-		$fichier="./preces/".$ref.".csv";
+		$fichier="romain/preces/".$ref.".csv";
 		// Verification du chemin brut, sinon creation du chemin relatif utf8
 		if (!file_exists($fichier)) $fichier="preces/".utf8_encode($ref).".csv";
 		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\"$fichier introuvable !\");\n");
@@ -253,6 +327,7 @@ class Office_r {
 					$preces.="$('<h2>').appendTo('.preces .francais').text(\"$francais\");\n";
 				}
 				else {
+					//$latin=str_replace("V/. ", "", $latin);
 					$preces.="$('<p>').appendTo('.preces .latin').text(\"$latin\");\n";
 					$preces.="$('<p>').appendTo('.preces .francais').text(\"$francais\");\n";
 				}
@@ -276,7 +351,7 @@ class Office_r {
 		$ant3Fr = str_replace("’", "'", utf8_encode($this->ant3('francais')));
 		
 		// Creation du chemin relatif vers le fichier du squelette de l'office de facon brut
-		$fichier="./offices_r/".$this->typeOffice.".csv";
+		$fichier="romain/offices_r/".$this->typeOffice.".csv";
 		// Verification du chemin brut, sinon creation du chemin relatif utf8
 		if (!file_exists($fichier)) $fichier="offices_r/".utf8_encode($ref).".csv";
 		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\"$fichier introuvable !\");\n");
@@ -383,19 +458,19 @@ class Office_r {
 								$('.verset-intro .latin').show()\n
 								$('<p>').appendTo('.verset-intro .latin').text('Deus, in adiutórium meum inténde.');\n
 								var premierP = $('.verset-intro .latin p:first');\n
-								$('<span>').addClass('red').prependTo(premierP).text('R. ');\n
+								$('<span>').addClass('red').prependTo(premierP).text('R/. ');\n
 								$('<p>').appendTo('.verset-intro .latin').text('Dómine, ad adiuvándum me festína.');\n
 								var secondP = premierP.next();\n
-								$('<span>').addClass('red').prependTo(secondP).text('V. ');\n
+								$('<span>').addClass('red').prependTo(secondP).text('V/. ');\n
 								$('<p>').appendTo('.verset-intro .latin').text('Gloria Patri, et Fílio, * et Spirítui Sancto.');\n
 								$('<p>').appendTo('.verset-intro .latin').text('Sicut erat in principio, et nunc et semper * et in sæcula sæculórum. Amen.');\n
 								$('.verset-intro .francais').show();\n
 								$('<p>').appendTo('.verset-intro .francais').text('O Dieu, hâte-toi de me délivrer !');\n
 								var premierP = $('.verset-intro .francais p:first');\n
-								$('<span>').addClass('red').prependTo(premierP).text('R. ');\n
+								$('<span>').addClass('red').prependTo(premierP).text('R/. ');\n
 								$('<p>').appendTo('.verset-intro .francais').text('Seigneur, hâte-toi de me secourir !');\n
 								var secondP = premierP.next();\n
-								$('<span>').addClass('red').prependTo(secondP).text('V. ');\n
+								$('<span>').addClass('red').prependTo(secondP).text('V/. ');\n
 								$('<p>').appendTo('.verset-intro .francais').text('Gloire au Père et au Fils et au Saint-Esprit,');\n
 								$('<p>').appendTo('.verset-intro .francais').text('Comme il était au commencement, maintenant et toujours,');\n
 								$('<p>').appendTo('.verset-intro .francais').text('Et dans les siècles des siècles. Amen.');\n
@@ -422,10 +497,10 @@ class Office_r {
 							$('<p>').appendTo('.examen-conscience .latin').text('Ideo precor beátam Maríam semper Vírginem, omnes Angelos et Sanctos, et vos, fratres, oráre pro me ad Dóminum Deum nostrum.');\n
 							$('<p>').appendTo('.examen-conscience .latin').text('Misereátur nostri omnípotens Deus et, dimissís peccátis nostris, perdúcat nos ad vitam aetérnam.');\n
 							var dernierP = $('.examen-conscience .latin p').last();\n
-							$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
+							$('<span>').addClass('red').prependTo(dernierP).text('V/. ');\n
 							$('<p>').appendTo('.examen-conscience .latin').text('Amen.');\n
 							dernierP = $('.examen-conscience .latin p').last();\n
-							$('<span>').addClass('red').prependTo(dernierP).text('R. ');\n
+							$('<span>').addClass('red').prependTo(dernierP).text('R/. ');\n
 							$('.examen-conscience .francais').show();\n
 							$('<h2>').appendTo('.examen-conscience .francais').text('Examen de conscience');\n
 							$('<p>').appendTo('.examen-conscience .francais').text(\"Je confesse à Dieu tout puissant et à vous, mes frères, car j'ai péché par la pensée, la parole, les actes et par omission :\");\n
@@ -435,10 +510,10 @@ class Office_r {
 							$('<p>').appendTo('.examen-conscience .francais').text(\"C'est pourquoi je supplie la bienheureuse Marie toujours Vierge, tous les Anges et les Saints, et vous, frères, de prier pour moi le Seigneur notre Dieu.\");\n
 							$('<p>').appendTo('.examen-conscience .francais').text('Aie pitié de nous Dieu tout puissant et, nos péchés ayant été renvoyés, conduis-nous à la vie éternelle.');\n
 							var dernierP = $('.examen-conscience .francais p').last();\n
-							$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
+							$('<span>').addClass('red').prependTo(dernierP).text('V/. ');\n
 							$('<p>').appendTo('.examen-conscience .francais').text('Amen.');\n
 							dernierP = $('.examen-conscience .francais p').last();\n
-							$('<span>').addClass('red').prependTo(dernierP).text('R. ');\n
+							$('<span>').addClass('red').prependTo(dernierP).text('R/. ');\n
 						";
 					break; // Fin de Examen de conscience aux Complies
 				
@@ -467,8 +542,8 @@ class Office_r {
 				case "#ANT1*" :
 					//Antienne 1 avant le psaume position 11
 					print "$('.ant11').show();\n";
-					print "$('<h2>').appendTo('.ant11 .latin').text('Psalmodia')";
-					print "$('<h2>').appendTo('.ant11 .francais').text('Psalmodie')";
+					print "$('<h2>').appendTo('.ant11 .latin').text('Psalmodia');\n";
+					print "$('<h2>').appendTo('.ant11 .francais').text('Psalmodie');\n";
 					print "$('<p>').appendTo('.ant11 .latin').text(\"$ant1Lat\");\n";
 					print "$('<p>').appendTo('.ant11 .francais').text(\"$ant1Fr\");\n";
 					print "$('<span>').addClass('red').prependTo('.ant11 p').text('Ant. 1 : ');\n";
@@ -574,14 +649,14 @@ class Office_r {
 					print "$('.repons').show();\n
 							$('<p>').appendTo('.repons .latin').text(\"$reponsLat1\");\n
 							$('<p>').appendTo('.repons .francais').text(\"$reponsFr1\");\n
-							$('<span>').addClass('red').prependTo('.repons p').text('R. ');\n
+							$('<span>').addClass('red').prependTo('.repons p').text('R/. ');\n
 					
 							$('<p>').appendTo('.repons .latin').text(\"$reponsLat2\");\n
 							var dernierP = $('.repons .latin p').last()
-							$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
+							$('<span>').addClass('red').prependTo(dernierP).text('V/. ');\n
 							$('<p>').appendTo('.repons .francais').text(\"$reponsFr2\");\n
 							var dernierP = $('.repons .francais p').last()
-							$('<span>').addClass('red').prependTo(dernierP).text('V. ');\n
+							$('<span>').addClass('red').prependTo(dernierP).text('V/. ');\n
 					
 							$('<br>').appendTo('.repons .latin');\n
 							$('<br>').appendTo('.repons .francais');\n
@@ -723,9 +798,9 @@ class Office_r {
 					print "$('<p>').appendTo('.oratio .latin').text('Amen.');\n";
 					print "$('<p>').appendTo('.oratio .francais').text('Amen.');\n";
 					$dernierP = "$('.oratio .latin p').last()";
-					print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+					print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 					$dernierP = "$('.oratio .francais p').last()";
-					print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+					print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 					break; // Fin de #ORATIO
 				
 				// #BENEDICTIO
@@ -743,18 +818,18 @@ class Office_r {
 							print "$('<p>').appendTo('.benediction .latin').text('Et cum spíritu tuo.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text('Et avec votre Esprit.');\n";
 							$dernierP = "$('.benediction .latin p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							$dernierP = "$('.benediction .francais p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 					
 							print "$('<p>').appendTo('.benediction .latin').text('Benedícat vos omnípotens Deus, Pater, et Fílius, et Spíritus Sanctus.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text('Que le Dieu tout puissant vous bénisse, le Père, le Fils, et le Saint Esprit.');\n";
 							print "$('<p>').appendTo('.benediction .latin').text('Amen.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text('Amen.');\n";
 							$dernierP = "$('.benediction .latin p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							$dernierP = "$('.benediction .francais p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 					
 							print "$('<h5>').appendTo('.benediction .latin').text('Vel alia formula benedictionis, sicut in Missa.');\n";
 							print "$('<h5>').appendTo('.benediction .francais').text(\"Ou une autre formule de bénédiction, comme à la Messe.\");\n";
@@ -765,9 +840,9 @@ class Office_r {
 							print "$('<p>').appendTo('.benediction .latin').text('Deo grátias.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text('Rendons grâces à Dieu.');\n";
 							$dernierP = "$('.benediction .latin p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							$dernierP = "$('.benediction .francais p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 					
 							print "$('<h5>').appendTo('.benediction .latin').text('Absente sacerdote vel diacono, et in recitatione a solo, sic concluditur:');\n";
 							print "$('<h5>').appendTo('.benediction .francais').text(\"En l'absence d'un prêtre ou d'un diacre, et dans la récitation seul, on conclut ainsi :\");\n";
@@ -776,9 +851,9 @@ class Office_r {
 							print "$('<p>').appendTo('.benediction .latin').text('Amen.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text('Amen.');\n";
 							$dernierP = "$('.benediction .latin p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							$dernierP = "$('.benediction .francais p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							break;
 						case "complies":
 							print "$('<h5>').appendTo('.benediction .latin').text('Deinde dicitur, etiam a solo, benedictio:');\n";
@@ -786,16 +861,16 @@ class Office_r {
 							print "$('<p>').appendTo('.benediction .latin').text('Noctem quiétam et finem perféctum concédat nobis Dóminus omnípotens.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text(\"Que le Dieu tout-puissant nous accorde une nuit tranquille et une fin parfaite.\");\n";
 							$dernierP = "$('.benediction .latin p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('V. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('V/. ');\n";
 							$dernierP = "$('.benediction .francais p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('V. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('V/. ');\n";
 					
 							print "$('<p>').appendTo('.benediction .latin').text('Amen.');\n";
 							print "$('<p>').appendTo('.benediction .francais').text('Amen.');\n";
 							$dernierP = "$('.benediction .latin p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							$dernierP = "$('.benediction .francais p').last()";
-							print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+							print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 							break;
 					}
 					break; // Fin de #BENEDICTIO
@@ -803,14 +878,20 @@ class Office_r {
 				// #ACCLAMATIO
 				case "#ACCLAMATIO" :
 					print "$('.acclamation').show();\n";
-					print "$('<h2>').appendTo('.acclamation .latin').text('Acclamtio');\n";
-					print "$('<h2>').appendTo('.acclamation .francais').text('Acclamtion');\n";
+					print "$('<h2>').appendTo('.acclamation .latin').text('Acclamatio');\n";
 					print "$('<p>').appendTo('.acclamation .latin').text('Benedicámus Dómino.');\n";
-					print "$('<p>').appendTo('.acclamation .francais').text('Bénissons le Seigneur.');\n";
+					$dernierP = "$('.acclamation p').last()";
+					print "$('<span>').addClass('red').prependTo($dernierP).text('V/. ');\n";
 					print "$('<p>').appendTo('.acclamation .latin').text('Deo grátias.');\n";
+					$dernierP = "$('.acclamation p').last()";
+					print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
+					print "$('<h2>').appendTo('.acclamation .francais').text('Acclamation');\n";
+					print "$('<p>').appendTo('.acclamation .francais').text('Bénissons le Seigneur.');\n";
+					$dernierP = "$('.acclamation p').last()";
+					print "$('<span>').addClass('red').prependTo($dernierP).text('V/. ');\n";
 					print "$('<p>').appendTo('.acclamation .francais').text('Nous rendons grâces à Dieu.');\n";
 					$dernierP = "$('.acclamation p').last()";
-					print "$('<span>').addClass('red').prependTo($dernierP).text('R. ');\n";
+					print "$('<span>').addClass('red').prependTo($dernierP).text('R/. ');\n";
 					break; // Fin de #ACCLAMATIO
 				
 				//Cantique mariale aux complies
