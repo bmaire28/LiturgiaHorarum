@@ -8,7 +8,7 @@ V/. Qui pro nobis pepéndit in ligno. *Allelúia, allelúia. Glória Patri. Surréxit
 V/. Lui qui pour nous a pendu sur le bois. *Alléluia, alléluia. Gloire au Père. Le Seigneur.";
 benedictus;Amen, amen dico vobis: Si quid petiéritis Patrem in nómine meo, dabit vobis allelúia.;En vérité, en vérité je vous le dis, tout ce que vous  demanderez à mon Père, il vous le donnera en mon nom, alléluia.;Jn XVI 23
 preces_matin;preces_XIII;;
-oratio_laudes;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;;
+oratio_laudes;Deus, cuius Fílius, ad cælos ascéndens, Apóstolis Sanctum Spíritum dignátus est pollicéri, præsta, quæsumus, ut, sicut illi multifária doctrínæ cæléstis múnera percepérunt, ita nobis quoque spiritália dona concédas. Per Dóminum.;"Avant de s'en aller près de toi, notre Père, ton Fils promit aux Apôtres l'Esprit Saint ; ils ont reçu de toi des grâces innombrables qui leur ont fait connaître les choses d'en haut, répands maintenant sur nous les mêmes dons de l'Esprit.";
 HYMNUS_tertiam;hy_Iam surgit hora tértia;;
 HYMNUS_sextam;hy_Veníte, servi, súpplices;;
 HYMNUS_nonam;hy_Hæc hora, quæ resplénduit;;
@@ -40,4 +40,4 @@ V/. Docébit vos ómnia. * Allelúia, allelúia. Glória Patri. Spíritus.";"R/. L'Esp
 V/. Vous enseignera toutes choses. * Alléluia, alléluia. Gloire au Père. L'Esprit.";
 magnificat;<i>Antiphona propria.</i>;<i>Antienne propre</i>;
 oratio_vesperas;<i>Oratio propria</i>;<i>Oraison propre</i>;
-preces_soir;preces_I
+preces_soir;preces_I;;

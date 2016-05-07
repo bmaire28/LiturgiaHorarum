@@ -164,6 +164,10 @@ switch (fmod($num_annee_cour, 3)) {
 		$lettre="C";
 		break;
 }
+$bene="benedictus_".$lettre;
+$magni="magnificat_".$lettre;
+$pmagni="pmagnificat_".$lettre;
+
 //print_r($lettre."<br>");
 
 $jrdelasemaine++; // pour avoir dimanche=1 etc...
@@ -305,6 +309,15 @@ if (($calendarium['rang'][$do])or($calendarium['priorite'][$do]==12)) {
 	}
 	fclose($fp);
 }
+if ($sanctoral[$magni]['latin']) {
+	$sanctoral['magnificat']['latin']=$sanctoral[$magni]['latin'];
+	$sanctoral['magnificat']['francais']=$sanctoral[$magni]['francais'];
+}
+if ($sanctoral[$bene]['latin']) {
+	$sanctoral['benedictus']['latin']=$sanctoral[$bene]['latin'];
+	$sanctoral['benedictus']['francais']=$sanctoral[$bene]['francais'];
+}
+
 
 /*
  * octave glissante précédent noel
@@ -367,6 +380,14 @@ if($calendarium['temporal'][$do]) {
 		$row++;
 	}
 	fclose($fp);
+	if ($temporal[$bene]['latin']) {
+		$temporal['benedictus']['latin']=$temporal[$bene]['latin'];
+		$temporal['benedictus']['francais']=$temporal[$bene]['francais'];
+	}
+	if ($temporal[$magni]['latin']) {
+		$temporal['magnificat']['latin']=$temporal[$magni]['latin'];
+		$temporal['magnificat']['francais']=$temporal[$magni]['francais'];
+	}
 
 	$date_fr=$date_l=null;
 	if($_GET['office']=='vepres') {
@@ -451,11 +472,9 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendariu
 	$temporal['LB_soir']['latin']=$temporal['LB_1V']['latin'];
 	$temporal['RB_soir']['latin']=$temporal['RB_1V']['latin'];
 	$temporal['RB_soir']['francais']=$temporal['RB_1V']['francais'];
-	$pmagnificat="pmagnificat_".$lettre;
-	$magnificat="magnificat_".$lettre;
-	if ($temporal[$pmagnificat]['latin']) {
-		$temporal[$magnificat]['latin']=$temporal[$pmagnificat]['latin'];
-		$temporal[$magnificat]['francais']=$temporal[$pmagnificat]['francais'];
+	if ($temporal[$pmagni]['latin']) {
+		$temporal[$magni]['latin']=$temporal[$pmagni]['latin'];
+		$temporal[$magni]['francais']=$temporal[$pmagni]['francais'];
 	}
 	else {
 		$temporal['magnificat']['latin']=$temporal['pmagnificat']['latin'];

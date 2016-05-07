@@ -11,11 +11,18 @@ body {
   position: relative;
 }
 
-p, h1, h2, h3, h4, h5 {
+/*p, h1, h2, h3, h4, h5 {
 	padding-top : 0px;
 	padding-bottom : 0px;
-	margin-top : 0px;
-	margin-bottom : 0px;
+	margin-top : 1px;
+	margin-bottom : 1px;
+}*/
+
+p {
+	padding-top : 0px;
+	padding-bottom : 0px;
+	margin-top : 1px;
+	margin-bottom : 1px;
 }
 
 h1 {
@@ -61,6 +68,9 @@ p{
     color: red;
 }
 
+a {
+    text-decoration: none;
+}
 
 /* Initial menu */
 .menu {
@@ -103,17 +113,22 @@ p{
     text-align: center;
     padding-left: 1.0em;
     padding-right: 1.0em;
+    max-width: 285px;
+    max-height: 2em;
 }
 
 .icon-menu {
-  cursor: pointer;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-top: 25px;
-  text-decoration: none;
-  text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-right: 0px;
+    text-decoration: none;
+    text-transform: uppercase;
+    max-height: 1em;
+    max-width: 5em;
 }
 
 /* Affichage de l'office */
@@ -121,8 +136,16 @@ p{
     width: 100%;
 }
 
+/*.affichage {
+    width: 95%;
+    margin-left: 2.5%;
+    border: 1px red solid;
+    border-radius: 10px;
+}*/
+
 .latin {
     float: left;
+    clear: left;
     width: 45%;
     margin-left: 2.5%;
     display: block;
@@ -130,6 +153,7 @@ p{
 
 .francais {
 	float: right;
+    clear: right;
     width: 45%;
     margin-right: 2.5%;
     display: block;
@@ -141,6 +165,69 @@ p{
     clear: both;
 }
 
-.ordo {
+/* Affichage menu entete et pied de page */
+.entete, .pied {
+    display: none;
+    clear: both;
     text-align: center;
+}
+
+.pied {
+    margin: 2em;
+    padding: 0.5em;
+}
+
+.entete li, .pied li {
+    display: inline;
+}
+
+.entete a span, .pied a span{
+	border : 1px black solid;
+	border-radius: 10px;
+	margin : 0.1em;
+	padding : 0.5em;
+}
+
+.entete a span, .entete a:visited span, .pied a span, .pied a:visited span {
+    text-decoration: none;
+    color : blue;
+}
+
+.entete a:hover, .entete a span:hover, .pied a:hover, .pied a span:hover {
+    font-weight: bold;
+    background-color: blue;
+    border-color: blue;
+    color: white;
+}
+
+.selection {
+    border : 2px blue solid;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.entete a .defunts, .entete a:visited .defunts, .pied a .defunts, .pied a:visited .defunts {
+    background-color: black;
+    font-weight: bold;
+    color: white;
+}
+
+.entete a:hover .defunts, .entete .defunts:hover, .pied a:hover .defunts, .pied .defunts:hover {
+    border-color: black;
+}
+
+.entete .defunts:hover, .entete .defunts:hover a, .pied .defunts:hover, .pied .defunts:hover a {
+    background-color: white;
+    font-weight: bold;
+    color: black;
+}
+
+
+/* Affichage des parties de l'Office */
+.ordo, .hymne {
+    text-align: center;
+}
+
+.ordo {
+    font-weight: bold;
 }
