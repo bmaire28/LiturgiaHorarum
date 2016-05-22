@@ -13,7 +13,7 @@ include '../calendarium.php';
 
 
 // Récupération de la date demandée ou utilisation de la date courante 
-if ($_GET['date']) { $do = $_GET['date']; }
+if ($_GET['date']) $do = $_GET['date'];
 else {
 	$tfc=time();
 	$do=date("Ymd",$tfc);
@@ -38,12 +38,10 @@ $datelatin=$divinumOfficium->date_latin($dts);
 
 
 $officeCourant = new Office_r();
-if ($_GET['office']) {
-	$officeCourant->setTypeOffice($_GET['office']);
-	$heure = $officeCourant->typeOffice();
-}
+if ($_GET['office']) $heure = $_GET['office'];
 else $heure="complies";
 
+$officeCourant->setTypeOffice($heure);
 
 
 ?>

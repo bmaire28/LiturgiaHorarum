@@ -2080,7 +2080,7 @@ class GestionOffice_r {
 			////////////////////////////////////////
 			/// il y a des "1ères Complies"  //////
 			//////////////////////////////////////
-			$fp = fopen ("romain/complies/comp_FVS.csv","r");
+			$fp = fopen ("./romain/complies/comp_FVS.csv","r");
 			$this->ferial=null;
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$id=$data[0];
@@ -2089,7 +2089,7 @@ class GestionOffice_r {
 				$row++;
 			}
 			$tempo=$this->calendarium['intitule'][$demain];
-			$fp = fopen ("romain/temporal/".$tempo.".csv","r");
+			$fp = fopen ("./romain/temporal/".$tempo.".csv","r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$id=$data[0];
 				$this->temporal[$id]['latin']=$data[1];
@@ -2112,7 +2112,7 @@ class GestionOffice_r {
 			////////////////////////////////////////
 			/// il y a des "2ndes Complies"  //////
 			//////////////////////////////////////
-			$fp = fopen ("romain/complies/comp_FS.csv","r");
+			$fp = fopen ("./romain/complies/comp_FS.csv","r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$id=$data[0];
 				$this->ferial[$id]['latin']=$data[1];
@@ -2120,7 +2120,7 @@ class GestionOffice_r {
 				$row++;
 			}
 			$tempo=$this->calendarium['intitule'][$jour];
-			$fp = fopen ("romain/temporal/".$tempo.".csv","r");
+			$fp = fopen ("./romain/temporal/".$tempo.".csv","r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$id=$data[0];
 				$this->temporal[$id]['latin']=$data[1];
@@ -2139,7 +2139,7 @@ class GestionOffice_r {
 			$office->setIntitule($date_l, $date_fr);
 		}
 		else {
-			$fp = fopen ("romain/complies/comp_F".$jrdelasemaine.".csv","r");
+			$fp = fopen ("./romain/complies/comp_F".$jrdelasemaine.".csv","r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
 				$id=$data[0];$latin=$data[1];$francais=$data[2];
 				$this->ferial[$id]['latin']=$latin;
@@ -2152,7 +2152,6 @@ class GestionOffice_r {
 		$tem=$this->calendarium['tempus'][$jour];
 		
 		//Initilisation de l'hymne
-		if ($tem=="Tempus Paschale") $hymne="hy_Iesu, redémptor";
 		switch ($tem) {
 			case "Tempus Paschale" :
 				$hymne="hy_Iesu, redémptor";
@@ -2192,6 +2191,7 @@ class GestionOffice_r {
 				}
 				break;
 		} //fin du switch $tem
+		$hymne=utf8_decode($hymne);
 		$office->setHymne($hymne);
 		
 		// Intilisation de ANT1
