@@ -292,8 +292,12 @@ function affiche_nav($do,$office,$place) {
 	else $rite=$_GET['rite'];
 
 	print"<div id=\"$place\">\n";
-	if ($place=="tete") {
+	//if ($place=="tete") {
 		print "<form method=\"get\">\n";
+		//conservation des valeurs de dépar
+		print "<input type=\"hidden\" name=\"date\" value=\"$do\">";
+		print "<input type=\"hidden\" name=\"office\" value=\"$office\">";
+		
 		//choix du rit
 		if ($rite=="romain") {
 			print "<input type=\"radio\" name=\"rite\" value=\"romain\" checked>Romain\n";
@@ -305,67 +309,50 @@ function affiche_nav($do,$office,$place) {
 		}
 		
 		//choix de l'office
-		print "<select name=\"office\">\n";
+		print "<button type=\"submit\" name=\"date\" value=\"$hier\">&lt;&lt; </button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"$precedent\">&lt; </button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"laudes\">Laudes</button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"tierce\">Tierce</button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"sexte\">Sexte</button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"none\">None</button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"vepres\">V&ecirc;pres</button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"complies\">Complies</button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"$suivant\">></button>\n";
+		print "<button type=\"submit\" name=\"date\" value=\"$demain\">>></button><br />\n";
 		
-		print "<option value=\"laudes\"";
-		if ($office=="laudes") print " selected";
-		print ">Laudes</option>";
-		
-		print "<option value=\"tierce\"";
-		if ($office=="tierce") print " selected";
-		print ">Tierce</option>";
-		
-		print "<option value=\"sexte\"";
-		if ($office=="sexte") print " selected";
-		print ">Sexte</option>";
-		
-		print "<option value=\"none\"";
-		if ($office=="none") print " selected";
-		print ">None</option>";
-		
-		print "<option value=\"vepres\"";
-		if ($office=="vepres") print " selected";
-		print ">V&ecirc;pres</option>";
-		
-		print "<option value=\"complies\"";
-		if ($office=="complies") print " selected";
-		print ">Complies</option>";
-		
-		print "</select>\n";
+		print "<button type=\"submit\" name=\"date\" value=\"$date_defunts\">Office des d&eacute;funts</button>\n";
+		print "<button type=\"submit\" name=\"date\" value=\"$date_aujourdhui\">Revenir au jour pr&eacute;sent</button>\n";
 		
 		//date
-		print "<input type=\"date\" name=\"date\" value=\"$do\" disable readonly>\n";
-		
-		print "<input type=\"submit\" value=\"Afficher\">\n";
 		print "</form>\n";
-		$rite=$_GET['rite'];
-	}
+	//}
+	/*
 	print "<ul>\n";
-	print "<li><a href=\"index.php?date=$hier&amp;rite=$rite&amp;office=$office\"><span>&lt;&lt; </span></a></li>\n";
-	print "<li><a href=\"index.php?date=$date_prec&amp;rite=$rite&amp;office=$precedent\"><span>&lt; </span></a></li>\n";
-	if ($office=="laudes") print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Laudes</span></a></li>\n";
-	else print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span>Laudes</span></a></li>\n";
-	if ($office=="tierce") print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Tierce</span></a></li>\n";
-	else print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span>Tierce</span></a></li>\n";
-	if ($office=="sexte") print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Sexte</span></a></li>\n";
-	else print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span>Sexte</span></a></li>\n";
-	if ($office=="none") print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">None</span></a></li>\n";
-	else print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span>None</span></a></li>\n";
-	if ($office=="vepres") print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">V&ecirc;pres</span></a></li>\n";
-	else print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span>V&ecirc;pres</span></a></li>\n";
-	if ($office=="complies") print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Complies</span></a></li>\n";
-	else print "<li><a href=\"index.php?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span>Complies</span></a></li>\n";
+	print "<li><a href=\"?date=$hier&amp;rite=$rite&amp;office=$office\"><span>&lt;&lt; </span></a></li>\n";
+	print "<li><a href=\"?date=$date_prec&amp;rite=$rite&amp;office=$precedent\"><span>&lt; </span></a></li>\n";
+	if ($office=="laudes") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Laudes</span></a></li>\n";
+	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span>Laudes</span></a></li>\n";
+	if ($office=="tierce") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Tierce</span></a></li>\n";
+	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span>Tierce</span></a></li>\n";
+	if ($office=="sexte") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Sexte</span></a></li>\n";
+	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span>Sexte</span></a></li>\n";
+	if ($office=="none") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">None</span></a></li>\n";
+	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span>None</span></a></li>\n";
+	if ($office=="vepres") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">V&ecirc;pres</span></a></li>\n";
+	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span>V&ecirc;pres</span></a></li>\n";
+	if ($office=="complies") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Complies</span></a></li>\n";
+	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span>Complies</span></a></li>\n";
 	
-	print"<li><a href=\"index.php?date=$date_suiv&amp;rite=$rite&amp;office=$suivant\"><span>></span></a></li>\n";
-	print "<li><a href=\"index.php?date=$demain&amp;rite=$rite&amp;office=$office\"><span>>></span></a></li>\n";
+	print"<li><a href=\"?date=$date_suiv&amp;rite=$rite&amp;office=$suivant\"><span>></span></a></li>\n";
+	print "<li><a href=\"?date=$demain&amp;rite=$rite&amp;office=$office\"><span>>></span></a></li>\n";
 	print "</ul>\n";
 	print "<ul>\n";
-	print "<li><a href=\"index.php?date=$date_defunts&amp;rite=$rite&amp;office=$office&amp;mois_courant=11&amp;an=$anno\"><span class=\"defunts\">Office des d&eacute;funts</span></a></li>\n";
-	print "<li><a href=\"index.php?date=$date_aujourdhui&amp;rite=$rite&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\"><span>Revenir au jour pr&eacute;sent</span></a></li>\n";
+	print "<li><a href=\"?date=$date_defunts&amp;rite=$rite&amp;office=$office&amp;mois_courant=11&amp;an=$anno\"><span class=\"defunts\">Office des d&eacute;funts</span></a></li>\n";
+	print "<li><a href=\"?date=$date_aujourdhui&amp;rite=$rite&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\"><span>Revenir au jour pr&eacute;sent</span></a></li>\n";
 	print "</ul>\n";
 	print "</div>\n";//div navigation
-//<a href=\"index.php?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
-		
+//<a href=\"?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
+	*/
 }
 
 

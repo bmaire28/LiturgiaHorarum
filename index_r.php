@@ -14,11 +14,7 @@
 
 //print_r("avant chargement des inclusions <br>");
 include ("calendarium.php");
-include("laudes.php");
-include("tierce.php");
-include("sexte.php");
-include("none.php");
-include("vepres.php");
+include ("romain/office_r.php");
 include("complies.php");
 include("fonctions.php");
 include("tenebres.php");
@@ -93,7 +89,7 @@ $calendarium=calendarium($do);
 	<section>
 
 <?php 
-//// Heure de l'Office à afficher
+//// Heure de l'Office &agrave; afficher
 
 if($calendarium['hebdomada'][$do]=="Infra octavam paschae") {
 	$temporal['ps1']['latin']="ps62";
@@ -114,7 +110,7 @@ if($calendarium['hebdomada'][$do]=="Infra octavam paschae") {
  * $day = timestamp du jour de l'office
  * $do_l = liste de noms des jours en latin
  * $do_fr = liste de noms des jours en français
- * $jrdelasemaine = numéro du jour dans la semaine (0 à 6)
+ * $jrdelasemaine = numéro du jour dans la semaine (0 &agrave; 6)
  * $date_l = nom du jour de l'office en latin
  * $date_fr = nom du jour de l'office en français
  *
@@ -124,13 +120,27 @@ $mense=substr($do,4,2);
 $die=substr($do,6,2);
 $day=mktime(12,0,0,$mense,$die,$anno);
 
-if ($_GET['office']=='vepres') {
-	$jour_l = array("Dominica, ad II ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, ad I ");
-	$jour_fr=array("Le Dimanche aux IIes ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche aux I&egrave;res ");
-}
-else {
-	$jour_l = array("Dominica,", "Feria secunda,","Feria tertia,","Feria quarta,","Feria quinta,","Feria sexta,", "Sabbato,");
-	$jour_fr=array("Le Dimanche","Le Lundi","Le Mardi","Le Mercredi","Le Jeudi","Le Vendredi","Le Samedi");
+switch ($_GET['office']) {
+	case "laudes" :
+		$jour_l = array("Dominica, Ad Laudes matutinas", "Feria secunda, Ad Laudes matutinas","Feria tertia, Ad Laudes matutinas","Feria quarta, Ad Laudes matutinas","Feria quinta, Ad Laudes matutinas","Feria sexta, Ad Laudes matutinas", "Sabbato, Ad Laudes matutinas");
+		$jour_fr=array("Le Dimanche aux Laudes","Le Lundi aux Laudes","Le Mardi aux Laudes","Le Mercredi aux Laudes","Le Jeudi aux Laudes","Le Vendredi aux Laudes","Le Samedi aux Laudes");
+		break;
+	case "tierce" :
+		$jour_l = array("Dominica, ad Tertiam", "Feria secunda, ad Tertiam","Feria tertia, ad Tertiam","Feria quarta, ad Tertiam","Feria quinta, ad Tertiam","Feria sexta, ad Tertiam", "Sabbato, ad Tertiam");
+		$jour_fr=array("Le Dimanche &agrave; Tierce","Le Lundi &agrave; Tierce","Le Mardi &agrave; Tierce","Le Mercredi &agrave; Tierce","Le Jeudi &agrave; Tierce","Le Vendredi &agrave; Tierce","Le Samedi &agrave; Tierce");
+		break;
+	case "sexte" :
+		$jour_l = array("Dominica, ad Sextam", "Feria secunda, ad Sextam","Feria tertia, ad Sextam","Feria quarta, ad Sextam","Feria quinta, ad Sextam","Feria sexta, ad Sextam", "Sabbato, ad Sextam");
+		$jour_fr=array("Le Dimanche &agrave; Sexte","Le Lundi &agrave; Sexte","Le Mardi &agrave; Sexte","Le Mercredi &agrave; Sexte","Le Jeudi &agrave; Sexte","Le Vendredi &agrave; Sexte","Le Samedi &agrave; Sexte");
+		break;
+	case "none" :
+		$jour_l = array("Dominica, ad Nonam", "Feria secunda, ad Nonam","Feria tertia, ad Nonam","Feria quarta, ad Nonam","Feria quinta, ad Nonam","Feria sexta, ad Nonam", "Sabbato, ad Nonam");
+		$jour_fr=array("Le Dimanche &agrave; None","Le Lundi &agrave; None","Le Mardi &agrave; None","Le Mercredi &agrave; None","Le Jeudi &agrave; None","Le Vendredi &agrave; None","Le Samedi &agrave; None");
+		break;
+	case "vepres" :
+		$jour_l = array("Dominica, ad II Vesperas", "Feria secunda, ad Vesperas","Feria tertia, ad Vesperas","Feria quarta, ad Vesperas","Feria quinta, ad Vesperas","Feria sexta, ad Vesperas", "Dominica, ad I Vesperas");
+	$jour_fr=array("Le Dimanche aux IIes V&ecirc;pres","Le Lundi aux V&ecirc;pres","Le Mardi aux V&ecirc;pres","Le Mercredi aux V&ecirc;pres","Le Jeudi aux V&ecirc;pres","Le Vendredi aux V&ecirc;pres","Le Dimanche aux I&egrave;res V&ecirc;pres");
+		break;	
 }
 
 $jrdelasemaine=date("w",$day);
@@ -194,8 +204,8 @@ fclose($fp);
  * Ouvrir et charger le propre du jour dans $ferial:
  * $q prend la valeur du nom du fichier en fonction du temps liturgique, du numéro de semaine et du jour :
  * - temps liturgique via $psautier
- * - numéro de la semaine soit dans $psautier pour Pascal et Carême, soit 1 à 4
- * - jour de la semaine de 1 pour Dimanche à 7 pour Samedi
+ * - numéro de la semaine soit dans $psautier pour Pascal et Car&ecirc;me, soit 1 &agrave; 4
+ * - jour de la semaine de 1 pour Dimanche &agrave; 7 pour Samedi
  *
 */
 $tem=$calendarium['tempus'][$do];
@@ -292,7 +302,7 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
 fclose($fp);
 
 /*
- * Vérifier qu'il n'y a pas de saint à célébrer
+ * Vérifier qu'il n'y a pas de saint &agrave; célébrer
  * Chargement du propre du sanctoral dans $sanctoral
  *
 */
@@ -405,7 +415,7 @@ if($calendarium['temporal'][$do]) {
 
 /*
  * Gestion du 4e Dimanche de l'Avent
- * si c'est le 24/12, prendre toutes les antiennes au 24, rien à modifier
+ * si c'est le 24/12, prendre toutes les antiennes au 24, rien &agrave; modifier
  * sinon prendre uniquement l'antienne benedictus ==> recopier le temporal dans le sanctoral
  */
 if ($temporal['intitule']['latin']=="Dominica IV Adventus") {
@@ -428,7 +438,7 @@ if ($temporal['intitule']['latin']=="Dominica IV Adventus") {
 /*
  * Vérification de premieres vepres au temporal - solennités et fetes
  * Chargement de $temporal avec les valeurs du temporal
- * Affectation des valeurs hymne, LB, RB, ... à partir de $temporal
+ * Affectation des valeurs hymne, LB, RB, ... &agrave; partir de $temporal
  */
 $tomorow = $day+60*60*24;
 $demain=date("Ymd",$tomorow);
@@ -498,32 +508,32 @@ switch($office){
 	case "laudes" :
 		//print epuration(laudes($do,$calendarium));
 		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
-		else print epuration(laudes($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		else print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "mdj" :
 		//print epuration(mediahora($do,$calendarium));
-		print epuration(mediahora($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "tierce" :
 		//print epuration(tierce($do,$calendarium));
-		print epuration(tierce($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "sexte" :
 		//print epuration(sexte($do,$calendarium));
-		print epuration(sexte($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "none" :
 		//print epuration(none($do,$calendarium));
-		print epuration(none($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "vepres" :
 		//print epuration(vepres($do,$calendarium));
-		print epuration(vepres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
 	break;
 	
 	case "complies" :
