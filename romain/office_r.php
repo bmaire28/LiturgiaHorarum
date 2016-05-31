@@ -109,7 +109,7 @@ for($row=0;$row<$max;$row++){
 	} // Fin #JOUR
 	
 	elseif ($lat=="#INTRODUCTION") {
-		$officeRomain.="<tr><td style=\"width: 49%; text-align: center;\">V/. Deus, in adiut&oacute;rium meum int&eacute;nde.<br />\n
+		$officeRomain.="<tr><td>V/. Deus, in adiut&oacute;rium meum int&eacute;nde.<br />\n
 				R/. D&oacute;mine, ad adiuv&aacute;ndum me fest&iacute;na.<br/>\n
 				Gl&oacute;ria Patri, et F&iacute;lio, et Spir&iacute;tui Sancto.<br />\n
 				Sicut erat in principio, et nunc et semper et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.";
@@ -117,7 +117,7 @@ for($row=0;$row<$max;$row++){
 						$officeRomain.="</td>";
 				}
 				else $officeRomain.=" Allel&uacute;ia.</td>";
-		$officeRomain.="<td style=\"width: 49%; text-align: center;\">V/. O Dieu, h&acirc;te-toi de me d&eacute;livrer !<br />\n
+		$officeRomain.="<td>V/. O Dieu, h&acirc;te-toi de me d&eacute;livrer !<br />\n
 				R/. Seigneur, h&acirc;te-toi de me secourir !<br />\n
 				Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
 				Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
