@@ -190,7 +190,7 @@ $spsautier=$calendarium['hebdomada_psalterium'][$do];
 /*
  * Chargement du propre au psautier du jour
  */
-$fichier="propres_r/commune/psautier_".$spsautier.$jrdelasemaine.".csv";
+$fichier="romain/commune_r/psautier_".$spsautier.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
 $fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
