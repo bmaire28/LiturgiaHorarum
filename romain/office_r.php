@@ -1,7 +1,15 @@
 <?php
 
-function office_r($jour,$date_l,$date_fr,$var,$propre,$temp) {
+function office_r($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
 
+	$anno=substr($jour,0,4);
+	$mense=substr($jour,4,2);
+	$die=substr($jour,6,2);
+	$day=mktime(12,0,0,$mense,$die,$anno);
+	$jrdelasemaine=date("w",$day);
+	$tomorow = $day+60*60*24;
+	$demain=date("Ymd",$tomorow);
+	
 /*
  * Chargement du squelette de l'office $squelOffice
  * remplissage de $officeRomain pour l'affichage de l'office
@@ -14,7 +22,6 @@ else $fichier.="complies";
 
 $fichier.=".csv";
 $fp = fopen ($fichier,"r");
-$jrdelasemaine--;
 while ($data = fgetcsv ($fp, 1000, ";")) {
     $latin=$data[0];$francais=$data[1];
     $squelOffice[$row]['latin']=$latin;
@@ -91,12 +98,32 @@ for($row=0;$row<$max;$row++){
 					$date_fr="&Agrave None";
 					break;
 				case "vepres" :
-					$date_l="Ad Vesperas";
-					$date_fr="Aux V&ecirc;pres";
+					if (($calendarium['1V'][$demain]) or ($jrdelasemaine==6)){
+						$date_l="Ad I Vesperas";
+						$date_fr="Aux I&egrave;res V&ecirc;pres";
+					}
+					elseif (($calendarium['1V'][$jour]) or ($jrdelasemaine==0)) {
+						$date_l="Ad II Vesperas";
+						$date_fr="Aux IIndes V&ecirc;pres";
+					}
+					else {
+						$date_l="Ad Vesperas";
+						$date_fr="Aux V&ecirc;pres";
+					}
 					break;
 				case "complies" :
-					$date_l="Ad Completorium";
-					$date_fr="Aux Complies";
+					if (($calendarium['1V'][$demain]) or ($jrdelasemaine==6)) {
+						$date_l="post I Vesperas, ad Completorium";
+						$date_fr="apr&egrave;s les I&egrave;res V&ecirc;pres, aux Complies";
+					}
+					elseif (($calendarium['1V'][$jour]) or ($jrdelasemaine==0)) {
+						$date_l="post II Vesperas, ad Completorium";
+						$date_fr="apr&egrave;s les IIes V&ecirc;pres, aux Complies";
+					}
+					else {
+						$date_l="Ad Completorium";
+						$date_fr="Aux Complies";
+					}
 					break;
 			}
 			$officeRomain.="<tr><td style=\"width: 49%; text-align: center;\"><h2>$date_l</h2></td>";
@@ -127,11 +154,93 @@ for($row=0;$row<$max;$row++){
 				}
 				else $officeRomain.=" All&eacute;luia.</td></tr>";
 	}// Fin de #INTRODUCTION
+	
+	elseif ($lat=="#EXAMEN"){
+		$officeRomain.="<tr><td><h2>Conscienti&aelig; discussio</h2></td>";
+		$officeRomain.="<td><h2>Examen de conscience</h2></td></tr>";
+		$officeRomain.="<tr><td>Conf&iacute;teor Deo omnipot&eacute;nti et vobis, fratres, quia pecc&aacute;vi nimis cogitati&oacute;ne, verbo, &oacute;pere et omissi&oacute;ne:</td>";
+		$officeRomain.="<td>Je confesse &agrave; Dieu tout puissant et &agrave; vous, mes fr&egrave;res, car j'ai p&eacute;ch&eacute; par la pens&eacute;e, la parole, les actes et par omission :</td></tr>";
+		$officeRomain.="<tr><td><h5>et, percutientes sibi pectus, dicunt :</h5></td>";
+		$officeRomain.="<td><h5>et, en se frappant la poitrine, on dit :</h5></td></tr>";
+		$officeRomain.="<tr><td>mea culpa, mea culpa, mea m&aacute;xima culpa.</td>";
+		$officeRomain.="<td> je suis coupable, je suis coupable, je suis grandement coupable.</td></tr>";
+		$officeRomain.="<tr><td><h5>Deinde prosequuntur:</h5></td>";
+		$officeRomain.="<td><h5>ensuite, on continue :</h5></td></tr>";
+		$officeRomain.="<tr><td>Ideo precor be&aacute;tam Mar&iacute;am semper V&iacute;rginem, omnes Angelos et Sanctos, et vos, fratres, or&aacute;re pro me ad D&oacute;minum Deum nostrum.</td>";
+		$officeRomain.="<td>C'est pourquoi je supplie la bienheureuse Marie toujours Vierge, tous les Anges et les Saints, et vous, fr&egrave;res, de prier pour moi le Seigneur notre Dieu.</td></tr>";
+		$officeRomain.="<tr><td>V/. Misere&aacute;tur nostri omn&iacute;potens Deus et, dimiss&iacute;s pecc&aacute;tis nostris, perd&uacute;cat nos ad vitam &aelig;t&eacute;rnam.</td>";
+		$officeRomain.="<td>V/. Aie piti&eacute; de nous Dieu tout puissant et, nos p&eacute;ch&eacute;s ayant &eacute;t&eacute; renvoy&eacute;s, conduis-nous &agrave; la vie &eacute;ternelle.</td></tr>";
+		$officeRomain.="<tr><td>R/. Amen.</td>";
+		$officeRomain.="<td>R/. Amen.</td></tr>";
+	}//Fin de #EXAMEN
 
 	elseif($lat=="#HYMNUS") {
-		if($propre['HYMNUS_vepres']['latin']) $hymne=$propre['HYMNUS_vepres']['latin'];
-		elseif ($temp['HYMNUS_vepres']['latin']) $hymne=$temp['HYMNUS_vepres']['latin'];
-		else $hymne=$var['HYMNUS_vesperas']['latin'];
+		switch ($_GET['office']) {
+			case "laudes" :
+				$hymnus1=$hymnus2="HYMNUS_laudes";
+				break;
+			case "tierce" :
+				$hymnus1=$hymnus2="HYMNUS_tertiam";
+				break;
+			case "sexte" :
+				$hymnus1=$hymnus2="HYMNUS_sextam";
+				break;
+			case "none" :
+				$hymnus1=$hymnus2="HYMNUS_nonam";
+				break;
+			case "vepres" :
+				$hymnus1="HYMNUS_vepres";
+				$hymnus2="HYMNUS_vesperas";
+				break;
+			case "complies" :
+				switch ($calendarium['tempus'][$jour]) {
+					case "Tempus Paschale":
+						$hymne=utf8_decode("hy_Iesu, redémptor");
+						break;
+				
+					case "Tempus Quadragesimae":
+					case "Tempus per annum":
+						switch ($calendarium['hebdomada_psalterium'][$jour]) {
+							case 1:
+							case 3:
+								$hymne=utf8_decode("hy_Te lucis");
+								break;
+							case 2:
+							case 4:
+								$hymne=utf8_decode("hy_Christe, qui, splendor");
+								break;
+						}
+						break;
+				
+					case "Tempus Adventus":
+						$seizedec=mktime(12,0,0,12,16,$anno);
+						if($day<=$seizedec) {
+							$hymne="hy_Te lucis";
+						}
+						else{
+							$hymne="hy_Christe, qui, splendor";
+						}
+						break;
+				
+					case "Tempus Nativitatis":
+						$sixjanv=mktime(12,0,0,1,6,$anno);
+						if($mense=="12"){
+							$annosuivante=$anno+1;
+							$sixjanv=mktime(12,0,0,1,6,$annosuivante);
+						}
+						if($day<=$sixjanv) {
+							$hymne="hy_Te lucis";
+						}
+						else{
+							$hymne="hy_Christe, qui, splendor";
+						}
+						break;
+				}
+				break;
+		}
+		if($propre[$hymnus1]['latin']) $hymne=$propre[$hymnus1]['latin'];
+		elseif ($temp[$hymnus1]['latin']) $hymne=$temp[$hymnus1]['latin'];
+		elseif (!$hymne) $hymne=$var[$hymnus2]['latin'];
 		$officeRomain.=hymne($hymne);
 	}// Fin de #HYMNUS
 
@@ -151,6 +260,9 @@ for($row=0;$row<$max;$row++){
 				break;
 			case "vepres" :
 				$ant1="ant7";
+				break;
+			case "complies" :
+				$ant1="ant11";
 				break;
 		}
 	    if($propre[$ant1]['latin']) {
@@ -180,6 +292,9 @@ for($row=0;$row<$max;$row++){
 			case "vepres" :
 				$ps1="ps7";
 				break;
+			case "complies" :
+				$ps1="ps11";
+				break;
 		}
 	    if($propre[$ps1]['latin']) $psaume=$propre[$ps1]['latin'];
 	    elseif($temp[$ps1]['latin']) $psaume=$temp[$ps1]['latin'];
@@ -196,6 +311,9 @@ for($row=0;$row<$max;$row++){
 				break;
 			case "vepres" :
 				$ant1="ant7";
+				break;
+			case "complies" :
+				$ant1="ant11";
 				break;
 		}
 	    if($propre[$ant1]['latin']) {
@@ -222,6 +340,9 @@ for($row=0;$row<$max;$row++){
 			case "vepres" :
 				$ant2="ant8";
 				break;
+			case "complies" :
+				$ant2="ant12";
+				break;
 		}
 	    if($propre[$ant2]['latin']) {
 			$antlat=$propre[$ant2]['latin'];
@@ -235,8 +356,10 @@ for($row=0;$row<$max;$row++){
 			$antfr=$var[$ant2]['francais'];
 			$antlat=$var[$ant2]['latin'];
         }
-	    $officeRomain.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
+        if ($antlat) {
+        	$officeRomain.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>";
+        	$officeRomain.="<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
+        }
 	}//Fin de #ANT2*
 
 	elseif($lat=="#PS2"){
@@ -250,13 +373,16 @@ for($row=0;$row<$max;$row++){
 			case "vepres" :
 				$ps2="ps8";
 				break;
+			case "complies" :
+				$ps2="ps12";
+				break;
 		}
 		if($propre[$ps2]['latin']) $psaume=$propre[$ps2]['latin'];
 	    elseif($temp[$ps2]['latin']) $psaume=$temp[$ps2]['latin'];
 	    else $psaume=$var[$ps2]['latin'];
 	    if ($_GET['office']=="tierce") $psaume="ps120";
-	    elseif ($_GET['office']=="none") $psaume="ps126";	    
-	    $officeRomain.=psaume($psaume);
+	    elseif ($_GET['office']=="none") $psaume="ps126";
+	    if ($psaume!="") $officeRomain.=psaume($psaume);
 	}//Fin de #PS2
 
 	elseif($lat=="#ANT2"){
@@ -266,6 +392,9 @@ for($row=0;$row<$max;$row++){
 				break;
 			case "vepres" :
 				$ant2="ant8";
+				break;
+			case "complies" :
+				$ant2="ant12";
 				break;
 		}
 	    if($propre[$ant2]['latin']) {
@@ -280,8 +409,10 @@ for($row=0;$row<$max;$row++){
 			$antfr=$var[$ant2]['francais'];
 			$antlat=$var[$ant2]['latin'];
         }
-	    $officeRomain.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
-				<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+        if ($antlat) {
+		    $officeRomain.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
+		    $officeRomain.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+        }
 	}//Fin de #ANT2
 
 	elseif($lat=="#ANT3*"){
@@ -380,6 +511,9 @@ for($row=0;$row<$max;$row++){
 			case "vepres" :
 				$lectio="LB_soir";
 				break;
+			case "complies" :
+				$lectio="LB_comp";
+				break;
 		}
 	    if($propre[$lectio]['latin']) $LB=$propre[$lectio]['latin'];
 		elseif ($temp[$lectio]['latin']) $LB=$temp[$lectio]['latin'];
@@ -404,6 +538,25 @@ for($row=0;$row<$max;$row++){
 			case "vepres" :
 				$repons="RB_soir";
 				break;
+			case "complies" :
+				if ($calendarium['hebdomada'][$jour]=="Infra octavam paschae"){
+					$rblat="H&aelig;c dies, * quam fecit D&oacute;minus: exsult&eacute;mus, et l&aelig;t&eacute;mur in ea.";
+					$rbfr="Voici le jour * que le Seigneur a fait: passons-le dans la joie et l'all&eacutegresse.";
+				}
+				elseif ($calendarium['tempus'][$jour]=="Tempus Paschale") {
+					$rblat="R/. In manus tuas, D&oacute;mine, Comm&eacute;ndo sp&iacute;ritum meum. * allel&uacute;ia, allel&uacute;ia.<br />\n";
+					$rblat.="V/. Redem&iacute;sti nos, D&oacute;mine Deus verit&aacute;tis. * allel&uacute;ia, allel&uacute;ia. Gl&oacute;ria Patri. In manus.";
+					$rbfr="R/. Entre tes mains, Seigneur, je remets mon esprit. * all&eacute;luia, all&eacute;luia. <br />\n";
+					$rbfr.="V/. Tu nous rach&egrave;tes, Seigneur, Dieu de v&eacute;rit&eacute;. * all&eacute;luia, all&eacute;luia. Gloire au P&egrave;re. Entre tes mains.";
+				}
+				else {
+					$rblat="R/. In manus tuas, D&oacute;mine, * Comm&eacute;ndo sp&iacute;ritum meum. In manus.<br />\n";
+					$rblat.="V/. Redem&iacute;sti nos, D&oacute;mine Deus verit&aacute;tis. * Comm&eacute;ndo sp&iacute;ritum meum. Gl&oacute;ria Patri. In manus.";
+					$rbfr="R/. Entre tes mains, Seigneur, * je remets mon esprit. Entre tes mains.<br />";
+					$rbfr.="V/. Tu nous rach&egrave;tes, Seigneur, Dieu de v&eacute;rit&eacute;. * je remets. Gloire au P&egrave;re. Entre tes mains.";
+				}
+				
+				break;
 		}
 	    if($propre[$repons]['latin']) {
 	        $rblat=nl2br($propre[$repons]['latin']);
@@ -413,7 +566,7 @@ for($row=0;$row<$max;$row++){
 	        $rblat=nl2br($temp[$repons]['latin']);
 	    	$rbfr=nl2br($temp[$repons]['francais']);
 	    }
-	    else {
+	    elseif ($rblat=="") {
 	    	$rblat=nl2br($var[$repons]['latin']);
 	    	$rbfr=nl2br($var[$repons]['francais']);
 	    }
@@ -433,6 +586,15 @@ for($row=0;$row<$max;$row++){
 				$cantEv="magnificat";
 				$cantEvLettre="magnificat_".$lettre;
 				break;
+			case "complies" :
+				$cantEv="nuncdimittis";
+				$magniflat="Salva nos, D&oacute;mine, vigil&aacute;ntes, cust&oacute;di nos dormi&eacute;ntes, ut vigil&eacute;mus cum Christo et requiesc&aacute;mus in pace.";
+				$magniffr="Sauve nous, Seigneur, quand nous veillons, garde nous quand nous dormons, et nous veillerons avec le Messie et nous reposerons en paix.";
+				if ($calendarium['tempus'][$jour]=="Tempus Paschale") {
+					$magniflat.=" Allel&uacute;ia.";
+					$magniffr.=" All&eacute;luia.";
+				}
+				break;
 		}
 		if($propre[$cantEvLettre]['latin']) {
 			$magniflat=$propre[$cantEvLettre]['latin'];
@@ -450,11 +612,11 @@ for($row=0;$row<$max;$row++){
 	    	if(!$magniflat) $magniflat=$var[$cantEv]['latin'];
 	    	if(!$magniffr) $magniffr=$var[$cantEv]['francais'];
 	    }
-	    $officeRomain.="<tr><td><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>";
-	    $officeRomain.="<td><p><span style=\"color:red\">Ant. </span>$magniffr</p></td></tr>";
+	    $officeRomain.="<tr><td><br /><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>";
+	    $officeRomain.="<td><br /><p><span style=\"color:red\">Ant. </span>$magniffr</p></td></tr>";
 	    $officeRomain.=psaume($cantEv);
-	    $officeRomain.="<tr><td><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>";
-	    $officeRomain.="<td><p><span style=\"color:red\">Ant. </span>$magniffr</p></td></tr>";
+	    $officeRomain.="<tr><td><br /><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>";
+	    $officeRomain.="<td><br /><p><span style=\"color:red\">Ant. </span>$magniffr</p></td></tr>";
 	}//Fin de #CANT_EV
 	
 	elseif($lat=="#PRECES"){
@@ -473,7 +635,24 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #PRECES
 	
 	elseif($lat=="#PATER"){
-	    $officeRomain.=psaume("pater");
+		$officeRomain.="<tr><td><h2>Pater</h2></td>";
+		$officeRomain.="<td><h2>Notre P&egrave;re</h2></td></tr>";
+		$officeRomain.="<tr><td>Pater noster, qui es in c&aelig;lis: </td>";
+		$officeRomain.="<td>Notre P&egrave;re, qui es aux Cieux,</td></tr>";
+		$officeRomain.="<tr><td>sanctific&eacute;tur nomen tuum; </td>";
+		$officeRomain.="<td>que ton nom soit sanctifi&eacute; ;</td></tr>";
+		$officeRomain.="<tr><td>adv&eacute;niat regnum tuum; </td>";
+		$officeRomain.="<td>que ton r&egrave;gne arrive; </td></tr>";
+		$officeRomain.="<tr><td>fiat vol&uacute;ntas tua, sicut in c&aelig;lo et in terra.</td>";
+		$officeRomain.="<td>que ta volont&eacute; soit faite au Ciel comme sur la terre.</td></tr>";
+		$officeRomain.="<tr><td>Panem nostrum cotidi&aacute;num da nobis h&oacute;die; </td>";
+		$officeRomain.="<td>Donne-nous aujourd'hui notre pain quotidien,</td></tr>";
+		$officeRomain.="<tr><td>et dim&iacute;tte nobis d&eacute;bita nostra, sicut et nos dim&iacute;ttimus debit&oacute;ribus nostris; </td>";
+		$officeRomain.="<td>et remets-nous nos dettes,  comme nous les remettons nous-m&ecirc;mes &agrave; nos d&eacute;biteurs ;</td></tr>";
+		$officeRomain.="<tr><td>et ne nos ind&uacute;cas in tentati&oacute;nem;</td>";
+		$officeRomain.="<td>et ne nous abandonne pas dans l'&eacute;preuve, </td></tr>";
+		$officeRomain.="<tr><td>sed l&iacute;bera nos a malo.</td>";
+		$officeRomain.="<td>mais d&eacute;livre-nous du malin.</td></tr>";
 	}//Fin de #PATER
 
 	elseif($lat=="#ORATIO"){
@@ -566,7 +745,7 @@ for($row=0;$row<$max;$row++){
 	    		}
 	    		break;
 	    }
-	    if (($_GET['office']=="tierce") or ($_GET['office']=="sexte") or ($_GET['office']=="none")) {
+	    if (($_GET['office']=="tierce") or ($_GET['office']=="sexte") or ($_GET['office']=="none") or ($_GET['office']=="complies")) {
 	    	$officeRomain.="<tr><td>Or&eacute;mus</td>";
 	    	$officeRomain.="<td>Prions</td></tr>";
 	    }
@@ -577,24 +756,34 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ORATIO
 	
 	elseif ($lat=="#BENEDICTIO") {
-		$officeRomain.="<tr><td><h2>Benedictio</h2></td>";
-		$officeRomain.="<td><h2>B&eacute;n&eacute;diction</h2></td></tr>";
-		$officeRomain.="<tr><td><h5>Deinde, si pr&aelig;est sacerdos vel diaconus, populum dimittit, dicens:</h5></td>";
-		$officeRomain.="<td><h5>Ensuite, si l'office est pr&eacute;sid&eacute; par un pr&ecirc;tre ou un diacre, il renvoie le peuple, en disant :</h5></td></tr>";
-		$officeRomain.="<tr><td>D&oacute;minus vob&iacute;scum. </td>";
-		$officeRomain.="<td>Le Seigneur soit avec vous. </td></tr>";
-		$officeRomain.="<tr><td>R/. Et cum sp&iacute;ritu tuo.</td>";
-		$officeRomain.="<td>R/. Et avec votre Esprit.</td></tr>";
-		$officeRomain.="<tr><td>Bened&iacute;cat vos omn&iacute;potens Deus, Pater, et F&iacute;lius, et Sp&iacute;ritus Sanctus. </td>";
-		$officeRomain.="<td>Que le Dieu tout puissant vous b&eacute;nisse, le P&egrave;re, le Fils, et le Saint Esprit.</td></tr>";
-		$officeRomain.="<tr><td>R/. Amen.</td>";
-		$officeRomain.="<td>R/. Amen.</td></tr>";
-		$officeRomain.="<tr><td><h5>Vel alia formula benedictionis, sicut in Missa.</h5></td>";
-		$officeRomain.="<td><h5>Ou une autre formule de b&eacute;n&eacute;diction, comme &agrave; la Messe.</h5></td></tr>";
-		$officeRomain.="<tr><td><h5>Absente sacerdote vel diacono, et in recitatione a solo, sic concluditur:</h5></td>";
-		$officeRomain.="<td><h5>En l''absence d'un pr&ecirc;tre ou d'un diacre, et dans la r&eacute;citation seul, on conclut ainsi :</h5></td></tr>";
-		$officeRomain.="<tr><td>D&oacute;minus nos bened&iacute;cat, et ab omni malo def&eacute;ndat, et ad vitam perd&uacute;cat &aelig;t&eacute;rnam. R/. Amen.</td>";
-		$officeRomain.="<td>Que le Seigneur nous b&eacute;nisse, et qu'il nous d&eacute;fende de tout mal, et nous conduise &agrave; la vie &eacute;ternelle. R/. Amen.</td>";
+		if ($_GET['office']=="complies"){
+			$officeRomain.="<tr><td><h2>Benedictio</h2></td>";
+			$officeRomain.="<td><h2>B&eacute;n&eacute;diction</h2></td></tr>";
+			$officeRomain.="<tr><td>V/. Noctem qui&eacute;tam et finem perf&eacute;ctum conc&eacute;dat nobis D&oacute;minus omn&iacute;potens.</td>";
+			$officeRomain.="<td>Que le Dieu tout-puissant nous accorde une nuit tranquille et une fin parfaite.</td></tr>";
+			$officeRomain.="<tr><td>R/. Amen.</td>";
+			$officeRomain.="<td>R/. Amen.</td></tr>";
+		}
+		else {
+			$officeRomain.="<tr><td><h2>Benedictio</h2></td>";
+			$officeRomain.="<td><h2>B&eacute;n&eacute;diction</h2></td></tr>";
+			$officeRomain.="<tr><td><h5>Deinde, si pr&aelig;est sacerdos vel diaconus, populum dimittit, dicens:</h5></td>";
+			$officeRomain.="<td><h5>Ensuite, si l'office est pr&eacute;sid&eacute; par un pr&ecirc;tre ou un diacre, il renvoie le peuple, en disant :</h5></td></tr>";
+			$officeRomain.="<tr><td>D&oacute;minus vob&iacute;scum. </td>";
+			$officeRomain.="<td>Le Seigneur soit avec vous. </td></tr>";
+			$officeRomain.="<tr><td>R/. Et cum sp&iacute;ritu tuo.</td>";
+			$officeRomain.="<td>R/. Et avec votre Esprit.</td></tr>";
+			$officeRomain.="<tr><td>Bened&iacute;cat vos omn&iacute;potens Deus, Pater, et F&iacute;lius, et Sp&iacute;ritus Sanctus. </td>";
+			$officeRomain.="<td>Que le Dieu tout puissant vous b&eacute;nisse, le P&egrave;re, le Fils, et le Saint Esprit.</td></tr>";
+			$officeRomain.="<tr><td>R/. Amen.</td>";
+			$officeRomain.="<td>R/. Amen.</td></tr>";
+			$officeRomain.="<tr><td><h5>Vel alia formula benedictionis, sicut in Missa.</h5></td>";
+			$officeRomain.="<td><h5>Ou une autre formule de b&eacute;n&eacute;diction, comme &agrave; la Messe.</h5></td></tr>";
+			$officeRomain.="<tr><td><h5>Absente sacerdote vel diacono, et in recitatione a solo, sic concluditur:</h5></td>";
+			$officeRomain.="<td><h5>En l''absence d'un pr&ecirc;tre ou d'un diacre, et dans la r&eacute;citation seul, on conclut ainsi :</h5></td></tr>";
+			$officeRomain.="<tr><td>D&oacute;minus nos bened&iacute;cat, et ab omni malo def&eacute;ndat, et ad vitam perd&uacute;cat &aelig;t&eacute;rnam. R/. Amen.</td>";
+			$officeRomain.="<td>Que le Seigneur nous b&eacute;nisse, et qu'il nous d&eacute;fende de tout mal, et nous conduise &agrave; la vie &eacute;ternelle. R/. Amen.</td>";
+		}
 	}//Fin de #BENEDICTIO
 	
 	elseif ($lat=="#ACCLAMATIO") {
@@ -621,6 +810,45 @@ for($row=0;$row<$max;$row++){
 		}
 		else $officeRomain.=".</td></tr>";
 	}//Fin de #ACCLAMATIO
+	
+	elseif ($lat=="#ANT_MARIALE") {
+		$ant_marie="";
+        switch($calendarium['tempus'][$jour]){
+            case "Tempus Paschale":
+               $ant_marie="ant_regina caeli";
+                break;
+            case "Tempus Quadragesimae":
+                $ant_marie="ant_ave regina";
+                break;
+            case "Tempus passionis":
+                $ant_marie="ant_ave regina";
+                break;
+            case "Tempus Nativitatis":
+                $ant_marie="ant_alma redemtoris";
+                
+                break;
+            case "Tempus Adventus":
+                $ant_marie="ant_alma redemtoris";
+                break;
+            case "Tempus per annum":{
+                $deuxfev=mktime(12,0,0,2,2,$anno);
+                if (($mense=="01") or ($mense=="02") or ($mense=="03")){
+                    $ant_marie="ant_ave regina";
+                }
+                elseif($tempo=="IN ASSUMPTIONE B. MARIAE VIRGINIS") {
+                    $ant_marie="ant_ave regina";
+                }
+                else {
+                  $ant_marie="ant_salve regina";
+                }
+            }
+        }
+
+        if(($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($jrdelasemaine!=7)){
+            $ant_marie="ant_sub tuum";
+        }
+		$officeRomain.=hymne($ant_marie);
+	}//Fin de #ANT_MARIALE
 	
 }
 $officeRomain.="</table>";

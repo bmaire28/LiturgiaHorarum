@@ -139,8 +139,12 @@ switch ($_GET['office']) {
 		break;
 	case "vepres" :
 		$jour_l = array("Dominica, ad II Vesperas", "Feria secunda, ad Vesperas","Feria tertia, ad Vesperas","Feria quarta, ad Vesperas","Feria quinta, ad Vesperas","Feria sexta, ad Vesperas", "Dominica, ad I Vesperas");
-	$jour_fr=array("Le Dimanche aux IIes V&ecirc;pres","Le Lundi aux V&ecirc;pres","Le Mardi aux V&ecirc;pres","Le Mercredi aux V&ecirc;pres","Le Jeudi aux V&ecirc;pres","Le Vendredi aux V&ecirc;pres","Le Dimanche aux I&egrave;res V&ecirc;pres");
-		break;	
+		$jour_fr=array("Le Dimanche aux IIes V&ecirc;pres","Le Lundi aux V&ecirc;pres","Le Mardi aux V&ecirc;pres","Le Mercredi aux V&ecirc;pres","Le Jeudi aux V&ecirc;pres","Le Vendredi aux V&ecirc;pres","Le Dimanche aux I&egrave;res V&ecirc;pres");
+		break;
+	case "complies" :
+		$jours_l = array("Dominica, post II Vesperas, ad ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, post I Vesperas, ad ");
+		$jours_fr=array("Le Dimanche apr&egrave;s les IIes V&ecirc;pres, aux  ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche, apr&egrave;s les I&egrave;res V&ecirc;pres, aux ");
+		break;
 }
 
 $jrdelasemaine=date("w",$day);
@@ -379,8 +383,8 @@ if(($mense==12)AND(
  */
 
 if($calendarium['temporal'][$do]) {
-	$temporalo=$calendarium['temporal'][$do];
-	$fichier="propres_r/temporal/".$temporalo.".csv";
+	$tempo=$calendarium['temporal'][$do];
+	$fichier="propres_r/temporal/".$tempo.".csv";
 	if (!file_exists($fichier)) print_r("<p>temporal : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -450,10 +454,10 @@ $demain=date("Ymd",$tomorow);
 print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
 if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
 	/*print_r("<p> 1V</p>");*/
-	$temporalo=null;
+	$tempo=null;
 	$temporal=null;
-	$temporalo=$calendarium['temporal'][$demain];
-	$fichier="propres_r/temporal/".$temporalo.".csv";
+	$tempo=$calendarium['temporal'][$demain];
+	$fichier="propres_r/temporal/".$tempo.".csv";
 	if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -502,6 +506,78 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendariu
 	}
 }
 
+/*
+ * Gestion des Complies
+ */
+
+if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendarium['priorite'][$demain])&&($jrdelasemaine!=7)) {
+	////////////////////////////////////////
+	/// il y a des "1ères Complies"  //////
+	//////////////////////////////////////
+	$fichier="romain/complies_r/comp_FVS.csv";
+	if (!file_exists($fichier)) print_r("<p>Complies 1V : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$ferial[$id]['latin']=$data[1];
+		$ferial[$id]['francais']=$data[2];
+		$row++;
+	}/*
+	$tempo=$calendarium['temporal'][$demain];
+	$fichier="propres_r/temporal/".$tempo.".csv";
+	if (!file_exists($fichier)) print_r("<p>temporal Complies 1V : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$temporal[$id]['latin']=$data[1];
+		$temporal[$id]['francais']=$data[2];
+		$row++;
+	}
+	fclose($fp);*/
+}
+
+if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendarium['priorite'][$demain])&&($jrdelasemaine!=1)) {
+	////////////////////////////////////////
+	/// il y a des "2ndes Complies"  //////
+	//////////////////////////////////////
+	$fichier="romain/complies_r/comp_FS.csv";
+	if (!file_exists($fichier)) print_r("<p>Complies 2V : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$ferial[$id]['latin']=$data[1];
+		$ferial[$id]['francais']=$data[2];
+		$row++;
+	}/*
+	$tempo=$calendarium['temporal'][$demain];
+	$fichier="propres_r/temporal/".$tempo.".csv";
+	if (!file_exists($fichier)) print_r("<p>temporal Complies 2V : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];
+		$temporal[$id]['latin']=$data[1];
+		$temporal[$id]['francais']=$data[2];
+		$row++;
+	}
+	fclose($fp);*/
+}
+
+
+if(!$ferial['ant11']['latin']){
+	$fichier="romain/complies_r/comp_F".$jrdelasemaine.".csv";
+	if (!file_exists($fichier)) print_r("<p>Complies : ".$fichier." introuvable !</p>");
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$ferial[$id]['latin']=$latin;
+		$ferial[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
+}
+/*
+ * Fin de gestion des Complies
+ */
 
 
 switch($office){
@@ -513,31 +589,32 @@ switch($office){
 	
 	case "mdj" :
 		//print epuration(mediahora($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "tierce" :
 		//print epuration(tierce($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "sexte" :
 		//print epuration(sexte($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "none" :
 		//print epuration(none($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "vepres" :
 		//print epuration(vepres($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "complies" :
-		print epuration(complies($do,$calendarium));
+		//print epuration(complies($do,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "messe" :

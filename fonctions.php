@@ -130,7 +130,7 @@ function psaume($ref) {
 	$fichier="psautier/".$ref.".csv";
 	// Vérification du chemin brut, sinon création du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="psautier/".utf8_encode($ref).".csv";
-	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	if (!file_exists($fichier)) print_r("<p> reference : ".$ref." fichier :".$fichier." introuvable !</p>");
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
 		$latin="";
