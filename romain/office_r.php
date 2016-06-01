@@ -302,6 +302,13 @@ for($row=0;$row<$max;$row++){
 	    if ($_GET['office']=="tierce") $psaume="ps119";
 	    elseif ($_GET['office']=="none") $psaume="ps125";
 	    $officeRomain.=psaume($psaume);
+	    if ($psaume!="AT41") {
+	    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
+	    			Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
+	    	$officeRomain.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
+	    			Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
+	    			Et dans les si&egrave;cles des si&egrave;cles. Amen.</td></tr>";
+	    }
 	}//Fin de #PS1
 
 	elseif($lat=="#ANT1"){
@@ -383,6 +390,13 @@ for($row=0;$row<$max;$row++){
 	    if ($_GET['office']=="tierce") $psaume="ps120";
 	    elseif ($_GET['office']=="none") $psaume="ps126";
 	    if ($psaume!="") $officeRomain.=psaume($psaume);
+	    if ($psaume!="AT41") {
+	    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
+	    			Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
+	    	$officeRomain.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit, <br />\n
+	    			Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
+	    			Et dans les si&egrave;cles des si&egrave;cles. Amen.</td></tr>";
+	    }
 	}//Fin de #PS2
 
 	elseif($lat=="#ANT2"){
@@ -458,6 +472,13 @@ for($row=0;$row<$max;$row++){
 	    if ($_GET['office']=="tierce") $psaume="ps121";
 	    elseif ($_GET['office']=="none") $psaume="ps127";
 	    $officeRomain.=psaume($psaume);
+	    if ($psaume!="AT41") {
+	    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
+	    			Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
+	    	$officeRomain.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
+	    			Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
+	    			Et dans les si&egrave;cles des si&egrave;cles. Amen.</td></tr>";
+	    }
 	}//Fin de #PS3
 	
 	elseif($lat=="#ANT3"){
@@ -615,6 +636,11 @@ for($row=0;$row<$max;$row++){
 	    $officeRomain.="<tr><td><br /><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>";
 	    $officeRomain.="<td><br /><p><span style=\"color:red\">Ant. </span>$magniffr</p></td></tr>";
 	    $officeRomain.=psaume($cantEv);
+    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
+    			Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
+    	$officeRomain.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
+    			Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
+    			Et dans les si&egrave;cles des si&egrave;cles. Amen.</td></tr>";
 	    $officeRomain.="<tr><td><br /><p><span style=\"color:red\">Ant. </span>$magniflat</p></td>";
 	    $officeRomain.="<td><br /><p><span style=\"color:red\">Ant. </span>$magniffr</p></td></tr>";
 	}//Fin de #CANT_EV
@@ -676,31 +702,38 @@ for($row=0;$row<$max;$row++){
 				$oraison="oratio_soir";
 				$oraison2="oratio_vesperas";
 				break;
+			case "complies" :
+				$oratiolat=$var['oratio']['latin'];
+				$oratiofr=$var['oratio']['francais'];
+				break;
 		}
-		if($propre[$oraison]['latin']) {
-			$oratiolat=$propre[$oraison]['latin'];
-			$oratiofr=$propre[$oraison]['francais'];
+		
+		if ($_GET['office']!="complies") {
+			if($propre[$oraison]['latin']) {
+				$oratiolat=$propre[$oraison]['latin'];
+				$oratiofr=$propre[$oraison]['francais'];
+			}
+			elseif($propre['oratio']['latin']) {
+				$oratiolat=$propre['oratio']['latin'];
+				$oratiofr=$propre['oratio']['francais'];
+			}
+			elseif($temp[$oraison]['latin']) {
+				$oratiolat=$temp[$oraison]['latin'];
+				$oratiofr=$temp[$oraison]['francais'];
+			}
+			elseif($temp['oratio']['latin']) {
+				$oratiolat=$temp['oratio']['latin'];
+				$oratiofr=$temp['oratio']['francais'];
+			}
+		    elseif ($var[$oraison2]['latin']) {
+		    	$oratiolat=$var[$oraison2]['latin'];
+		    	$oratiofr=$var[$oraison2]['francais'];
+		    }
+		    else {
+		    	$oratiolat=$var['oratio']['latin'];
+		    	$oratiofr=$var['oratio']['francais'];
+		    }
 		}
-		elseif($propre['oratio']['latin']) {
-			$oratiolat=$propre['oratio']['latin'];
-			$oratiofr=$propre['oratio']['francais'];
-		}
-		elseif($temp[$oraison]['latin']) {
-			$oratiolat=$temp[$oraison]['latin'];
-			$oratiofr=$temp[$oraison]['francais'];
-		}
-		elseif($temp['oratio']['latin']) {
-			$oratiolat=$temp['oratio']['latin'];
-			$oratiofr=$temp['oratio']['francais'];
-		}
-	    elseif ($oratiolat=$var[$oraison2]['latin']) {
-	    	$oratiolat=$var[$oraison2]['latin'];
-	    	$oratiofr=$var[$oraison2]['francais'];
-	    }
-	    elseif ($oratiolat=$var['oratio']['latin']) {
-	    	$oratiolat=$var['oratio']['latin'];
-	    	$oratiofr=$var['oratio']['francais'];
-	    }
 	    
 	    switch ($_GET['office']) {
 	    	case "laudes":
