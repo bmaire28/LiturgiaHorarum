@@ -1,3 +1,10 @@
+<?php
+// PHP permanent URL redirection
+if ($_GET['rite']=="romain") {
+	include 'index_r.php';
+}
+
+?>
 <!DOCTYPE HTML> 
 	<html>
 <?php
