@@ -582,8 +582,8 @@ if(!$ferial['ant11']['latin']){
 switch($office){
 	case "laudes" :
 		//print epuration(laudes($do,$calendarium));
-		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
-		else print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		else print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "mdj" :

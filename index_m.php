@@ -272,7 +272,8 @@ if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>"
 $fp = fopen ($fichier,"r");
 while ($data = fgetcsv ($fp, 1000, ";")) {
 	$id=$data[0];$latin=$data[1];$francais=$data[2];
-	if (($ferial[$id]['latin']=="") && ($psautier=="perannum")) {
+	//if (($ferial[$id]['latin']=="") && ($psautier=="perannum")) {
+	if ($ferial[$id]['latin']=="") {
 		$ferial[$id]['latin']=$latin;
 		$ferial[$id]['francais']=$francais;
 	}
@@ -563,8 +564,8 @@ if($ferial['LB_comp']['latin']==""){
 switch($office){
 	case "laudes" :
 		//print epuration(laudes($do,$calendarium));
-		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
-		else print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal));
+		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		else print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
 	break;
 	
 	case "mdj" :

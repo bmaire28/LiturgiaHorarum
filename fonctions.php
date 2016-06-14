@@ -310,14 +310,14 @@ function affiche_nav($do,$office,$place) {
 		
 		//choix de l'office
 		print "<button type=\"submit\" name=\"date\" value=\"$hier\">&lt;&lt; </button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"$precedent\">&lt; </button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"$precedent\"><input type=\"hidden\" name=\"date\" value=\"$date_prec\">&lt; </button>\n";
 		print "<button type=\"submit\" name=\"office\" value=\"laudes\">Laudes</button>\n";
 		print "<button type=\"submit\" name=\"office\" value=\"tierce\">Tierce</button>\n";
 		print "<button type=\"submit\" name=\"office\" value=\"sexte\">Sexte</button>\n";
 		print "<button type=\"submit\" name=\"office\" value=\"none\">None</button>\n";
 		print "<button type=\"submit\" name=\"office\" value=\"vepres\">V&ecirc;pres</button>\n";
 		print "<button type=\"submit\" name=\"office\" value=\"complies\">Complies</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"$suivant\">></button>\n";
+		print "<button type=\"submit\" name=\"office\" value=\"$suivant\"><input type=\"hidden\" name=\"date\" value=\"$date_suiv\">></button>\n";
 		print "<button type=\"submit\" name=\"date\" value=\"$demain\">>></button><br />\n";
 		
 		print "<button type=\"submit\" name=\"date\" value=\"$date_defunts\">Office des d&eacute;funts</button>\n";

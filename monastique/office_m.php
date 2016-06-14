@@ -1,7 +1,7 @@
 <?php
 
 function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
-
+	
 	$anno=substr($jour,0,4);
 	$mense=substr($jour,4,2);
 	$die=substr($jour,6,2);
@@ -169,19 +169,21 @@ for($row=0;$row<$max;$row++){
 	} // Fin #JOUR
 	
 	elseif ($lat=="#INTRODUCTION") {
-		$officeMonastique.="<tr><td>V/. Deus, in adiut&oacute;rium meum int&eacute;nde.<br />\n
-				R/. D&oacute;mine, ad adiuv&aacute;ndum me fest&iacute;na.<br/>\n
-				Gl&oacute;ria Patri, et F&iacute;lio, et Spir&iacute;tui Sancto.<br />\n
-				Sicut erat in principio, et nunc et semper et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.";
+		$officeMonastique.="<tr><td>V/. Deus, in adiut&oacute;rium meum int&eacute;nde.<br />\n</td>";
+		$officeMonastique.="<td>V/. O Dieu, h&acirc;te-toi de me d&eacute;livrer !<br />\n</td></tr>";
+		
+		$officeMonastique.="<tr><td>R/. D&oacute;mine, ad adiuv&aacute;ndum me fest&iacute;na.<br/>\n</td>";
+		$officeMonastique.="<td>R/. Seigneur, h&acirc;te-toi de me secourir !<br />\n</td></tr>";
+		
+		$officeMonastique.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, et Spir&iacute;tui Sancto.<br />\n</td>";
+		$officeMonastique.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n</td></tr>";
+		
+		$officeMonastique.="<tr><td>Sicut erat in principio, et nunc et semper et in s&aelig;cula s&aelig;cul&oacute;rum.<br />Amen.";
 				if (($tem=="Tempus Quadragesimae") or ($tem=="Tempus passionis")) {
 						$officeMonastique.="</td>";
 				}
 				else $officeMonastique.=" Allel&uacute;ia.</td>";
-		$officeMonastique.="<td>V/. O Dieu, h&acirc;te-toi de me d&eacute;livrer !<br />\n
-				R/. Seigneur, h&acirc;te-toi de me secourir !<br />\n
-				Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
-				Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
-				Et dans les si&egrave;cles des si&egrave;cles. Amen.";
+		$officeMonastique.="<td>Comme il &eacute;tait au commencement, maintenant et toujours, et dans les si&egrave;cles des si&egrave;cles. Amen.";
 				if (($tem=="Tempus Quadragesimae") or ($tem=="Tempus passionis")) {
 						$officeMonastique.="</td></tr>";
 				}
@@ -421,13 +423,19 @@ for($row=0;$row<$max;$row++){
 			$antlat=$temp[$ant1]['latin'];
 	    	$antfr=$temp[$ant1]['francais'];
 	    }
-        else {
-			$antfr=$var[$ant1]['francais'];
-			$antlat=$var[$ant1]['latin'];
+        elseif ($antlat=="") {
+        	if (($calendarium['tempus'][$jour]=="Tempus per annum")&&(($jrdelasemaine==0)or($jrdelasemaine==4))) {
+        		$antfr="";
+        		$antlat="";
+        	}
+        	else {
+        		$antfr=$var[$ant1]['francais'];
+        		$antlat=$var[$ant1]['latin'];
+        	}
         }
 	    if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 	    }
 	}//Fin de #ANT1
 
@@ -456,7 +464,7 @@ for($row=0;$row<$max;$row++){
 			$antfr=$var[$ant2]['francais'];
 			$antlat=$var[$ant2]['latin'];
         }
-        if ($antlat) {
+        if ($antlat!="") {
         	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 2 </span>$antlat</p></td>";
         	$officeMonastique.="<td><p><span style=\"color:red\">Ant. 2 </span> $antfr</p></td></tr>";
         }
@@ -518,11 +526,18 @@ for($row=0;$row<$max;$row++){
 			$antlat=$temp[$ant2]['latin'];
 	    	$antfr=$temp[$ant2]['francais'];
 	    }
-        else {
-			$antfr=$var[$ant2]['francais'];
-			$antlat=$var[$ant2]['latin'];
-        }
-        if (($antlat!="") && ($jrdelasemaine!="5")) {
+	    elseif ($antlat=="") {
+	    	if (($calendarium['tempus'][$jour]=="Tempus per annum")&&($jrdelasemaine==4)) {
+	    		$antfr=$var["ant7"]['francais'];
+	    		$antlat=$var["ant7"]['latin'];
+	    	}
+	    	else {
+	    		$antfr=$var[$ant2]['francais'];
+	    		$antlat=$var[$ant2]['latin'];
+	    	}
+	    }
+	    //if (($antlat!="") && ($jrdelasemaine!="5")&&($jrdelasemaine!=0)) {
+        if ($antlat!="") {
 		    $officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
 		    $officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
         }
@@ -551,8 +566,8 @@ for($row=0;$row<$max;$row++){
 			$antlat=$var[$ant3]['latin'];
         }
 	    if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 3 </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. 3 </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 3 </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. 3 </span> $antfr</p></td></tr>";
 	    }
 	}//Fin de #ANT3*
 	
@@ -627,17 +642,24 @@ for($row=0;$row<$max;$row++){
 			$antlat=$temp[$ant3]['latin'];
 	    	$antfr=$temp[$ant3]['francais'];
 	    }
-	    elseif (($jrdelasemaine=="5") && ($_GET['office']=="vepres") && ($antlat=="")) {
-	    	$antfr=$var['ant8']['francais'];
-	    	$antlat=$var['ant8']['latin'];
+	    elseif ($antlat=="") {
+	    	 if (($jrdelasemaine=="5") && ($_GET['office']=="vepres")&&($calendarium['tempus'][$jour])) {
+	    	 	$antfr=$var['ant8']['francais'];
+	    	 	$antlat=$var['ant8']['latin'];
+	    	 }
+	    	 elseif (($jrdelasemaine==0)&&($_GET['office']=="laudes")&&($calendarium['tempus'][$jour])) {
+	    	 	$antfr=$var["ant1"]['francais'];
+	    	 	$antlat=$var["ant1"]['latin'];
+	    	 }
+	    	 else {
+	    	 	$antfr=$var[$ant3]['francais'];
+	    	 	$antlat=$var[$ant3]['latin'];
+	    	 }
 	    }
-        elseif ($antlat=="") {
-			$antfr=$var[$ant3]['francais'];
-			$antlat=$var[$ant3]['latin'];
-        }
+        
 	    if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 	    }
 	}//Fin de #ANT3
 	
@@ -664,8 +686,8 @@ for($row=0;$row<$max;$row++){
 			$antlat=$var[$ant4]['latin'];
 		}
 		if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 4 </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. 4 </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 4 </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. 4 </span> $antfr</p></td></tr>";
 		}
 	}//Fin de #ANT4*
 	
@@ -700,15 +722,21 @@ for($row=0;$row<$max;$row++){
 		}
 		elseif($temp[$ant4]['latin']){
 			$antlat=$temp[$ant4]['latin'];
-			$antfr=$temp[$ant1]['francais'];
+			$antfr=$temp[$ant4]['francais'];
 		}
-		else {
-			$antfr=$var[$ant4]['francais'];
-			$antlat=$var[$ant4]['latin'];
+		elseif ($antlat=="") {
+			if ($jrdelasemaine==6) {
+				$antlat=$var["ant3"]['latin'];
+				$antfr=$var["ant3"]['francais'];
+			}
+			else {
+				$antfr=$var[$ant4]['francais'];
+				$antlat=$var[$ant4]['latin'];
+			}
 		}
 		if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 		}
 	}//Fin de #ANT4
 	
@@ -722,13 +750,19 @@ for($row=0;$row<$max;$row++){
 			$antlat=$temp[$ant5]['latin'];
 			$antfr=$temp[$ant5]['francais'];
 		}
-		else {
-			$antfr=$var[$ant5]['francais'];
-			$antlat=$var[$ant5]['latin'];
+		elseif ($antlat=="") {
+			if ($jrdelasemaine==6) {
+				$antlat=$temp["ant3"]['latin'];
+				$antfr=$temp["ant3"]['francais'];
+			}
+			else {
+				$antfr=$var[$ant5]['francais'];
+				$antlat=$var[$ant5]['latin'];
+			}
 		}
 		if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 5 </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. 5 </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 5 </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. 5 </span> $antfr</p></td></tr>";
 		}
 	}//Fin de #ANT5*
 	
@@ -759,8 +793,8 @@ for($row=0;$row<$max;$row++){
 			$antlat=$var[$ant5]['latin'];
 		}
 		if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>
-	    			<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
+	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
 		}
 	}//Fin de #ANT5
 	
@@ -820,10 +854,10 @@ for($row=0;$row<$max;$row++){
 					$rbfr.="V/. Tu nous rach&egrave;tes, Seigneur, Dieu de v&eacute;rit&eacute;. * all&eacute;luia, all&eacute;luia. Gloire au P&egrave;re. Entre tes mains.";
 				}
 				else {
-					$rblat="R/. In manus tuas, D&oacute;mine, * Comm&eacute;ndo sp&iacute;ritum meum. In manus.<br />\n";
-					$rblat.="V/. Redem&iacute;sti nos, D&oacute;mine Deus verit&aacute;tis. * Comm&eacute;ndo sp&iacute;ritum meum. Gl&oacute;ria Patri. In manus.";
-					$rbfr="R/. Entre tes mains, Seigneur, * je remets mon esprit. Entre tes mains.<br />";
-					$rbfr.="V/. Tu nous rach&egrave;tes, Seigneur, Dieu de v&eacute;rit&eacute;. * je remets. Gloire au P&egrave;re. Entre tes mains.";
+					$rblat="V/. Cust&oacute;di nos, D&oacute;mine, ut pup&iacute;llam &oacute;culi.<br />\n";
+					$rblat.="R/. Sub umbra al&aacute;rum tu&aacute;rum pr&oacute;tege nos.";
+					$rbfr="V/. Garde-nous, Seigneur, comme la pupille de tes yeux.<br />";
+					$rbfr.="R/. Sous l'ombre de tes ailes protège-nous.";
 				}
 				
 				break;
@@ -1141,8 +1175,13 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT_MARIALE
 	
 	elseif ($lat=="#CONCLUSION") {
+		$officeMonastique.="<tr><td><br />V/. V. Fid&eacute;lium &aacute;nim&aelig; per miseric&oacute;rdiam Dei requi&eacute;scant in pace.</td>";
+		$officeMonastique.="<td><br />V/. Que les &acirc;mes des fid&egrave;les par la mis&eacute;ricorde de Dieu restent dans la paix.</td></tr>";
+		$officeMonastique.="<tr><td>R/. Amen.</td>";
+		$officeMonastique.="<td>R/. Amen.</td></tr>";
+		
 		$officeMonastique.="<tr><td><br />V/. Div&iacute;num aux&iacute;lium m&aacute;neat semper nob&iacute;scum.</td>";
-		$officeMonastique.="<td><br />V/. Que le secours de Dieu nous soutinne sans cesse.</td></tr>";
+		$officeMonastique.="<td><br />V/. Que le secours de Dieu nous soutienne sans cesse.</td></tr>";
 		$officeMonastique.="<tr><td>R/. Et cum fr&aacute;tribus nostris abs&eacute;ntibus. Amen.</td>";
 		$officeMonastique.="<td>R/. Nous et nos fr&egrave;res absents. Amen.</td></tr>";
 	}//Fin de #CONCLUSION
