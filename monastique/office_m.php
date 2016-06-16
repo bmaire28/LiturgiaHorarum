@@ -1175,7 +1175,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT_MARIALE
 	
 	elseif ($lat=="#CONCLUSION") {
-		$officeMonastique.="<tr><td><br />V/. V. Fid&eacute;lium &aacute;nim&aelig; per miseric&oacute;rdiam Dei requi&eacute;scant in pace.</td>";
+		$officeMonastique.="<tr><td><br />V/. Fid&eacute;lium &aacute;nim&aelig; per miseric&oacute;rdiam Dei requi&eacute;scant in pace.</td>";
 		$officeMonastique.="<td><br />V/. Que les &acirc;mes des fid&egrave;les par la mis&eacute;ricorde de Dieu restent dans la paix.</td></tr>";
 		$officeMonastique.="<tr><td>R/. Amen.</td>";
 		$officeMonastique.="<td>R/. Amen.</td></tr>";
