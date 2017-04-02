@@ -9,7 +9,8 @@ function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
 	$jrdelasemaine=date("w",$day);
 	$tomorow = $day+60*60*24;
 	$demain=date("Ymd",$tomorow);
-
+	$tem=$calendarium['tempus'][$jour];
+	
 	if ($date_l==""){
 		switch ($_GET['office']) {
 			case "laudes" :

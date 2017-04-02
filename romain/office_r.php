@@ -9,6 +9,7 @@ function office_r($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
 	$jrdelasemaine=date("w",$day);
 	$tomorow = $day+60*60*24;
 	$demain=date("Ymd",$tomorow);
+	$tem=$calendarium['tempus'][$jour];
 	
 /*
  * Chargement du squelette de l'office $squelOffice
