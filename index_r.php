@@ -59,6 +59,7 @@ $calendarium=calendarium($do);
 	<?php print "<title>Liturgia Horarum, ".$datelatin."</title>"; ?>
 	<meta charset="utf-8">
 	<link type="text/css" rel="stylesheet" href="CSS/stylesheet.css" />
+	<meta name="viewport" content="target-densitydpi=device-dpi" />
 </head>
 
 <body>
