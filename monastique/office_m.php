@@ -606,8 +606,8 @@ for($row=0;$row<$max;$row++){
 	    			Comme il &eacute;tait au commencement, maintenant et toujours,<br />\n
 	    			Et dans les si&egrave;cles des si&egrave;cles. Amen.</td></tr>";
 	    }
-	    elseif ($psaume=="ps118III") {
-	    	$officeMonastique.="ps118IV";
+	    if ($psaume=="ps118III") {
+	    	$officeMonastique.=psaume("ps118IV");
 	    	$officeMonastique.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
 	    			Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
 	    	$officeMonastique.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
