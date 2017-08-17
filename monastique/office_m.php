@@ -1176,15 +1176,15 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT_MARIALE
 	
 	elseif ($lat=="#CONCLUSION") {
-		$officeMonastique.="<tr><td><br />V/. Fid&eacute;lium &aacute;nim&aelig; per miseric&oacute;rdiam Dei requi&eacute;scant in pace.</td>";
-		$officeMonastique.="<td><br />V/. Que les &acirc;mes des fid&egrave;les par la mis&eacute;ricorde de Dieu restent dans la paix.</td></tr>";
+		$officeMonastique.="<tr><td><br />V/. Div&iacute;num aux&iacute;lium m&aacute;neat semper nob&iacute;scum.</td>";
+		$officeMonastique.="<td><br />V/. Que le secours divin demeure toujours avec nous.</td></tr>";
+		$officeMonastique.="<tr><td>R/. Et cum fr&aacute;tribus nostris abs&eacute;ntibus.</td>";
+		$officeMonastique.="<td>R/. Et avec nos fr&egrave;res absents.</td></tr>";
+		$officeMonastique.="<tr><td>V/. Et fid&eacute;lium &aacute;nim&aelig;, per miseric&oacute;rdiam Dei, requi&eacute;scant in pace.</td>";
+		$officeMonastique.="<td>V/. Que les &acirc;mes des fid&egrave;les d&eacute;funts, par la mis&eacute;ricorde de Dieu, reposent en paix.</td></tr>";
 		$officeMonastique.="<tr><td>R/. Amen.</td>";
 		$officeMonastique.="<td>R/. Amen.</td></tr>";
 		
-		$officeMonastique.="<tr><td><br />V/. Div&iacute;num aux&iacute;lium m&aacute;neat semper nob&iacute;scum.</td>";
-		$officeMonastique.="<td><br />V/. Que le secours de Dieu nous soutienne sans cesse.</td></tr>";
-		$officeMonastique.="<tr><td>R/. Et cum fr&aacute;tribus nostris abs&eacute;ntibus. Amen.</td>";
-		$officeMonastique.="<td>R/. Nous et nos fr&egrave;res absents. Amen.</td></tr>";
 	}//Fin de #CONCLUSION
 	
 }
