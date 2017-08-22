@@ -766,8 +766,8 @@ for($row=0;$row<$max;$row++){
 	
 	elseif($lat=="#LAUDES"){
 		$officeMonastique.=psaume("ps148");
-		$officeMonastique.=psaume("ps149");
-		$officeMonastique.=psaume("ps150");
+		$officeMonastique.=psaume("ps149m");
+		$officeMonastique.=psaume("ps150m");
 		$officeMonastique.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
     			Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
 		$officeMonastique.="<td>Gloire au P&egrave;re et au Fils et au Saint-Esprit,<br />\n
