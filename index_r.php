@@ -192,13 +192,15 @@ $spsautier=$calendarium['hebdomada_psalterium'][$do];
  */
 $fichier="romain/commune_r/psautier_".$spsautier.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-$fp = fopen ($fichier,"r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$ref=$data[1];
-	$ferial[$id]['latin']=$ref;
-	$row++;
+else {
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$ref=$data[1];
+		$ferial[$id]['latin']=$ref;
+		$row++;
+	}
+	fclose($fp);
 }
-fclose($fp);
 
 
 /*
@@ -296,14 +298,16 @@ switch ($tem) {
 }
 $fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine.".csv";
 if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
-$fp = fopen ($fichier,"r");
-while ($data = fgetcsv ($fp, 1000, ";")) {
-	$id=$data[0];$latin=$data[1];$francais=$data[2];
-	$ferial[$id]['latin']=$latin;
-	$ferial[$id]['francais']=$francais;
-	$row++;
+else {
+	$fp = fopen ($fichier,"r");
+	while ($data = fgetcsv ($fp, 1000, ";")) {
+		$id=$data[0];$latin=$data[1];$francais=$data[2];
+		$ferial[$id]['latin']=$latin;
+		$ferial[$id]['francais']=$francais;
+		$row++;
+	}
+	fclose($fp);
 }
-fclose($fp);
 
 /*
  * Vérifier qu'il n'y a pas de saint &agrave; célébrer
@@ -314,14 +318,16 @@ if (($calendarium['rang'][$do])or($calendarium['priorite'][$do]==12)) {
 	$prop=$mense.$die;
 	$fichier="propres_r/sanctoral/".$prop.".csv";
 	if (!file_exists($fichier)) print_r("<p>Sanctoral : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$sanctoral[$id]['latin']=$data[1];
-		$sanctoral[$id]['francais']=$data[2];
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$sanctoral[$id]['latin']=$data[1];
+			$sanctoral[$id]['francais']=$data[2];
+			$row++;
+		}
+		fclose($fp);
 	}
-	fclose($fp);
 }
 if ($sanctoral[$magni]['latin']) {
 	$sanctoral['magnificat']['latin']=$sanctoral[$magni]['latin'];
@@ -351,26 +357,30 @@ if(($mense==12)AND(
 	// Chargement du fichier de la date fixe
 	$fichier="propres_r/sanctoral/".$prop.".csv";
 	if (!file_exists($fichier)) print_r("<p>Sanctoral avant noel : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$sanctoral[$id]['latin']=$data[1];
-		$sanctoral[$id]['francais']=$data[2];
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$sanctoral[$id]['latin']=$data[1];
+			$sanctoral[$id]['francais']=$data[2];
+			$row++;
+		}
+		fclose($fp);
 	}
-	fclose($fp);
 		
 	// Chargement du fichier du jour de la semaine
 	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
 	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];$latin=$data[1];$francais=$data[2];
-		$ferial[$id]['latin']=$latin;
-		$ferial[$id]['francais']=$francais;
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];$latin=$data[1];$francais=$data[2];
+			$ferial[$id]['latin']=$latin;
+			$ferial[$id]['francais']=$francais;
+			$row++;
+		}
+		fclose($fp);
 	}
-	fclose($fp);
 	// Transfert de l'intitule
 	$sanctoral['intitule']['latin']=$ferial['intitule']['latin'];
 	$sanctoral['intitule']['francais']=$ferial['intitule']['francais'];
@@ -386,14 +396,16 @@ if($calendarium['temporal'][$do]) {
 	$tempo=$calendarium['temporal'][$do];
 	$fichier="propres_r/temporal/".$tempo.".csv";
 	if (!file_exists($fichier)) print_r("<p>temporal : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$temporal[$id]['latin']=$data[1];
-		$temporal[$id]['francais']=$data[2];
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$temporal[$id]['latin']=$data[1];
+			$temporal[$id]['francais']=$data[2];
+			$row++;
+		}
+		fclose($fp);
 	}
-	fclose($fp);
 	if ($temporal[$bene]['latin']) {
 		$temporal['benedictus']['latin']=$temporal[$bene]['latin'];
 		$temporal['benedictus']['francais']=$temporal[$bene]['francais'];
@@ -459,14 +471,16 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendariu
 	$tempo=$calendarium['temporal'][$demain];
 	$fichier="propres_r/temporal/".$tempo.".csv";
 	if (!file_exists($fichier)) print_r("<p>temporal 1V : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$temporal[$id]['latin']=$data[1];
-		$temporal[$id]['francais']=$data[2];
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$temporal[$id]['latin']=$data[1];
+			$temporal[$id]['francais']=$data[2];
+			$row++;
+		}
+		fclose($fp);
 	}
-	fclose($fp);
 	$sanctoral=null;
 	$date_l = "ad I ";
 	$date_fr = "aux I&egrave;res ";
@@ -516,24 +530,26 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 	//////////////////////////////////////
 	$fichier="romain/complies_r/comp_FVS.csv";
 	if (!file_exists($fichier)) print_r("<p>Complies 1V : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$ferial[$id]['latin']=$data[1];
-		$ferial[$id]['francais']=$data[2];
-		$row++;
-	}/*
-	$tempo=$calendarium['temporal'][$demain];
-	$fichier="propres_r/temporal/".$tempo.".csv";
-	if (!file_exists($fichier)) print_r("<p>temporal Complies 1V : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$temporal[$id]['latin']=$data[1];
-		$temporal[$id]['francais']=$data[2];
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$ferial[$id]['latin']=$data[1];
+			$ferial[$id]['francais']=$data[2];
+			$row++;
+		}/*
+		$tempo=$calendarium['temporal'][$demain];
+		$fichier="propres_r/temporal/".$tempo.".csv";
+		if (!file_exists($fichier)) print_r("<p>temporal Complies 1V : ".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$temporal[$id]['latin']=$data[1];
+			$temporal[$id]['francais']=$data[2];
+			$row++;
+		}*/
+		fclose($fp);
 	}
-	fclose($fp);*/
 }
 
 if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendarium['priorite'][$demain])&&($jrdelasemaine!=1)) {
@@ -542,38 +558,42 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
 	//////////////////////////////////////
 	$fichier="romain/complies_r/comp_FS.csv";
 	if (!file_exists($fichier)) print_r("<p>Complies 2V : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$ferial[$id]['latin']=$data[1];
-		$ferial[$id]['francais']=$data[2];
-		$row++;
-	}/*
-	$tempo=$calendarium['temporal'][$demain];
-	$fichier="propres_r/temporal/".$tempo.".csv";
-	if (!file_exists($fichier)) print_r("<p>temporal Complies 2V : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];
-		$temporal[$id]['latin']=$data[1];
-		$temporal[$id]['francais']=$data[2];
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$ferial[$id]['latin']=$data[1];
+			$ferial[$id]['francais']=$data[2];
+			$row++;
+		}/*
+		$tempo=$calendarium['temporal'][$demain];
+		$fichier="propres_r/temporal/".$tempo.".csv";
+		if (!file_exists($fichier)) print_r("<p>temporal Complies 2V : ".$fichier." introuvable !</p>");
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];
+			$temporal[$id]['latin']=$data[1];
+			$temporal[$id]['francais']=$data[2];
+			$row++;
+		}*/
+		fclose($fp);
 	}
-	fclose($fp);*/
 }
 
 
 if(!$ferial['ant11']['latin']){
 	$fichier="romain/complies_r/comp_F".$jrdelasemaine.".csv";
 	if (!file_exists($fichier)) print_r("<p>Complies : ".$fichier." introuvable !</p>");
-	$fp = fopen ($fichier,"r");
-	while ($data = fgetcsv ($fp, 1000, ";")) {
-		$id=$data[0];$latin=$data[1];$francais=$data[2];
-		$ferial[$id]['latin']=$latin;
-		$ferial[$id]['francais']=$francais;
-		$row++;
+	else {
+		$fp = fopen ($fichier,"r");
+		while ($data = fgetcsv ($fp, 1000, ";")) {
+			$id=$data[0];$latin=$data[1];$francais=$data[2];
+			$ferial[$id]['latin']=$latin;
+			$ferial[$id]['francais']=$francais;
+			$row++;
+		}
+		fclose($fp);
 	}
-	fclose($fp);
 }
 /*
  * Fin de gestion des Complies
