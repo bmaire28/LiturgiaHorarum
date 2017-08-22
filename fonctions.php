@@ -10,7 +10,8 @@ return $string4;
 
 function epuration($string) {
 	$string1=str_replace(chr(146),"'",$string);
-	return utf8_encode($string1);
+	$string2=str_replace(chr(156), "&oelig;", $string1);
+	return utf8_encode($string2);
 }
 
 
