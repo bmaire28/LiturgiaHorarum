@@ -10,7 +10,7 @@ function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
 	$tomorow = $day+60*60*24;
 	$demain=date("Ymd",$tomorow);
 	$tem=$calendarium['tempus'][$jour];
-	
+		
 	if ($date_l==""){
 		switch ($_GET['office']) {
 			case "laudes" :
@@ -202,7 +202,8 @@ for($row=0;$row<$max;$row++){
 	
 	elseif ($lat=="#PS50") {
 		$ps50="ps50";
-		if ($calendarium['tempus'][$jour]=="Tempus Paschale") $ps50="ps92";
+		//fete et solennites du temps pascal :
+		if (($calendarium['tempus'][$jour]=="Tempus Paschale") or ($calendarium['priorite'][$jour]<12)) $ps50="ps92";
 		$officeMonastique.=psaume($ps50);
 		$officeMonastique.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
 				Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
@@ -657,6 +658,7 @@ for($row=0;$row<$max;$row++){
 	    	 	$antlat=$var[$ant3]['latin'];
 	    	 }
 	    }
+	    if ($jrdelasemaine=="6") $antlat="";
         
 	    if ($antlat!="") {
 	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
@@ -686,6 +688,7 @@ for($row=0;$row<$max;$row++){
 			$antfr=$var[$ant4]['francais'];
 			$antlat=$var[$ant4]['latin'];
 		}
+		if ($jrdelasemaine=="6") $antlat="";
 		if ($antlat!="") {
 	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 4 </span>$antlat</p></td>";
 	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. 4 </span> $antfr</p></td></tr>";
@@ -752,14 +755,8 @@ for($row=0;$row<$max;$row++){
 			$antfr=$temp[$ant5]['francais'];
 		}
 		elseif ($antlat=="") {
-			if ($jrdelasemaine==6) {
-				$antlat=$temp["ant3"]['latin'];
-				$antfr=$temp["ant3"]['francais'];
-			}
-			else {
-				$antfr=$var[$ant5]['francais'];
-				$antlat=$var[$ant5]['latin'];
-			}
+			$antfr=$var[$ant5]['francais'];
+			$antlat=$var[$ant5]['latin'];
 		}
 		if ($antlat!="") {
 	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. 5 </span>$antlat</p></td>";
@@ -779,7 +776,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #LAUDES
 	
 	elseif($lat=="#ANT5"){
-		$ant5="antl5";
+		$ant5="antl5";$antlat="";$antfr="";
 		$antlat="";$antfr="";
 		if($propre[$ant5]['latin']) {
 			$antlat=$propre[$ant5]['latin'];

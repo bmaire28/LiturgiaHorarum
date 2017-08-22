@@ -1,23 +1,21 @@
 HYMNUS_laudes;hy_Ætérna cæli glória;
 verset_matin;V/. Repléti sumus mane misericórdia tua.<br />R/. Exsultávimus, et delectáti sumus.;R/. Dès le matin nous sommes remplis de ta miséricorde.<br />V/. Elle fait notre joie et nos délices.
-ant1;Spiritu prinicipali confirma cor meum, Deus.;"Affermis mon c&oelig;ur, ô mon Dieu, par un esprit de force. "
+ant1;Spíritu prinicipáli confírma cor meum, Deus.;"Affermis mon c&oelig;ur, ô mon Dieu, par un esprit de force. "
 ant2;In Israel magnum nomen eius.;En Israel grand est son nom.
-ant3;Bonum est confiteri Dominus.;Il est bon de louer le Seigneur.
-antl4;Domine, audivit auditum tuum, et timui.; Seigneur, j'ai entendu parler de toi.
-antl5;In Tympano et choro, in chordis et organo laudate Deum.;Avec vos danses, avec le tambourin avec les instruments à cordes et le chalumeau, louez Dieu.
+ant3;Bonum est confitéri Dóminus.;Il est bon de louer le Seigneur.
+antl4;In Dómino iustificábitur, et laudábitur omne semen Israel.;C'est dans le Seigneur que toute la descendance d'Israël obtiendra justice et louange.
+antl5;"In T&yacute;mpano et choro, in chordis et órgano laudáte Deum.";Avec vos danses, avec le tambourin avec les instruments à cordes et le chalumeau, louez Dieu.
 LB_matin;LB_Eph 4, 29-32;
-RB_matin;"R/. Audítam fac mihi mane * Misericórdiam tuam. Audítam. 
-V/. Notam fac mihi viam in qua ámbulem. * Misericórdiam tuam. Glória Patri. Audítam.";"R/. Dès le matin, fais moi entendre ta miséricorde. 
-V/. Fais moi voir la voie dans laquelle avancer. Ta miséricorde. Gloire au Père. Dès le matin."
-benedictus;Per víscera misericórdiæ Dei nostri visitábit nos Oriens ex alto.;Par les entrailles de la miséricorde de notre Dieu le soleil levant nous a visités d'en haut.
-preces_matin;preces_XI;
-oratio_laudes;Deus, qui ténebras ignorántiæ Verbi tui luce depéllis, auge in córdibus nostris virtútem fídei quam dedísti, ut ignis, quem grátia tua fecit accéndi, nullis tentatiónibus exstinguátur. Per Dóminum.;Dieu, qui repousses les ténèbres de l’ignorance par la lumière de ton Verbe, augmente en nos cœurs la force de la Foi que tu nous as donnée, pour que le feu que ta grâce a allumé ne soit éteint par aucune tentation. Par Jésus Christ, ton Fils, notre Seigneur et notre Dieu, qui règne avec toi et le Saint-Esprit, maintenant et pour les siècles des siècles. Amen.
+RB_matin;"R/. Clamábo ad Dóminum altíssimum, * Qui benefécit mihi. 
+V/. Mittet de cælo, et liberávit me. * Qui benefécit mihi. Glória Patri.";"R/. Je crierai vers le Seigneur, le Très-Haut, * qui a fait mon bonheur.
+V/. Du ciel il m'enverra la liberté. * qui a fait mon bonheur. Gloire au Père."
+benedictus;Visitávit et fecit redemptiónem Dóminus plebis suæ.;Le Seigneur a visité et racheté son peuple.
 HYMNUS_tertiam;hy_Nunc_Sancte_nobis_Spíritus;
 HYMNUS_sextam;hy_Rector_potens_verax_Deus;
 HYMNUS_nonam;hy_Rerum_Deus_tenax_vigor;
-ant4;Viam mandatórum tuórum curram, quia dilatásti cor meum.;Je cours sur la voie de tes préceptes, car tu dilates mon coeur.
-ant5;In Dómino sperans, non infirmábor.;En espérant dans le Seigneur, je ne chancèlerai pas.
-ant6;In Dómino sperávit cor meum, et adiútus sum.;Mon cœur espère dans le Seigneur, et je suis secouru.
+ant4;Clamavi, et exaudivit me.;Je crie, et tu m'exauces.
+ant5;Qui habitas in caelis, miserere nobis.;Toi qui habites dans les cieux, aies pitié de nous.
+ant6;Beati omnes qui timent Dominum.;Bienheureux tous ceux qui craignent le Seigneur
 LB_3;LB_Phil 2, 2b-4;
 RB_3;"V/. Univérsæ viæ Dómini misericórdia et véritas. 
 R/. Custodiéntibus testaméntum eius et testimónia eius.";"V/. Toutes les voies du Seigneur sont miséricorde et vérité.
@@ -40,9 +38,7 @@ ant8;Benedíctus Dóminus Deus meus.;Béni soit le Seigneur mon Dieu.
 ant9;;
 antv10;Per síngulos dies benedícam te, Dómine.;Chaque jour je te bénirai, Seigneur.
 LB_soir;LB_Rom 15, 1-3;
-RB_soir;"R/. Christus diléxit nos et lavit nos * In sánguine suo. Christus. 
-V/. Et fecit nos Deo regnum et sacerdótium. * In sánguine suo. Glória Patri. Christus.";"R/. Le Christ nous a aimés et nous a lavés * dans son sang.
-V/. Il a fait de nous en Dieu des rois et des prêtres. *Dans son sang. Gloire au Père. Le Christ."
-magnificat;Suscépit nos Dóminus púeros suos, recordátus misericórdiæ suæ.;Le Seigneur nous a acceuillis comme ses enfants, il s’est souveu de sa misériorde.
-oratio_vesperas;Concéde nobis, fámulis tuis, quæsumus, Dómine, ut exémplis Fílii tui passiónis instrúcti ad iugum eius suáve portándum simus semper idónei. Qui tecum.;Accorde à  nous, tes serviteurs, nous t’en supplions, Seigneur, que, instruits par les exemples de la  passion de ton Fils, nous soyons prêts à porter son doux joug. Lui qui règne avec toi et le Saint-Esprit, maintenant et pour les siècles des siècles. Amen.
-preces_soir;preces_XII;
+RB_soir;"R/. Mortuus est Christus pro peccátis nostris, * Ut nos offérret Deo.
+V/. Mortificátus quidem carne, vivificátus autem spíritu. * Ut nos offérret Deo. Glória Patri.";"R/. Le Christ est mort pour nos péchés, * pour nous présenter à Dieu.
+V/. Mis à mort selon la chair, rendu à la vie selon l'esprit. * pour nous présenter à Dieu. Gloire au Père."
+magnificat;Suscépit Deus Israel púerum suum, sicut locútus est ad Abraham, et semen eius: exaltáre húmiles usque in sæculum.;Dieu relève Israle son serviteur, comme il avait promis à Abrahm et à sa descendance d'élever les humbles à jamais.
