@@ -24,10 +24,10 @@ include("tenebres.php");
  */
 $task=$_GET['task'];
 $office=$_GET['office'];
-
+$rite=$_GET['rite'];
 $do=$_GET['do'];
 $do=$_GET['date'];
-if(!$do) {
+if($do=="") {
 	$tfc=time();
 	$do=date("Ymd",$tfc);
 }
@@ -80,7 +80,7 @@ $calendarium=calendarium($do);
 			<div id="calendrier">
 				<?php 
 					print "<h1>Calendarium liturgicum $anno</h1>";
-					print mod_calendarium($mense,$anno,$do,"romain");
+					print mod_calendarium($mense,$anno,$do,"romain",$office);
 				?>
 			</div>
 		</div>
@@ -200,6 +200,7 @@ else {
 		$row++;
 	}
 	fclose($fp);
+	$fichier="";
 }
 
 
@@ -307,6 +308,7 @@ else {
 		$row++;
 	}
 	fclose($fp);
+	$fichier="";
 }
 
 /*
@@ -327,6 +329,7 @@ if (($calendarium['rang'][$do])or($calendarium['priorite'][$do]==12)) {
 			$row++;
 		}
 		fclose($fp);
+		$fichier="";
 	}
 }
 if ($sanctoral[$magni]['latin']) {
@@ -366,6 +369,7 @@ if(($mense==12)AND(
 			$row++;
 		}
 		fclose($fp);
+		$fichier="";
 	}
 		
 	// Chargement du fichier du jour de la semaine
@@ -380,6 +384,7 @@ if(($mense==12)AND(
 			$row++;
 		}
 		fclose($fp);
+		$fichier="";
 	}
 	// Transfert de l'intitule
 	$sanctoral['intitule']['latin']=$ferial['intitule']['latin'];
@@ -405,6 +410,7 @@ if($calendarium['temporal'][$do]) {
 			$row++;
 		}
 		fclose($fp);
+		$fichier="";
 	}
 	if ($temporal[$bene]['latin']) {
 		$temporal['benedictus']['latin']=$temporal[$bene]['latin'];
@@ -480,6 +486,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendariu
 			$row++;
 		}
 		fclose($fp);
+		$fichier="";
 	}
 	$sanctoral=null;
 	$date_l = "ad I ";
@@ -549,6 +556,7 @@ if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$jour]>$calendar
 			$row++;
 		}*/
 		fclose($fp);
+		$fichier="";
 	}
 }
 
@@ -577,6 +585,7 @@ if (($calendarium['1V'][$jour]==1)&&($calendarium['priorite'][$jour]<$calendariu
 			$row++;
 		}*/
 		fclose($fp);
+		$fichier="";
 	}
 }
 
@@ -593,6 +602,7 @@ if(!$ferial['ant11']['latin']){
 			$row++;
 		}
 		fclose($fp);
+		$fichier="";
 	}
 }
 /*
@@ -603,38 +613,38 @@ if(!$ferial['ant11']['latin']){
 switch($office){
 	case "laudes" :
 		//print epuration(laudes($do,$calendarium));
-		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
-		else print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
+		else print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "mdj" :
 		//print epuration(mediahora($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "tierce" :
 		//print epuration(tierce($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "sexte" :
 		//print epuration(sexte($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "none" :
 		//print epuration(none($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "vepres" :
 		//print epuration(vepres($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "complies" :
 		//print epuration(complies($do,$calendarium));
-		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium));
+		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 	
 	case "messe" :

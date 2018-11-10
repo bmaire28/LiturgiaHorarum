@@ -97,14 +97,19 @@ function preces($ref){
 
 
 function hymne($ref) {
+	//print_r("<p>".$ref."</p>");
 	$row = 0;
-	// Initialisation de l'hymne � blanc
+	
+	// Initialisation de l'hymne a blanc
 	$hymne="";
-	// Cr�ation du chemin relatif vers le fichier de l'hymne de fa�on brut
+	
+	// Creation du chemin relatif vers le fichier de l'hymne de facon brut
 	$fichier="hymnaire/".$ref.".csv";
-	// V�rification du chemin brut, sinon cr�ation du chemin relatif utf8
+	
+	// Verification du chemin brut, sinon creation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="hymnaire/".utf8_encode($ref).".csv";
 	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
+	
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
     	$latin=$data[0];$francais=$data[1];
@@ -245,16 +250,18 @@ mode : \"textareas\",
 
 
 function affiche_nav($do,$office,$place) {
-	$offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
-	for($o=0;$offices[$o];$o++) {
-		if ($office==$offices[$o]) {
-			$officeactuel=$o;
-			break;
-		}
-	}
-	$suivant = $offices[$officeactuel+1];
-	$precedent = $offices[$officeactuel-1];	
 	
+	/*
+	 * Affichage $_GET
+	 *
+	foreach ($_GET as $param)
+	{
+		print_r("<p>".$param."</p>");
+	}
+	*/
+	
+	// Initialisation des variables de date
+	//par defaut $do est la date du jour
 	$anno=substr($do,0,4);
 	$mense=substr($do,4,2);
 	$die=substr($do,6,2);
@@ -264,12 +271,31 @@ function affiche_nav($do,$office,$place) {
 	$dtsplusun=$day+60*60*24;
 	$hier=date("Ymd",$dtsmoinsun);
 	$demain=date("Ymd",$dtsplusun);
-
-	$dsuiv=$day+60*60*24;
-	$dprec=$day-60*60*24;
-
+	
+	$dsuiv=$day+(60*60*24); // date jour precedent
+	$dprec=$day-(60*60*24); // date jour suivant
+	
+	// Tableau de la liste des offices par ordre chronologique
+	$offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
+	
+	// Recuperation du numero d'ordre de l'office actuel par rapport au tableau 
+	for($o=0;$offices[$o];$o++) {
+		if ($office==$offices[$o]) {
+			$officeactuel=$o;
+			break;
+		}
+	}
+	// definition des offices suivant et precedent de l'actuel
+	$suivant = $offices[$officeactuel+1];
+	$precedent = $offices[$officeactuel-1];	
+	
+	// par defaut, la date de l'office suivant est la meme que la date de l'office actuel $do
+	// idem pour la date de l'office precedent
 	$date_suiv=$do;
-	$date_prec= $do;
+	$date_prec=$do;
+	
+	// si l'office suivant est s, alors il faut changer la date de l'office suivant
+	// idem pour l'office precedent 
 	if ($suivant=="s") {
 		$suivant = "laudes";
 		$date_suiv=date("Ymd",$dsuiv);
@@ -278,7 +304,7 @@ function affiche_nav($do,$office,$place) {
 		$precedent = "complies";
 		$date_prec= date("Ymd",$dprec);
 	}
-	//print_r($do);
+	
 	// Date pour l'office des défunts :
 	$date_defunts=$anno."1102";
 	
@@ -292,68 +318,107 @@ function affiche_nav($do,$office,$place) {
 	if (!$_GET['rite']) $rite="romain";
 	else $rite=$_GET['rite'];
 
-	print"<div id=\"$place\">\n";
-	//if ($place=="tete") {
-		print "<form method=\"get\">\n";
-		//conservation des valeurs de dépar
-		print "<input type=\"hidden\" name=\"date\" value=\"$do\">";
-		print "<input type=\"hidden\" name=\"office\" value=\"$office\">";
-		
-		//choix du rit
-		if ($rite=="romain") {
-			print "<input type=\"radio\" name=\"rite\" value=\"romain\" checked>Romain\n";
-			print "<input type=\"radio\" name=\"rite\" value=\"monastique\"> Monastique<br />\n";
-		}
-		else {
-			print "<input type=\"radio\" name=\"rite\" value=\"romain\">Romain\n";
-			print "<input type=\"radio\" name=\"rite\" value=\"monastique\" checked> Monastique<br />\n";
-		}
-		
-		//choix de l'office
-		print "<button type=\"submit\" name=\"date\" value=\"$hier\">&lt;&lt; </button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"$precedent\"><input type=\"hidden\" name=\"date\" value=\"$date_prec\">&lt; </button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"laudes\">Laudes</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"tierce\">Tierce</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"sexte\">Sexte</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"none\">None</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"vepres\">V&ecirc;pres</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"complies\">Complies</button>\n";
-		print "<button type=\"submit\" name=\"office\" value=\"$suivant\"><input type=\"hidden\" name=\"date\" value=\"$date_suiv\">></button>\n";
-		print "<button type=\"submit\" name=\"date\" value=\"$demain\">>></button><br />\n";
-		
-		print "<button type=\"submit\" name=\"date\" value=\"$date_defunts\">Office des d&eacute;funts</button>\n";
-		print "<button type=\"submit\" name=\"date\" value=\"$date_aujourdhui\">Revenir au jour pr&eacute;sent</button>\n";
-		
-		//date
-		print "</form>\n";
-	//}
-	/*
-	print "<ul>\n";
-	print "<li><a href=\"?date=$hier&amp;rite=$rite&amp;office=$office\"><span>&lt;&lt; </span></a></li>\n";
-	print "<li><a href=\"?date=$date_prec&amp;rite=$rite&amp;office=$precedent\"><span>&lt; </span></a></li>\n";
-	if ($office=="laudes") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Laudes</span></a></li>\n";
-	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=laudes&amp;mois_courant=$mense&amp;an=$anno\"><span>Laudes</span></a></li>\n";
-	if ($office=="tierce") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Tierce</span></a></li>\n";
-	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=tierce&amp;mois_courant=$mense&amp;an=$anno\"><span>Tierce</span></a></li>\n";
-	if ($office=="sexte") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Sexte</span></a></li>\n";
-	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=sexte&amp;mois_courant=$mense&amp;an=$anno\"><span>Sexte</span></a></li>\n";
-	if ($office=="none") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">None</span></a></li>\n";
-	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=none&amp;mois_courant=$mense&amp;an=$anno\"><span>None</span></a></li>\n";
-	if ($office=="vepres") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">V&ecirc;pres</span></a></li>\n";
-	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=vepres&amp;mois_courant=$mense&amp;an=$anno\"><span>V&ecirc;pres</span></a></li>\n";
-	if ($office=="complies") print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span class=\"selection\">Complies</span></a></li>\n";
-	else print "<li><a href=\"?date=$do&amp;rite=$rite&amp;office=complies&amp;mois_courant=$mense&amp;an=$anno\"><span>Complies</span></a></li>\n";
+	// reinit de $_GET
+	unset($_GET['rite']);
+	unset($_GET['date']);
+	unset($_GET['office']);
 	
-	print"<li><a href=\"?date=$date_suiv&amp;rite=$rite&amp;office=$suivant\"><span>></span></a></li>\n";
-	print "<li><a href=\"?date=$demain&amp;rite=$rite&amp;office=$office\"><span>>></span></a></li>\n";
-	print "</ul>\n";
-	print "<ul>\n";
-	print "<li><a href=\"?date=$date_defunts&amp;rite=$rite&amp;office=$office&amp;mois_courant=11&amp;an=$anno\"><span class=\"defunts\">Office des d&eacute;funts</span></a></li>\n";
-	print "<li><a href=\"?date=$date_aujourdhui&amp;rite=$rite&amp;office=$office&amp;mois_courant=$mois_aujourdhui&amp;an=$annee_aujourdhui\"><span>Revenir au jour pr&eacute;sent</span></a></li>\n";
-	print "</ul>\n";
-	print "</div>\n";//div navigation
-//<a href=\"?date=$do&amp;office=messe&amp;mois_courant=$mense&amp;an=$anno\">Messe</a>
+	print"<div id=\"$place\">\n";
+	print "<form method=\"get\">\n";
+	
+	//conservation des valeurs de départ
+	print "<input type=\"hidden\" name=\"date\" value=\"$do\">";
+	//print "<input type=\"hidden\" name=\"office\" value=\"$office\">";
+	
+	//choix du rit
+	if ($rite=="romain") {
+		print "<input type=\"radio\" name=\"rite\" value=\"romain\" checked>Romain\n";
+		print "<input type=\"radio\" name=\"rite\" value=\"monastique\"> Monastique<br />\n";
+	}
+	else {
+		print "<input type=\"radio\" name=\"rite\" value=\"romain\">Romain\n";
+		print "<input type=\"radio\" name=\"rite\" value=\"monastique\" checked> Monastique<br />\n";
+	}
+	
+	switch ($office) {
+		case "laudes" :
+			print "<input type=\"radio\" name=\"office\" value=\"laudes\" checked>Laudes\n";
+			print "<input type=\"radio\" name=\"office\" value=\"tierce\"> Tierce\n";
+			print "<input type=\"radio\" name=\"office\" value=\"sexte\"> Sexte\n";
+			print "<input type=\"radio\" name=\"office\" value=\"none\"> None\n";
+			print "<input type=\"radio\" name=\"office\" value=\"vepres\"> V&ecirc;pres\n";
+			print "<input type=\"radio\" name=\"office\" value=\"complies\"> Complies<br />\n";
+			break;
+		case "tierce" :
+			print "<input type=\"radio\" name=\"office\" value=\"laudes\">Laudes\n";
+			print "<input type=\"radio\" name=\"office\" value=\"tierce\" checked> Tierce\n";
+			print "<input type=\"radio\" name=\"office\" value=\"sexte\"> Sexte\n";
+			print "<input type=\"radio\" name=\"office\" value=\"none\"> None\n";
+			print "<input type=\"radio\" name=\"office\" value=\"vepres\"> V&ecirc;pres\n";
+			print "<input type=\"radio\" name=\"office\" value=\"complies\"> Complies<br />\n";
+			break;
+		case "sexte" :
+			print "<input type=\"radio\" name=\"office\" value=\"laudes\">Laudes\n";
+			print "<input type=\"radio\" name=\"office\" value=\"tierce\"> Tierce\n";
+			print "<input type=\"radio\" name=\"office\" value=\"sexte\" checked> Sexte\n";
+			print "<input type=\"radio\" name=\"office\" value=\"none\"> None\n";
+			print "<input type=\"radio\" name=\"office\" value=\"vepres\"> V&ecirc;pres\n";
+			print "<input type=\"radio\" name=\"office\" value=\"complies\"> Complies<br />\n";
+			break;
+		case "none" :
+			print "<input type=\"radio\" name=\"office\" value=\"laudes\">Laudes\n";
+			print "<input type=\"radio\" name=\"office\" value=\"tierce\"> Tierce\n";
+			print "<input type=\"radio\" name=\"office\" value=\"sexte\"> Sexte\n";
+			print "<input type=\"radio\" name=\"office\" value=\"none\" checked> None\n";
+			print "<input type=\"radio\" name=\"office\" value=\"vepres\"> V&ecirc;pres\n";
+			print "<input type=\"radio\" name=\"office\" value=\"complies\"> Complies<br />\n";
+			break;
+		case "vepres" :
+			print "<input type=\"radio\" name=\"office\" value=\"laudes\">Laudes\n";
+			print "<input type=\"radio\" name=\"office\" value=\"tierce\"> Tierce\n";
+			print "<input type=\"radio\" name=\"office\" value=\"sexte\"> Sexte\n";
+			print "<input type=\"radio\" name=\"office\" value=\"none\"> None\n";
+			print "<input type=\"radio\" name=\"office\" value=\"vepres\" checked> V&ecirc;pres\n";
+			print "<input type=\"radio\" name=\"office\" value=\"complies\"> Complies<br />\n";
+			break;
+		case "complies" :
+		case "" :
+			print "<input type=\"radio\" name=\"office\" value=\"laudes\">Laudes\n";
+			print "<input type=\"radio\" name=\"office\" value=\"tierce\"> Tierce\n";
+			print "<input type=\"radio\" name=\"office\" value=\"sexte\"> Sexte\n";
+			print "<input type=\"radio\" name=\"office\" value=\"none\"> None\n";
+			print "<input type=\"radio\" name=\"office\" value=\"vepres\"> V&ecirc;pres\n";
+			print "<input type=\"radio\" name=\"office\" value=\"complies\" checked> Complies<br />\n";
+			break;
+	}
+	print "<button type=\"submit\">Charger</button>\n";
+	/*
+	
+	//choix de l'office
+	print "<button type=\"submit\" name=\"date\" value=\"$hier\">&lt;&lt; </button>\n";
+	
+	if ($date_prec!=$do) print "<button type=\"submit\" name=\"office\" value=\"$precedent\"><input type=\"hidden\" name=\"date\" value=\"$date_prec\">&lt; </input></button>\n";
+	else print "<button type=\"submit\" name=\"office\" value=\"$precedent\">&lt; </button>\n";
+	
+	print "<button type=\"submit\" name=\"office\" value=\"laudes\">Laudes</button>\n";
+	print "<button type=\"submit\" name=\"office\" value=\"tierce\">Tierce</button>\n";
+	print "<button type=\"submit\" name=\"office\" value=\"sexte\">Sexte</button>\n";
+	print "<button type=\"submit\" name=\"office\" value=\"none\">None</button>\n";
+	print "<button type=\"submit\" name=\"office\" value=\"vepres\">V&ecirc;pres</button>\n";
+	print "<button type=\"submit\" name=\"office\" value=\"complies\">Complies</button>\n";
+	
+	if ($date_suiv != $do) print "<button type=\"submit\" name=\"office\" value=\"$suivant\"><input type=\"hidden\" name=\"date\" value=\"$date_suiv\">></input></button>\n";
+	else print "<button type=\"submit\" name=\"office\" value=\"$suivant\">></button>\n";
+	
+	print "<button type=\"submit\" name=\"date\" value=\"$demain\">>></button><br />\n";
+	
+	print "<button type=\"submit\" name=\"date\" value=\"$date_defunts\">Office des d&eacute;funts</button>\n";
+	print "<button type=\"submit\" name=\"date\" value=\"$date_aujourdhui\">Revenir au jour pr&eacute;sent</button>\n";
 	*/
+	//date
+	print "</form>\n";
+	//}
+
 }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-function office_r($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
+function office_r($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium,$office) {
 
 	$anno=substr($jour,0,4);
 	$mense=substr($jour,4,2);
@@ -18,7 +18,7 @@ function office_r($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
  */
 $row = 0;
 $fichier="romain/offices_r/";
-if ($_GET['office']) $fichier.=$_GET['office'];
+if ($office) $fichier.=$office;
 else $fichier.="complies";
 
 $fichier.=".csv";
@@ -81,7 +81,7 @@ for($row=0;$row<$max;$row++){
 			$oratiofr=$propre['oratio']['francais'];
 		}
 		if (($pr_lat)or($intitule_lat)or($rang_lat)) {
-			switch ($_GET['office']) {
+			switch ($office) {
 				case "laudes" :
 					$date_l="Ad Laudes Matutinas";
 					$date_fr="Aux Laudes";
@@ -176,7 +176,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #EXAMEN
 
 	elseif($lat=="#HYMNUS") {
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$hymnus1=$hymnus2="HYMNUS_laudes";
 				break;
@@ -246,7 +246,7 @@ for($row=0;$row<$max;$row++){
 	}// Fin de #HYMNUS
 
 	elseif($lat=="#ANT1*"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant1="ant1";
 				break;
@@ -283,7 +283,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT1*
 
 	elseif($lat=="#PS1"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ps1="ps1";
 				break;
@@ -300,8 +300,8 @@ for($row=0;$row<$max;$row++){
 	    if($propre[$ps1]['latin']) $psaume=$propre[$ps1]['latin'];
 	    elseif($temp[$ps1]['latin']) $psaume=$temp[$ps1]['latin'];
 	    else $psaume=$var[$ps1]['latin'];
-	    if ($_GET['office']=="tierce") $psaume="ps119";
-	    elseif ($_GET['office']=="none") $psaume="ps125";
+	    if ($office=="tierce") $psaume="ps119";
+	    elseif ($office=="none") $psaume="ps125";
 	    $officeRomain.=psaume($psaume);
 	    if ($psaume!="AT41") {
 	    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
@@ -313,7 +313,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #PS1
 
 	elseif($lat=="#ANT1"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant1="ant1";
 				break;
@@ -341,7 +341,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT1
 
 	elseif($lat=="#ANT2*"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant2="ant2";
 				break;
@@ -371,7 +371,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT2*
 
 	elseif($lat=="#PS2"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ps2="ps2";
 				break;
@@ -388,8 +388,8 @@ for($row=0;$row<$max;$row++){
 		if($propre[$ps2]['latin']) $psaume=$propre[$ps2]['latin'];
 	    elseif($temp[$ps2]['latin']) $psaume=$temp[$ps2]['latin'];
 	    else $psaume=$var[$ps2]['latin'];
-	    if ($_GET['office']=="tierce") $psaume="ps120";
-	    elseif ($_GET['office']=="none") $psaume="ps126";
+	    if ($office=="tierce") $psaume="ps120";
+	    elseif ($office=="none") $psaume="ps126";
 	    if ($psaume!="") $officeRomain.=psaume($psaume);
 	    if ($psaume!="AT41") {
 	    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
@@ -401,7 +401,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #PS2
 
 	elseif($lat=="#ANT2"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant2="ant2";
 				break;
@@ -431,7 +431,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT2
 
 	elseif($lat=="#ANT3*"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant3="ant3";
 				break;
@@ -456,7 +456,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT3*
 	
 	elseif($lat=="#PS3"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ps3="ps3";
 				break;
@@ -470,8 +470,8 @@ for($row=0;$row<$max;$row++){
 		if($propre[$ps3]['latin']) $psaume=$propre[$ps3]['latin'];
 	    elseif($temp[$ps3]['latin']) $psaume=$temp[$ps3]['latin'];
 	    else $psaume=$var[$ps3]['latin'];
-	    if ($_GET['office']=="tierce") $psaume="ps121";
-	    elseif ($_GET['office']=="none") $psaume="ps127";
+	    if ($office=="tierce") $psaume="ps121";
+	    elseif ($office=="none") $psaume="ps127";
 	    $officeRomain.=psaume($psaume);
 	    if ($psaume!="AT41") {
 	    	$officeRomain.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
@@ -483,7 +483,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #PS3
 	
 	elseif($lat=="#ANT3"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant3="ant3";
 				break;
@@ -517,7 +517,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT3
 	
 	elseif($lat=="#LB"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$lectio="LB_matin";
 				break;
@@ -544,7 +544,7 @@ for($row=0;$row<$max;$row++){
 	}// Fin de #LB
 	
 	elseif($lat=="#RB"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$repons="RB_matin";
 				break;
@@ -599,7 +599,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #RB
 	
 	elseif($lat=="#CANT_EV"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$cantEv="benedictus";
 				$cantEvLettre="benedictus_".$lettre;
@@ -647,7 +647,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #CANT_EV
 	
 	elseif($lat=="#PRECES"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$prieres="preces_matin";
 				break;
@@ -685,7 +685,7 @@ for($row=0;$row<$max;$row++){
 	elseif($lat=="#ORATIO"){
 		$officeRomain.="<tr><td><h2>Oratio</h2></td>";
 		$officeRomain.="<td><h2>Oraison</h2></td></tr>";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$oraison2=$oraison="oratio_laudes";
 				break;
@@ -709,7 +709,7 @@ for($row=0;$row<$max;$row++){
 				break;
 		}
 		
-		if ($_GET['office']!="complies") {
+		if ($office!="complies") {
 			if($propre[$oraison]['latin']) {
 				$oratiolat=$propre[$oraison]['latin'];
 				$oratiofr=$propre[$oraison]['francais'];
@@ -736,7 +736,7 @@ for($row=0;$row<$max;$row++){
 		    }
 		}
 	    
-	    switch ($_GET['office']) {
+	    switch ($office) {
 	    	case "laudes":
 	    	case "vepres":
 	    		if ((substr($oratiolat,-6))=="minum.") {
@@ -779,7 +779,7 @@ for($row=0;$row<$max;$row++){
 	    		}
 	    		break;
 	    }
-	    if (($_GET['office']=="tierce") or ($_GET['office']=="sexte") or ($_GET['office']=="none") or ($_GET['office']=="complies")) {
+	    if (($office=="tierce") or ($office=="sexte") or ($office=="none") or ($office=="complies")) {
 	    	$officeRomain.="<tr><td>Or&eacute;mus</td>";
 	    	$officeRomain.="<td>Prions</td></tr>";
 	    }
@@ -790,7 +790,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ORATIO
 	
 	elseif ($lat=="#BENEDICTIO") {
-		if ($_GET['office']=="complies"){
+		if ($office=="complies"){
 			$officeRomain.="<tr><td><h2>Benedictio</h2></td>";
 			$officeRomain.="<td><h2>B&eacute;n&eacute;diction</h2></td></tr>";
 			$officeRomain.="<tr><td>V/. Noctem qui&eacute;tam et finem perf&eacute;ctum conc&eacute;dat nobis D&oacute;minus omn&iacute;potens.</td>";

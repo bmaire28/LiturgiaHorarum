@@ -1,7 +1,7 @@
 <?php
 
-function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
-	
+function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium,$office) {
+		
 	$anno=substr($jour,0,4);
 	$mense=substr($jour,4,2);
 	$die=substr($jour,6,2);
@@ -12,7 +12,7 @@ function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
 	$tem=$calendarium['tempus'][$jour];
 		
 	if ($date_l==""){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$jour_l = array("Dominica, Ad Laudes matutinas", "Feria secunda, Ad Laudes matutinas","Feria tertia, Ad Laudes matutinas","Feria quarta, Ad Laudes matutinas","Feria quinta, Ad Laudes matutinas","Feria sexta, Ad Laudes matutinas", "Sabbato, Ad Laudes matutinas");
 				$jour_fr=array("Le Dimanche aux Laudes","Le Lundi aux Laudes","Le Mardi aux Laudes","Le Mercredi aux Laudes","Le Jeudi aux Laudes","Le Vendredi aux Laudes","Le Samedi aux Laudes");
@@ -51,7 +51,7 @@ function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium) {
  */
 $row = 0;
 $fichier="monastique/offices_m/";
-if ($_GET['office']!="") $fichier.=$_GET['office'];
+if ($office!="") $fichier.=$office;
 else $fichier.="complies";
 
 $fichier.=".csv";
@@ -114,7 +114,7 @@ for($row=0;$row<$max;$row++){
 			$oratiofr=$propre['oratio']['francais'];
 		}
 		if (($pr_lat)or($intitule_lat)or($rang_lat)) {
-			switch ($_GET['office']) {
+			switch ($office) {
 				case "laudes" :
 					$date_l="Ad Laudes Matutinas";
 					$date_fr="Aux Laudes";
@@ -232,7 +232,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #EXAMEN
 
 	elseif($lat=="#HYMNUS") {
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$hymnus1=$hymnus2="HYMNUS_laudes";
 				break;
@@ -303,7 +303,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif ($lat=="#VERSET") {
 		$verslat="";$versfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$verset="verset_matin";
 				break;
@@ -331,7 +331,7 @@ for($row=0;$row<$max;$row++){
 	
 	elseif($lat=="#ANT1*"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant1="ant1";
 				break;
@@ -371,7 +371,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif($lat=="#PS1"){
 		$psaume="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ps1="ps1";
 				break;
@@ -406,7 +406,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif($lat=="#ANT1"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant1="ant1";
 				break;
@@ -443,7 +443,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif($lat=="#ANT2*"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant2="ant2";
 				break;
@@ -474,7 +474,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif($lat=="#PS2"){
 		$psaume="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ps2="ps2";
 				break;
@@ -509,7 +509,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif($lat=="#ANT2"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant2="ant2";
 				break;
@@ -529,7 +529,9 @@ for($row=0;$row<$max;$row++){
 	    	$antfr=$temp[$ant2]['francais'];
 	    }
 	    elseif ($antlat=="") {
-	    	if (($calendarium['tempus'][$jour]=="Tempus per annum")&&($jrdelasemaine==4)) {
+	    	if (
+	    			(($calendarium['tempus'][$jour]=="Tempus Quadragesimae")||($calendarium['tempus'][$jour]=="Tempus per annum"))
+	    			&&($jrdelasemaine==4)) {
 	    		$antfr=$var["ant7"]['francais'];
 	    		$antlat=$var["ant7"]['latin'];
 	    	}
@@ -547,7 +549,7 @@ for($row=0;$row<$max;$row++){
 
 	elseif($lat=="#ANT3*"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant3="ant3";
 				break;
@@ -575,7 +577,7 @@ for($row=0;$row<$max;$row++){
 	
 	elseif($lat=="#PS3"){
 		$psaume="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ps3="ps3";
 				break;
@@ -619,7 +621,7 @@ for($row=0;$row<$max;$row++){
 	
 	elseif($lat=="#ANT3"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant3="ant3";
 				break;
@@ -645,11 +647,11 @@ for($row=0;$row<$max;$row++){
 	    	$antfr=$temp[$ant3]['francais'];
 	    }
 	    elseif ($antlat=="") {
-	    	 if (($jrdelasemaine=="5") && ($_GET['office']=="vepres")&&($calendarium['tempus'][$jour])) {
+	    	 if (($jrdelasemaine=="5") && ($office=="vepres")&&($calendarium['tempus'][$jour])) {
 	    	 	$antfr=$var['ant8']['francais'];
 	    	 	$antlat=$var['ant8']['latin'];
 	    	 }
-	    	 elseif (($jrdelasemaine==0)&&($_GET['office']=="laudes")&&($calendarium['tempus'][$jour])) {
+	    	 elseif (($jrdelasemaine==0)&&($office=="laudes")&&($calendarium['tempus'][$jour])) {
 	    	 	$antfr=$var["ant1"]['francais'];
 	    	 	$antlat=$var["ant1"]['latin'];
 	    	 }
@@ -668,7 +670,7 @@ for($row=0;$row<$max;$row++){
 	
 	elseif($lat=="#ANT4*"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant4="antl4";
 				break;
@@ -712,7 +714,7 @@ for($row=0;$row<$max;$row++){
 	
 	elseif($lat=="#ANT4"){
 		$antlat="";$antfr="";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$ant4="antl4";
 				break;
@@ -797,7 +799,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ANT5
 	
 	elseif($lat=="#LB"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$lectio="LB_matin";
 				break;
@@ -824,7 +826,7 @@ for($row=0;$row<$max;$row++){
 	}// Fin de #LB
 	
 	elseif($lat=="#RB"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$repons="RB_matin";
 				break;
@@ -879,7 +881,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #RB
 	
 	elseif($lat=="#CANT_EV"){
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$cantEv="benedictus";
 				$cantEvLettre="benedictus_".$lettre;
@@ -928,7 +930,7 @@ for($row=0;$row<$max;$row++){
 	elseif($lat=="#PATER"){
 		$officeMonastique.="<tr><td><h2>Pater</h2></td>";
 		$officeMonastique.="<td><h2>Notre P&egrave;re</h2></td></tr>";
-		if (($_GET['office']=="laudes") or ($_GET['office']=="vepres")) {
+		if (($office=="laudes") or ($office=="vepres")) {
 			$officeMonastique.="<tr><td>V/. Pater noster, qui es in c&aelig;lis: </td>";
 			$officeMonastique.="<td>V/. Notre P&egrave;re, qui es aux Cieux,</td></tr>";
 			$officeMonastique.="<tr><td>sanctific&eacute;tur nomen tuum; </td>";
@@ -943,8 +945,8 @@ for($row=0;$row<$max;$row++){
 			$officeMonastique.="<td>et remets-nous nos dettes,  comme nous les remettons nous-m&ecirc;mes &agrave; nos d&eacute;biteurs ;</td></tr>";
 			$officeMonastique.="<tr><td>et ne nos ind&uacute;cas in tentati&oacute;nem;</td>";
 			$officeMonastique.="<td>et ne nous abandonne pas dans l'&eacute;preuve, </td></tr>";
-			$officeMonastique.="<tr><td>R/. sed l&iacute;bera nos a malo.</td>";
-			$officeMonastique.="<td>R/. mais d&eacute;livre-nous du malin.</td></tr>";
+			$officeMonastique.="<tr><td>R/. Sed l&iacute;bera nos a Malo.</td>";
+			$officeMonastique.="<td>R/. Mais d&eacute;livre-nous du Malin.</td></tr>";
 		}
 		else {
 			$officeMonastique.="<tr><td>V/. Pater noster</td>";
@@ -965,21 +967,20 @@ for($row=0;$row<$max;$row++){
 			$officeMonastique.="<td>et remets-nous nos dettes,  comme nous les remettons nous-m&ecirc;mes &agrave; nos d&eacute;biteurs ;</td></tr>";
 			$officeMonastique.="<tr><td>V/. et ne nos ind&uacute;cas in tentati&oacute;nem;</td>";
 			$officeMonastique.="<td>V/. et ne nous abandonne pas dans l'&eacute;preuve, </td></tr>";
-			$officeMonastique.="<tr><td>R/. sed l&iacute;bera nos a malo.</td>";
-			$officeMonastique.="<td>R/. mais d&eacute;livre-nous du malin.</td></tr>";
+			$officeMonastique.="<tr><td>R/. Sed l&iacute;bera nos a Malo.</td>";
+			$officeMonastique.="<td>R/. Mais d&eacute;livre-nous du Malin.</td></tr>";
 		}
 	}//Fin de #PATER
 
 	elseif($lat=="#ORATIO"){
 		$officeMonastique.="<tr><td><h2>Oratio</h2></td>";
 		$officeMonastique.="<td><h2>Oraison</h2></td></tr>";
-		switch ($_GET['office']) {
+		switch ($office) {
 			case "laudes" :
 				$oraison2=$oraison="oratio_laudes";
 				break;
 			case "tierce" :
-				$oraison2=$oraison="oratio_3";
-				
+				$oraison2=$oraison="oratio_3";			
 				break;
 			case "sexte" :
 				$oraison2=$oraison="oratio_6";
@@ -996,8 +997,9 @@ for($row=0;$row<$max;$row++){
 				$oratiofr=$var['oratio']['francais'];
 				break;
 		}
-		
-		if ($_GET['office']!="complies") {
+				
+		if ($office!="complies") {
+			$oratiolat=$oratiofr="";
 			if($propre[$oraison]['latin']) {
 				$oratiolat=$propre[$oraison]['latin'];
 				$oratiofr=$propre[$oraison]['francais'];
@@ -1019,12 +1021,12 @@ for($row=0;$row<$max;$row++){
 		    	$oratiofr=$var[$oraison2]['francais'];
 		    }
 		    else {
-		    	$oratiolat=$var['oratio']['latin'];
-		    	$oratiofr=$var['oratio']['francais'];
+		    	$oratiolat=$var[$oraison]['latin'];
+		    	$oratiofr=$var[$oraison]['francais'];
 		    }
 		}
-	    
-	    switch ($_GET['office']) {
+	    		
+	    switch ($office) {
 	    	case "laudes":
 	    	case "vepres":
 	    		if ((substr($oratiolat,-6))=="minum.") {
@@ -1067,7 +1069,7 @@ for($row=0;$row<$max;$row++){
 	    		}
 	    		break;
 	    }
-	    if (($_GET['office']=="tierce") or ($_GET['office']=="sexte") or ($_GET['office']=="none") or ($_GET['office']=="complies")) {
+	    if (($office=="tierce") or ($office=="sexte") or ($office=="none") or ($office=="complies")) {
 	    	$officeMonastique.="<tr><td>Or&eacute;mus</td>";
 	    	$officeMonastique.="<td>Prions</td></tr>";
 	    }
@@ -1078,7 +1080,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #ORATIO
 	
 	elseif ($lat=="#BENEDICTIO") {
-		if ($_GET['office']=="complies"){
+		if ($office=="complies"){
 			$officeMonastique.="<tr><td><h2>Benedictio</h2></td>";
 			$officeMonastique.="<td><h2>B&eacute;n&eacute;diction</h2></td></tr>";
 			$officeMonastique.="<tr><td>V/. Noctem qui&eacute;tam et finem perf&eacute;ctum conc&eacute;dat nobis D&oacute;minus omn&iacute;potens.</td>";
