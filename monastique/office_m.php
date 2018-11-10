@@ -260,7 +260,7 @@ for($row=0;$row<$max;$row++){
 						switch ($calendarium['hebdomada_psalterium'][$jour]) {
 							case 1:
 							case 3:
-								$hymne=utf8_decode("hy_Te lucis");
+								$hymne=utf8_decode("hy_Te lucis_benedict");
 								break;
 							case 2:
 							case 4:
@@ -272,7 +272,7 @@ for($row=0;$row<$max;$row++){
 					case "Tempus Adventus":
 						$seizedec=mktime(12,0,0,12,16,$anno);
 						if($day<=$seizedec) {
-							$hymne="hy_Te lucis";
+							$hymne="hy_Te lucis_benedict";
 						}
 						else{
 							$hymne="hy_Christe, qui, splendor";
@@ -286,7 +286,7 @@ for($row=0;$row<$max;$row++){
 							$sixjanv=mktime(12,0,0,1,6,$annosuivante);
 						}
 						if($day<=$sixjanv) {
-							$hymne="hy_Te lucis";
+							$hymne="hy_Te lucis_benedict";
 						}
 						else{
 							$hymne="hy_Christe, qui, splendor";
