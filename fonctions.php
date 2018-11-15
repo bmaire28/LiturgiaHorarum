@@ -17,7 +17,7 @@ function epuration($string) {
 
 function respbrevis($ref) {
 	$row = 0;
-	// Cr�ation du chemin relatif vers le fichier de r�pons de fa�on brut
+	// Creation du chemin relatif vers le fichier de repons de facon brut
 	$fichier="calendrier/liturgia/".$ref.".csv";
 	// Vérification du chemin brut, sinon création du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="calendrier/liturgia/".utf8_encode($ref).".csv";
@@ -319,9 +319,12 @@ function affiche_nav($do,$office,$place) {
 	else $rite=$_GET['rite'];
 
 	// reinit de $_GET
-	unset($_GET['rite']);
-	unset($_GET['date']);
-	unset($_GET['office']);
+    if ($place == "pied") {
+        unset($_GET['rite']);
+        unset($_GET['date']);
+        unset($_GET['office']);
+    }
+	
 	
 	print"<div id=\"$place\">\n";
 	print "<form method=\"get\">\n";

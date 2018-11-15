@@ -1,10 +1,12 @@
 <?php
 
 function office_m($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium,$office) {
-		
+    
+    $defunctoribus="no";
 	$anno=substr($jour,0,4);
 	$mense=substr($jour,4,2);
 	$die=substr($jour,6,2);
+    if ($mense=="11" && $die=="02") $defunctoribus="yes";
 	$day=mktime(12,0,0,$mense,$die,$anno);
 	$jrdelasemaine=date("w",$day);
 	$tomorow = $day+60*60*24;
@@ -63,7 +65,7 @@ while ($data = fgetcsv ($fp, 1000, ";")) {
     $row++;
 }
 fclose($fp);
-
+    
 $max=$row+1;
 $officeMonastique="<table>";
 for($row=0;$row<$max;$row++){
@@ -169,7 +171,7 @@ for($row=0;$row<$max;$row++){
 		}
 	} // Fin #JOUR
 	
-	elseif ($lat=="#INTRODUCTION") {
+	elseif ($lat=="#INTRODUCTION" && $defunctoribus=="no") {
 		$officeMonastique.="<tr><td>V/. Deus, in adiut&oacute;rium meum int&eacute;nde.<br />\n</td>";
 		$officeMonastique.="<td>V/. O Dieu, h&acirc;te-toi de me d&eacute;livrer !<br />\n</td></tr>";
 		
@@ -191,7 +193,7 @@ for($row=0;$row<$max;$row++){
 				else $officeMonastique.=" All&eacute;luia.</td></tr>";
 	}// Fin de #INTRODUCTION
 	
-	elseif ($lat=="#PS66") {
+	elseif ($lat=="#PS66" && $defunctoribus=="no") {
 		$officeMonastique.=psaume("ps66");
 		$officeMonastique.="<tr><td>Gl&oacute;ria Patri, et F&iacute;lio, * et Spir&iacute;tui Sancto.<br />\n
 				Sicut erat in principio, et nunc et semper * et in s&aelig;cula s&aelig;cul&oacute;rum. Amen.</td>";
@@ -231,7 +233,7 @@ for($row=0;$row<$max;$row++){
 		$officeMonastique.="<td>R/. Amen.</td></tr>";
 	}//Fin de #EXAMEN
 
-	elseif($lat=="#HYMNUS") {
+	elseif($lat=="#HYMNUS" && $defunctoribus=="no") {
 		switch ($office) {
 			case "laudes" :
 				$hymnus1=$hymnus2="HYMNUS_laudes";
@@ -250,7 +252,7 @@ for($row=0;$row<$max;$row++){
 				$hymnus2="HYMNUS_vesperas";
 				break;
 			case "complies" :
-				switch ($calendarium['tempus'][$jour]) {
+				/*switch ($calendarium['tempus'][$jour]) {
 					case "Tempus Paschale":
 						$hymne=utf8_decode("hy_Iesu, redémptor");
 						break;
@@ -292,7 +294,8 @@ for($row=0;$row<$max;$row++){
 							$hymne="hy_Christe, qui, splendor";
 						}
 						break;
-				}
+				}*/
+                $hymne="hy_Te lucis_benedict";
 				break;
 		}
 		if($propre[$hymnus1]['latin']) $hymne=$propre[$hymnus1]['latin'];
@@ -410,6 +413,15 @@ for($row=0;$row<$max;$row++){
 			case "laudes" :
 				$ant1="ant1";
 				break;
+			case "tierce" :
+				$ant1="ant4";
+				break;
+			case "sexte" :
+				$ant1="ant5";
+				break;
+			case "none" :
+				$ant1="ant6";
+				break;
 			case "vepres" :
 				$ant1="ant7";
 				break;
@@ -425,20 +437,14 @@ for($row=0;$row<$max;$row++){
 			$antlat=$temp[$ant1]['latin'];
 	    	$antfr=$temp[$ant1]['francais'];
 	    }
-        elseif ($antlat=="") {
-        	if (($calendarium['tempus'][$jour]=="Tempus per annum")&&(($jrdelasemaine==0)or($jrdelasemaine==4))) {
-        		$antfr="";
-        		$antlat="";
-        	}
-        	else {
-        		$antfr=$var[$ant1]['francais'];
-        		$antlat=$var[$ant1]['latin'];
-        	}
+        else {
+			$antfr=$var[$ant1]['francais'];
+			$antlat=$var[$ant1]['latin'];
         }
-	    if ($antlat!="") {
-	    	$officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
-	    	$officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
-	    }
+        if ($antlat!="") {
+		    $officeMonastique.="<tr><td><p><span style=\"color:red\">Ant. </span>$antlat</p></td>";
+		    $officeMonastique.="<td><p><span style=\"color:red\">Ant. </span> $antfr</p></td></tr>";
+        }
 	}//Fin de #ANT1
 
 	elseif($lat=="#ANT2*"){
@@ -798,7 +804,7 @@ for($row=0;$row<$max;$row++){
 		}
 	}//Fin de #ANT5
 	
-	elseif($lat=="#LB"){
+	elseif($lat=="#LB" && $defunctoribus=="no"){
 		switch ($office) {
 			case "laudes" :
 				$lectio="LB_matin";

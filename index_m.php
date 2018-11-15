@@ -60,7 +60,7 @@ $calendarium=calendarium($do);
 <head>
 	<?php print "<title>Liturgia Horarum, ".$datelatin."</title>"; ?>
 	<meta charset="utf-8">
-	<link type="text/css" rel="stylesheet" href="CSS/stylesheet.css" />
+	<?php print"<link type=\"text/css\" rel=\"stylesheet\" href=\"CSS/stylesheet_".$calendarium['couleur_template'][$do].".css\"/>"?>
 	<meta name="viewport" content="target-densitydpi=device-dpi" />
 </head>
 
