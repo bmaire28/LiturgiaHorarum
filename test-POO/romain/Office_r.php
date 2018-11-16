@@ -183,9 +183,10 @@ class Office_r {
 		$hymne="$('.hymne').show();\n";
 		// Creation du chemin relatif vers le fichier de l'hymne de facon brut
 		$fichier="hymnaire/".$ref.".csv";
+		//print_r($files1);
 		// Verification du chemin brut, sinon creation du chemin relatif utf8
 		if (!file_exists($fichier)) $fichier="hymnaire/".utf8_encode($ref).".csv";
-		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\".$fichier introuvable !\");\n");
+		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\"$fichier introuvable !\");\n");
 		else {
 			$fp = fopen ($fichier,"r");
 			while ($data = fgetcsv ($fp, 1000, ";")) {
@@ -351,7 +352,7 @@ class Office_r {
 		$ant3Fr = str_replace("’", "'", utf8_encode($this->ant3('francais')));
 		
 		// Creation du chemin relatif vers le fichier du squelette de l'office de facon brut
-		$fichier="romain/offices_r/".$this->typeOffice.".csv";
+		$fichier="./romain/offices_r/".$this->typeOffice.".csv";
 		// Verification du chemin brut, sinon creation du chemin relatif utf8
 		if (!file_exists($fichier)) $fichier="offices_r/".utf8_encode($ref).".csv";
 		if (!file_exists($fichier)) print_r("$('<p>').appendTo('.erreurs').text(\"$fichier introuvable !\");\n");

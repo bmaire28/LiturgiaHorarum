@@ -1,0 +1,211 @@
+@CHARSET "ISO-8859-1";
+
+* {
+    font-family: Verdana, sans-serif;
+}
+
+section {
+    overflow: auto;
+}
+
+p {
+    font-size: normal;
+}
+
+a {
+	text-decoration : none;
+}
+
+.Rouge {
+    background-color: #ff0000;
+}
+.Vert {
+    background-color: #1b6f1f;
+}
+.Blanc {
+    background-color: #ffeda6;
+}
+.Violet {
+    background-color: #C800FE;
+}
+.Violet-avent {
+    background-color: #C800FE;
+}
+.Violet-careme {
+    background-color: #9200AC;
+}
+.Rose {
+    background-color: #FE00F9;
+}
+.Noir {
+    background-color: #000000;
+}
+
+.Rouge a, .Blanc a, .Rose a {
+    color: black;
+    text-decoration: none;
+}
+
+.Vert a, .Violet a, .Violet-avent a, .Violet-careme a, .Noir a  {
+    color: white;
+    text-decoration: none;
+}
+
+p, h1, h2, h3, h4, h5 {
+	padding-top : 0px;
+	padding-bottom : 0px;
+	margin-top : 0px;
+	margin-bottom : 0px;
+}
+
+h1 {
+	color: black;
+	text-align: center;
+	font-weight: bold;
+	font-size: medium;
+}
+
+h2 {
+	color: red;
+	text-align: center;
+	font-weight: bold;
+	font-size: medium;
+}
+
+h3 {
+	color: red;
+	text-align: center;
+	font-weight: normal;
+	font-size: medium;
+}
+
+h4 {
+	color: black;
+	text-align:center;
+	font-weight: normal;
+	font-style: italic;
+	font-size: medium;
+}
+
+h5 {
+	color: red;
+	font-weight: normal;
+	font-size: smaller;
+}
+
+th {
+	font-weight: normal;
+}
+
+#calendrier table, #calendrier tr, #calendrier th, #calendrier td {
+	border : 1px black solid;
+	text-decoration : none;
+    text-align: center;
+}
+
+#calendrier table {
+    text-align: center;
+    width: 100px;
+    height: 134px;
+    /*border: 1px solid black;
+    border-spacing: 1px;*/
+    margin: auto; 
+}
+
+#calendrier th, #calendrier td {
+    width: 25px;
+}
+
+#calendrier td:hover {
+    opacity: 0.5;
+}
+
+ul {
+    margin: 2em;
+}
+
+li {
+	display: inline;
+}
+
+a span{
+	border : 1px black solid;
+	border-radius: 10px;
+	margin : 0.1em;
+	padding : 0.5em;
+}
+
+a span, a:visited span {
+    text-decoration: none;
+    color : blue;
+}
+
+a:hover, a span:hover {
+    font-weight: bold;
+    background-color: blue;
+    border-color: blue;
+    color: white;
+}
+
+.selection {
+    border : 2px blue solid;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+a .defunts, a:visited .defunts{
+    background-color: black;
+    font-weight: bold;
+    color: white;
+}
+
+a:hover .defunts, .defunts:hover {
+    border-color: black;
+}
+
+.defunts:hover, .defunts:hover a {
+    background-color: white;
+    font-weight: bold;
+    color: black;
+}
+
+section {
+    border : 20px #9200AC solid;
+	border-radius: 50px;
+	margin : 2em;
+	/*padding : 0.5em;*/
+}
+
+#tete, #pied, #ordo, #calendrier, #hymnus, #hymne, #jour, #die {
+	text-align: center;
+}
+
+#calendrier {
+	float : right;
+	width : 15%;
+    margin-right: 30%;
+}
+
+#ordo {
+	float : left;
+	width : 20%;
+    margin-left: 30%;
+}
+
+section, #pied {
+	margin-top : 2em; 
+	clear : both;
+}
+
+#latin, #hymnus, #die {
+	float: left;
+	width: 45%;
+	margin-left : 2.5%;
+}
+
+#francais, #hymne, #jour {
+	float : rigth;
+	width: 45%;
+	margin-right : 2.5%;
+	border-left : 1px black solid;
+}

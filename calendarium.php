@@ -18,7 +18,7 @@ print"/templates/js_naturale/css/template_$couleur.css";
 
 
 
-function mod_calendarium($mois_courant,$an,$jour_courant) {
+function mod_calendarium($mois_courant,$an,$jour_courant,$rite,$office) {
 
 /*
  * $jl prend la date au format informatique
@@ -29,7 +29,7 @@ else $jl=mktime(12,12,0,$mois_courant,01,$an);
 
 $datj=date("Ymd",$jl);
 $calend=calendarium($datj);
-$office=$_GET['office'];
+if ($office=="") $office="complies";
 
 $couleurs=$calend[couleur_template];
 
@@ -123,7 +123,7 @@ for ($u=0;$u<$s+1;$u++) {
     $titre=$calend['intitule'][$jour];
     
     // gestion de l'affichage de la première cellule de la semaine
-    if($f!="")    print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;office=$office\" title=\"$titre\">$f</a></td>\n";
+    if($f!="")    print"<td class=\"$iff\" $class><a href=\"?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;office=$office&amp;rite=$rite\" title=\"$titre\">$f</a></td>\n";
     else print"<td></td>\n";
     
     // $f va parcourir toute la ligne/semaine en cours
@@ -137,7 +137,7 @@ for ($u=0;$u<$s+1;$u++) {
 		}
 		$iff=$couleurs[$jour];
 		$titre=$calend['intitule'][$jour];
-		if($f!="") print"<td class=\"$iff\" $class><a href=\"index.php?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;office=$office\" title=\"$titre\">$f</a></td>\n";
+		if($f!="") print"<td class=\"$iff\" $class><a href=\"?date=$jour&amp;mois_courant=$mois_courant&amp;an=$anno&amp;office=$office&amp;rite=$rite\" title=\"$titre\">$f</a></td>\n";
 		else print"<td></td>\n";
 	}
 	//on passe à la semaine/ligne suivante
@@ -148,14 +148,13 @@ for ($u=0;$u<$s+1;$u++) {
     $mois_moins=$mois_courant-1;
     $mois_plus=$mois_courant+1;
     print"
-      <td><a href=\"index.php?mois_courant=$mois_moins&amp;an=$anno\">&lt;&lt;</a></td>
-      <td colspan=\"5\" rowspan=\"1\"><a href=\"index.php?mense=$mois_courant\">$mense</a></td>
-      <td><a href=\"index.php?mois_courant=$mois_plus&amp;an=$anno\">&gt;&gt;</a></td>
+      <td><a href=\"?mois_courant=$mois_moins&amp;an=$anno&amp;rite=$rite&amp;office=$office&amp;date=$jour_courant\">&lt;&lt;</a></td>
+      <td colspan=\"5\" rowspan=\"1\"><a href=\"?mense=$mois_courant&amp;rite=$rite&amp;office=$office&amp;date=$jour_courant\">$mense</a></td>
+      <td><a href=\"?mois_courant=$mois_plus&amp;an=$anno&amp;rite=$rite&amp;office=$office&amp;date=$jour_courant\">&gt;&gt;</a></td>
     </tr>
   </tfoot>
 </table>
-";
-
+";    
 }
 
 
@@ -881,7 +880,9 @@ $temporal['couleur'][$perann]="Vert";
 
 
 // Temps Ordinaire apr�s l'�piphanie
-$date=$baptisma;
+if (date("w",$baptisma) == 0) $date=$baptisma; // Si le bapteme du Seigneur tombe un dimanche, OK
+else $date=$epiphania; // sinon on repart de la date de l'Epiphanie car le bapteme est le lundi
+
 $heb_courante=1;
 while($heb_courante<$nbsemaines_perannum) {
 	$date=$date+$semaine;
