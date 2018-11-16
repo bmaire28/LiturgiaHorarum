@@ -170,8 +170,8 @@ a:hover .defunts, .defunts:hover {
 }
 
 section {
-    border : 1px red solid;
-	border-radius: 10px;
+    border : 20px #9200AC solid;
+	border-radius: 50px;
 	margin : 2em;
 	/*padding : 0.5em;*/
 }

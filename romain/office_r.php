@@ -2,7 +2,7 @@
 
 function office_r($jour,$date_l,$date_fr,$var,$propre,$temp,$calendarium,$office) {
 
-	$anno=substr($jour,0,4);
+    $anno=substr($jour,0,4);
 	$mense=substr($jour,4,2);
 	$die=substr($jour,6,2);
 	$day=mktime(12,0,0,$mense,$die,$anno);

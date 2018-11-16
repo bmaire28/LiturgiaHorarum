@@ -1193,7 +1193,7 @@ for($row=0;$row<$max;$row++){
 	}//Fin de #CONCLUSION
 	
 }
-$officeMonastique.="</table>";
+$officeMonastique.="</table></br>";
 $officeMonastique= rougis_verset ($officeMonastique);
 return $officeMonastique;
 }

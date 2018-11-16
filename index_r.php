@@ -58,7 +58,7 @@ $calendarium=calendarium($do);
 <head>
 	<?php print "<title>Liturgia Horarum, ".$datelatin."</title>"; ?>
 	<meta charset="utf-8">
-	<link type="text/css" rel="stylesheet" href="CSS/stylesheet.css" />
+	<?php print"<link type=\"text/css\" rel=\"stylesheet\" href=\"CSS/stylesheet_".$calendarium['couleur_template'][$do].".css\"/>"?>
 	<meta name="viewport" content="target-densitydpi=device-dpi" />
 </head>
 
@@ -142,8 +142,8 @@ switch ($_GET['office']) {
 		$jour_fr=array("Le Dimanche aux IIes V&ecirc;pres","Le Lundi aux V&ecirc;pres","Le Mardi aux V&ecirc;pres","Le Mercredi aux V&ecirc;pres","Le Jeudi aux V&ecirc;pres","Le Vendredi aux V&ecirc;pres","Le Dimanche aux I&egrave;res V&ecirc;pres");
 		break;
 	case "complies" :
-		$jours_l = array("Dominica, post II Vesperas, ad ", "Feria secunda, ad ","Feria tertia, ad ","Feria quarta, ad ","Feria quinta, ad ","Feria sexta, ad ", "Dominica, post I Vesperas, ad ");
-		$jours_fr=array("Le Dimanche apr&egrave;s les IIes V&ecirc;pres, aux  ","Le Lundi aux ","Le Mardi aux ","Le Mercredi aux ","Le Jeudi aux ","Le Vendredi aux ","Le Dimanche, apr&egrave;s les I&egrave;res V&ecirc;pres, aux ");
+		$jour_l = array("Dominica, post II Vesperas, ad Completorium", "Feria secunda, ad Completorium","Feria tertia, ad Completorium","Feria quarta, ad Completorium","Feria quinta, ad Completorium","Feria sexta, ad Completorium", "Dominica, post I Vesperas, ad Completorium");
+		$jour_fr=array("Le Dimanche apr&egrave;s les IIes V&ecirc;pres, aux Complies","Le Lundi aux Complies","Le Mardi aux Complies","Le Mercredi aux Complies","Le Jeudi aux Complies","Le Vendredi aux Complies","Le Dimanche, apr&egrave;s les I&egrave;res V&ecirc;pres, aux Complies");
 		break;
 }
 

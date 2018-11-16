@@ -174,10 +174,10 @@ a:hover .defunts, .defunts:hover {
 }
 
 section {
-    border : 1px #1b6f1f solid;
-	border-radius: 10px;
-	margin : 2em;
-    background-color: #ffffff;
+    border : 20px #1b6f1f solid;
+	border-radius: 50px;
+	/*margin : 2em;*/
+    /*background-color: rgba(27,111,31,0.5);*/
 	/*padding : 0.5em;*/
 }
 
