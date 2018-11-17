@@ -14,7 +14,7 @@
 
 //print_r("avant chargement des inclusions <br>");
 include ("calendarium.php");
-include ("monastique/office_m.php");
+include ("romain/office_r.php");
 include("tenebres.php");
 //print_r("apr&egrave;s chargement des inclusions<br>");
 
@@ -134,7 +134,7 @@ $mense=substr($do,4,2);
 $die=substr($do,6,2);
 $day=mktime(12,0,0,$mense,$die,$anno);
 
-switch ($_GET['office']) {
+switch ($office) {
 	case "laudes" :
 		$jour_l = array("Dominica, Ad Laudes matutinas", "Feria secunda, Ad Laudes matutinas","Feria tertia, Ad Laudes matutinas","Feria quarta, Ad Laudes matutinas","Feria quinta, Ad Laudes matutinas","Feria sexta, Ad Laudes matutinas", "Sabbato, Ad Laudes matutinas");
 		$jour_fr=array("Le Dimanche aux Laudes","Le Lundi aux Laudes","Le Mardi aux Laudes","Le Mercredi aux Laudes","Le Jeudi aux Laudes","Le Vendredi aux Laudes","Le Samedi aux Laudes");
@@ -436,7 +436,7 @@ if($calendarium['temporal'][$do]) {
 	}
 
 	$date_fr=$date_l=null;
-	if($_GET['office']=='vepres') {
+	if($office=='vepres') {
 		// Gestion intitule Ieres ou IIndes vepres en latin
 		if (($calendarium['intitule'][$do]=="FERIA QUARTA CINERUM")or($calendarium['intitule'][$do]=="DOMINICA RESURRECTIONIS")or($calendarium['intitule'][$do]=="TRIDUUM PASCAL<br>VENDREDI SAINT")or($calendarium['intitule'][$do]=="TRIDUUM PASCAL<br>JEUDI SAINT")) $date_l="<br> ad ";
 		elseif ($calendarium['1V'][$do]) $date_l="<br> ad II ";
@@ -484,7 +484,7 @@ $demain=date("Ymd",$tomorow);
  print_r("<p> priorite jour : ".$calendarium['priorite'][$do]."</p>");
  print_r("<p> priorite demain : ".$calendarium['priorite'][$demain]."</p>");
 print_r("<p> intitule demain : ".$calendarium['intitule'][$demain]."</p>");*/
-if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendarium['priorite'][$demain])&&($_GET['office']=='vepres')) {
+if (($calendarium['1V'][$demain]==1)&&($calendarium['priorite'][$do]>$calendarium['priorite'][$demain])&&($office=='vepres')) {
 	/*print_r("<p> 1V</p>");*/
 	$tempo=null;
 	$temporal=null;
@@ -658,6 +658,7 @@ switch($office){
 
 	case "complies" :
 		//print epuration(complies($do,$calendarium));
+		//printf("do : $do, date_l : $date_l, date_fr : $date_fr, ferial : $ferial, sanctoral :$sanctoral, temporal : $temporal, calendarium : $calendarium, office : $office");
 		print epuration(office_r($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
 
