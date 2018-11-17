@@ -1,4 +1,4 @@
-<!DOCTYPE HTML> 
+<!DOCTYPE HTML>
 	<html>
 <?php
 //liturgia_horarum Component//
@@ -15,7 +15,6 @@
 //print_r("avant chargement des inclusions <br>");
 include ("calendarium.php");
 include ("monastique/office_m.php");
-include("fonctions.php");
 include("tenebres.php");
 //print_r("apr&egrave;s chargement des inclusions<br>");
 
@@ -24,38 +23,51 @@ include("tenebres.php");
  */
 $task=$_GET['task'];
 $office=$_GET['office'];
+if ($office == "") { $office="complies"; }
 $rite=$_GET['rite'];
+if ($rite == "") { $rite="monastique"; }
+
 $do=$_GET['do'];
 $do=$_GET['date'];
-if($do=="") {
-	$tfc=time();
-	$do=date("Ymd",$tfc);
-}
+if($do=="") { $tfc=time(); $do=date("Ymd",$tfc); }
+$mense=$_GET['mois_courant']; if ($mense=="") $mense=substr($do,4,2);
+$anno=$_GET['an']; if ($anno=="") $anno=substr($do,0,4);
+$die=substr($do,6,2);
+$dts=mktime(12,0,0,$mense,$die,$anno);
 
-$anno=$_GET['an'];
-if ($anno=="") $anno=substr($do,0,4);
-
-$mense=$_GET['mois_courant'];
-if ($mense=="") $mense=substr($do,4,2);
 
 /*
  * initialisation des variables de date
  */
 
-$die=substr($do,6,2);
-$dts=mktime(12,0,0,$mense,$die,$anno);
-$datelatin=date_latin($dts);
+
 $unJour=60*60*24;
 $dtsmoinsun=$dts-$unJour;
 $dtsplusun=$dts+$unJour;
 $hier=date("Ymd",$dtsmoinsun);
 $demain=date("Ymd",$dtsplusun);
 
-//print_r("initialisation des variables GET <br>");
+switch ($office) {
+	case 'p':
+		unset($_GET['office']);
+		$office="complies";
+		$do=$hier;
+		$die=substr($do,6,2);$mense=substr($do,4,2);$anno=substr($do,0,4);
+		$dts=mktime(12,0,0,$mense,$die,$anno);
+		break;
+	case 's':
+		unset($_GET['office']);
+		$office="laudes";
+		$do=$demain;
+		$die=substr($do,6,2);$mense=substr($do,4,2);$anno=substr($do,0,4);
+		$dts=mktime(12,0,0,$mense,$die,$anno);
+		break;
+}
+$datelatin=date_latin($dts);
+
+include("fonctions.php");
 
 $calendarium=calendarium($do);
-
-//print_r("initialisation du calendrier <br>");
 ?>
 <head>
 	<?php print "<title>Liturgia Horarum, ".$datelatin."</title>"; ?>
@@ -80,17 +92,17 @@ $calendarium=calendarium($do);
 				?>
 			</div>
 			<div id="calendrier">
-				<?php 
+				<?php
 					print "<h1>Calendarium liturgicum $anno</h1>";
 					print mod_calendarium($mense,$anno,$do,"monastique",$office);
 				?>
 			</div>
 		</div>
 	</header>
-	
+
 	<section>
 
-<?php 
+<?php
 //// Heure de l'Office &agrave; afficher
 
 if($calendarium['hebdomada'][$do]=="Infra octavam paschae") {
@@ -380,7 +392,7 @@ if(($mense==12)AND(
 		fclose($fp);
 		$fichier="";
 	}
-		
+
 	// Chargement du fichier du jour de la semaine
 	$fichier="propres_r/temporal/".$psautier."/".$q.$jrdelasemaine."post1712.csv";
 	if (!file_exists($fichier)) print_r("<p>Propre : ".$fichier." 386 introuvable !</p>");
@@ -644,37 +656,37 @@ switch($office){
 		if (($calendarium['intitule'][$do]=="IN PASSIONE DOMINI") or ($calendarium['intitule'][$do]=="Sabbato Sancto")) print epuration(tenebres($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 		else print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "mdj" :
 		//print epuration(mediahora($do,$calendarium));
 		print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "tierce" :
 		//print epuration(tierce($do,$calendarium));
 		print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "sexte" :
 		//print epuration(sexte($do,$calendarium));
 		print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "none" :
 		//print epuration(none($do,$calendarium));
 		print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "vepres" :
 		//print epuration(vepres($do,$calendarium));
 		print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "complies" :
 		//print epuration(complies($do,$calendarium));
 		print epuration(office_m($do,$date_l,$date_fr,$ferial,$sanctoral,$temporal,$calendarium,$office));
 	break;
-	
+
 	case "messe" :
 		print epuration(messe($do,$calendarium));
 	break;
@@ -683,7 +695,7 @@ switch($office){
 ?>
 	</section>
 	<footer>
-	<?php 
+	<?php
 		affiche_nav($do,$office,"pied");
 	?>
 		</footer>

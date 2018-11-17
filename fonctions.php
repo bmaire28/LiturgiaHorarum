@@ -1,11 +1,11 @@
 <?php
 
 function rougis_verset($string) {
-$string1=str_replace("V/.", "<span style=\"color:red\">V/. </span>",$string);
-$string2= str_replace("R/.", "<span style=\"color:red\">R/. </span>",$string1);
-$string3= str_replace("+", "<span style=\"color:red\">&dagger;</span>",$string2);
-$string4= str_replace("*", "<span style=\"color:red\">*</span>",$string3);
-return $string4;
+	$string1=str_replace("V/.", "<span style=\"color:red\">V/. </span>",$string);
+	$string2= str_replace("R/.", "<span style=\"color:red\">R/. </span>",$string1);
+	$string3= str_replace("+", "<span style=\"color:red\">&dagger;</span>",$string2);
+	$string4= str_replace("*", "<span style=\"color:red\">*</span>",$string3);
+	return $string4;
 }
 
 function epuration($string) {
@@ -99,17 +99,17 @@ function preces($ref){
 function hymne($ref) {
 	//print_r("<p>".$ref."</p>");
 	$row = 0;
-	
+
 	// Initialisation de l'hymne a blanc
 	$hymne="";
-	
+
 	// Creation du chemin relatif vers le fichier de l'hymne de facon brut
 	$fichier="hymnaire/".$ref.".csv";
-	
+
 	// Verification du chemin brut, sinon creation du chemin relatif utf8
 	if (!file_exists($fichier)) $fichier="hymnaire/".utf8_encode($ref).".csv";
 	if (!file_exists($fichier)) print_r("<p>".$fichier." introuvable !</p>");
-	
+
 	$fp = fopen ($fichier,"r");
 	while ($data = fgetcsv ($fp, 1000, ";")) {
     	$latin=$data[0];$francais=$data[1];
@@ -173,17 +173,8 @@ function psaume($ref) {
 	return $psaume;
 }
 
-
-$do = $_GET['date'];
-
-if(!$do) {
-	$tfc=time();
-	$do=date("Ymd",$tfc);
-}
-
-
 function maj($filename) {
-	
+
     $allowedTags='<p><strong><em><u><h1><h2><h3><h4><h5><h6><img>';
  	$allowedTags.='<li><ol><ul><span><div><br><ins><del><font><table><tr><td><align>';
     $filename=$_GET['filename'];
@@ -250,7 +241,7 @@ mode : \"textareas\",
 
 
 function affiche_nav($do,$office,$place) {
-	
+
 	/*
 	 * Affichage $_GET
 	 *
@@ -259,7 +250,7 @@ function affiche_nav($do,$office,$place) {
 		print_r("<p>".$param."</p>");
 	}
 	*/
-	
+
 	// Initialisation des variables de date
 	//par defaut $do est la date du jour
 	$anno=substr($do,0,4);
@@ -271,14 +262,14 @@ function affiche_nav($do,$office,$place) {
 	$dtsplusun=$day+60*60*24;
 	$hier=date("Ymd",$dtsmoinsun);
 	$demain=date("Ymd",$dtsplusun);
-	
-	$dsuiv=$day+(60*60*24); // date jour precedent
-	$dprec=$day-(60*60*24); // date jour suivant
-	
+
+	$dsuiv=$day+(60*60*24); // date jour suivant
+	$dprec=$day-(60*60*24); // date jour precedent
+
 	// Tableau de la liste des offices par ordre chronologique
 	$offices=array("p","laudes","tierce","sexte","none","vepres","complies","s");
-	
-	// Recuperation du numero d'ordre de l'office actuel par rapport au tableau 
+
+	// Recuperation du numero d'ordre de l'office actuel par rapport au tableau
 	for($o=0;$offices[$o];$o++) {
 		if ($office==$offices[$o]) {
 			$officeactuel=$o;
@@ -287,34 +278,34 @@ function affiche_nav($do,$office,$place) {
 	}
 	// definition des offices suivant et precedent de l'actuel
 	$suivant = $offices[$officeactuel+1];
-	$precedent = $offices[$officeactuel-1];	
-	
+	$precedent = $offices[$officeactuel-1];
+
 	// par defaut, la date de l'office suivant est la meme que la date de l'office actuel $do
 	// idem pour la date de l'office precedent
-	$date_suiv=$do;
-	$date_prec=$do;
-	
+	// $date_suiv=$do;
+	// $date_prec=$do;
+
 	// si l'office suivant est s, alors il faut changer la date de l'office suivant
-	// idem pour l'office precedent 
-	if ($suivant=="s") {
-		$suivant = "laudes";
-		$date_suiv=date("Ymd",$dsuiv);
-	}
-	if ($precedent=="p") {
-		$precedent = "complies";
-		$date_prec= date("Ymd",$dprec);
-	}
-	
+	// idem pour l'office precedent
+	// if ($suivant=="s") {
+	// 	$suivant = "laudes";
+	// 	$date_suiv=date("Ymd",$dsuiv);
+	// }
+	// if ($precedent=="p") {
+	// 	$precedent = "complies";
+	// 	$date_prec= date("Ymd",$dprec);
+	// }
+
 	// Date pour l'office des défunts :
 	$date_defunts=$anno."1102";
-	
+
 	// date du jour :
 	$tfc=time();
 	$date_aujourdhui=date("Ymd",$tfc);
 	$annee_aujourdhui=substr($date_aujourdhui,0,4);
 	$mois_aujourdhui=substr($date_aujourdhui,4,2);
-	
-	//rit
+
+	//rite
 	if (!$_GET['rite']) $rite="romain";
 	else $rite=$_GET['rite'];
 
@@ -324,15 +315,15 @@ function affiche_nav($do,$office,$place) {
         unset($_GET['date']);
         unset($_GET['office']);
     }
-	
-	
+
+
 	print"<div id=\"$place\">\n";
 	print "<form method=\"get\">\n";
-	
+
 	//conservation des valeurs de départ
-	print "<input type=\"hidden\" name=\"date\" value=\"$do\">";
+	print "<input type=\"hidden\" name=\"date\" value=\"$do\">\n";
 	//print "<input type=\"hidden\" name=\"office\" value=\"$office\">";
-	
+
 	//choix du rit
 	if ($rite=="romain") {
 		print "<input type=\"radio\" name=\"rite\" value=\"romain\" checked>Romain\n";
@@ -342,7 +333,8 @@ function affiche_nav($do,$office,$place) {
 		print "<input type=\"radio\" name=\"rite\" value=\"romain\">Romain\n";
 		print "<input type=\"radio\" name=\"rite\" value=\"monastique\" checked> Monastique<br />\n";
 	}
-	
+
+	// choix de l'office
 	switch ($office) {
 		case "laudes" :
 			print "<input type=\"radio\" name=\"office\" value=\"laudes\" checked>Laudes\n";
@@ -394,34 +386,12 @@ function affiche_nav($do,$office,$place) {
 			print "<input type=\"radio\" name=\"office\" value=\"complies\" checked> Complies<br />\n";
 			break;
 	}
+	print "\n<button type=\"submit\" name=\"office\" value=\"$precedent\">Prec.</button>\n";
 	print "<button type=\"submit\">Charger</button>\n";
-	/*
-	
-	//choix de l'office
-	print "<button type=\"submit\" name=\"date\" value=\"$hier\">&lt;&lt; </button>\n";
-	
-	if ($date_prec!=$do) print "<button type=\"submit\" name=\"office\" value=\"$precedent\"><input type=\"hidden\" name=\"date\" value=\"$date_prec\">&lt; </input></button>\n";
-	else print "<button type=\"submit\" name=\"office\" value=\"$precedent\">&lt; </button>\n";
-	
-	print "<button type=\"submit\" name=\"office\" value=\"laudes\">Laudes</button>\n";
-	print "<button type=\"submit\" name=\"office\" value=\"tierce\">Tierce</button>\n";
-	print "<button type=\"submit\" name=\"office\" value=\"sexte\">Sexte</button>\n";
-	print "<button type=\"submit\" name=\"office\" value=\"none\">None</button>\n";
-	print "<button type=\"submit\" name=\"office\" value=\"vepres\">V&ecirc;pres</button>\n";
-	print "<button type=\"submit\" name=\"office\" value=\"complies\">Complies</button>\n";
-	
-	if ($date_suiv != $do) print "<button type=\"submit\" name=\"office\" value=\"$suivant\"><input type=\"hidden\" name=\"date\" value=\"$date_suiv\">></input></button>\n";
-	else print "<button type=\"submit\" name=\"office\" value=\"$suivant\">></button>\n";
-	
-	print "<button type=\"submit\" name=\"date\" value=\"$demain\">>></button><br />\n";
-	
-	print "<button type=\"submit\" name=\"date\" value=\"$date_defunts\">Office des d&eacute;funts</button>\n";
-	print "<button type=\"submit\" name=\"date\" value=\"$date_aujourdhui\">Revenir au jour pr&eacute;sent</button>\n";
-	*/
-	//date
-	print "</form>\n";
-	//}
-
+	print "<button type=\"submit\" name=\"date\" value=\"$date_defunts\">Office des defunts</button>\n";
+	print "<button type=\"submit\" name=\"date\" value=\"$date_aujourdhui\">Aujourd'hui</button>\n";
+	print "<button type=\"submit\" name=\"office\" value=\"$suivant\">Suiv.</button>\n";
+	print "</form></br>\n";
 }
 
 
